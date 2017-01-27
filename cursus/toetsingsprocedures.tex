@@ -1,0 +1,291 @@
+\chapter{Toetsingsprocedures en de \texorpdfstring{$z$}{z}-toets}
+
+\section{Theorie}
+Een hypothese is een veronderstelling waarvan nog bewezen moet worden dat ze correct is. Het doel van een toetsingsprocedure is het testen van een hypothese omtrent de waarden van 1 of meerdere \textbf{populatieparameters}.
+
+\begin{definition}{Statistische hypothese.}
+  Een statische hypothese is een uitspraak over de numerieke waarde van een populatieparameter.
+\end{definition}
+
+
+\section{Voorbeeld en uitwerking}
+
+In de voorbije hoofdstukken hebben we gezien hoe we aan de hand van steekproefonderzoek bepaalde kerngetallen over een populatie kunnen berekenen, bijvoorbeeld aan de hand van puntschatters of betrouwbaarheidsintervallen. We kunnen deze informatie ook gebruiken om bepaalde hypotheses over een populatie te toetsen.
+
+Voorbeelden van hypotheses:
+
+\begin{itemize}
+  \item Gemiddeld redt een superheld minstens 3,3 mensen per dag.
+  \item De gemiddelde lengte van een superheld is minstens 120 cm.
+  \item \dots
+\end{itemize}
+
+In dit hoofdstuk gaan we de algemene theorie over toetsen formuleren aan de hand van het testen van hypothesen over het populatiegemiddelde $\mu$, de $z$-toets. Naast de $z$-toets bestaan er echter nog vele andere statistische hypothesetoetsen die in specifieke situaties gebruikt kunnen worden, afhankelijk van o.a.~de populatiegrootheid in kwestie, en veronderstellingen over de onderliggende stochastische verdeling van de populatie.
+
+\subsection{Elementen van een hypothesetoets}
+
+Algemeen gezien bestaat een toetsingsprocedure uit 4 zaken:
+\begin{enumerate}
+  \item \textbf{Nulhypothese}\index{nulhypothese} $H_{0}$: Deze hypothese proberen we te ontkrachten door een redenering in het ongerijmde. We gaan deze hypothese accepteren, tenzij de gegevens overtuigend wijzen op het tegendeel.
+  \item \textbf{Alternatieve hypothese}\index{Alternatieve hypothese} $H_{1}$: De hypothese die meestal gesteund wordt door de onderzoeker. Deze hypothese zal alleen worden geaccepteerd als de gegevens overtuigend wijzen op zijn juistheid.
+  \item \textbf{Teststatistiek}: De veranderlijke die berekend wordt uit de steekproef
+  \item
+    \begin{itemize}
+      \item \textbf{Aanvaardingsgebied\index{Aanvaardingsgebied}}: Het gebied van waarden die de nulhypothese $H_{0}$ ondersteunt
+      \item \textbf{Verwerpingsgbied\index{Verwerpingsgebied}}: gebied dat waarden bevat die de nulhypothese verwerpen (ook kritiek gebied genoemd \index{Kritiek gebied})
+    \end{itemize}
+\end{enumerate}
+
+De beslissing om de nulhypothese $H_{0}$ te verwerpen of te aanvaarden is gebaseerd op informatie uit een steekproef, getrokken uit de populatie waarover de hypothese is geformuleerd. De steekproefwaarden worden gebruikt om 1 enkele waarde van een teststatistiek te berekenen die de beslissing zal bepalen. Daartoe worden alle waarden die de teststatistiek kan aannemen, verdeeld in twee gebieden\begin{inparaenum}[(i)] \item het aanvaardingsgebied en \item verwerpingsgebied\end{inparaenum}. Indien de waarde van de teststatistiek ligt in het verwerpingsgebied, dan wordt de nulhypothese verworpen en de alternatieve hypothese aanvaard. Indien de waarde van de teststatistiek in het aanvaardingsgebied valt dan wordt de nulhypothese aanvaard.
+
+  \subsection{Concreet stappenplan}
+
+  \paragraph{Bepalen van de hypotheses}
+  Bij de hypotheses worden de vermoedens over de populatie vastgelegd in twee hypotheses $H_{0}$ en $H_{1}$.
+  \paragraph{Vastleggen significantieniveau $\alpha$ en steekproefomvang $n$}
+  In ons geval kan je $\alpha$ zelf kiezen.
+  \paragraph{Toetsingsgrootheid en de waarde hiervan in de steekproef}
+  De waarde van de toetsingsgrootheid is bepalend voor de beslissing of we de nulhypothese $H_{0}$ kunnen verwerpen of niet. Vaak kies je de voor de hand liggende grootheid (bv. steekproefgemiddelde bij hypothese over populatiegemiddelde).
+
+  De kansverdeling van een steekproefgemiddelde wordt aangeduid met $M$. Er geldt dat $M \sim Nor( \mu, \frac{\sigma}{\sqrt{n}})$.
+
+  \paragraph{Bereken en teken het kritiek gebied of bepaal de p-waarde}
+  De uitkomsten van de toetsingsgrootheid waarbij $H_{0}$ wordt verworpen noemen we het kritieke gebied. De kritieke grenswaarde die de grens tussen acceptatiegebied en kritieke gebied aangeeft, kan berekend wordt op basis van de kansverdeling.
+
+\[ g = \mu \pm z \times \frac{\sigma}{\sqrt{n}} \]
+
+\section{Voorbeeld}
+\begin{example}
+  De onderzoekers van de superhelden stellen dat een superheld gemiddeld 3,3 mensen per dag redt. Ik zelf heb het gevoel dat dat niet zo is: ik heb de indruk dat een superheld meer dan $3,3$ mensen per dag redt.
+\end{example}
+
+Ik wil dit onderzoeken en ik voer een steekproef uit bij $n = 30$ superhelden. Ik vind in deze steekproef dat het gemiddelde $\overline{x} = 3,483$ is. Kan ik hieruit besluiten dat superhelden gemiddeld meer dan 3,3 mensen per dag redt?
+
+\paragraph{Bepalen van de hypotheses}
+Ik veronderstel dat het aantal mensen dat een superheld redt normaal verdeeld  is en ik formuleer twee hypotheses omtrent de parameter $\mu$.
+
+\begin{exercise}
+  Kan ik zomaar veronderstellen dat het gemiddelde hier normaal verdeeld is? Waarom (niet)?
+\end{exercise}
+
+\begin{itemize}
+  \item $H_{0}$ = de nulhypothese (hetgeen ik wil weerleggen). In dit geval \[ H_{0} : \mu = 3,3 \]
+  \item $H_{1}$ = alternatieve hypothese (vermoeden dat ik wil aantonen). In dit geval \[H_{1}= \mu > 3,3 \]
+\end{itemize}
+We veronderstellen in de redenering dat de nulhypothese $H_{0}$ waar is. Indien het gemiddelde aantal mensen gered per dag $\overline{x}$
+van de steekproef te groot is, verwerpen we de nulhypothese $H_{0}$ en aanvaarden we de alternatieve hypothese $H_{1}$.
+
+Wat betekent nu te groot? Zou je uit een populatie met gemiddelde van $3,3$ gemakkelijk een steekproef kunnen trekken met gemiddelde $3,483$?
+
+\paragraph{Vastleggen significantieniveau $\alpha$ en steekproefomvang $n$}
+Ik wil een onbetrouwbaarheidsdrempel van 5\% kiezen, dus neem ik $\alpha = 0,05$. De steekproefomgang is gegeven en is hier $n = 30$.
+
+\paragraph{Toetsingsgrootheid en de waarde hiervan in de steekproef}
+Als toetsingsgrootheid wordt hier het steekproefgemiddelde gekozen : $\overline{x} = 3,483$.
+
+\paragraph{Bereken en teken het kritiek gebied}
+
+De hypothesetoets verloopt verder als volgt. We veronderstellen in de redenering dat de nulhypothese $H_{0}$ waar is en dat we $\sigma$ goed kunnen schatten hebben ($\sigma = 0,55$). Dan geldt voor het gemiddelde $M$ volgens de centrale limietstelling dat (zie slides tekening)
+
+\[M \sim  Nor(\mu = 3,3; \frac{\sigma}{\sqrt{30}})\]
+
+De waarde $\overline{x} = 3,483$ bevindt zich erg rechts. $\overline{x}$ ligt zelfs zo ver naar rechts dat de kans (indien $H_{0}$ waar is) om dergelijke geobserveerde waarde te krijgen of groter, zeer klein is. Een dergelijke geobserveerde waarde onder de nulhypothese kan dus moeilijk verklaard worden door louter toeval. Intu\"itief voelen we dus aan dat hoe verder de geobserveerde waarde $\overline{x}$ zich bevindt in de rechtse richting, hoe meer we geneigd zijn om de nulhypothese te verwerpen. Maar wat is te ver en wat niet?
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+        domain=3:3.6, samples=100,
+        axis lines*=left, xlabel=$z$, ylabel=$$,
+        every axis y label/.style={at=(current axis.above origin),anchor=south},
+        every axis x label/.style={at=(current axis.right of origin),anchor=west},
+        height=5cm, width=12cm,
+        xtick={3.3,3.483}, ytick=\empty,
+        enlargelimits=false, clip=false, axis on top,
+        grid = major
+      ]
+      \addplot [fill=cyan!20, draw=none, domain=3:3.6] {gauss(3.3,0.101328673)} \closedcycle;
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Verdeling van gemiddeld aantal mensen gered. Steekproef heeft gemiddelde 3.483.}
+  \label{fig:gemiddelde aantal mensen}
+\end{figure}
+
+Een karakteristiek die gebruikt wordt om weer te geven hoe sterk de geobserveerde waarde afwijkt van $H_{0}$, is de \textbf{p-waarde} (probability value of overschrijdingskans).
+
+\begin{definition}[p-waarde]
+  De p-waarde is de kans, indien de nulhypothese waar is, om een waarde te verkrijgen van de toetsingsgrootheid die minstens even extreem is als de geobserveerde waarde.
+\end{definition}
+
+We kunnen deze overschrijdingskans als volgt berekenen:
+
+\[ P(M > 3,483) = P \left(Z> \frac{3,483 - 3,3}{\frac{\sigma}{\sqrt{n}}}\right) = P (Z > 1,822) = 0,0344 \]
+
+Als de overschrijdingskans of p-waarde kleiner is dan de onbetrouwbaarheidsdrempel dan moet $H_{0}$ verworpen worden, is de p-waarde gelijk of groter dan $\alpha$ dan mag je $H_{0}$ niet verwerpen. In ons geval is de p-waarde $0,0344$ en die is kleiner dan $\alpha = 0,05$ dus moeten we $H_{0}$ verwerpen. Samengevat: als de overschrijdingskans of p-waarde kleiner is dan de onbetrouwbaarheidsdrempel dan moet $H_{0}$ verworpen worden.
+\begin{itemize}
+  \item p-waarde $< \alpha \Rightarrow$ $H_{0}$, verwerpen want de gevonden waarde voor $\overline{x}$ is te extreem;
+  \item p-waarde $\geq \alpha \Rightarrow$ $H_{0}$ niet verwerpen, want de gevonden waarde voor $\overline{x}$ kan nog verklaard worden door toeval.
+\end{itemize}
+
+\section{Kritiek gebied, aanvaardingsgebied en kritieke grenswaarde}
+Nu willen we concreet weten voor welke waarden van $\overline{x}$ we de nulhypothese $H_{0}$ kunnen verwerpen. Daarvoor moeten we de kritieke grenswaarde uitrekenen die hoort bij een overschrijdingskans die exact gelijk is aan de onbetrouwbaarheidsdrempel $\alpha$. We zoeken dus de kritieke grenswaarde $g$ zodat
+\[ P(M > g) = 5 \% \]
+
+Alle steekproefuitkomsten die aanleiding geven om $H_{0}$ te verwerpen noemen we het kritieke gebied. Alle steekproefuikomsten die aanleiding geven om $H_{0}$ niet te verwerpen vormen het acceptatiegebied. De grens tussen deze twee gebieden is de kritieke grenswaarde $g$. De waarde van $g$ wordt als volgt berekend:
+\[ P(M > g) = 0,05 \Leftrightarrow P(Z > \frac{g - \mu}{\frac{\sigma}{\sqrt{n}}}) = 0,05 \]
+
+De overeenkomende z-waarde bij 0,05 = 1,645 en dus besluiten we dat
+
+\begin{equation}
+  g = \mu +z \times \frac{\sigma}{\sqrt{n}}
+  \label{eq:kritiekeRechtseWaarde}
+\end{equation}
+
+In ons voorbeeld is dat dus $3,3+1,645 \times \frac{0,55}{\sqrt{30}} = 3,3 + 1,645 \times 0,100415802 = 3,465183995$. Hier geldt dus dat een steekproefgemiddelde groter dan $\approx 3,46$ aanleiding geeft om $H_{0}$ te verwerpen. Een steekproefuikomst die resulteert in het verwerpen van $H_{0}$ noemen we significant.
+
+Aangezien in ons voorbeeld $3,483$ in het kritieke/verwerpingsgebied ligt en dus groter is dan de kritieke waarde mogen we $H_{0}$ verwerpen. Deze kans is klein en vormt een goed bewijs tegen de nulhypothese. Slechts in 34 steekproeven op 1000 zal een dergelijke gebeurtenis optreden onder de nulhypothese, want 
+$P(X>3.483) $ onder $H_0$ is $0.034$ (1- pnorm(3.483,3.3,0.55/sqrt(30)))
+
+
+\section{Eenzijdig of tweezijdig toetsen}
+
+In ons voorbeeld gaat het om een hypothese waar we vermoeden dat het steekproefgemiddelde hoger ligt dan een bepaalde waarde. We twijfelen dus aan de de nulhypothese als ons steek\-proef\-gemiddelde significant boven het vooropgestelde gemiddelde $\mu = 3,3, \alpha = 0,05$ ligt. Het kritieke gebied om $H_{0}$ te verwerpen ligt dus aan de rechterzijde van de curve en we noemen deze toets dan ook rechtszijdig.
+
+We zouden ook een toets kunnen maken waar we denken dat de superhelden gemiddeld minder mensen redden per dag. Dan ligt het kritieke gebied aan de linkerzijde en noemen we de toets linkszijdig.
+\begin{exercise}
+  Wat zou je in vergelijking \ref{eq:kritiekeRechtseWaarde} moeten veranderen opdat je de correcte kritieke waarde zou berekenen?
+\end{exercise}
+
+Antwoord:
+\begin{equation}
+  g = \mu - z \times \frac{\sigma}{\sqrt{n}}
+  \label{eq:kritiekeRechtseWaarde2}
+\end{equation}
+
+want
+
+\[ P(M < g) = P\left(Z < \frac{g - \mu}{\frac{\sigma}{\sqrt{n}}}\right) = 0,05 \]
+Wegens de symmetrieregel kunnen we zeggen
+\[ P\left(Z > - \left( \frac{g - \mu}{\frac{\sigma}{\sqrt{n}}} \right) \right) = 0,05 \]
+De z-waarde die ermee overeen komt is 1,645 dus hebben we
+\[ z = \frac{-g + \mu}{\frac{\sigma}{\sqrt{n}}} \]
+\[ \Leftrightarrow -g = \frac{\sigma}{\sqrt{n}} z - \mu \]
+\[ \Leftrightarrow g = -\frac{\sigma}{\sqrt{n}} z + \mu \]
+
+Soms kan het ook zijn dat er tweezijdig moet getoetst worden, wanneer we een voorgesteld populatiegemiddelde volledig willen testen. Er moeten dan twee kritieke grenswaarden berekend worden namelijk de linker- en de rechter grenswaarden.
+
+\begin{equation}
+  g = \mu \pm z \times \frac{\sigma}{\sqrt{n}}
+  \label{eq:kritiekeGrenswaarde}
+\end{equation}
+
+Alle soorten toetsen worden samengevat in tabel~\ref{tab:toetsingsprocedures}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{l|ccc}
+    \toprule
+    Doel              & \multicolumn{3}{l}{\parbox{.5\textwidth}{Test op gemiddelde waarde $\mu$ van de populatie aan de hand van een steekproef van $n$ onafhankelijke steekproefwaarden}} \\
+    \midrule
+    Voorwaarde        & \multicolumn{3}{l}{\parbox{.5\textwidth}{De populatie is willekeurig verdeeld, $n$ voldoende groot}} \\
+    \midrule
+    Type test         & Tweezijdig           & Eenzijdig links & Eenzijdig rechts \\
+    \midrule
+    $H_{0}$           & $\mu = \mu_{0}$      & $\mu = \mu_{0}$ & $\mu = \mu_{0}$  \\
+    $H_{1}$           & $\mu \neq \mu_{0}$   & $\mu < \mu_{0}$ & $\mu > \mu_{0}$  \\
+    Verwerpingsgebied & $\left|z\right| > g$ & $z< -g $        & $z>g$            \\
+    Teststatistiek    & \multicolumn{3}{c}{$z = \frac{\overline{x} - \mu_{0}}{\frac{\sigma}{\sqrt{n}}}$} \\
+    \bottomrule
+  \end{tabular}
+  \caption{Samenvatting mogelijke toetsen}
+  \label{tab:toetsingsprocedures}
+\end{table}
+
+\section{Voorbeelden}
+\subsection{Voorbeeld 1}
+Bij een aselecte steekproef van 50 waarnemingen vinden we we volgende grootheden:
+\begin{itemize}
+  \item $\overline{x} = 25$
+  \item $s = \sqrt{55} = 7,41$
+\end{itemize}
+
+We willen weten of er reden is om aan te nemen dat $\mu$ van de populatie kleiner is dan 27.
+
+\paragraph{Bepalen van de hypotheses}
+
+$H_{0} : \mu = 27$ en $H_{1}: \mu < 27$.
+
+\paragraph{Vastleggen significantieniveau $\alpha$ en steekproefomvang $n$}
+
+$\alpha = 0,05$ en $n=50$.
+
+\paragraph{Toetsingsgrootheid en waarde hiervan in de proef}
+
+We kiezen hiervoor het steekproefgemiddelde $M$. Volgens de centrale limietstelling geldt:
+
+\[ M \sim Nor(\mu = 27, \frac{\sigma}{\sqrt{n}}) \]
+De toetsingsgrootheid is
+\[ Z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{25-27}{\sqrt\frac{55}{50}} \approx -1,91\]
+We vinden dus een overschrijdingskans van $0,0281$.
+
+\paragraph{Overschrijdingskans}
+
+We vinden dus een overschrijdingskans van het gemiddelde van $0,02$ wat bij een significantieniveau van 0,05 erop duidt dat we $H_{0}$ mogen verwerpen.
+
+\paragraph{Bereken en teken kritiek gebied}
+
+We bereken de kritieke grens:
+
+\[ g = \mu - z \times \frac{\sigma}{\sqrt{n}} \]
+en dus
+
+\[ g = 27 - 1,645 \times \sqrt{\frac{\sigma}{n}} \]
+\[ g =  25,27470944 \]
+
+We vinden dus dat $\overline{x} < g$ en dus moeten we $H_{0}$ verwerpen.
+
+\subsection{Voorbeeld 2}
+
+In een onderzoek naar het kleingeld dat in de zakken van van onze superhelden zit, stellen de onderzoekers dat zij gemiddeld 25 euro op zak hebben. Ze gaan ervan uit de spreiding $\sigma = 7$ is. Verder zijn de gegevens van de aselecte steekproef van omvang $n=64$ beschikbaar met gemiddeld zakgeld $\overline{x}$ van 23 euro. Voor het significantieniveau kiezen ze $\alpha = 0,05$.
+
+\paragraph{Bepalen van de hypotheses}
+
+$H_{0} : \mu = 25$ en $H_{1}: \mu \neq 25$.
+
+\paragraph{Vastleggen significantieniveau $\alpha$ en steekproefomvang $n$}
+
+$\alpha = 0,05$ en $n=64$.
+
+\paragraph{Bepalen van de kritieke grenzen}
+
+\[ g_{1} = \mu - z \times \frac{\sigma}{\sqrt{n}} = 23,28 \]
+
+\[ g_{2} = \mu + z \times \frac{\sigma}{\sqrt{n}} = 26,72 \]
+
+\paragraph{Kritiek gebied}
+
+We vinden dat $\overline{x}$ in het kritieke gebied ligt (want $\overline{x} = 23 < g_1 = 23,25$), dus mogen we $H_{0}$verwerpen.
+
+\section{Fouten in hypothesetoetsen}
+
+Bij het uitvoeren van een hypothesetoets kunnen de volgende fouten optreden. Indien we $H_{0}$ verwerpen wanneer ze juist is, spreken we van een fout van type I en wanneer we $H_{0}$ aanvaarden wanneer ze verkeerd is van een fout van type II.
+
+Het significatieniveau $\alpha$ bij het uitvoeren van een hypothesetoets bepaalt een beslissingsregel voor het verwerpen van de nulhypothese. In het geval van een toets op een 5\% significatieniveau is de kans om in het verwerpingsgebied te komen 5\%. M.a.w. de kans om de nulhypothese te verwerpen terwijl ze waar is, is 5 \% of in het algemeen: het significantieniveau van een toets is gelijk aan de kans op het maken van een fout van type I. Het is vanzelfsprekend dat we de kans op een fout van type I zo klein mogelijk willen houden. Jammer genoeg is dit ten koste van de kans op een type II fout (aangeduid met $\beta$) die hierdoor groter wordt. Het verband tussen $\alpha$ en $\beta$ is niet triviaal en we gaan hier in deze cursus niet verder op in.
+
+In vele gevallen is het maken van een fout van type I erger dan een van type II. Denk maar aan een rechtszaak waarbij de nulhypothese is dat de persoon onschuldig is. Indien we toetsen op een 5\% significantieniveau is de kans op een type I fout 5 op 100. M.a.w. er is een betrouwbaarheid van 95\% dat de juiste beslissing wordt genomen indien $H_{0}$ correct is. Daarom vermijden we liever de conclusie dat $H_{0}$ geaccepteerd wordt, maar eerder dat de steekproef onvoldoende bewijs bevat om $H_{0}$ bij een bepaald significantieniveau te verwerpen.
+
+\begin{table}[h]
+  \centering
+    \begin{tabular}{@{}l|cc@{}}
+      \toprule
+      & \multicolumn{2}{c}{\textbf{Werkelijke stand van zaken}} \\
+      \textbf{Conclusies}          & \textbf{$H_{0}$ correct} & \textbf{$H_{1}$ correct}     \\
+      \midrule
+      \textbf{$H_{0}$ geaccepteerd}& Juist                    & Fout van type II \\
+      \textbf{$H_{0}$ verworpen}   & Fout van type I          & Juist            \\
+      \bottomrule
+    \end{tabular}
+  \caption{Conclusies en consequenties bij toetsen van een hypothese; types van fouten.}
+  \label{tab:hypfouten}
+\end{table}
+

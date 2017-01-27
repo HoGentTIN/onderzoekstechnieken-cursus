@@ -1,0 +1,208 @@
+\chapter{Analyse op 1 variabele}
+\label{ch:analyse1var}
+
+%% TODO: volgorde van centrum-/ spreidingsmaten eens bekijken en overzichtelijker maken.
+
+\begin{definition}[Beschrijvende statistiek]
+  Met beschrijvende statistiek \index{beschrijvende statistiek} bedoelen we een verzameling van technieken om data synthetisch voor te stellen en samen te vatten.
+\end{definition}
+
+
+\section{Voorbeeld met superhelden}
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    $x_{1}$ & $x_{2}$ & $x_{3}$ & $x_{4}$&  $x_{5}$ \\
+    \hline
+    141 & 198 & 143 & 201 & 184 \\
+    \hline
+  \end{tabular}
+  \caption{Voorbeeldtabel superhelden vanuit slides}
+  \label{tab:helden}
+\end{table}
+
+
+\section{Gemiddelde}
+\begin{definition}[Gemiddelde]
+  \index{Gemiddelde} Het gemiddelde (symbool $\mu$) van een set waarden is de som van al deze waarden gedeeld door het aantal waarden. De formule staat beschreven in \ref{eq:Mean}.
+  \begin{equation}
+    \mu = \frac{1}{n} \times \sum_{i=1}^{n} x_{i}
+    \label{eq:Mean}
+  \end{equation}
+
+  Waarbij:
+  \begin{itemize}
+    \item $x_{i}$ de waarden zijn vanuit tabel \ref{tab:helden}.
+    \item $n$ het aantal waarden is. In het voorbeeld van de superhelden zou dit 5 zijn, want we hebben 5 lengtes van superhelden.
+  \end{itemize}
+\end{definition}
+
+
+\begin{exercise}
+  Wat is de gemiddelde lengte van de superhelden?
+\end{exercise}
+
+\begin{exercise}
+  Vraag: het gemiddelde van 15 cijfers is 12. Welk nummer moeten
+  we aan de rij van cijfers toevoegen om een gemiddelde van 13 te bekomen?
+\end{exercise}
+
+Het rekenkundig gemiddelde is gevoelig aan outliers: een extreme waarde kan het rekenkundig gemiddelde zwaar be\"invloeden.
+
+\section{Mediaan}
+
+\begin{definition}[Mediaan]
+  Indien we alle cijfers sorteren van klein naar groot, is de \index{Mediaan} mediaan het middelste cijfer, of het gemiddelde van de twee middelste cijfers indien het aantal cijfers oneven is.
+\end{definition}
+
+De mediaan is niet gevoelig aan outliers.
+
+\section{Modus}
+\begin{definition}[Modus]
+  De \index{Modus} modus is het cijfer dat het meest voorkomt in een set van cijfers.
+\end{definition}
+
+\begin{itemize}
+  \item Heeft niet veel zin als alle cijfers even veel voorkomen. (Zoals bij onze superhelden). Misschien is het nuttig om ze dan te groeperen.
+  \item Er kunnen twee modi zijn: dit heten we \index{Bimodaal} bimodaal;
+  \item Er kunnen meerdere modi zijn: dit heten we \index{Multimodaal} multimodaal.
+\end{itemize}
+
+\begin{example}
+  Het groeperen kunnen we tonen bijvoorbeeld bij het aantal mensen gered door Batman de laatste acht jaar.
+  \begin{itemize}
+    \item $[0-9]$ mensen : 4, 7
+    \item $[10-19]$ mensen: 11, 16
+    \item $[20-29]$ mensen : 20, 22, 25, 26
+    \item $[30-39]$ mensen: 33
+  \end{itemize}
+  Dus categorie $[20-29]$ komt het meest voor. We kunnen dus bv. kiezen om 25 als modus te gebruiken. Zo'n klasse heten we dan een modale klasse.
+\end{example}
+
+\section{Range / Bereik}
+\begin{definition}[Bereik]
+  Het \index{Range} \index{Bereik} bereik in een set van getallen is de absolute waarde van het verschil tussen het laagste en grootste getal.
+\end{definition}
+
+\section{Kwartielen \& kwartielafstand}
+\begin{definition}[Kwartielen \& Kwartielafstand]
+  De \index{Kwartiel} kwartielen zijn de waarden die een gesorteerde lijst van nummers in 4 gelijke delen deelt. Elk deel vormt dus een kwart van de dataset. Men spreekt van een eerste, tweede en derde kwartiel ($Q_{1}$, $Q_{2}$, $Q_{3}$).
+\end{definition}
+
+Dus:
+\begin{itemize}
+  \item eerste kwartiel $Q_{1}$ is de getalswaarde die de laagste 25 \% van de reeks afscheidt.
+  \item tweede kwartiel $Q_{2}$ is de getalwaarde die de laagste 50\% van de reeks afscheidt.
+  \item derde kwartiel $Q_{3}$ is de getalwaarde die de laagste 75\% van de reeks afscheidt.
+\end{itemize}
+
+\begin{definition}
+  \index{Kwartielafstand} Kwartielafstand is het verschil tussen $Q_{3}$ en $Q_{1}$ ( dus $Q_{3} - Q_{1}$).
+\end{definition}
+
+Methode om te berekenen (volgens \textcite{Moore2002}) (met $n$ oneven aantal getallen):
+\begin{itemize}
+  \item $Q_{1}$ komt overeen met cijfer $\frac{n+1}{4}$
+  \item $Q_{3}$ komt overeen met cijfer $\frac{3n+3}{4}$
+\end{itemize}
+
+Methode om te berekenen (met $n$ even aantal getallen):
+\begin{itemize}
+  \item $Q_{1}$ komt overeen met cijfer $\frac{n+2}{4}$
+  \item $Q_{3}$ komt overeen met cijfer $\frac{3n+2}{4}$
+\end{itemize}
+
+\begin{exercise}
+  Met welke voorgaande statistiek komt $Q_{2}$ overeen?
+\end{exercise}
+
+\section{Variantie en standaardafwijking}
+\begin{definition}[Variantie]
+  De \index{Variantie} variantie (symbool $\sigma^{2}$ - lees sigma kwadraat) is het gemiddelde van de kwadraten van de verschillen tussen de waarde van de dataset en het gemiddelde.
+  \begin{equation}
+    \sigma^{2} = \frac{1}{n} \times \sum_{i=1}^{n} \left( \mu - x_i \right)^{2}
+    \label{eq:variantie}
+  \end{equation}
+\end{definition}
+
+
+\begin{example}
+  De variantie bij de lengtes van onze superhelden wordt als volgt berekend:
+
+  \begin{equation}
+    \begin{aligned}
+      \sigma^{2} &=  \frac{(173.4-141)^{2} + (173.4 - 198 )^{2} + (173.4 - 143)^{2} + (173.4- 201)^{2} + (173.4  -184 )^{2}}{5} \\
+      &=  \frac{(-32.4)^{2}+	(24.6)^{2}	+ (-30.4)^{2}+	(27.6)^{2}	+ (10.6)^{2}}{5}\\
+      &= \frac{1049.76 + 	605.16	 + 924.16	 + 761.76 + 	112.36}{5}\\
+      &= \frac{3453.2}{5} = 690.64
+    \end{aligned}
+  \end{equation}
+\end{example}
+
+\begin{definition}[Standaardafwijking]
+  De \index{Standaardafwijking} standaardafwijking wordt dan gedefinieerd als de vierkantswortel van de variantie.
+  \begin{equation}
+    \sigma = \sqrt{\sigma^{2}}
+    \label{eq:stdev}
+  \end{equation}
+\end{definition}
+
+
+Dit geeft ons dus inzicht in wat normaal is en wat abnormaal is: een kleine standaardafwijking wijst erop dat de waarden dicht bij de centrummaat ($\mu$) liggen, terwijl een grote standaardafwijking duidt dat de waarden verspreid liggen over een groot bereik van waarden. In sommige gevallen wil men een grote standaardafwijking, in andere gevallen niet zoals hieronder beschreven.
+
+\begin{example}
+  Bij het vervaardigen van een schroevendraaier is de grootte van de kop belangrijk voor het goed functioneren van de schroevendraaier. Als we dus van 100 verschillende schroevendraaiers de kopgrootte meten, is het beter dat die grootte redelijk constant is en wensen we dus een kleine standaardafwijking.
+\end{example}
+
+\begin{example}
+  Bij het onderzoek naar onze superhelden, wensen we te weten hoeveel ze ongeveer verdienen in hun normale job. We hebben een aantal rijke superhelden (bv. Batman) en een aantal minder rijke superhelden (bv. Spiderman). De spreiding op hun inkomen is dus groot, maar dat is niet per definitie slecht.
+\end{example}
+
+
+Een aangename eigenschap van de standaardafwijking is dat het uitgedrukt kan worden in dezelfde metriek als de gemeten data. Bij ons voorbeeld van de superhelden, wil dat zeggen dat de standaardafwijking 26.28 cm is.
+
+\begin{exercise}
+  Waarom nemen we het gemiddelde van het kwadraat van het verschil. Waarom bv. niet de gewone getallen of gemiddelde absolute waarde van de afwijking? Probeer dit eens op het voorbeeld in de slides.
+\end{exercise}
+
+Antwoord:
+\begin{itemize}
+  \item Bij de gewone waarde zouden de negatieve de positieve getallen uitcancellen en dus 0 tot resultaat hebben.
+  \item Bij absolute waarde komen beide voorbeelden dezelfde spreiding uit, alhoewel voorbeeld twee meer verspreid ligt.
+  \item Bij kwadratuur hebben we vorige problemen niet.
+\end{itemize}
+
+Zoals het gemiddelde is de variantie en de standaarddeviatie gevoelig aan outliers (uitschieters). De variantie is eigenlijk gevoeliger dan het gemiddelde. Inderdaad, voor een outlier is de afstand tot het gemiddelde kleiner dan het kwadraat van deze afstand.
+
+\section[Centrum- en spreidingsmaten toepassen]{Toepassing spreidingsmaten en maten centraliteit op verschillende soorten variabelen}
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{|l|l|l|l|l|}
+    \hline
+    \textbf{Analyse} & \textbf{Nominaal} & \textbf{Ordinaal} & \textbf{Interval} of \textbf{Ratio} \\
+    \hline
+    \textbf{Centrum} & Modus & Mediaan & Gemiddelde \\
+    & Modale klasse & Modus & Mediaan \\
+    & & Modale klasse & Modale klasse \\
+    \hline
+    \textbf{Spreiding} & & Range & Range \\
+    & & Interkwartielafstand & Interkwartielafstand \\
+    & & & Standaarddeviatie \\
+    \hline
+  \end{tabular}
+  \caption{Meetniveaus en mogelijkheden op variabelen}
+  \label{tab:Meetniveaus}
+\end{table}
+
+\section{Grafieken}
+
+\subsection{Boxplot}
+
+De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwartielwaarden (25\% en 75\%). In deze rechthoek wordt ook de mediaan getekend. De stelen, die aan de rechthoek zitten, bevatten de rest van de waarnemingen op de uitschieters en extremen na.
+
+\begin{itemize}
+  \item Een \index{Uitschieter} uitschieter is een waarde die meer dan 1.5 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt. Wordt aangeduid met een cirkeltje.
+  \item Een \index{Extremum} extremum is een waarde die meer dan 3 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt. Wordt aangeduid met een sterretje.
+\end{itemize}

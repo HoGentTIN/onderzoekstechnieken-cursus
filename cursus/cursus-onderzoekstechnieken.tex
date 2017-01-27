@@ -1,0 +1,61 @@
+% Cursus Onderzoekstechnieken
+%
+% Genereer PDF-versie met commando: latexmk -pdf "cursus-onderzoekstechnieken"
+
+\documentclass[11pt,fleqn,a4paper]{book}
+
+\input{structure}
+
+\author{Dr. Jens Buysse, Anita Bernard, Bert Van Vreckem}
+\title{Cursus Onderzoekstechnieken}
+\date{Academiejaar 2016-2017}
+
+\begin{document}
+
+\thetitlepage
+
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+
+\newpage
+~\vfill
+\thispagestyle{empty}
+
+\noindent Copyright \copyright\ 2015-2017 Jens Buysse\\ % Copyright notice
+
+\noindent \textsc{www.hogent.be}\\ % URL
+
+\noindent \textit{Gegenereerd op \today} % Printing/edition date
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\usechapterimagefalse
+
+\tableofcontents % Print the table of contents itself
+
+\cleardoublepage % Forces the first chapter to start on an odd page so it's on the right
+
+\setlength{\parindent}{0pt}
+
+\def\R{\mathbb{R}}
+
+\include{dankwoord}
+\include{onderzoeksproces}
+\include{analyse-1-variabele}
+\include{steekproefonderzoek}
+\include{toetsingsprocedures}
+\include{analyse-2-variabelen}
+\include{chi-kwadraat-toets}
+\include{tijdreeksen}
+
+\appendix
+
+\include{notatie}
+
+\printbibliography
+\addcontentsline{toc}{chapter}{\textcolor{maincolor}{\IfLanguageName{dutch}{Bibliografie}{Bibliography}}}
+
+\end{document}
