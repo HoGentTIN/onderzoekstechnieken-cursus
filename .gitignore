@@ -1,6 +1,7 @@
 ## Backup files
 .*#
 *~
+.sav
 
 ## R
 .RData
