@@ -4,7 +4,7 @@ Cursusmateriaal Onderzoekstechnieken.
 
 ## Cursus-pdf genereren
 
-De directory `cursus/` bevat de LaTeX-broncode voor de cursustekst. We publiceren bewust niet de PDF-versie om je te verplichten met LaTeX te werken. De procedure om de PDF-versie zelf te genereren:
+De directory `cursus/` bevat de LaTeX-broncode voor de cursustekst. We publiceren bewust niet de PDF-versie om je aan te moedigen om met LaTeX te werken. De procedure om de PDF-versie zelf te genereren:
 
 1. `latexmk -pdf "cursus-onderzoekstechnieken"`
 2. `biber "cursus-onderzoekstechnieken"`
