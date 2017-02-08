@@ -1,0 +1,159 @@
+%==============================================================================
+% Casus onderzoeksproces: Database-performantie
+%==============================================================================
+% Gebaseerd op LaTeX-sjabloon ‘Stylish Article’ (zie voorstel.cls)
+% Auteur: Jens Buysse, Bert Van Vreckem
+
+% Compileren document:
+% 1) latexmk -pdf db-performance
+% 2) biber db-performance
+% 3) latexmk -pdf db-performance
+
+\documentclass[fleqn,10pt]{voorstel}
+
+%------------------------------------------------------------------------------
+% Metadata over het artikel
+%------------------------------------------------------------------------------
+
+\JournalInfo{HoGent Bedrijf en Organisatie} % Journal information
+\Archive{Onderzoekstechnieken 2016 - 2017} % Additional notes (e.g. copyright, DOI, review/research article)
+
+%---------- Titel & auteur ----------------------------------------------------
+
+\PaperTitle{Performantievergelijking van database-systemen}
+\PaperType{Casus onderzoeksproces} % Type document
+
+\Authors{Jens Buysse\textsuperscript{1}, Anita Bernard\textsuperscript{2}, Bert Van Vreckem\textsuperscript{3}} % Authors
+\affiliation{\textbf{Contact:}
+  \textsuperscript{1} \href{mailto:jens.buysse@hogent.be}{jens.buysse@hogent.be};
+  \textsuperscript{2} \href{mailto:anita.bernard@hogent.be}{anita.bernard@hogent.be};
+  \textsuperscript{3} \href{mailto:bert.vanvreckem@hogent.be}{bert.vanvreckem@hogent.be}}
+
+%---------- Abstract ----------------------------------------------------------
+
+\Abstract{ Aan de hand van een concrete casus wordt een typisch onderzoeksproces doorlopen. De onderzoeksvraag is onderdeel van de opdracht: het vergelijken van de performantie van verschillende database-systemen. Eerst wordt er aan de hand van een literatuurstudie een beeld gevormd van de stand van zaken in het onderzoeksdomein. Ook wordt de onderzoeksvraag verder gespecifieerd. Vervolgens wordt een experiment opgezet om een antwoord te formuleren op de onderzoeksvraag. De resultaten worden gevisualiseerd en geanalyseerd. Tenslotte wordt het gehele verloop samengevat in een artikel. }
+
+%---------- Onderzoeksdomein en sleutelwoorden --------------------------------
+
+\newcommand{\keywordname}{Sleutelwoorden} % Defines the keywords heading name
+\Keywords{Database-beheer. Relationele databases --- performantie} % Keywords
+
+%---------- Titel, inhoud -----------------------------------------------------
+\begin{document}
+
+%\flushbottom % Makes all text pages the same height
+\maketitle % Print the title and abstract box
+\tableofcontents % Print the contents section
+\thispagestyle{empty} % Removes page numbering from the first page
+
+%------------------------------------------------------------------------------
+% Hoofdtekst
+%------------------------------------------------------------------------------
+
+%---------- Inleiding ---------------------------------------------------------
+
+\section{Introductie} % The \section*{} command stops section numbering
+\label{sec:introductie}
+
+De doelstelling van deze casus is om een mini-onderzoek uit te voeren zoals dat in de praktijk typisch zou moeten verlopen. Concreet is het de bedoeling om een performantievergelijking uit te voeren op enkele database-systemen en daarover te rapporteren. Een eerste stap is het verkennen van de vakliteratuur en het proberen te reproduceren van eerder geleverd onderzoek. De resultaten van de eigen experimenten worden op een methodologisch correcte manier geanalyseerd en samengevat in een artikel (in {\LaTeX}, met een opgegeven sjabloon).
+
+\section{Praktische afspraken}
+
+Voor deze casus werken jullie samen in teams van 4 personen waarvan jullie de samenstelling zelf kiezen (bv. teams Projecten II, als dat mogelijk/wenselijk is). Elk team krijgt een Github-repository waarin alle resultaten van dit onderzoek bijgehouden worden: bibliografische databank, verslagen, resultaten van experimenten, {\LaTeX} broncode artikel, enz. Gebruik Github Projects\footnote{Zie \url{https://help.github.com/articles/about-projects/}} voor de taakverdeling en het opvolgen van de vooruitgang van elke taak. Elk teamlid is verantwoordelijk voor het aantonen van de eigen bijdrage aan de hand van Git commits. 
+
+Tijdens de oefeningensessies kunnen jullie de begeleidende lector advies vragen, maar verder gebeuren alle onderlinge afspraken binnen het team op zelfstandige basis. Voor een leidraad in het voeren van een literatuuronderzoek, het gebruik van een bibliografische databank, gebruik van \LaTeX{}, zie de cursus en ook~\autocite{VanVreckem2017}.
+
+Het finale artikel wordt ingediend op Chamilo onder ``Opdrachten,'' vóór het verlopen van de deadline.
+
+%---------- Stand van zaken ---------------------------------------------------
+
+\section{Literatuuronderzoek}
+
+Lees het artikel van~\textcite{Bassil2012} waarin een aantal relationele database-systemen vergeleken wordt qua performantie. Schrijf in eigen woorden in één of twee zinnen wat in het artikel staat en wat de belangrijkste conclusie(s) is/zijn. Begrijp je alles wat er in staat? Noteer voor jezelf alle woorden/termen of zinsconstructies die je niet begrijpt of die onduidelijk zijn.
+
+Zoek andere artikels over dit onderwerp en neem ze op in een bibliografische databank met Jabref. Schrijf telkens in enkele zinnen waarover het artikel gaat (zoals met het eerste artikel) zodat je teamgenoten een idee hebben van wat je gevonden hebt. Elk teamlid zou minstens één of twee \emph{unieke} artikels moeten naar voor brengen.
+
+Organiseer een \emph{reading group} met je team waar je samen door de gevonden teksten gaat en die bespreekt. Je hebt vooraf in elk geval het artikel van Bassil gelezen en datgene dat je zelf hebt aangebracht. De bedoeling is dat iedereen de artikels ten gronde begrijpt en dat jullie een idee vormen van hoe jullie de experimenten moeten reproduceren. Vraag je begeleidende lector om hulp als er toch nog onduidelijkheden overblijven. Wat vinden jullie van de andere artikels in vergelijking met~\textcite{Bassil2012}? Welke vinden jullie het interessantst en waarom? Welke vinden jullie niet goed en waarom niet? Is iedereen het eens over de kwaliteit van de artikels? Zijn de experimenten representatief voor de onderzoeksvraag, d.w.z. geven ze een goed beeld van de algemene performantie van databases? Als je een antwoord geeft op deze vraag, zorg er voor dat dit aantoonbaar is uit de vakliteratuur. Wat vind je van de rapportering van de resultaten door de auteur? Is het verschil tussen de uitkomsten statistisch significant? Kan je dit afleiden uit het artikel?
+
+Probeer ook te komen tot een preciezere definitie van ``performantie.'' Is dit een éénduidig begrip? Hoe kan je concreet performantie meten op een objectieve manier die toelaat om vergelijkingen te maken? Formuleer deelonderzoeksvragen waar jullie definitie concreet en duidelijk toegelicht wordt.
+
+Maak een verslag van de \emph{reading group} waarin alle hierboven opgesomde vragen aan bod komen. Verwerk daarna de samenvattingen van de artikels en de kritische beschouwing ervan in een doorlopende tekst. Dit wordt een onderdeel van jullie artikel (state of the art/kritische literatuurstudie). Probeer daarbij de stijl van de gelezen artikels over te nemen!
+
+Deliverables voor deze fase:
+
+\begin{itemize}
+	\item Bibliografische databank waar elk teamlid minstens één uniek artikel heeft toegevoegd;
+	\item Verslag reading group;
+	\item Lijst deelonderzoeksvragen;
+	\item Tekst kritische literatuurstudie.
+\end{itemize}
+
+\section{Opzetten en uitvoeren experiment}
+
+Een volgende stap in het opstarten van je eigen onderzoek is het trachten te reproduceren van eerder uitgevoerd onderzoek. Het doel van deze fase is (een deel van) het experiment van~\textcite{Bassil2012} opnieuw uit te voeren en jullie resultaten er mee te vergelijken.
+
+Hebben jullie beschikking over alle nodige documentatie om het experiment goed te kunnen herhalen? Vinden jullie de selectie van database-systemen correct? Waarop zou je je moeten baseren om een \emph{objectieve} selectie te maken? Maak eventueel zelf een selectie, gesteund op gezaghebbende bronnen.
+
+Probeer het experiment van~\textcite{Bassil2012} zo getrouw mogelijk te herhalen op twee database-systemen. Maak daarbij zelf een gemotiveerde keuze tussen de systemen uit het artikel. Tracht daarbij zoveel mogelijk zaken die kunnen effect hebben op de onderzoeksresultaten (in dit geval performantie) uit te sluiten of onder controle te houden. Elk teamlid zou moeten in staat zijn het experiment zelf uit te voeren. Herhaal het experiment voldoende keren (bv. elke query minstens 50x) in dezelfde omstandigheden. 
+
+Bij het uitwerken en uitvoeren van deze experimenten komt typisch inspiratie naar boven over hoe het beter kan. Misschien is het door ontbrekende informatie niet mogelijk het experiment getrouw te reproduceren. Of misschien wordt het voor jullie duidelijk dat het experiment om de ene of de andere reden niet zinvol is. Dan kunnen jullie er voor kiezen om af te wijken van het oorspronkelijke opzet en de doelstellingen bij te sturen. Jullie kunnen bijvoorbeeld kiezen voor andere database-systemen dan in het oorspronkelijke artikel, een ander type database (bv. NoSQL), queries opzetten die representatiever zijn voor gebruik in de praktijk, unicore vs multicore processor, enz.
+
+Beschrijf in detail in welke omstandigheden jullie de experimenten uitvoeren: op welke hardware (CPU, RAM, ...), besturingssysteem, enz. Hoe hebben jullie de performantie (uitvoeringstijd, processor- en geheugengebruik) precies gemeten? Probeer het uitvoeren van het experiment en verzamelen van resultaten zoveel mogelijk te automatiseren, bv. opstarten met een script, wegschrijven van resultaten in een CSV-bestand, enz. Het moet voor de lezer van jullie artikel mogelijk zijn om het experiment onafhankelijk te reproduceren aan de hand van jullie beschrijving. Probeer het beter te doen dan in het oorspronkelijke artikel! Deze beschrijving wordt het onderdeel ``methodologie'' van jullie artikel.
+
+Deliverables voor deze fase:
+
+\begin{itemize}
+	\item Alle nodige code, scripts en/of procedures voor het uitvoeren van het experiment;
+	\item Resultaten van de experimenten (CSV-bestanden);
+	\item Sectie ``methodologie'' voor het artikel.
+\end{itemize}
+
+\section{Analyse resultaten}
+
+De volgende stap is het analyseren van de resultaten. Bekijk opnieuw het oorspronkelijke artikel. Zijn de resultaten goed gerapporteerd? Is het duidelijk of de verschillen tussen de database-systemen ook statistisch significant zijn?
+
+Visualiseer de resultaten van de experimenten. Het is vooral belangrijk dat de spreiding van de datapunten zichtbaar is.
+
+Zijn de resultaten van jullie experimenten statistisch significant? Gebruik daarvoor een geschikte statistische toets.
+
+Vat de resultaten samen in een doorlopende tekst die onderdeel wordt van jullie artikel. Voeg de belangrijkste, duidelijkste en/of interessantste resultaten toe in de vorm van tabellen of grafieken.
+
+Deliverables voor deze fase:
+
+\begin{itemize}
+	\item Tabellen en grafieken voor alle resultaten van experimenten;
+	\item Tekst rapportering resultaten.
+\end{itemize}
+
+\section{Rapportering}
+
+Werk tenslotte het artikel af waarin de eigen resultaten worden besproken. De belangrijkste onderdelen zijn op dit punt in principe al geschreven, maar kunnen ongetwijfeld nog bijgeschaafd worden.
+
+Schrijf een \emph{inleiding} waarin de context van het onderzoek besproken wordt en waarin je motiveert waarom deze onderzoeksvraag de moeite waard is om een antwoord op te zoeken. Ook de deelonderzoeksvragen worden hier toegelicht.
+
+Formuleer de belangrijkste \emph{conclusies} van het onderzoek en eventuele kritische bedenkingen daarbij. Wat zouden eventuele volgende stappen kunnen zijn als jullie het onderzoek zouden verder zetten? Welke nieuwe onderzoeksvragen zijn bij jullie opgekomen bij het voeren van dit onderzoek?
+
+Schrijf als laatste een \emph{samenvatting} waarin alle verwachte componenten (context, nood, taak, object, resultaat, conclusie en perspectief) aanwezig zijn.
+
+De tekst staat geheel op zichzelf, d.w.z.~er wordt niet verondersteld dat de lezer bepaalde voorkennis heeft. De lezer moet alle informatie krijgen om de tekst te begrijpen. Het artikel is duidelijk en logisch gestructureerd en is vlot leesbaar, waarbij elk onderdeel mooi op elkaar aansluit. Er wordt een wetenschappelijke schrijfstijl\footnote{Zie \url{http://www.taalwinkel.nl/schrijfproces/een-wetenschappelijke-schrijfstijl/}} gehanteerd.
+
+Zorg er voor dat je eigen tekst beter is dan het origineel, met de nadruk op reproduceerbaar maken van de experimenten, en correcte analyse en bespreking van de testresultaten. Alle beweringen en keuzes worden ondersteund, hetzij door eigen resultaten, hetzij door verwijzen naar gezaghebbende bronnen.
+
+Deliverables voor deze fase:
+
+\begin{itemize}
+	\item Het afgewerkte artikel.
+\end{itemize}
+
+\section{Beoordeling}
+
+Het resultaat wordt beoordeeld naargelang het voldoet aan de hierboven opgesomde richtlijnen. In principe krijgen alle teamleden dezelfde beoordeling, tenzij uit de Github logs blijkt dat iemand er -in de goede of de slechte zin- uit springt. Studenten die hun bijdrage niet kunnen aantonen, krijgen 0. 
+
+%------------------------------------------------------------------------------
+% Referentielijst
+%------------------------------------------------------------------------------
+
+\phantomsection
+\printbibliography[heading=bibintoc]
+
+\end{document}
