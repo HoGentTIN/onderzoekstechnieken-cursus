@@ -1,0 +1,255 @@
+%%----------------------------------------------------------------------------
+%% Presentatie HoGent Bedrijf en Organisatie
+%%----------------------------------------------------------------------------
+%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
+
+\documentclass{beamer}
+
+%==============================================================================
+% Aanloop
+%==============================================================================
+
+%---------- Packages ----------------------------------------------------------
+
+\usepackage{graphicx,multicol}
+\usepackage{comment,enumerate,hyperref}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{tikz}
+\usepackage[dutch]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{eurosym}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+
+%---------- Configuratie ------------------------------------------------------
+
+\usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
+
+\usetheme{hogent}
+
+%---------- Commando-definities -----------------------------------------------
+
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+
+%---------- Info over de presentatie ------------------------------------------
+
+\title[Intro]{Onderzoekstechnieken -- Intro}
+\author{Anita Bernard, Jens Buysse, Bert {Van Vreckem}}
+\date{AJ 2016-2017}
+
+%==============================================================================
+% Inhoud presentatie
+%==============================================================================
+
+\begin{document}
+
+%---------- Front matter ------------------------------------------------------
+
+% Dia met het HoGent logo
+\HoGentLogo
+
+% Titeldia met faculteitslogo
+\titleframe
+
+%---------- Inhoud ------------------------------------------------------------
+
+% Dia voor sectiekop, voorbeeld met een afbeelding onderaan de pagina
+\section{1}
+
+\sectionframelogo{Onderzoekstechnieken}
+
+\begin{frame}
+  \frametitle{Onderzoekstechnieken}
+
+  \scaledimg{img/intro-01.jpg}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeelden van slecht onderzoek}
+
+  \scaledimgvert{img/intro-02.png}{img/intro-03.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeelden van slecht onderzoek}
+
+  \scaledimg{img/intro-04.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeelden van slecht onderzoek}
+
+  \scaledimg{img/intro-05.jpg}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeelden van slecht onderzoek}
+
+  \scaledimg{img/intro-10.jpg}
+\end{frame}
+
+\section{2}
+\sectionframelogo{Praktisch}
+
+\begin{frame}
+  \frametitle{Overzicht leerstof}
+
+\begin{table}[h]
+\begin{tabular}{l|l}
+  \multirow{2}{*}{\textbf{Inleiding}} &
+     \tabitem Inleiding tot het vak \\
+   & \tabitem Invoer van gegevens \\
+
+  \hline
+  \multirow{2}{*}{\textbf{Analyse op 1 variabele}} &
+      \tabitem Enkelvoudige statistieken \\
+    & \tabitem Eenvoudige grafieken\\
+
+  \hline
+  \multirow{2}{*}{\textbf{Analyse op 2 variabelen}} &
+      \tabitem Eenvoudige grafieken \\
+    & \tabitem Correlatie en regressie\\
+
+  \hline
+  \multirow{3}{*}{\textbf{Steekproeven en kansverdeling}} &
+      \tabitem Populatie\\
+    & \tabitem Steekproef\\
+    & \tabitem Normale verdeling\\
+
+  \hline
+  \textbf{Toetsingsprocedure en} & \tabitem Toetsen van hypothesen \\
+  \textbf{Chi-kwadraattoets}     & \tabitem $z$-toets, $t$-toets\\
+                                 & \tabitem $\chi^{2}$-toets\\
+
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Leermaterialen}
+
+  \begin{itemize}
+    \item Slides ter ondersteuning
+      \begin{itemize}
+        \item bevatten grafieken, tabellen, \ldots die in de les aan bod komen
+      \end{itemize}
+    \item Theorie aan bord, hoorcollege
+      \begin{itemize}
+        \item Volg de lessen \textbf{actief} mee!
+        \item \textbf{Neem zelf notities!}
+      \end{itemize}
+    \item Syllabus
+  \end{itemize}
+
+  \brightbox{Kom naar de les en \textcolor{HoGentAccent6}{neem nota's}}
+
+  \begin{center}
+    \includegraphics[height=3cm]{img/intro-06.jpg}
+  \end{center}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Software}
+    
+    \begin{itemize}
+        \item Git:
+        \begin{itemize}
+            \item Git client
+            \item Account op Github
+        \end{itemize}
+        \item {\LaTeX}:
+        \begin{itemize}
+            \item MikTeX/MacTeX/Texlive
+            \item TexStudio (of andere editor)
+        \end{itemize}
+        \item Statistiek: RStudio Desktop
+    \end{itemize}
+
+    \centering
+    Alle benodigde software is gratis/open source
+\end{frame}
+
+\begin{frame}
+  \frametitle{Organisatie van de lessen}
+
+  \begin{itemize}
+    \item Hoorcollege
+      \begin{itemize}
+        \item Theorie en grondleggen van de basis
+      \end{itemize}
+    \item Werkcollege
+      \begin{itemize}
+        \item Uitdiepen van de kennis
+        \item Klassikaal oefeningen maken
+        \item De software leren gebruiken
+      \end{itemize}
+    \item Begeleide zelfstudie
+      \begin{itemize}
+        \item Klassikaal taak uitwerken
+        \item ``Passieve'' begeleiding
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Evaluatie van het vak}
+
+  \begin{itemize}
+    \item Eerste examenkans
+      \begin{itemize}
+        \item Niet-periodegebonden evaluatie (taak): 30\% van het totaal
+          \begin{itemize}
+            \item Individueel uitschrijven bachelorproefvoorstel
+            \item Empirisch onderzoek in groep
+          \end{itemize}
+        \item Periodegebonden evaluatie (examen): 70\% van het totaal
+      \end{itemize}
+    \item Tweede examenkans
+      \begin{itemize}
+        \item Schriftelijk examen: 100\%
+      \end{itemize}
+  \end{itemize}
+
+  \begin{center}
+    \includegraphics[height=3cm]{img/intro-07}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{NPE: Uitschrijven bachelorproefvoorstel}
+
+  \begin{enumerate}
+    \item Bepalen onderzoeksdomein
+    \item Literatuurstudie
+    \item Vastleggen onderzoeksvraag en formuleren doelstelling(en)
+    \item Uitschrijven bachelorproefvoorstel volgens sjabloon
+  \end{enumerate}
+
+  Zie Chamilo, onder Opdrachten
+\end{frame}
+
+\begin{frame}
+  \frametitle{NPE: Casus onderzoeksproces}
+
+  \brightbox{Performantievergelijking tussen databases}
+
+  \begin{enumerate}
+    \item Lezen van een wetenschappelijke paper
+    \item Experimenten reproduceren
+    \item Onderzoeksvraag bijsturen, afbakenen en vastleggen
+    \item Uitvoeren van de tests op een gecontroleerde manier.
+    \item Resultaten statistisch verantwoord verklaren en neerschrijven
+    \item Verslaggeving over het onderzoek
+  \end{enumerate}
+
+  Opdrachtbeschrijving op Chamilo, onder Opdrachten
+\end{frame}
+
+
+%---------- Back matter -------------------------------------------------------
+
+\end{document}
