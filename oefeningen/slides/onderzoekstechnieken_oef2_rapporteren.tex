@@ -651,23 +651,50 @@
 
 \begin{frame}[fragile]
   \frametitle{Bronvermelding en referentielijst in {\LaTeX}}
+  
+  Bib{\LaTeX} en Biber
+
+  \vspace{18pt}
 
   \verb|artikel.tex|: Hoofdtekst\\
   \verb|artikel.bib|: Bibliografische databank (bewerk met bv.~JabRef)
 
   \vspace{18pt}
+  
+  Preamble:
+  
+  \begin{verbatim}
+    \usepackage[backend=biber,style=apa]{biblatex}
+    \DeclareLanguageMapping{dutch}{dutch-apa}
+    \addbibresource{artikel.bib}
+  \end{verbatim}
 
-  \verb|\usepackage{natbib}      | in preamble, voor \texttt{apa}-stijl\\
-  \verb|\cite{BibTeXKey}         | wordt [1], [2], \dots in \texttt{plain}-stijl\\
-  \verb|                         |  en ``Auteur (jaartal)'' in \texttt{apa}
-  \verb|\citep{BibTeXKey}        | ``(Auteur, jaartal)'', in \texttt{apa}-stijl\\
-
-  \vspace{12pt}
-
-  \verb|\bibliographystyle{STIJL}| bv. \texttt{plain}, \texttt{apa}, \dots\\
-  \verb|\bibliography{artikel}   | bestandsnaam zonder extensie
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Bronvermelding en referentielijst in {\LaTeX}}
+  
+  \begin{itemize}
+  \item Verwijzingen in de tekst:
+  
+  \begin{itemize}
+    \item \verb|\textcite{Knuth1998}| $\Rightarrow$ Knuth (1998)
+    \item \verb|\autocite{Knuth1998}| $\Rightarrow$ (Knuth, 1998)
+  \end{itemize}
+  
+  \item Literatuurlijst invoegen: \verb|\printbibliography|
+  
+  \item Compileren:
+  
+  \begin{enumerate}
+    \item `pdflatex artikel` (of `latexmk -pdf`)
+    \item `biber artikel` selecteert de gerefereerde bronnen en maakt ze klaar
+    \item `pdflatex artikel` om de referenties en literatuurlijst in te voegen
+  \end{enumerate}
+  \end{itemize}
+  
+  Zie de voorziene sjablonen voor voorbeelden!
+\end{frame}
 
 \begin{frame}
   \frametitle{Oefening}
@@ -678,7 +705,7 @@
       \begin{itemize}
         \item Hou zo veel mogelijk informatie bij (ook bv. abstract, keywords, PDF, URL)
       \end{itemize}
-    \item Maak testdocument in {\LaTeX} met referenties in de tekst `en literatuurlijst.
+    \item Maak testdocument in {\LaTeX} met referenties in de tekst en literatuurlijst.
   \end{itemize}
 \end{frame}
 
