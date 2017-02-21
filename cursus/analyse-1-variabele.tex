@@ -260,9 +260,7 @@ De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwa
 
 \section{Wetenschappelijk schrijven}
  
- In de Bachelorproef geschreven door Ozgur Akin die je \href{http://tinfbo2.hogent.be/nativeapps/index.php?r=bachelorpaper\%2Findex}{hier} kan vinden wordt een vergelijkende studie verricht rond verschillende persistentiemogelijkheden in Android.  
- 
- In haar Abstract kunnen we het volgende lezen:
+ In de Bachelorproef van~\textcite{Akin2016} wordt een vergelijkende studie verricht rond verschillende persistentiemogelijkheden in Android. In de Abstract kunnen we het volgende lezen:
  
  \begin{displayquote}
  	Vandaag de dag bestaan er veel applicaties, maar hoeveel daarvan blijven werken
@@ -333,7 +331,7 @@ De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwa
 Indien je op vorige componenten geen antwoord vindt uit de tekst, probeer dan zelf een antwoord te formuleren indien jij dit onderzoek zou uitvoeren. 
 
 \section{Centrummaten en spreidingsmaten in R}
-In vorig hoofdstuk hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken gebruikt in het onderzoek van Ozgur. In de volgende oefeningen gaan we trachten de resultaten na te maken. 
+In vorig hoofdstuk hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken gebruikt in het onderzoek van~\textcite{Akin2016}. In de volgende oefeningen gaan we trachten de resultaten na te maken. 
 
 Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu} nodig. 
 
@@ -345,7 +343,7 @@ We gaan het programma \texttt{R} gebruiken samen met \texttt{RStudio}. Open de f
 
 \begin{lstlisting}
 	#laad de data in
-	android_cpu <-  read.table("H:/Education/onderzoekstechnieken2.0/onderzoekstechnieken-cursus/oefeningen/data/oef_3_1variabele/android_persistence_cpu.csv",
+	android_cpu <-  read.table("android_persistence_cpu.csv",
 	header=TRUE, sep=";", na.strings="NA", dec=",", strip.white=TRUE)
 	#Bekijk de data
 	showData(android_cpu, placement='-20+200', font=getRcmdr('logFont'), maxwidth=80, maxheight=10)	
