@@ -50,10 +50,10 @@ samples <- lapply(1:num_samples, pop_sample)
 print("Average estimations of population stdev:")
 sprintf("Whichever is closest to %f, is the best estimator", population_stdev)
 
-# First, let's calculate variances with the "population" formula: denominator n
+# First, let's calculate standard deviations with the "population" formula: denominator n
 results_pop_sd <- sapply(samples, pop_sd)
 sprintf("denominator n  : %f", mean(results_pop_sd))
 
-# Then, calculate varia
+# Then, calculate standard deviation with the built-in function sd(): denominator n-1
 results_sample_sd <- sapply(samples, sd)
 sprintf("denominator n-1: %f", mean(results_sample_sd))
