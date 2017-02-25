@@ -278,7 +278,7 @@
     Aangepaste formule:
     
     \begin{equation*}
-    s^2 = \frac{1}{\alert{n-1}} \sum_{i=1}^{n} (\overline{x} - x_i)
+    s^2 = \frac{1}{\alert{n-1}} \sum_{i=1}^{n} (\overline{x} - x_i)^2
     \end{equation*}
     
     De reden voor de wijziging kan je wiskundig bewijzen, maar we gaan het empirisch onderzoeken
@@ -583,7 +583,7 @@
 \begin{tikzpicture}
 \begin{axis}[
   domain=-3:3, samples=100,
-  axis lines*=left, xlabel=$z$, ylabel=$$,
+  axis lines*=left, xlabel=$z$,
   every axis y label/.style={at=(current axis.above origin),anchor=south},
   every axis x label/.style={at=(current axis.right of origin),anchor=west},
   height=5cm, width=12cm,
@@ -618,6 +618,24 @@ construeren we
   \[ \overline{x} \pm t_{\frac{\alpha}{2}}(\frac{s}{\sqrt{n}}) \]
   waarbij $t_{\frac{\alpha}{2}}$ gebaseerd is op $(n-1)$ vrijheidsgraden. We veronderstellen wel dat we een aselecte steekproef genomen hebben uit
   een populatie die bij benadering normaal verdeeld is.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Student $t$-verdeling in R}
+
+Voor een $t$-verdeling met \texttt{df} vrijheidsgraden:
+\vfill
+\centering
+\begin{tabular}{ll}
+	\textbf{Functie} & \textbf{Betekenis}                                         \\ \hline
+	\verb|pt(x, df)| & Linkerstaartkans, $P(X<\mathtt{x})$                        \\
+	\verb|dt(x, df)| & Hoogte van de curve op punt \texttt{x}                     \\
+	\verb|qt(p, df)| & Onder welke grens zal \texttt{p}\% van de waarnemingen     \\
+	                 & liggen?                                                    \\
+	\verb|rt(n, df)| & Genereer \texttt{n} random getallen volgens deze verdeling
+\end{tabular}
+
 \end{frame}
 
 \subsection{Betrouwbaarheidsinterval voor fractie}
