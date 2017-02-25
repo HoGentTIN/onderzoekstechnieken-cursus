@@ -37,6 +37,34 @@
 \usetikzlibrary{pgfplots.statistics}
 
 
+\lstset{ %
+  language=R,                     % the language of the code
+  float=H,
+  basicstyle=\tiny,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{HoGentGrey},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+  % will be numbered																
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  title=\lstname,                 % show the filename of files included with \lstinputlisting;
+  % also try caption instead of title
+  keywordstyle=\color{HoGentBlue}, % keyword style
+  commentstyle=\color{HoGentGrey}, % comment style
+  stringstyle=\color{HoGentRed},  % string literal style
+  escapeinside={\%*}{*)},         % if you want to add a comment within your code
+  morekeywords={*,...}            % if you want to add more keywords to the set
+} 
+
 \usetheme{hogent}
 \setbeameroption{show notes}
 
@@ -424,6 +452,24 @@
     \item Symmetrieregel
     \item Regel van 100\% kans
   \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Belangrijkste functies in R}
+  
+  Voor een normale verdeling met gemiddelde \texttt{m} en standaardafwijking \texttt{s}:
+  \vfill
+  \centering
+  \begin{tabular}{ll}
+  	\textbf{Functie}      & \textbf{Betekenis}                          \\ \hline
+  	\verb|pnorm(x, m, s)| & Linkerstaartkans, $P(X<\mathtt{x})$         \\
+  	\verb|dnorm(x, m, s)| & Hoogte van de Gausscurve op punt \texttt{x} \\
+  	\verb|qnorm(p, m, s)| & Onder welke grens zal \texttt{p}\% van de   \\
+  	                      & waarnemingen liggen?                        \\
+  	\verb|rnorm(n, m, s)| & Genereer \texttt{n} normaal verdeelde random getallen
+  \end{tabular}
+  \vfill
+  Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de standaardnormaalverdeling.
 \end{frame}
 
 \begin{frame}
