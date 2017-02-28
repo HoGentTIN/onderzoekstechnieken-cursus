@@ -354,7 +354,7 @@ Voor de tweede uitdrukking vinden we
 \end{theorem}
 
 
-\begin{table}[t] \centering
+\begin{table} \centering
   \begin{tabular}{@{}rr@{}} \toprule
     Eiwitgehalte\%& Gewichtstoename (gram)  \\
     \midrule
@@ -373,7 +373,7 @@ Voor de tweede uitdrukking vinden we
 
 
 
-\begin{table}[h] \centering
+\begin{table} \centering
   \begin{tabular}{@{}llllll@{}}
     \toprule
     $x$   & $y$     & $x-\overline{x}$    & $y - \overline{y}$        & $(x-\overline{x})(y - \overline{y})$       &  $(x-\overline{x})^{2}$    \\ \midrule
@@ -392,7 +392,7 @@ Voor de tweede uitdrukking vinden we
 
 
 
-\begin{figure}[t]
+\begin{figure}
   \begin{tikzpicture}
     \begin{axis}[
         axis x line=middle,
@@ -409,8 +409,9 @@ Voor de tweede uitdrukking vinden we
       \addplot [no markers, thick, red] table [y={create col/linear regression={y=y}}] {data/santa.txt};
     \end{axis}
   \end{tikzpicture}
-  \label{fig:rendierenFiguur}
+
   \caption{Lineair verband tussen eiwitgehalte en gewichtstoename}
+  \label{fig:rendierenFiguur}
 \end{figure}
 
 
