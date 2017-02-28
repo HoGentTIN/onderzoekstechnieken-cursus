@@ -1,7 +1,6 @@
 \chapter{Steekproefonderzoek}
 Een reden om kwantitatief onderzoek uit te voeren is het kunnen doen van uitspraken die een representatief beeld van de werkelijkheid geven. Hierbij wordt vaak gebruikgemaakt van een steekproef. Een steekproef is een selectie uit een totale populatie ten behoeve van een meting van bepaalde eigenschappen van die populatie.
 
-
 \begin{figure}
 \centering
   \begin{tikzpicture}[xscale=4,yscale=2]
@@ -73,7 +72,7 @@ Een \textbf{gestratificeerde} \index{gestratificeerd} steekproef is proportionee
   Indien we uit een populatie van de superhelden kijken naar de leeftijd van  mannen en vrouwen, zien we in tabel \ref{tab:heldenPopulatie1} de absolute waarden. We kunnen niet alle superhelden ondervragen, maar indien we een steekproef nemen waarbij de mannen en leeftijdscategorie\"en relatief equivalent zijn met de populatie, hebben we een gestratificeerde steekproef genomen (zie tabel \ref{tab:heldenPopulatie2}).
 \end{example}
 
-  \begin{table}[h]
+  \begin{table}
   \centering
     \begin{tabular}{l|cccc|c}
       & \multicolumn{4}{c|}{\textbf{Leeftijd}} & \\
@@ -88,7 +87,7 @@ Een \textbf{gestratificeerde} \index{gestratificeerd} steekproef is proportionee
     \label{tab:heldenPopulatie1}
 \end{table}
 
-\begin{table}[h]
+\begin{table}
   \centering
     \begin{tabular}{l|cccc|c}
       & \multicolumn{4}{c|}{\textbf{Leeftijd}} & \\
@@ -332,6 +331,22 @@ In het algemeen kan dus bij een waarneming $x$ de zogenaamde $z$-score bepalen a
 
 Deze score geeft dus aan hoe extreem een waarneming is of anders gezegd, hoeveel standaarddeviaties is de waarneming $x$ van het gemiddelde $\mu$ verwijderd. Voor een willekeurige $x$-waarde kunnen we met formule \ref{eq:zscore} de bijhorende $z$-score bepalen. Voor deze $z$-scores heeft men tabellen opgesteld met de kansen dat een waarde kleiner dan $z$ getrokken wordt uit Z, de zgn.~linkerstaartkans\footnote{Er bestaan ook tabellen met de rechterstaartkans}: $P(Z<z)$.
 
+R heeft eveneens functies voor het rekenen met kansen van normaal verdeelde variabelen. Deze worden samengevat in Tabel~\ref{rab:norm-prob-r}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{ll}
+  	\textbf{Functie}      & \textbf{Betekenis}                                             \\ \hline
+  	\verb|pnorm(x, m, s)| & Linkerstaartkans, $P(X<\mathtt{x})$                            \\
+  	\verb|dnorm(x, m, s)| & Hoogte van de Gausscurve op punt \texttt{x}                    \\
+  	\verb|qnorm(p, m, s)| & Onder welke grens zal \texttt{p}\% van de waarnemingen liggen? \\
+  	\verb|rnorm(n, m, s)| & Genereer \texttt{n} normaal verdeelde random getallen
+  \end{tabular}
+  
+  \caption{Kansberekeningsfuncties in R voor een normale verdeling met gemiddelde \texttt{m} en standaardafwijking \texttt{s}. Indien argumenten \texttt{m} en \texttt{s} weglaten worden, wordt de standaardnormaalverdeling verondersteld.}
+  \label{rab:norm-prob-r}
+\end{table}
+
 We komen dan tot de volgende methode voor het berekenen van kansen met de normale verdeling:
 \begin{enumerate}
   \item Bepaal de kansvariabele met de bijbehorende normale verdeling
@@ -340,29 +355,22 @@ We komen dan tot de volgende methode voor het berekenen van kansen met de normal
   \item Herleid de gevraagde kans met behulp van de schets tot een linkerstaartkans en gebruik de $z$-tabel van de standaardnormale verdeling om deze te bepalen. Gebruik indien nodig de symmetrieregel en de regel van 100\% kans.
 \end{enumerate}
 
-\begin{exercise}
+\begin{example}
 Hoe groot is de kans dat superman in minder dan 4 ms reageert?
-\end{exercise}
-
 \[ P(X < 4) = P(Z < -0,67) = 0,2514 \]
-
-\begin{exercise}
+\end{example}
+\begin{example}
 Hoe groot is de kans dat hij in minder dan 7 ms reageert?
-\end{exercise}
-
 \[ P(X < 7) = P(Z < 1,33) = 0,9082 \]
-
-\begin{exercise}
+\end{example}
+\begin{example}
 Hoe groot is de kans dat superman in minder dan 3 ms reageert?
-\end{exercise}
-
 \[ P(X<3) = P(Z < -1,33) = 0,0918 \]
-
-\begin{exercise}
+\end{example}
+\begin{example}
 Hoe groot is de kans dat hij reageert tussen de 2 en 6,5 ms
-\end{exercise}
-
 \[ P( 2 < X < 6,5) = P(X<6,5) - P(X<2) = P(Z<1) - P(Z<-2) = 0,8186 \]
+\end{example}
 
 \subsection{Testen op normaliteit}
 
@@ -390,14 +398,21 @@ Er zijn verschillende methoden die kunnen gebruikt worden om na te gaan of een s
 
 \begin{definition}[QQ-plot of normaliteitsplot]
   \label{def:qq-plot}
-  Een normaliteitsplot of QQ-plot\footnote{Q staat hier voor \emph{quantile}, kwantiel} voor een gegevens\-verzameling is een spreidingsdiagram met de gesorteerde gegevenswaarden op de ene as en de bijbehorende verwachte $z$-waarden van een standaardnormale verdeling op de andere as.
+  Een normaliteitsplot of QQ-plot\footnote{Q staat hier voor \emph{quantile}, kwantiel} voor een gegevens\-verzameling is een spreidingsdiagram met de gesorteerde gegevenswaarden op de ene as en de bijbehorende verwachte $z$-waarden van een standaardnormale verdeling op de andere as. Zie figuur~\ref{fig:qqplot} voor enkele voorbeelden.
 \end{definition}
 
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=.45\textwidth]{sampling-qqplot-good}
+    \includegraphics[width=.45\textwidth]{sampling-qqplot-bad}
+  \end{center}
+  \caption{De QQ-plot links is gebaseerd op een steekproef van 50 observaties uit een normale distributie met gemiddelde 1000 en standaardafwijking 50. De rechterplot is gebaseerd op een Student-$t$ distributie met 15 vrijheidsgraden. Het aantal observaties, gemiddelde en standaardafwijking zijn hetzelfde als links.
+    De lijnen in het rood duiden aan waar zich in theorie de observaties zouden moeten bevinden. Links is dat min of meer zo, maar rechts wijken de observaties af, vooral in de extremen.}
+  \label{fig:qqplot}
+\end{figure}
 
-
-
-\subsubsection{$\chi^{2}$ verdeling}
-Laat $X_{1}, X_{2}, \dots X_{v}$ onafhankelijk standaardnormale variabelen zijn ($\sim N(0,1)$). De $\chi^{2}$ variabele wordt als volgt gedefinieerd:
+\subsection[Chi-kwadraatverdeling]{$\chi^{2}$ verdeling}
+Laat $X_{1}, X_{2}, \dots X_{v}$ onafhankelijk standaardnormale variabelen zijn ($\sim N(0,1)$). De $\chi^{2}$ (chi-kwadraat) variabele wordt als volgt gedefinieerd:
 \[ \chi^{2}_{v} = X_{1}^{2} + X_{2}^{2} + \dots + X_{v}^{2} \]
 
 Het getal $v$ noemt men het aantal vrijheidsgraden van de variabele. $\chi^{2}$ is een continue toevalsveranderlijke, die positief is omdat ze de som is van kwadraten. Haar dichtheidsfunctie is de volgende:
@@ -411,8 +426,8 @@ De $\chi^{2}$ variabele komt niet in de natuur voor. Geen verschijnsel kan erdoo
 \section{Centrale limietstelling}
 \label{sec:centrale-limietstelling}
 
-\begin{definition}[Lineaire combinatie van onafhankelijke, normaal verdeelde stochasten]
-Formeel: Een lineaire combinatie van onafhankelijke, normaal verdeelde stochasten is steeds normaal verdeeld.
+\begin{definition}[Lineaire combinatie van onafhankelijke, gelijk verdeelde stochasten]
+Formeel: Een lineaire combinatie van onafhankelijke, gelijk verdeelde stochasten is steeds normaal verdeeld.
 
 \[X_{i} \sim Nor(\mu_{i}, \sigma_{i}) \Rightarrow Y = \sum_{i} \alpha_{i} X_{i} \textnormal{ ook normaal verdeeld} \]
 
@@ -430,7 +445,7 @@ Bij het afnemen van een steekproef is zelden de onderliggende verdeling gekend, 
 
 Want, mocht de verdeling van het steekproefgemiddelde afhankelijk zijn van de onderliggende verdeling, een resultaat dat men tot op zekere hoogte zelfs zou verwachten, zou het onmogelijk zijn om concrete uitspraken te doen over vele wetenschappelijke resultaten. In de theoretische statistiek duiken vrijwel constant limieten van steekproefgemiddeldes op, en deze kunnen dankzij de centrale limietstelling zonder verpinken vervangen worden door een normale verdeling. Zou dit niet mogelijk zijn, dan zou de ganse theorie rond het schatten van parameters in elkaar storten wat dan weer rampzalig zou zijn voor de praktijk. Onderzoeken vergelijken zou herleid worden tot een quasi onmogelijke opgave, en de statistiek in het algemeen zou veel lastiger en ingewikkelder worden.
 
-\subsection{Centrale limietstelling concreet}
+\subsection{Toepassing van de centrale limietstelling}
 Bij het trekken van een aselecte steekproef van omvang $n$ uit een populatie met (onbekend) gemiddelde $\mu$ en standaarddeviatie $\sigma$ is de kansverdeling van het steekproefgemiddelde een kansvariabele $M \sim N (\overline{x}, \frac{\sigma}{\sqrt{n}})$, op voorwaarde dat de steekproefomvang voldoende groot is.
 
 \begin{example}
@@ -496,7 +511,7 @@ Opgelet, we gaan er hier van uit dat we de standaarddeviatie van de populatie ke
 \begin{tikzpicture}
 \begin{axis}[
   domain=-3:3, samples=100,
-  axis lines*=left, xlabel=$z$, ylabel=$$,
+  axis lines*=left, xlabel=$z$,
   every axis y label/.style={at=(current axis.above origin),anchor=south},
   every axis x label/.style={at=(current axis.right of origin),anchor=west},
   height=5cm, width=12cm,
@@ -546,6 +561,19 @@ Indien we nu een betrouwbaarheidsinterval willen bepalen voor een steekproef met
   een populatie die bij benadering normaal verdeeld is.
 \end{definition}
 
+\begin{table}
+  \centering
+  \begin{tabular}{ll}
+  	\textbf{Functie} & \textbf{Betekenis}                                             \\ \midrule
+  	\verb|pt(x, df)| & Linkerstaartkans, $P(X<\mathtt{x})$                            \\
+  	\verb|dt(x, df)| & Hoogte van de curve op punt \texttt{x}                         \\
+  	\verb|qt(p, df)| & Onder welke grens zal \texttt{p}\% van de waarnemingen liggen? \\
+  	\verb|rt(n, df)| & Genereer \texttt{n} random getallen volgens deze verdeling
+  \end{tabular}
+
+  \caption{Kansberekeningsfuncties in R voor de Student-$t$ verdeling met \texttt{df} vrijheidsgraden, verwachte waarde 0 en standaardafwijking 1.}
+  \label{tab:t-prob-r}
+\end{table}
 
 \subsection{Betrouwbaarheidsinterval voor populatiefractie bij een grote steekproef}
 
@@ -568,3 +596,167 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
   met $\overline{p} = \frac{x}{n}$ en $\overline{q} = 1- \overline{p}$
 \end{definition}
 
+\section{Oefeningen}
+\label{sec:steekproefonderzoek-oefeningen}
+
+\begin{exercise}
+  Een onderzoeker wil zo correct mogelijk de consumptiegewoontes van de inwoners van 18 jaar en ouder in een bepaalde gemeente, met 3 woonkernen, onderzoeken.  Hij onderscheidt 4 leeftijdsgroepen zodat hij uiteindelijk aan 12 deelgroepen komt. Hij vraagt de procentuele samenstelling van de bevolking op in de gemeente en berekent daaruit hoeveel bevragingen hij per deelgroep moet uitvoeren.  Dit noemen we een \emph{quotasteekproef}.
+  
+  Vragen:
+  \begin{enumerate}[label=\alph*.]
+    \item Wat zijn de voor- en nadelen?
+    \item Welke soort fouten kunnen hier gemaakt worden?
+    \item Welke andere parameters zouden kunnen gebruikt worden bij het opsplitsen in deelgroepen?
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Een onderzoeksbureau wil het aankoopgedrag van wasprodukten nagaan. Men beslist een aantal vragen te stellen aan vrouwen tussen de 25 en 55 jaar omdat men ervan uitgaat dat de relevante populatie uit deze categorie consumenten bestaat. 
+  
+  Vraag:
+  
+  \begin{enumerate}[label=\alph*.]
+    \item Welke fout wordt hier gemaakt? 
+    \item Hoe groot is de impact van deze fout?
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  	De vakbonden willen een onderzoek doen naar de werkomstandigheden van de werknemers van een IT-bedrijf. Dat bedrijf heeft in totaal 3200 werknemers die verdeeld zijn over 
+  12 vestigingen. Omdat het aantal werknemers groot is worden aselect 40 werknemers gekozen per vestiging. De steekproefomvang is dus $n = 480$.	
+  \begin{enumerate}[label=\alph*.]
+    \item Welk bezwaar kan tegen deze steekproefprocedure worden gebracht?
+    \item Wanneer zou dit geen bezwaar zijn?
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  We willen een onderzoek voeren naar onze studenten aan de Hogeschool Gent, faculteit Bedrijf en Organisatie. Hiervoor worden de aanwezige studenten in een bepaald opleidingsonderdeel bevraagd.
+  
+  \begin{enumerate}[label=\alph*.]
+    \item Welke kritiek kan je op deze methode geven?
+    \item Stel dat de aanwezige docent een kernvak geeft, zeer streng is en tijdens de bevraging rondloopt. Welk bezwaar kan hier gegeven worden?
+    \item Stel dat de bevraging niet tijdens een les, maar na een examen gehouden wordt. Welke kritiek kan je op deze methode geven?
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Bereken met behulp van de tabel van de normale verdeling de volgende kansen door de gevraagde kans te herleiden tot een linkerstaartkans. Teken ook elke keer het gevraagde gebied.
+  \begin{enumerate}[label=\alph*.]
+    \item $P(Z < 1.33)$
+    \item $P(Z > 1.33)$
+    \item $P(Z < -1.33)$
+    \item $P(Z > -1.33)$
+    \item $P(Z < 0.45)$
+    \item $P(Z > -1.05)$
+    \item $P(Z < 0.65)$
+    \item $P(-0.45 < Z < 1.20)$
+    \item $P(-1.35 < Z < -0.10)$
+    \item $P(-2.10 < Z < -0.90)$
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  In de  Hogeschool zijn er twee klassen voor het vak onderzoekstechnieken. De studenten werden willekeurig over de klassen verdeeld, zodat we mogen veronderstellen dat de ene klas niet slimmer is dan de andere. In de A-klas geeft mevr. X les, in de B-klas geeft mr. Y les. X is nogal streng en op het einde van het schooljaar behaalt haar klas een gemiddelde van 54 op 100 met een standaardafwijking van 11.
+
+  Y is iets losser en stimuleert de leerlingen al gauw met een puntje meer. Op het einde van het schooljaar behaalt zijn klas een gemiddelde van 62 op 100 en een standaardafwijking van 7.
+
+  Wouter zit in de A-klas en heeft $\frac{63}{100}$ voor wiskunde. Stijn zit in de B-klas en behaalt $\frac{67}{100}$. Wie heeft volgens jou het beste gescoord?
+\end{exercise}
+
+\begin{exercise}
+  Een gezondheidsonderzoek tussen 1988 en 1994 gaf aan dat de gemiddelde cholesterolwaarde bij vrouwen tussen 20 en 29 jaar 183 mg/dl bedroeg, met een standaardafwijking gelijk aan 36. We nemen nu een aselecte steekproef van 81 vrouwen. Los volgende vragen op:
+  
+  \begin{enumerate}[label=\alph*.]
+    \item Schets de kansdichtheidsfunctie voor de populatie en de kansverdeling van het steekproefgemiddelde $\overline{x}$.
+    \item Bepaald de kans dat $\overline{x}$ kleiner is dan 185.
+    \item Bepaal de kans dat $\overline{x}$ tussen 175 en 185 ligt.
+    \item Bepaal de kans dat $\overline{x}$ groter is dan 190. 
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Een aselecte steekproef van 64 stuks wordt getrokken uit een populatie met onbekende verdeling. De verwachting en de standaardafwijking van de populatie
+  zijn wel gekend: $\mu = 20$ en $\sigma=16$. Los volgende vragen op:
+  
+  \begin{enumerate}[label=\alph*.]
+    \item Bepaal de verwachting en standaardafwijking van het steekproefgemiddelde.
+    \item Beschrijf de vorm van de verdeling van het steekproefgemiddelde. In hoeverre hangt je antwoord af van de grootte van de steekproef?
+    \item Bereken de $z$ score bij $\overline{x_{1}} = 15.5$ en $\overline{x_{2}} = 23$.
+    \item Bepaal kans dat $\overline{x} <16$.
+    \item Bepaal kans dat $\overline{x} > 23$.
+    \item Bepaal kans dat $16< \overline{x}< 22$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Verkeersdrempels zijn bedoeld om de snelheid van automobilisten te be\"invloeden. Afhankelijk van de gewenste snelheid in een straat worden de drempels steiler of minder steil gemaakt. Drempel A is zo ontworpen dat 85 \% van de automobilisten de drempel passeert met een snelheid van minder dan 50 km per uur. In de praktijk blijkt dat de passeersnelheid bij een drempel normaal verdeeld is. Bij drempel A werd een gemiddelde passeersnelheid van 43,1 km/h gevonden met standaardafwijking 6,6 km/h.
+  
+  \begin{enumerate}[label=\alph*.]
+    \item Toon aan dat 85\% van de automobilisten niet harder dan 50 km/h rijdt.
+    \item Bij hoeveel van de 1200 metingen kan, op grond van eerdere ervaringen, een snelheid van meer dan 55 km/h worden verwacht?
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Gegeven 20 examenresultaten in Tabel~\ref{tab:examen}. Uit resultaten van de laatste jaren blijkt dat $\sigma = 2.45$.
+  
+  \begin{enumerate}[label=\alph*.]
+    \item Wat is $\sigma_{\overline{x}}$ , de standaardafwijking van $\overline{x}$?
+    \item Geef het 92\% betrouwbaarheidsinterval voor $\mu$.
+    \item Kunnen we er zeker van zijn dat het gemiddeld resultaat minder dan 12.5 bedraagt?
+  \end{enumerate}
+\end{exercise}
+
+\begin{table}
+  \centering
+  \begin{tabular}{llllllllll}
+    11.5 & 16.5 & 11 & 17.3 & 10.8 & 5.6  & 13.1 & 11.5 & 14.2 & 12.9 \\
+    8.7  & 9.2  & 15 & 14.4 & 10   & 10.3 & 18.3 & 12.9 & 14.2 & 8.7 
+  \end{tabular}
+  \caption{Examenresultaten}
+  \label{tab:examen}
+\end{table}
+
+\begin{exercise}
+  Een schoenhandelaar voert een marktonderzoek uit bij 500 klanten. Daaruit blijkt dat 30\% van hen minstens éénmaal per jaar sportschoenen koopt.  Op basis van secundaire informatie weet hij dat het nationaal gemiddelde op 26\% ligt.  Hij vraagt zich nu af in hoeverre zijn zaak in dat opzicht afwijkt van de nationale norm? (We werken met $\alpha= 5\%$, tweezijdig.)
+\end{exercise}
+
+\begin{exercise}
+  Een conservenfabrikant krijgt de laatste tijd klachten over de netto inhoud van zijn conserven met wortelen en erwtjes, die volgens de verpakking netto 1 liter zouden moeten bevatten. Daarom laat hij een steekproef nemen waarin de netto inhoud van 40 willekeurig gekozen blikjes wordt gecontroleerd. De resultaten worden samengevat in Tabel~\ref{tab:Steekproefwaarden}.
+
+Vraag A: 
+\begin{itemize}
+  \item Vul de tabel aan met de cummulatieve absolute frequentie
+  \item Vul de tabel aan met de relatieve frequentie
+  \item Vul de tabel aan met de cummulatieve relatieve frequentie.
+\end{itemize}
+Vraag B:
+
+\begin{itemize}
+  \item Bereken het gemiddelde
+  \item Bereken de standaardafwijking
+  \item Hoeveel procent van de blikken bevatten te weinig wortelen en erwtjes.
+  \item Teken een histogram van de absolute frequentie.
+  \item Zijn de gegevens normaal verdeeld?  Hoe zie je dat?
+\end{itemize}
+
+\end{exercise}
+
+  \begin{table}
+  \centering
+  \begin{tabular}{lr}
+    \toprule
+    Inhoud & $n_{i}$ \\
+    \midrule
+    $[970,980[$ & 3 \\
+    $[980,990[$ & 5 \\
+    $[990,1000[$ & 13 \\
+    $[1000,1010[$ & 11 \\ 
+    $[1010,1020[$ & 5 \\
+    $[1020,1030[$ & 3 \\
+    \bottomrule
+  \end{tabular}
+  \caption{Steekproefwaarden}
+  \label{tab:Steekproefwaarden}
+\end{table}
