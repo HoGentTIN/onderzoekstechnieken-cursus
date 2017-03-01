@@ -31,6 +31,13 @@ Een reden om kwantitatief onderzoek uit te voeren is het kunnen doen van uitspra
   \label{fig:superheldenSteekproef}
 \end{figure}
 
+\begin{figure}
+  \centering
+  \includegraphics[width=0.85\textwidth]{images/les5-heroes.jpg}
+  \caption{Onze superhelden die we onderzoeken vormen een steekproef uit de populatie van alle superhelden.}
+  \label{fig:populatieHelden}
+\end{figure}
+
 \section{Populatie en Steekproeven}
 \begin{definition}[Populatie]
   De verzameling van \textbf{alle} objecten of personen waar men in ge\"interesseerd is en onderzoek naar wil doen noemt men de \index{populatie} populatie. Een ander woord is ook wel onderzoeksgroep of doelgroep.
@@ -58,8 +65,6 @@ Om een steekproef op te zetten volg je volgende stappen:
   \item \textbf{Bepalen van steekproefkader}: Een populatie heeft verschillende segmenten zoals bijvoorbeeld rijke superhelden, arme superhelden, bekende en onbekende superhelden, superhelden met en zonder oudercomplex \dots In de praktijk is het meestal onmogelijk om de populatie als geheel te onderzoeken. Daarom beperken we ons vaak tot enkele redelijk homogene subpopulaties of segmenten. De populatiesegmenten die daadwerkelijk onderzocht worden noemen we de operationele populatie.
   \item \textbf{Budget en Tijd}: het aantal te onderzoeken objecten of personen zal ook afhankelijk zijn van budget en tijd.
 \end{enumerate}
-
-
 
 \section{Kiezen van steekproefmethode}
   Soms is de populatie die men wenst te bestuderen erg verschillend op een aantal belangrijke kenmerken. Daartoe wordt de populatie als geheel in een aantal elkaar niet-overlappende en homogene strata of klassen ingedeeld.
@@ -102,9 +107,6 @@ Een \textbf{gestratificeerde} \index{gestratificeerd} steekproef is proportionee
     \label{tab:heldenPopulatie2}
   \end{table}
 
-
-
-
 Nadat gestratificieerd is, moet bepaald worden op welke wijze binnen ieder stratum het aantal benodigde objecten of respondenten gekozen moet worden. Bij de toevals- of \textbf{aselecte} \index{aselect} steekproeven heeft elk element van de populatie een even mogelijke kans om in de steekproef te worden opgenomen. Dit heeft als gevolg dat je op basis van de data van een aselecte steekproef conclusies kan trekken ten aanzien van de kenmerken van een populatie, en dit in tegenstelling met een \textbf{niet-aselecte} steekproef. In een niet-aselecte steekproef kent men de kans niet dat elk lid van de populatie heeft om in de steekproef terecht te komen, met als gevolg dat je gegevens enkel gelden voor je onderzochte groep.
 
 \subsection{Fouten bij steekproeven}
@@ -113,13 +115,6 @@ Wanneer er puur door het toeval een verschil is in een waarde voor de populatie 
 
 \subsubsection{Systematische steekproeffouten}
 Een procedure in de steekproef die een fout oplevert die een systematische oorzaak heeft en dus niet te wijten is aan toevallige effecten. Bijvoorbeeld door systematisch een bevoordeeld deel van de populatie te ondervragen. Als we onze superhelden zouden ondervragen via het internet, sluiten we alle superhelden uit die geen internetverbinding hebben.
-
-\begin{figure}[t]
-  \centering
-    \includegraphics[width=0.85\textwidth]{images/les5-heroes.jpg}
-  \caption{Onze superhelden die we onderzoeken vormen een steekproef uit de populatie van alle superhelden.}
-  \label{fig:populatieHelden}
-\end{figure}
 
 \subsubsection{Toevallige niet-steekproeffouten}
 Hieronder vallen bijvoorbeeld verkeerd aangekruiste antwoorden of verschil in interpretatie van de vragen.
@@ -398,7 +393,7 @@ Er zijn verschillende methoden die kunnen gebruikt worden om na te gaan of een s
 
 \begin{definition}[QQ-plot of normaliteitsplot]
   \label{def:qq-plot}
-  Een normaliteitsplot of QQ-plot\footnote{Q staat hier voor \emph{quantile}, kwantiel} voor een gegevens\-verzameling is een spreidingsdiagram met de gesorteerde gegevenswaarden op de ene as en de bijbehorende verwachte $z$-waarden van een standaardnormale verdeling op de andere as. Zie figuur~\ref{fig:qqplot} voor enkele voorbeelden.
+  Een normaliteitsplot of QQ-plot\footnote{Q staat hier voor \emph{quantile}, kwantiel} voor een gegevens\-verzameling is een spreidingsdiagram met de gesorteerde gegevenswaarden op de ene as en de bijbehorende verwachte $z$-waarden van een standaardnormale verdeling op de andere as. Zie figuur~\ref{fig:qqplot} voor enkele voorbeelden. De R-code voor het genereren van deze afbeeldingen is hieronder gegeven.
 \end{definition}
 
 \begin{figure}
@@ -410,6 +405,8 @@ Er zijn verschillende methoden die kunnen gebruikt worden om na te gaan of een s
     De lijnen in het rood duiden aan waar zich in theorie de observaties zouden moeten bevinden. Links is dat min of meer zo, maar rechts wijken de observaties af, vooral in de extremen.}
   \label{fig:qqplot}
 \end{figure}
+
+\lstinputlisting{data/qqplot.R}
 
 \subsection[Chi-kwadraatverdeling]{$\chi^{2}$ verdeling}
 Laat $X_{1}, X_{2}, \dots X_{v}$ onafhankelijk standaardnormale variabelen zijn ($\sim N(0,1)$). De $\chi^{2}$ (chi-kwadraat) variabele wordt als volgt gedefinieerd:
