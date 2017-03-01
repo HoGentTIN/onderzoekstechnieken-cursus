@@ -340,11 +340,8 @@ Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu} nodig.
 We gaan het programma \texttt{R} gebruiken samen met \texttt{RStudio}. Open de file in \texttt{RStudio}.
 
 \begin{lstlisting}
-	#laad de data in
-	android_cpu <-  read.table("android_persistence_cpu.csv",
-	header=TRUE, sep=";", na.strings="NA", dec=",", strip.white=TRUE)
-	#Bekijk de data
-	showData(android_cpu, placement='-20+200', font=getRcmdr('logFont'), maxwidth=80, maxheight=10)	
+android_cpu <-  read.csv("android_persistence_cpu.csv", sep=";", dec=",")
+attach(android_cpu)
 \end{lstlisting}
 
 We hebben nu de data ingeladen. We kunnen eens kijken wat de gemiddelde tijd, de standaarddeviatie, de kwartielen e.a. zijn. Gebruik hiervoor de commando's \texttt{mean}, \texttt{median}, \texttt{quantile}, \texttt{min}, \texttt{max}, \texttt{var}, \texttt{sd}. Je kan ook makkelijk gebruik maken van de methode \texttt{summary}.
@@ -358,11 +355,8 @@ We hebben nu de data ingeladen. We kunnen eens kijken wat de gemiddelde tijd, de
 Een histogram is een eenvoudige plot. het toont de frequenties van de data die in een bepaald bereik voorkomen. 
 
 \begin{lstlisting}
-	#Genereert een nieuw venstertje zodat oude grafiek niet overschreven wordt
-	windows();
-	hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd");
-	windows();
-	hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd",breaks=2);
+hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd");
+hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd",breaks=2);
 \end{lstlisting}
 \begin{exercise}
 	Wat concludeer je als je bovenstaande grafiek\footnote{Heb je wat problemen met het genereren van grafieken, volgende link \url{https://www.datacamp.com/community/tutorials/15-questions-about-r-plots\#gs.RK_ORsI} bevat een aantal goede tips and tricks om je op weg te helpen.} genereert? Is dit een zinnig resultaat? Wat gebeurt er als je de variabele breaks verhoogt?
@@ -372,10 +366,8 @@ Een histogram is een eenvoudige plot. het toont de frequenties van de data die i
 Een boxplot toont de mediaan, de kwartielen, het maximum en het minimum van een dataset. Dit geeft ons een duidelijk impressie van hoe de data er uitziet.
 
 \begin{lstlisting}
-	#Genereer een nieuwe plot
-	plot.new();
-	boxplot(x = android_cpuTijd);
-	 boxplot(android_cpu$Tijd,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
+boxplot(x = android_cpu$Tijd);
+boxplot(android_cpu$Tijd,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
 \end{lstlisting} 
 
 \begin{exercise}
@@ -385,7 +377,7 @@ Een boxplot toont de mediaan, de kwartielen, het maximum en het minimum van een 
 Als je goed geantwoord hebt op de volgende vragen merk je natuurlijk dat het weinig zin heeft de volledige dataset te analyseren, aangezien de dataset verdeeld is over verschillende categorie\"en. We willen dus wel deze statistieken weten, maar per categorie. We kunnen zus een boxplot maken voor elke categorie.
 
 \begin{lstlisting}
-	boxplot(android_cpu$Tijd~android_cpu$Datahoeveelheid,main='Spreiding van de CPU tijd t.o.v. datahoeveelheid',ylab='Tijd in ms');
+boxplot(android_cpu$Tijd~android_cpu$Datahoeveelheid,main='Spreiding van de CPU tijd t.o.v. datahoeveelheid',ylab='Tijd in ms');
 \end{lstlisting}
 
 \begin{exercise}
@@ -402,19 +394,16 @@ We kunnen hetzelfde doen voor de verschillende soorten dataopslagmogelijkheden i
 We kunnen eens kijken hoe de data eruit ziet over alle categorie\"en heen.
 
 \begin{lstlisting}
-	boxplot(android_cpu$Tijd~android_cpu$PersistentieType*android_cpu$Datahoeveelheid,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
+boxplot(android_cpu$Tijd~android_cpu$PersistentieType*android_cpu$Datahoeveelheid,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
 \end{lstlisting}
-
-
 
 Het blijkt dat we wel al een duidelijker zicht krijgen over de data over de categorie\"en heen, maar de figuur is op dit moment te druk. 
 
-We moeten de data dus onderverdelen in categor\"en namelijk onder \texttt{PersistentieType} en \texttt{Datahoeveelheid}. We gaan hiervoor de functie \texttt{which}\footnote{Je kan ook gebruik maken van de functie \texttt{subset}, wat misschien zelfs eenvoudiger is} gebruiken en kijken hoe de verschillende datahoeveelheden verschillen per datahoeveelheidcategorie. 
+We moeten de data dus onderverdelen in categorie\"en namelijk onder \texttt{PersistentieType} en \texttt{Datahoeveelheid}. We gaan hiervoor de functie \texttt{which}\footnote{Je kan ook gebruik maken van de functie \texttt{subset}, wat misschien zelfs eenvoudiger is} gebruiken en kijken hoe de verschillende datahoeveelheden verschillen per datahoeveelheidcategorie. 
 
 \begin{lstlisting}
-	?which
-	greenDOA <- android_cpu[which(android_cpu$PersistentieType=='GreenDAO'),];
-	boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
+greenDOA <- android_cpu[which(android_cpu$PersistentieType=='GreenDAO'),];
+boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
 \end{lstlisting}
 
 \begin{exercise}
