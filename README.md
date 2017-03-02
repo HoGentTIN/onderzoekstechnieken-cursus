@@ -22,6 +22,7 @@ In TeXstudio:
 
 ## Interessante artikels, ...
 
+- [R Tutorial](https://www.tutorialspoint.com/r/)
 - [Praktische Gids Bachelorproef](https://github.com/bertvv/bachproef-gids) (work in progress, door Bert Van Vreckem)
 - [Joint Committee on Standards for Graphic Presentation](http://www.jstor.org/stable/2965153?seq=1#page_scan_tab_contents)
 - [Spurious correlations](http://dangerousminds.net/comments/spurious_correlations_between_nicolas_cage_movies_and_swimming_pool)
