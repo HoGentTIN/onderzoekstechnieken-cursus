@@ -41,19 +41,26 @@ De beslissing om de nulhypothese $H_{0}$ te verwerpen of te aanvaarden is gebase
 In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uitspraak over het populatiegemiddelde $\mu$ verifiëren. Deze is algemeen bekend als de $z$-toets\index{$z$-toets}\index{toets!$z$-}.
 
 \begin{enumerate}
-  \item De vermoedens over de populatie worden vastgelegd in twee hypothesen $H_{0}$ en $H_{1}$.
+  \item De vermoedens over de populatie worden vastgelegd in twee hypothesen $H_{0}$ en $H_{1}$. Voor de (rechtszijdige) $z$-toets is de nulhypothese dat het populatiegemiddelde $\mu$ een bepaalde waarde heeft, en de alternatieve hypotehese dat $\mu$ \emph{groter} is.
   \item Het significantieniveau\index{significantieniveau}\index{niveau!significantie-} $\alpha$ en steekproefomvang $n$ worden vastelegd. Je kan $\alpha$ in principe zelf kiezen (bv. 0,05)\footnote{Merk op dat het significantieniveau gerelateerd is aan het betrouwbaarheidsniveau $1-\alpha$. Zie Sectie~\ref{ssec:betrouwbaarheidsinterval-grote-steekproef}}. Hoe dichter het significantieniveau bij 0 ligt, hoe minder twijfel er is over het resultaat van de toets. Maar langs de andere kant wordt het ook moeilijker om de nulhypothese te verwerpen.
-  \item De waarde van de toetsingsgrootheid in de steekproef wordt berekend. De uitkomst is bepalend voor de beslissing of we de nulhypothese $H_{0}$ kunnen verwerpen of niet. Vaak kies je de voor de hand liggende grootheid, bijvoorbeeld het steekproefgemiddelde bij een hypothese over populatiegemiddelde. We weten in dat geval dat de kansverdeling van het steekproefgemiddelde $M \sim Nor( \mu, \frac{\sigma}{\sqrt{n}})$.
-  \item Het kritieke gebied bepalen, of meer bepaald de grens tussen het aanvaardings- en het verwerpingsgebied. Deze kritieke grenswaarde\index{kritieke grenswaarde} $g$ wordt berekend als:
+  \item De waarde van de toetsingsgrootheid in de steekproef wordt berekend. De uitkomst is bepalend voor de beslissing of we de nulhypothese $H_{0}$ kunnen verwerpen of niet. We weten dankzij de centrale limietstelling dat de kansverdeling van het steekproefgemiddelde $M \sim Nor( \mu, \frac{\sigma}{\sqrt{n}})$.
+  \item Het kritieke gebied bepalen, of meer bepaald de grens tussen het aanvaardings- en het verwerpingsgebied. We zoeken een grenswaarde\index{kritieke grenswaarde} $g$ zodat:
   
   \begin{equation}
-    g = \mu \pm z \times \frac{\sigma}{\sqrt{n}}
-    \label{eq:kritieke-grenswaarde}
+  \begin{split}
+  P(M > g) = \alpha & \Leftrightarrow P\left(Z> z=\frac{g-\mu}{\sigma/\sqrt{n}}\right) = \alpha & (normalisatie)\\
+  & \Leftrightarrow P\left(Z < z = \frac{g-\mu}{\sigma/\sqrt{n}}\right) = 1-\alpha & (100\%-regel)
+  \end{split}
   \end{equation}
   
-  In deze formule hangt de waarde $z$ af van het gekozen significantieniveau. Meer bepaald is $P(Z > z) = \alpha$, of $P(Z < z) = 1 - \alpha$.
+  De $z$-waarde hangt af van het gekozen significantieniveau en kan worden opgezocht in een $z$-tabel of berekend worden met de R-functie \texttt{qnorm(1-alpha)}. Daaruit kunnen we dan $g$ afleiden:
   
-  Alle waarden die \emph{binnen} het door $g$ bepaalde gebied vormen het aanvaardingsgebied. Waarden erbuiten, die dus ver van het $H_0$ veronderstelde populatiegemiddelde liggen, zijn het verwerpingsgebied.
+  \begin{equation}
+  z = \frac{g-\mu}{\sigma/\sqrt{n}} \Leftrightarrow g = \mu + z \frac{\sigma}{\sqrt{n}}
+  \label{eq:kritieke-grenswaarde-z-toets}
+  \end{equation}
+
+  Alle waarden \emph{links} van $g$ vormen het aanvaardingsgebied. Waarden rechts, die dus ver van het $H_0$ veronderstelde populatiegemiddelde liggen, zijn het verwerpingsgebied. Zie ook Sectie~\ref{sec:kritieke-gebied}.
 \end{enumerate}
 
 \begin{example}
@@ -121,7 +128,7 @@ In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uit
 \section{Kritieke gebied}
 \label{sec:kritieke-gebied}
 
-De formule voor de berekening van de grenswaarde (zie Formule~\ref{eq:kritieke-grenswaarde}) is gebaseerd op de centrale limietstelling, en meer bepaald betrouwbaarheidsintervallen.
+De formule voor de berekening van de grenswaarde (zie Formule~\ref{eq:kritieke-grenswaarde-z-toets}) is gebaseerd op de centrale limietstelling, en meer bepaald betrouwbaarheidsintervallen.
 
 De kritieke grenswaarde vormt een betrouwbaarheidsinterval rond $\mu$ met een gekozen zekerheidsniveau. Als we bijvoorbeeld stellen dat $\alpha = 0.05$, weten we vanuit de centrale limietstelling dat we kunnen verwachten dat als we herhaaldelijk voldoende steekproeven uit deze populatie nemen, in 95\% van de gevallen het steekproefgemiddelde binnen dit betrouwbaarheidsgeval zal liggen.
 
@@ -297,31 +304,6 @@ Het codevoorbeeld hieronder is de uitwerking van Voorbeeld~\ref{ex:hypothesetoet
     
   \end{enumerate}
 \end{example}
-
-\section{Fouten in hypothesetoetsen}
-
-Bij het uitvoeren van een hypothesetoets kunnen altijd nog fouten optreden. Indien we $H_{0}$ verwerpen wanneer ze in werkelijkheid juist is, spreken we van een fout van type I en wanneer we $H_{0}$ ten onrechte aanvaarden van een fout van type II.
-
-Het significatieniveau $\alpha$ bepaalt bij het uitvoeren van een hypothesetoets wanneer de nulhypothese precies verworpen kan worden. Stel dat we een significatieniveau van 5\% kiezen. Als de nulhypothese waar is, dan is de kans dat we een steekproef trekken met een toetsingswaarde die in het verwerpingsgebied terecht komt 5\%. M.a.w. de kans om de nulhypothese te verwerpen terwijl ze waar is, is 5 \% of in het algemeen: het significantieniveau van een toets is gelijk aan de kans op het maken van een fout van type I.
-
-Het is vanzelfsprekend dat we de kans op een fout van type I zo klein mogelijk willen houden. Jammer genoeg is dit ten koste van de kans op een type II fout, aangeduid met $\beta$, die hierdoor groter wordt. Het verband tussen $\alpha$ en $\beta$ is niet triviaal en we gaan hier in deze cursus niet verder op in.
-
-In vele gevallen is het maken van een fout van type I erger dan een van type II. Denk maar aan een rechtszaak waarbij de nulhypothese is dat de persoon onschuldig is. Indien we toetsen op een 5\% significantieniveau is de kans op een type I fout 5 op 100. M.a.w. er is een betrouwbaarheid van 95\% dat de juiste beslissing wordt genomen indien $H_{0}$ correct is. Daarom vermijden we liever de conclusie dat $H_{0}$ geaccepteerd wordt, maar eerder dat de steekproef onvoldoende bewijs bevat om $H_{0}$ bij een bepaald significantieniveau te verwerpen.
-
-\begin{table}
-  \centering
-    \begin{tabular}{@{}l|cc@{}}
-      \toprule
-      & \multicolumn{2}{c}{\textbf{Werkelijke stand van zaken}} \\
-      \textbf{Conclusies}          & \textbf{$H_{0}$ correct} & \textbf{$H_{1}$ correct}     \\
-      \midrule
-      \textbf{$H_{0}$ geaccepteerd}& Juist                    & Fout van type II \\
-      \textbf{$H_{0}$ verworpen}   & Fout van type I          & Juist            \\
-      \bottomrule
-    \end{tabular}
-  \caption{Conclusies en consequenties bij toetsen van een hypothese; types van fouten.}
-  \label{tab:hypfouten}
-\end{table}
 
 \section{De \texorpdfstring{$t$}{t}-toets}
 \label{sec:t-toets}
@@ -550,7 +532,30 @@ mean of the differences
 % - ANOVA, variantie-analyse
 % - Kolmogorov-Smirnov test
 
-\vspace{1cm} %% Workaround voor kop van volgende sectie die onderaan een pagina terecht komt
+\section{Fouten in hypothesetoetsen}
+
+Bij het uitvoeren van een hypothesetoets kunnen altijd nog fouten optreden. Indien we $H_{0}$ verwerpen wanneer ze in werkelijkheid juist is, spreken we van een fout van type I en wanneer we $H_{0}$ ten onrechte aanvaarden van een fout van type II.
+
+Het significatieniveau $\alpha$ bepaalt bij het uitvoeren van een hypothesetoets wanneer de nulhypothese precies verworpen kan worden. Stel dat we een significatieniveau van 5\% kiezen. Als de nulhypothese waar is, dan is de kans dat we een steekproef trekken met een toetsingswaarde die in het verwerpingsgebied terecht komt 5\%. M.a.w. de kans om de nulhypothese te verwerpen terwijl ze waar is, is 5 \% of in het algemeen: het significantieniveau van een toets is gelijk aan de kans op het maken van een fout van type I.
+
+Het is vanzelfsprekend dat we de kans op een fout van type I zo klein mogelijk willen houden. Jammer genoeg is dit ten koste van de kans op een type II fout, aangeduid met $\beta$, die hierdoor groter wordt. Het verband tussen $\alpha$ en $\beta$ is niet triviaal en we gaan hier in deze cursus niet verder op in.
+
+In vele gevallen is het maken van een fout van type I erger dan een van type II. Denk maar aan een rechtszaak waarbij de nulhypothese is dat de persoon onschuldig is. Indien we toetsen op een 5\% significantieniveau is de kans op een type I fout 5 op 100. M.a.w. er is een betrouwbaarheid van 95\% dat de juiste beslissing wordt genomen indien $H_{0}$ correct is. Daarom vermijden we liever de conclusie dat $H_{0}$ geaccepteerd wordt, maar eerder dat de steekproef onvoldoende bewijs bevat om $H_{0}$ bij een bepaald significantieniveau te verwerpen.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}l|cc@{}}
+    \toprule
+    & \multicolumn{2}{c}{\textbf{Werkelijke stand van zaken}} \\
+    \textbf{Conclusies}          & \textbf{$H_{0}$ correct} & \textbf{$H_{1}$ correct}     \\
+    \midrule
+    \textbf{$H_{0}$ geaccepteerd}& Juist                    & Fout van type II \\
+    \textbf{$H_{0}$ verworpen}   & Fout van type I          & Juist            \\
+    \bottomrule
+  \end{tabular}
+  \caption{Conclusies en consequenties bij toetsen van een hypothese; types van fouten.}
+  \label{tab:hypfouten}
+\end{table}
 
 \section{Oefeningen}
 \label{sec:toetsingsprocedures-oefeningen}
