@@ -78,9 +78,7 @@
 \end{frame}
 
 \section{Toetsen van hypothesen}
-
 \sectionframelogo{}
-
 
 \begin{frame}
   \frametitle{De statistische test voor een hypothese}
@@ -104,7 +102,6 @@
 \end{frame}
 
 \section{Werkwijze}
-
 \sectionframelogo{}
 
 \begin{frame}
@@ -175,7 +172,6 @@
 \end{frame}
 
 \section{Overschrijdingskans}
-
 \sectionframelogo{}
 
 \begin{frame}
@@ -204,7 +200,6 @@
 \end{frame}
 
 \section{Kritieke gebied}
-
 \sectionframelogo{}
 
 \begin{frame}
@@ -289,7 +284,9 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
 \end{table}
 \end{frame}
 
-\section{Oefeningen}
+\section{Voorbeelden}
+\sectionframelogo{}
+
 \begin{frame}
   \frametitle{Voorbeeld 1}
   Bij een aselecte steekproef van 50 waarnemingen vinden we volgende grootheden: gemiddelde $\overline{x} = 25$ en standaardafwijking s = $\sqrt{55} = 7.41$
@@ -369,26 +366,156 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
   \end{block}
 \end{frame}
 
-\section{Conclusies en consequentie bij toetsen hypothese}
+\section{De $t$-toets}
+\sectionframelogo{}
+
 \begin{frame}
-  \frametitle{Conclusies en consequenties bij toetsen hypothese}
+  \frametitle{Veronderstellingen $z$-toets}
+  
+  
+  \begin{itemize}
+    \item De steekproef moet aselect zijn
+    \item De steekproef moet voldoende groot zijn ($n \ge 30$)
+    \item De variatie van de toetsingsgrootheid moet normaal verdeeld zijn
+    \item We veronderstellen dat de standaardafwijking van de populatie, $\sigma$, gekend is
+  \end{itemize}
+
+  Als deze veronderstellingen niet gelden, mag je de $z$-toets niet gebruiken!
+\end{frame}
+
+\begin{frame}
+  \frametitle{De $t$-toets}
+  
+  Bepalen kritieke grenswaarde:
+  
+  \[ g = \mu \pm t \times \frac{s}{\sqrt{n}} \]
+  
+  \begin{itemize}
+    \item $t$-waarde wordt afgeleid uit de Student-$t$ verdeling, hangt af van aantal \emph{vrijheidsgraden}, $n-1$
+    \item Op te zoeken in $t$-tabel of met R-functie \texttt{pt}
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Vergelijken van twee steekproeven}
+  
+  Is steekproefgemiddelde van twee steekproeven significant verschillend?
+  
+  \begin{itemize}
+    \item Onafhankelijke steekproeven
+    \item Gepaarde steekproeven
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeeld}
+  \framesubtitle{Onafhankelijke steekproeven}
+  
+  In een klinisch onderzoek wil men nagaan of een nieuw medicijn als bijwerking een verminderde reactiesnelheid heeft.
+  
+  \begin{itemize}
+    \item Interventiegroep: 6 deelnemers krijgen medicijn
+    \item Controlegroep: 6 deelnemers krijgen placebo
+  \end{itemize}
+  
+  Vervolgens wordt reactiesnelheid gemeten:
+  
+  \begin{itemize}
+    \item Controlegroep: 91, 87, 99, 77, 88, 91
+    \item Interventiegroep: 101, 110, 103, 93, 99, 104
+  \end{itemize}
+  
+  Zijn er significante verschillen tussen de interventie- en controlegroep?
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Voorbeeld}
+  \framesubtitle{Onafhankelijke steekproeven}
+
+\footnotesize
+\begin{verbatim}
+> controle <-  c(91, 87, 99, 77, 88, 91)
+> interventie <- c(101, 110, 103, 93, 99, 104)
+> t.test(controle, interventie, alternative="less", mu=0)
+
+Welch Two Sample t-test
+
+data:  controle and interventie
+t = -3.4456, df = 9.4797, p-value =
+0.003391
+alternative hypothesis: true difference in means is less than 0
+95 percent confidence interval:
+-Inf -6.044949
+sample estimates:
+mean of x mean of y 
+88.83333 101.66667
+\end{verbatim}
+\end{frame}
 
 
-\begin{table}
+\begin{frame}
+  \frametitle{Voorbeeld}
+  \framesubtitle{Gepaarde steekproef}
+  
+  In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben.
+  
+  Bij 10 auto's werd het verbruik gemeten (uitgedrukt in mijl per gallon) voor beide soorten benzine:
+  
+  \vspace{.5cm}
   \centering
-  \resizebox{\textwidth}{!}{%
-    \begin{tabular}{@{}l|cc@{}}
-      \toprule
-      & \multicolumn{2}{c}{\textbf{Werkelijke stand van zaken}} \\
-      \textbf{Conclusies}          & \textbf{$H_{0}$ correct} & \textbf{$H_{1}$ correct}     \\
-      \midrule
-      \textbf{$H_{0}$ geaccepteerd}& Juist                    & Fout van type II \\
-      \textbf{$H_{0}$ verworpen}   & Fout van type I          & Juist            \\
-      \bottomrule
-    \end{tabular}
-  }
-  \caption{Conclusies en consequenties bij toetsen van hypothese}
-  \label{tab:hypfouten}
-\end{table}
+  \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+  	\hline
+  	Auto           & 1  & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 \\ \hline
+  	Gewone benzine & 16 & 20 & 21 & 22 & 23 & 22 & 27 & 25 & 27 & 28 \\ \hline
+  	Met additieven & 19 & 22 & 24 & 24 & 25 & 25 & 25 & 26 & 28 & 32 \\ \hline
+  \end{tabular} 
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Voorbeeld}
+  \framesubtitle{Gepaarde steekproef}
+  
+\footnotesize
+\begin{verbatim}
+> gewone    <- c(16, 20, 21, 22, 23, 22, 27, 25, 27, 28)
+> additieven <-c(19, 22, 24, 24, 25, 25, 26, 26, 28, 32)
+> t.test(additieven, gewone, alternative="greater", paired=TRUE)
+
+Paired t-test
+
+data:  additieven and gewone
+t = 4.4721, df = 9, p-value = 0.0007749
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+1.180207      Inf
+sample estimates:
+mean of the differences 
+2
+\end{verbatim}
+\end{frame}
+
+\section{Fouten in hypothesetoetsen}
+\sectionframelogo{}
+
+\begin{frame}
+  \frametitle{Fouten in hypothesetoetsen}
+
+  \begin{table}
+    \centering
+    \resizebox{\textwidth}{!}{%
+      \begin{tabular}{@{}l|cc@{}}
+        \toprule
+        & \multicolumn{2}{c}{\textbf{Werkelijke stand van zaken}} \\
+        \textbf{Conclusies}          & \textbf{$H_{0}$ correct} & \textbf{$H_{1}$ correct}     \\
+        \midrule
+        \textbf{$H_{0}$ geaccepteerd}& Juist                    & Fout van type II \\
+        \textbf{$H_{0}$ verworpen}   & Fout van type I          & Juist            \\
+        \bottomrule
+      \end{tabular}
+    }
+    \caption{Mogelijke fouten bij het trekken van conclusies uit statistische toetsen.}
+    \label{tab:hypfouten}
+  \end{table}
 \end{frame}
 \end{document}
