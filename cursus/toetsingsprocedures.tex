@@ -1,4 +1,4 @@
-\chapter{Toetsingsprocedures en de \texorpdfstring{$z$}{z}-toets}
+\chapter{Toetsingsprocedures}
 
 In de voorbije hoofdstukken hebben we gezien hoe we aan de hand van steekproefonderzoek bepaalde kerngetallen over een populatie kunnen berekenen, bijvoorbeeld aan de hand van puntschatters of betrouwbaarheidsintervallen. We kunnen deze informatie ook gebruiken om bepaalde hypothesen over een populatie te toetsen. Een hypothese is een veronderstelling waarvan nog bewezen moet worden dat ze correct is. Het doel van een toetsingsprocedure is het testen van een hypothese omtrent de waarden van 1 of meerdere populatieparameters.
 
@@ -14,7 +14,7 @@ Voorbeelden van hypothesen:
   \item \dots
 \end{itemize}
 
-In dit hoofdstuk gaan we de algemene theorie over toetsen formuleren aan de hand van het testen van hypothesen over het populatiegemiddelde $\mu$, de $z$-toets. Naast de $z$-toets bestaan er echter nog vele andere statistische hypothesetoetsen die in specifieke situaties gebruikt kunnen worden, afhankelijk van o.a.~de populatiegrootheid in kwestie, en veronderstellingen over de onderliggende stochastische verdeling van de populatie.
+In dit hoofdstuk gaan we de algemene theorie over toetsen formuleren aan de hand van het testen van hypothesen over het populatiegemiddelde $\mu$, de $z$-toets. Naast de $z$-toets bestaan er echter nog vele andere statistische hypothesetoetsen die in specifieke situaties gebruikt kunnen worden. De meest geschikte statistische toets hang o.a.~af van de populatiegrootheid in kwestie (gemiddelde, standaardafwijking, enz.), en veronderstellingen over de onderliggende stochastische verdeling van de populatie (normaal verdeeld of niet, enz,).
 
 \section{Elementen van een hypothesetoets}
 \label{sec:elementen-hypothesetoets}
@@ -42,7 +42,7 @@ In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uit
 
 \begin{enumerate}
   \item De vermoedens over de populatie worden vastgelegd in twee hypothesen $H_{0}$ en $H_{1}$.
-  \item Het significantieniveau $\alpha$ en steekproefomvang $n$ worden vastelegd. Je kan $\alpha$ in principe zelf kiezen (bv. 0,05). Hoe hoger het significantieniveau, hoe betrouwbaarder het resultaat van de toets.
+  \item Het significantieniveau\index{significantieniveau}\index{niveau!significantie-} $\alpha$ en steekproefomvang $n$ worden vastelegd. Je kan $\alpha$ in principe zelf kiezen (bv. 0,05)\footnote{Merk op dat het significantieniveau gerelateerd is aan het betrouwbaarheidsniveau $1-\alpha$. Zie Sectie~\ref{ssec:betrouwbaarheidsinterval-grote-steekproef}}. Hoe dichter het significantieniveau bij 0 ligt, hoe minder twijfel er is over het resultaat van de toets. Maar langs de andere kant wordt het ook moeilijker om de nulhypothese te verwerpen.
   \item De waarde van de toetsingsgrootheid in de steekproef wordt berekend. De uitkomst is bepalend voor de beslissing of we de nulhypothese $H_{0}$ kunnen verwerpen of niet. Vaak kies je de voor de hand liggende grootheid, bijvoorbeeld het steekproefgemiddelde bij een hypothese over populatiegemiddelde. We weten in dat geval dat de kansverdeling van het steekproefgemiddelde $M \sim Nor( \mu, \frac{\sigma}{\sqrt{n}})$.
   \item Het kritieke gebied bepalen, of meer bepaald de grens tussen het aanvaardings- en het verwerpingsgebied. Deze kritieke grenswaarde\index{kritieke grenswaarde} $g$ wordt berekend als:
   
@@ -58,22 +58,22 @@ In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uit
 
 \begin{example}
   \label{ex:hypothesetoets-dagelijkse-reddingen}
-  De onderzoekers van de superhelden stellen dat een superheld gemiddeld 3,3 mensen per dag redt. Ik zelf heb het gevoel dat dat niet zo is: ik heb de indruk dat een superheld \emph{meer} dan $3,3$ mensen per dag redt.
+  Algemeen wordt aangenomen dat superhelden stellen gemiddeld 3,3 mensen per dag redt. De onderzoekers krijgen echter gevoel dat dat niet zo is: ze hebben de indruk dat een superheld \emph{meer} dan $3,3$ mensen per dag redt.
   
-  Ik wil dit onderzoeken en ik voer een steekproef uit bij $n = 30$ superhelden. Ik vind in deze steekproef dat het gemiddelde $\overline{x} = 3,483$ is. Kan ik hieruit besluiten dat superhelden gemiddeld meer dan 3,3 mensen per dag redt?
+  Ze gaan dit onderzoeken en voeren een steekproef uit bij $n = 30$ superhelden. In deze steekproef is het gemiddelde $\overline{x} = 3,483$ is. Kan hieruit besloten worden dat superhelden gemiddeld meer dan 3,3 mensen per dag redt?
 
   \begin{enumerate}
-    \item Ik veronderstel dat het aantal mensen dat een superheld redt normaal verdeeld  is en ik formuleer twee hypothesen omtrent de parameter $\mu$.
+    \item We veronderstellen dat het aantal mensen dat een superheld redt normaal verdeeld  is en formuleren twee hypothesen omtrent de parameter $\mu$.
     \begin{itemize}
-      \item $H_{0}$ = de nulhypothese (hetgeen ik wil weerleggen). In dit geval \[ H_{0} : \mu = 3,3 \]
-      \item $H_{1}$ = alternatieve hypothese (vermoeden dat ik wil aantonen). In dit geval \[H_{1}= \mu > 3,3 \]
+      \item $H_{0}$ = de nulhypothese (hetgeen we willen weerleggen). In dit geval \[ H_{0} : \mu = 3,3 \]
+      \item $H_{1}$ = alternatieve hypothese (vermoeden dat we willen aantonen). In dit geval \[H_{1}= \mu > 3,3 \]
     \end{itemize}
   
     We veronderstellen in de redenering initieel dat de nulhypothese $H_{0}$ waar is. Indien het gemiddelde aantal mensen gered per dag $\overline{x}$ van de steekproef sterk afwijkt van de veronderstelde waarde, verwerpen we de nulhypothese $H_{0}$ en aanvaarden we de alternatieve hypothese $H_{1}$.
     
     Wat betekent nu ``sterk afwijken''? Zou je uit een populatie met gemiddelde van $3,3$ gemakkelijk een steekproef kunnen trekken met gemiddelde $3,483$? De centrale limietstelling (zie Sectie~\ref{sec:centrale-limietstelling}) laat ons toe de kans hiertoe te berekenen.
     
-    \item Vastleggen significantieniveau $\alpha$ en steekproefomvang $n$. Ik wil een significantieniveau van 5\% kiezen, dus neem ik $\alpha = 0,05$. De steekproefomgang is gegeven en is hier $n = 30$.
+    \item Vastleggen significantieniveau $\alpha$ en steekproefomvang $n$. We willen een significantieniveau van 5\% kiezen, dus $\alpha = 0,05$. De steekproefomgang is gegeven en is hier $n = 30$.
     
     \item De waarde van de toetsingsgrootheid in de steekproef bepalen. We nemen hier het steekproefgemiddelde: $\overline{x} = 3,483$
     
@@ -87,7 +87,7 @@ In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uit
     
     \[ g = \mu + z \times \frac{\sigma}{\sqrt{n}} = 3,3 + 1,645 \times \frac{0,5}{\sqrt{30}} \approx 3,45 \]
     
-    Het steekproefgemiddelde $\overline{3,483}$ ligt nog verder van $\mu = 3,3$ dan de grenswaarde $g = 3,45$. De kans is heel klein dat zo'n steekproef getrokken wordt uit een populatie met dit gemiddelde. Slechts in 34 steekproeven op 1000 zal een dergelijke gebeurtenis optreden. Met andere woorden, de steekproefwaarde ligt in het verwerpingsgebied. We kunnen dus $H_0$ verwerpen en besluiten met dat superhelden inderdaad \emph{meer} dan 3,3 mensen per dag redden.
+    Het steekproefgemiddelde $\overline{x} = 3,483$ ligt nog verder van $\mu = 3,3$ dan de grenswaarde $g = 3,45$. De kans is heel klein dat zo'n steekproef getrokken wordt uit een populatie met dit gemiddelde. Slechts in 34 steekproeven op 1000 zal een dergelijke gebeurtenis optreden. Met andere woorden, de steekproefwaarde ligt in het verwerpingsgebied. We kunnen dus $H_0$ verwerpen en besluiten met dat superhelden inderdaad \emph{meer} dan 3,3 mensen per dag redden.
   \end{enumerate}
 
 \end{example}
@@ -149,13 +149,22 @@ Een karakteristiek die gebruikt wordt om weer te geven hoe sterk de geobserveerd
   De \emph{overschrijdingskans}\index{overschrijdingskans} is de kans, indien de nulhypothese waar is, om een waarde te verkrijgen van de toetsingsgrootheid die minstens even extreem is als de geobserveerde waarde.
 \end{definition}
 
+\begin{definition}[statistische significantie]
+  In een statistische hypothesetoets heeft men een \emph{statistisch significant}\index{significant} resultaat behaald waneer de geobserveerde overschrijdingskans $p$ van de teststatistiek lager is dan het significantieniveau $\alpha$. De $p$-waarde wordt onder het gekozen significantieniveau beschouwd als te extreem om de veronderstelling dat de nulhypothese waar is aan te houden.
+\end{definition}
+
+\begin{definition}[Betrouwbaarheidsniveau]
+  Naast
+\end{definition}
+
 \begin{example}
   In het onderzoek naar het aantal dagelijkse reddingen door superhelden (Voorbeeld~\ref{ex:hypothesetoets-dagelijkse-reddingen}) kan de overschrijdingskans als volgt berekend worden:
   
 \[ P(M > 3,483) = P \left(Z> \frac{3,483 - 3,3}{\frac{\sigma}{\sqrt{n}}}\right) = P (Z > 1,822) = 0,0344 \]
 \end{example}
 
-Als de overschrijdingskans of $p$-waarde kleiner is dan de onbetrouwbaarheidsdrempel dan moet $H_{0}$ verworpen worden, is de $p$-waarde gelijk of groter dan $\alpha$ dan mag je $H_{0}$ niet verwerpen. In ons geval is de $p$-waarde $0,0344$ en die is kleiner dan $\alpha = 0,05$ dus moeten we $H_{0}$ verwerpen. Samengevat: als de overschrijdingskans of $p$-waarde kleiner is dan de onbetrouwbaarheidsdrempel dan moet $H_{0}$ verworpen worden.
+Als de overschrijdingskans of $p$-waarde kleiner is dan de onbetrouwbaarheidsdrempel dan moet $H_{0}$ verworpen worden, is de $p$-waarde gelijk of groter dan $\alpha$ dan mag je $H_{0}$ niet verwerpen. In ons geval is de $p$-waarde $0,0344$ en die is kleiner dan $\alpha = 0,05$ dus moeten we $H_{0}$ verwerpen.
+
 \begin{itemize}
   \item $p$-waarde $< \alpha \Rightarrow$ $H_{0}$, verwerpen want de gevonden waarde voor $\overline{x}$ is te extreem;
   \item $p$-waarde $\geq \alpha \Rightarrow$ $H_{0}$ niet verwerpen, want de gevonden waarde voor $\overline{x}$ kan nog verklaard worden door toeval.
@@ -329,7 +338,7 @@ Bij de $z$-toets gaan we uit van een aantal veronderstellingen waar we rekening 
 
 De eerste drie voorwaarden maken dat de centrale limietstelling kan toegepast worden.
 
-Soms zijn deze veronderstellingen niet geldig en mogen we dan ook de $z$-toets \emph{niet} gebruiken! In deze gevallen kunnen we wel gebruik maken van de Student-$t$ verdeling. In de $t$-toets wordt er wel van uit gegaan dat de onderzochte variabele normaal verdeeld is.
+Soms zijn deze veronderstellingen niet geldig en mogen we dan ook de $z$-toets \emph{niet} gebruiken! In deze gevallen kunnen we wel gebruik maken van de Student-$t$ verdeling. In de $t$-toets\index{$t$-toets}\index{toets!$t$-} wordt er wel van uit gegaan dat de onderzochte variabele normaal verdeeld is.
 
 De formule voor de kritieke grenswaarde wordt dan aangepast als:
 
@@ -392,16 +401,16 @@ Voor het bepalen van de $t$-waarde hebben we het aantal vrijheidsgraden nodig, $
     \end{tabular}
   \end{center}
 
-  Is er reden om aan te nemen dat het Salmonella-niveau in het ijs groter is dan 0,3 MPN/g? We zullen gebruik maken van de R-functie \texttt{t.test} om deze vraag te beantwoorden. Lees zelf de help-pagina van deze functie om de mogelijke opties te leren kennen.
+  Is er reden om aan te nemen dat het Salmonella-niveau in het ijs significant groter is dan 0,3 MPN/g? We zullen gebruik maken van de R-functie \texttt{t.test} om deze vraag te beantwoorden. Lees zelf de help-pagina van deze functie om de mogelijke opties te leren kennen.
   
   \begin{enumerate}
     \item Bepalen van de hypothesen
     
     $H_0: \mu = 0.3, H_1: \mu > 0,3$
     
-    \item Vastleggen significantieniveau $\alpha = 0.05$ en steekproefomvang $n = 9$
+    \item Vastleggen significantieniveau $\alpha = 0.05$ (in R moet je het betrouwbaarheidsniveau $1-\alpha$ opgeven, dus 0,95) en steekproefomvang $n = 9$
     
-    \item Bepalen overschrijdingskans. Het gaat hier over een eenzijdig rechtse toets, wat aangegeven wordt met de optie \texttt{alternative="greater"}. Het gekozen significantieniveau is wat de functie standaard neemt, dus moet niet expliciet meegegeven worden.
+    \item Bepalen overschrijdingskans. Het gaat hier over een rechtszijdige toets, wat aangegeven wordt met de optie \texttt{alternative="greater"}. Het gekozen betrouwbaarheidsniveau is de standaardwaarde voor deze functie en moet niet expliciet meegegeven worden.
     
 \begin{lstlisting}
 x <- c(0.593, 0.142, 0.329, 0.691, 0.231, 0.793, 0.519, 0.392, 0.418)
@@ -432,19 +441,117 @@ mean of x
 \section{De \texorpdfstring{$t$}{t}-toets voor twee steekproeven}
 \label{sec:t-toets-twee-steekproeven}
 
-De $t$-toets kan ook gebruikt worden om twee steekproeven met elkaar te vergelijken. Je kan er dan mee nagaan of het steekproefgemiddelde van beide steekproeven significant verschillend is.
+De $t$-toets kan ook gebruikt worden om twee steekproeven met elkaar te vergelijken. Je kan er dan mee nagaan of het steekproefgemiddelde van beide steekproeven \emph{significant} verschillend is.
 
 Men maakt onderscheid tussen twee gevallen:
 
 \begin{itemize}
   \item Beide steekproeven zijn onafhankelijk, zijn afzonderlijk genomen. Een voorbeeld is een onderzoek naar een medische behandelingsmethode waar een contolegroep de behandeling \emph{niet} krijgt en een testgroep de behandeling wel krijgt.
-  \item De steekproeven zijn afhankelijk, of gepaard. Een voorbeeld is twee metingen uitvoeren op eenzelfde lid van de populatie, zoals de koorts nemen voor en na het innemen van een medicijn.
+  \item De steekproeven zijn afhankelijk, of gepaard. Een voorbeeld is twee metingen uitvoeren op hetzelfde lid van de populatie, zoals de koorts nemen voor en na het innemen van een medicijn om het effect ervan te meten.
 \end{itemize}
 
+In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van een toets met twee steekproeven. We geven hieronder twee voorbeelden, één voor elk geval.
 
+\begin{example}
+  In een klinisch onderzoek wil men nagaan of een nieuw medicijn als bijwerking een verminderde reactiesnelheid heeft~\autocite{Lindquist}.
+  
+  Zes deelnemers kregen een medicijn toegekend (interventiegroep) en zes anderen een placebo (controlegroep). Vervolgens werd hun reactietijd op een stimulus gementen (in ms). We willen nagaan of er significante verschillen zijn tussen de interventie- en controlegroep.
+  
+  \begin{itemize}
+    \item Controlegroep: 91, 87, 99, 77, 88, 91
+    \item Interventiegroep: 101, 110, 103, 93, 99, 104
+  \end{itemize}
+  
+  We noteren $\mu_1$ voor het populatiegemiddelde van de patiënten die het medicijn nemen en $\mu_2$ voor het gemiddelde van de niet behandelde populatie.
+  
+  De hypothesen worden formeel als volgt genoteerd:
+  
+  $H_0: \mu_1 - \mu_2 = 0$ en $H_1: \mu_1 - \mu_2 < 0$
+  
+  Het gaat hier dus over een linkszijdige test, wat weergegeven wordt door de optie \texttt{alternative = "less"}. In de nulhypothese veronderstellen we dat het verschil tussen de populatiegemiddelden 0 is, wat met de optie \texttt{mu = 0} wordt aangeduid. Merk op dat dit de standaardwaarde is voor deze parameter en dus in principe niet moet worden opgegeven.
+  
+\begin{lstlisting}
+controle <-  c(91, 87, 99, 77, 88, 91)
+interventie <- c(101, 110, 103, 93, 99, 104)
+t.test(controle, interventie, alternative="less", mu=0)
+\end{lstlisting}
+
+  Het resultaat van de toets:
+  
+\begin{verbatim}
+t.test(controle, interventie, alternative="less")
+
+Welch Two Sample t-test
+
+data:  controle and interventie
+t = -3.4456, df = 9.4797, p-value = 0.003391
+alternative hypothesis: true difference in means is less than 0
+95 percent confidence interval:
+-Inf -6.044949
+sample estimates:
+mean of x mean of y 
+88.83333 101.66667
+\end{verbatim}
+
+  De $p$ waarde, 0,003391, ligt duidelijk onder het significantieniveau (niet expliciet opgegeven, dus werd de standaardwaarde $\alpha = 0,05$ gebruikt.)
+  
+  De teststatistiek $t = -3,4456$ ligt binnen het verwerpingsgebied $]-\infty; -6,044949]$.
+  
+  We mogen dus de nulhypothese verwerpen en besluiten dat volgens de resultaten van deze steekproef het medicijn inderdaad een significant effect heeft op de reactiesnelheid van patiënten.
+\end{example}
+
+\begin{example}
+  In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto's werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto's opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten.
+  
+  We gaan door middel van een \emph{gepaarde $t$-test} na of auto's significant zuiniger rijden met benzine met additieven.
+  
+  De optie \texttt{paired=TRUE} geeft aan dat het hier om een gepaarde $t$-toets gaat.
+  
+\begin{lstlisting}
+gewone    <- c(16, 20, 21, 22, 23, 22, 27, 25, 27, 28)
+additieven <-c(19, 22, 24, 24, 25, 25, 26, 26, 28, 32)
+t.test(additieven, gewone, alternative="greater", paired=TRUE)
+\end{lstlisting}
+
+  Resultaat:
+  
+\begin{verbatim}
+ Paired t-test
+
+data:  additieven and gewone
+t = 4.4721, df = 9, p-value = 0.0007749
+alternative hypothesis: true difference in means is greater than 0
+95 percent confidence interval:
+ 1.180207      Inf
+sample estimates:
+mean of the differences 
+                      2 
+\end{verbatim}
+
+  De $p$-waarde, 0,0007749, ligt onder het significantieniveau, dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto's inderdaad zuiniger met benzine met additieven.
+  
+  De teststatistiek $t = 4,4721$ ligt binnen het verwerpingsgebied $[1,180207; +\infty]$.
+\end{example}
+
+% TODO: later evt. toevoegen
+% - ANOVA, variantie-analyse
+% - Kolmogorov-Smirnov test
+
+\vspace{1cm} %% Workaround voor kop van volgende sectie die onderaan een pagina terecht komt
 
 \section{Oefeningen}
 \label{sec:toetsingsprocedures-oefeningen}
+
+\begin{exercise}
+  Betrouwbaarheidsintervallen.
+  
+  \begin{enumerate}
+    \item Wat is de onder- en bovengrens van een betrouwbaarheidsinterval van 99\%?
+    \item Een betrouwbaarheidsinterval van 99\% is breder dan een van 95\%. Waarom is dit zo?
+    \item Hoe zou het betrouwbaarheidsinterval voor 100\% er uit zien?
+  \end{enumerate}
+  
+\end{exercise}
 
 \begin{exercise}
   \label{oef:bindend-studieadvies}
@@ -484,13 +591,13 @@ Men maakt onderscheid tussen twee gevallen:
   
   Nu gaan we uitzoeken of het op het eerste zicht beste persistentietype ook \emph{significant} beter is dan de concurrentie.
   
-  Concreet: ga aan de hand van een toets voor twee steekproeven voor elke datahoeveelheid na of het gemiddelde van het best scorende persistentietype \emph{lager} is dan het gemiddelde van \begin{inparaenum}[(i)] \item het \emph{tweede} beste en \item het slechtst scorende type \end{inparaenum}.
+  Concreet: ga aan de hand van een toets voor twee steekproeven voor elke datahoeveelheid na of het gemiddelde van het best scorende persistentietype \emph{significant lager} is dan het gemiddelde van \begin{inparaenum}[(i)] \item het \emph{tweede} beste en \item het slechtst scorende type \end{inparaenum}.
   
-  Kunnen we de conclusie aanhouden dat één persistentietype het beste is, d.w.z.~significant beter is dan gelijk welk ander persistentietype?
+  Kunnen we de conclusie aanhouden dat voor een gegeven datahoeveelheid één persistentietype het beste is, d.w.z.~significant beter is dan gelijk welk ander persistentietype?
 \end{exercise}
 
 \begin{exercise}
-  Een groot aantal studenten heeft deelgenomen aan een test die in verschillende opeenvolgende sessies werd georganiseerd. De opgave was telkens dezelfde, dus eigenlijk bestaat het gevaar dat studenten na de test info konden doorspelen aan de groepen die nog moesten komen. De latere groepen hebben dan eigenlijk een voordeel ten opzichte van de eerste. Blijkt dit ook uit de cijfers?
+  Een groot aantal studenten heeft deelgenomen aan een test die in verschillende opeenvolgende sessies werd georganiseerd. Omdat het opstellen van een aparte opgave voor elke sessie praktisch onhaalbaar was, is telkens dezelfde opgave gebruikt. Eigenlijk bestaat er dus het gevaar dat studenten na hun sessie info konden doorspelen aan de groepen die nog moesten komen. De latere groepen hebben dan een voordeel ten opzichte van de eerste. Blijkt dit ook uit de cijfers?
   
   Het bestand \texttt{puntenlijst.csv} bevat alle resultaten van de test. Elke groep wordt aangeduid met een letter, in de volgorde van de sessie.
   
