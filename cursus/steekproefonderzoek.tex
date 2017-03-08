@@ -466,6 +466,7 @@ Indien we nu een steekproef onderzoeken, willen uit de berekening op de steekpro
 \end{definition}
 
 \subsection{Betrouwbaarheidsinterval populatiegemiddelde bij grote steekproef}
+\label{ssec:betrouwbaarheidsinterval-grote-steekproef}
 
 In het geval het schatten van een gemiddelde van een populatie uit een steekproef hebben we totaal geen idee over hoe correct onze schatting is. Daarvoor gaan we op zoek naar een interval waarvan we met een bepaalde zekerheid, bv. 95\%, kunnen zeggen dat het de te schatten karakteristiek bevat.
 
@@ -480,7 +481,8 @@ Een eerste goede schatting voor populatiegemiddelde zou het steekproefgemiddelde
 Natuurlijk is deze schatting niet de werkelijke waarde van de populatie. Daarom wordt vaak rondom $\overline{x}$ een interval geconstrueerd dat de waarden bevat die aannemelijk zijn voor $\mu$. Hiervoor kunnen we gebruik maken van de centrale limietstelling: het gemiddelde in een te trekken steekproef van omvang $n$ is normaal verdeeld met karakteristieken $\mu$ en $\frac{\sigma}{\sqrt{n}}$.  Als we nu het gemiddelde standaardiseren krijgen we:
 
 \[ Z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} \]
- Deze uitdrukking hangt van $\mu$ af maar we weten wel dat deze standaardnormaal verdeeld is. We kunnen daarom getallen $-z$ en $z$ vinden, onafhankelijk van $\mu$, waartussen $Z$ met een voorgeschreven kans $1 - \alpha$ ligt. De betrouwbaarheid $1 - \alpha$ geeft aan hoe betrouwbaar we het interval vinden. We nemen hier $1 - \alpha= 0,95$.
+
+Deze uitdrukking hangt van $\mu$ af maar we weten wel dat deze standaardnormaal verdeeld is. We kunnen daarom getallen $-z$ en $z$ vinden, onafhankelijk van $\mu$, waartussen $Z$ met een gekozen kans $1 - \alpha$ ligt. Deze kans $1 - \alpha$ wordt het \emph{betrouwbaarheidsniveau}\index{betrouwbaarheidsniveau}\index{niveau!betrouwbaarheids-} genoemd. We nemen hier $1 - \alpha= 0,95$.
 
 \[P(-z < Z < z) = 1 - \alpha = 0,95 \]
 
@@ -525,6 +527,7 @@ Opgelet, we gaan er hier van uit dat we de standaarddeviatie van de populatie ke
 \end{figure}
 
 \subsection{Betrouwbaarheidsinterval populatiegemiddelde bij een kleine steekproef}
+\label{ssec:betrouwbaarheidsinterval-kleine-steekproef}
 
 Bij kleine steekproeven kunnen we niet langer veronderstellen dat de kansverdeling van $\overline{x}$ bij benadering
 normaal verdeel is, omdat de centrale limietstelling alleen normaliteit garandeert voor grote steekproeven ($n >30$). De vorm
@@ -573,6 +576,7 @@ Indien we nu een betrouwbaarheidsinterval willen bepalen voor een steekproef met
 \end{table}
 
 \subsection{Betrouwbaarheidsinterval voor populatiefractie bij een grote steekproef}
+\label{ssec:betrouwbaarheidsinterval-populatiefractie}
 
 Indien je een variabele wil meten als een fractie, bijvoorbeeld \% mensen die ja geantwoord heeft op een bepaalde vraag, dan willen we in feite de kans $p$ op succes in een binomiaal experiment schatten, waarbij $p$ de kans is dat een willekeurig geselecteerde respondent (of element van de populatie) een succes is (succes in termen van binomiaal experiment). We kunnen $p$ dan schatten door bijvoorbeeld:
 
@@ -757,3 +761,15 @@ Vraag B:
   \caption{Steekproefwaarden}
   \label{tab:Steekproefwaarden}
 \end{table}
+
+\begin{exercise}
+  Een webhostingfirma heeft een Service Level Agreement met een klant voor een gegarandeerde uptime van ``five nines'' (99,999\%).  Die wordt aan het einde van elk jaar gecontroleerd en als de minimale uptime niet gehaald wordt, moet de hostingfirma een boete betalen.
+  
+  Om de uptime te meten, voert een monitoringsysteem elke minuut een \texttt{HTTP GET /} uit en controleert het resultaat a.h.v.
+  de HTTP return code. In de maand januari is er één enkele HTTP request onsuccesvol geweest.
+  
+  \begin{itemize}
+    \item Als deze trend zich voortzet, wat is de kans dat de SLA niet gehaald wordt aan het einde van het jaar? Gebruik de formule voor de kansverdeling van een fractie.
+    \item De gebruikte formule is eigenlijk niet geschikt in dit specifieke geval en geeft een vertekend beeld. Wat zou de reden kunnen zijn?
+  \end{itemize}
+\end{exercise}
