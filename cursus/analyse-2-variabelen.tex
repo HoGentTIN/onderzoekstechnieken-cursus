@@ -1,7 +1,16 @@
 \chapter{Analyse op 2 variabelen}
 \label{ch:analyse2var}
 
-Er zijn een aantal onderzoeksvragen waarin eventuele verschillen tussen groepen aan de orde kunnen komen. Er is dan sprake van een variabele die zorgt voor de indeling (noemen we onafhankelijke variabele \index{Onafhankelijke variabele}) en een variabele waarop de groepen getest worden (noemen we afhankelijke variabele \index{Afhankelijke variabele}).
+In de vorige hoofdstukken hebben we telkens één variabele tegelijkertijd onderzocht. Vaak hebben onderzoeksvragen echter te maken met \emph{verbanden} (en dan vooral oorzakelijke) tussen variabelen. In dit hoofstuk gaan we hier verder op in.
+
+Wanneer we een verband beschrijven tussen variabelen, onderscheiden we:
+
+\begin{itemize}
+  \item De \emph{afhankelijke variabele}\index{variabele!afhankelijke}, waarover we een voorspelling willen doen;
+  \item De \emph{onafhankelijke variabele}\index{variabele!onafhankelijke}, op basis van dewelke we de voorspelling doen.
+\end{itemize}
+
+Als de onafhankelijke variabele op een bepaalde manier verandert, verwachten we dat de waarde van de afhankelijke variabele op een voorspelbare manier mee verandert.
 
 \begin{example}
   Een voorbeeld waarbij verbanden kunnen gevonden tussen variabelen vind je bijvoorbeeld bij Ant Colony Optimization (ACO). Dit is een techniek die gebruikt wordt in verschillende computationele problemen. Men baseert zich hier op hoe mieren voedsel zoeken en  vinden en dat communiceren aan de groep. Mieren verspreiden feromonen als ze op pad gaan op zoek naar eten. Hoe langer het pad, hoe minder feromonen het pad zal bevatten, hoe korter het pad, hoe groter de kans dat er een grote concentratie aan feromonen te vinden is. Mieren worden aangetrokken door deze feromonen en zullen dus proberen de meest bewandelde paden te gebruiken om naar een bepaalde voedselbron te gaan. Nu kan je onderzoeken of de tijd voor het vinden van een pad, afhangt van een aantal variabelen:
@@ -14,13 +23,11 @@ Er zijn een aantal onderzoeksvragen waarin eventuele verschillen tussen groepen 
   \end{itemize}
 \end{example}
 
-Om een vergelijking te maken kunnen we
-\begin{inparaenum}[(i)]
-\item de bekende statistieken zoals gemiddelde e.a. berekenen en analyseren of
-\item grafische voorstellingen maken van deze statistieken.
-\end{inparaenum}
+Om een vergelijking te maken kunnen we \begin{inparaenum}[(i)]
+\item de bekende statistieken zoals gemiddelde e.a. berekenen en analyseren of \item grafische voorstellingen maken van deze statistieken. \end{inparaenum}
 
 Welke soort van grafieken we kunnen gebruiken hangt af van het meetniveau:
+@
 \begin{itemize}
   \item Interval of ratio:
 
@@ -61,8 +68,49 @@ Bij de vraag of er samenhang is tussen twee variabelen kunnen we volgende grafie
 \section{Kruistabellen en Cramér's V}
 
 \begin{definition}[Kruistabel]
-  In een kruistabel \index{Kruistabel} wordt de onafhankelijke variabele in functie van de afhankelijke variabele uitgezet.
+  In een kruistabel\index{kruistabel} (zie bv.~Figuur~\ref{tab:kruistabel0}) worden de frequenties van twee variabelen samengevat.
+  
+  Elke cel van de laatste kolom bevat de som van de overeenkomstige rij en elke cel van de laatste rij bevat de som van de overeenkomstige kolom. Dit worden de \emph{marginale totalen}\index{totaal!marginaal}\index{marginaal totaal} genoemd.
 \end{definition}
+
+In R kan je een kruistabel (Eng.: \emph{contingency table} of \emph{cross table}) opstellen met de functie \texttt{table}. Een voorbeeld i.v.m.~de oefening over Android persistentietypes (zie Oefening~\ref{oef:casus-akin2016-1var}):
+
+\begin{lstlisting}
+> table(Datahoeveelheid, PeristentieType)
+        PersistentieType
+DataHoeveelheid GreenDAO Realm Sharedpreferences SQLLite
+Large                 30    30                 0      30
+Medium                30    30                 0      30
+Small                 30    30                30      30
+\end{lstlisting}
+
+\begin{table} \centering
+  \begin{tabular}{@{}rrrr}
+    \toprule
+                & Vrouw & Man & Totaal \\ \midrule
+           Goed &     9 &   8 &     17 \\
+      Voldoende &     8 &  10 &     18 \\
+    Onvoldoende &     5 &   5 &     10 \\
+         Slecht &     0 &   4 &      4 \\
+         Totaal &    22 &  27 &     49 \\ \bottomrule
+  \end{tabular}
+  \caption{Een kruistabel voor de waardering door mannen en vrouwen van een bepaald assortiment producten.}
+  \label{tab:kruistabel0}
+\end{table}
+
+In een gewone kruistabel kunnen we geen directe conclusies trekken, aangezien het analyseren of er samenhang bestaat tussen variabelen niet goed gaat op basis van de celfrequenties. Niet alle metingen zijn even groot! Daarom moeten we percenteren. Nog even snel de regel van percenteren:
+
+\begin{itemize}
+  \item Om te weten hoeveel percent $x$ is van $y$, deel je $x$ door $y$ en vermenigvuldig je met 100: $perc = 100 \times \frac{x}{y}$.
+  \item Om te weten hoeveel $x$ \% is van $y$ : $ \frac{x \times y}{100}$
+\end{itemize}
+
+\begin{example}
+  \label{vb:kruistabel}
+  In Tabel~\ref{tab:kruistabel0} vinden we de data waar er gekeken wordt naar het verschil in waardering van een assortiment tussen mannen en vrouwen. We percenteren per geslacht en vinden bijvoorbeeld dat 41\% van de vrouwen een waardering goed heeft (zie Tabel~\ref{tab:kruistabel1}). Nu kunnen we ons de vraag stellen of de waarderingskeuze afhangt van het geslacht van de persoon.
+\end{example}
+
+In ons voorbeeld kunnen we besluiten dat 30\% van de mannen tevreden is en 15\% van de mannen ontevreden. Maar hoe goed is die samenhang tussen de verschillende variabelen (geslacht en tevredenheid)? Dat kunnen we bepalen aan de hand van Cramér's V. Voordat we die definitie kunnen geven, moeten we echter eerst de waarde $\chi^2$ introduceren.
 
 \begin{table} \centering
   \begin{tabular}{@{}rrrrrrr@{}} \toprule
@@ -77,6 +125,47 @@ Bij de vraag of er samenhang is tussen twee variabelen kunnen we volgende grafie
   \caption{De kruistabel waarbij we de waarden gepercenteerd hebben.}
   \label{tab:kruistabel1}
 \end{table}
+
+\section{\texorpdfstring{$\chi^{2}$}{chi-kwadraat} test voor associatie}
+\index{$\chi^{2}$waarde}
+
+De $\chi^{2}$ (\emph{chi-kwadraat}) waarde is een grootheid die gebruikt wordt om te bepalen of er een significant verband bestaat tussen twee variabelen. Meer hierover volgt later in Hoofdstuk~\ref{ch:chikwadraat}. De berekening ervan leggen we alvast hier uit.
+
+\begin{enumerate}
+  \item Stel de kruistabel op samen met marginale totalen (zie tabel \ref{tab:kruistabel1}).
+  \item Stel voor elke cel een schatter op voor de theoretische kans om in die cel te geraken. Deze schatter kan je bereken als volgt: (kans op in de rij van deze cel te komen) $\times$ (kans om in de kolom van de cel te komen). In het voorbeeld is dit dus voor cel$_{1,2}$:
+  
+  \[P[rij_{1}] \times P[kolom_{2}] = \frac{17}{49} \times \frac{27}{49} = 0.191170346 \]
+  Algemeen kan je dus stellen dat de verwachte theoretische waarde $e$ als volgt kan berekend worden:
+
+  \begin{equation}
+    e = (\frac{rijtotaal}{n} \times \frac{kolomtotaal}{n}) \times n = \frac{rijtotaal \times kolomtotaal}{n}
+  \end{equation}
+
+  Met:
+
+  \begin{itemize}
+    \item $e$ verwachte waarde bij onafhankelijkheid
+    \item $rijtotaal$ totaal van de rij van de betreffende cel
+    \item $kolomtotaal$ totaal van de kolom van de betreffende cel
+  \end{itemize}
+
+  Voor cel$_{1,2}$ is dit dus 9.36.
+  
+  \item Dan bereken je het verschil tussen geobserveerde (notatie $a$) en verwachte frequentie ($e$). (Zie tabel \ref{tab:kruistabel2})
+  
+  \item De laatste stap houdt in dat we een berekening gaan maken voor de maat van afwijking voor elke cel. Opnieuw gaan we hier een kwadraat nemen om het teken kwijt te spelen. We gaan ook de afwijking delen door de verwachte theoretische waarde om hen relatief even belangrijk te maken. Bijvoorbeeld: een afwijking van 5 op een verwachte frequentie van 20 is groter dan bv. een afwijking op een verwachte waarde van 200. Dit geeft dan volgende berekening (zie Tabel~\ref{tab:kruistabel3}):
+  
+  \begin{equation}
+    \frac{(a-e)^{2}}{e}
+  \end{equation}
+  
+  \item Deze gekwadrateerde deviaties gaan we dan optellen en vormt de $\chi^{2}$ \footnote{Let op dat er afgerond wordt.}
+  
+  \begin{equation}
+    \chi^{2} = \sum \frac{(a-e)^{2}}{e}
+  \end{equation}
+\end{enumerate}
 
 \begin{table} \centering
   \begin{tabular}{@{}rrrrrrr@{}} \toprule
@@ -94,7 +183,7 @@ Bij de vraag of er samenhang is tussen twee variabelen kunnen we volgende grafie
 
 \begin{table} \centering
   \begin{tabular}{@{}rrrrrrr@{}} \toprule
-                & Vrouw                   & Man                     & Totaal & Vrouw \% & Man\%   & Totaal  \\ \midrule
+    & Vrouw                   & Man                     & Totaal & Vrouw \% & Man\%   & Totaal  \\ \midrule
     Goed        & $\textcolor{blue}{0.2}$ & $\textcolor{blue}{0.2}$ & $17$   & $41$\%   & $30$\%  & $35$\% \\
     Voldoende   & $\textcolor{blue}{0}$   & $\textcolor{blue}{0}$   & $18$   & $36$\%   & $37$\%  & $37$\% \\
     Onvoldoende & $\textcolor{blue}{0.1}$ & $\textcolor{blue}{0}$   & $10$   & $23$\%   & $18$\%  & $20$\% \\
@@ -106,60 +195,7 @@ Bij de vraag of er samenhang is tussen twee variabelen kunnen we volgende grafie
   \label{tab:kruistabel3}
 \end{table}
 
-
-In een gewone kruistabel kunnen we geen directe conclusies trekken, aangezien het analyseren of er samenhang bestaat tussen variabelen niet goed gaat op basis van de celfrequenties. Niet alle metingen zijn even groot! Daarom moeten we percenteren. Nog even snel de regel van percenteren:
-
-\begin{itemize}
-  \item Om te weten hoeveel percent $x$ is van $y$, deel je $x$ door $y$ en vermenigvuldig je met 100: $perc = 100 \times \frac{x}{y}$.
-  \item Om te weten hoeveel $x$ \% is van $y$ : $ \frac{x \times y}{100}$
-\end{itemize}
-
-\begin{example}
-  In tabel \ref{tab:kruistabel1} vinden we de data waar er gekeken wordt naar het verschil in waardering van een assortiment tussen mannen en vrouwen. We percenteren per geslacht en vinden bijvoorbeeld dat 41\% van de vrouwen een waardering goed heeft. Nu kunnen we ons de vraag stellen of de waarderingskeuze afhangt van het geslacht van de persoon.
-\end{example}
-
-
-
-In ons voorbeeld kunnen we besluiten dat 30\% van de mannen tevreden is en 15\% van de mannen ontevreden. Maar hoe goed is die samenhang tussen de verschillende variabelen (geslacht en tevredenheid)? Dat kunnen we bepalen aan de hand van Cramér's V. Voordat we die definitie kunnen geven, moeten we echter eerst de waarde $\chi^2$ introduceren.
-
-\section{\texorpdfstring{$\chi^{2}$}{chi-kwadraat} test voor associatie}
-\index{$\chi^{2}$waarde}
-
-De $\chi^{2}$ (\emph{chi-kwadraat}) waarde is een grootheid die gebruikt wordt om te bepalen of er een significant verband bestaat tussen twee variabelen. Meer hierover volgt later in hoofdstuk \ref{chap:chikwadraat}. De berekening hiervan leggen we hier alvast uit.
-
-\begin{enumerate}
-  \item Stel de kruistabel op samen met marginale totalen (zie tabel \ref{tab:kruistabel1}).
-  \item Stel voor elke cel een schatter op voor de theoretische kans om in die cel te geraken. Deze schatter kan je bereken als volgt: (kans op in de rij van deze cel te komen) $\times$ (kans om in de kolom van de cel te komen). In het voorbeeld is dit dus voor cel$_{1,2}$:
-    \[P[rij_{1}] \times P[kolom_{2}] = \frac{17}{49} \times \frac{27}{49} = 0.191170346 \]
-    Algemeen kan je dus stellen dat de verwachte theoretische waarde $e$ als volgt kan berekend worden:
-
-    \begin{equation}
-      e = (\frac{rijtotaal}{n} \times \frac{kolomtotaal}{n}) \times n = \frac{rijtotaal \times kolomtotaal}{n}
-    \end{equation}
-
-    Met:
-
-    \begin{itemize}
-      \item $e$ verwachte waarde bij onafhankelijkheid
-      \item $rijtotaal$ totaal van de rij van de betreffende cel
-      \item $kolomtotaal$ totaal van de kolom van de betreffende cel
-    \end{itemize}
-
-    Voor cel$_{1,2}$ is dit dus 9.36.
-  \item Dan bereken je het verschil tussen geobserveerde (notatie $a$) en verwachte frequentie ($e$). (Zie tabel \ref{tab:kruistabel2})
-  \item De laatste stap houdt in dat we een berekening gaan maken voor de maat van afwijking voor elke cel. Opnieuw gaan we hier een kwadraat nemen om het teken kwijt te spelen. We gaan ook de afwijking delen door de verwachte theoretische waarde om hen relatief even belangrijk te maken. Bijvoorbeeld: een afwijking van 5 op een verwachte frequentie van 20 is groter dan bv. een afwijking op een verwachte waarde van 200. Dit geeft dan volgende berekening:
-    \begin{equation}
-      \frac{(a-e)^{2}}{e}
-    \end{equation}
-    Zie hiervoor tabel \ref{tab:kruistabel3}.
-  \item Deze gekwadrateerde deviaties gaan we dan optellen en vormt de $\chi^{2}$ \footnote{Let op dat er afgerond wordt.}
-    \begin{equation}
-      \chi^{2} = \sum \frac{(a-e)^{2}}{e}
-    \end{equation}
-\end{enumerate}
-
-
-Met deze statistiek kunnen \index{Cramér's V} Cramér's V waarde berekenen:
+Met deze statistiek kunnen de waarde Cramér's V\index{Cramér's V} berekenen:
 
 \begin{definition}[Cramér's V]
   \begin{equation}
@@ -175,7 +211,7 @@ Met deze statistiek kunnen \index{Cramér's V} Cramér's V waarde berekenen:
 
 \end{definition}
 
-Cramér's V is de $\chi^{2}$, gecorrigeerd voor steekproefomvang en de lengte van de variabelen. Het resultaat is altijd een getal tussen 0 en 1. Tabel~\ref{tab:interpretatie-cramers-v} geeft aan hoe je het resultaat kan interpreteren.
+Cramér's V is de $\chi^{2}$, gecorrigeerd voor steekproefomvang en het aantal categorieën in de variabelen. Het resultaat is altijd een getal tussen 0 en 1. Tabel~\ref{tab:interpretatie-cramers-v} geeft aan hoe je het resultaat kan interpreteren.
 
 \begin{table}
   \centering
@@ -193,28 +229,29 @@ Cramér's V is de $\chi^{2}$, gecorrigeerd voor steekproefomvang en de lengte va
 
 Voor ons voorbeeld waarbij gekeken wordt naar de samenhang tussen geslacht en waardering van het assortiment vinden we een $\chi^{2}= 3.811$ en dus een Cramér's V van $0.279$ (want $n = 49$ en $k = 2$), wat duidt op redelijk sterke samenhang tussen de variabelen. Met andere woorden, de resultaten van de bevraging geven aan dat er een verschil is in de waardering die vrouwen en mannen geven over het assortiment.
 
-\begin{table}[t] \centering
-  \begin{tabular}{@{}rrrrrr@{}} \toprule
-    & Mercedes & BMW & Porsche& Alfa Romeo & 	Totaal \\
-    \midrule
-    Mannen 	& $10$ & $10$ & $20$ & $20$ & $60$ \\
-    Vrouwen & $20$ & $5$ 	& $15$ & $0$ 	& $40$ \\
-    Totaal 	& $30$ & $15$ & $35$ & $20$ & $100$ \\
-    \bottomrule
-  \end{tabular}
-  \caption{Tabel die uitdrukt hoeveel vrouwen en hoeveel mannen een voorkeur voor een bepaald automerk hebben.}
-  \label{tab:autovoorkeur}
-\end{table}
+Hieronder vind je de uitwerking van Voorbeeld~\ref{vb:kruistabel} in R.
+
+\lstinputlisting{data/kruistabellen.R}
 
 \begin{example}
-  We kijken naar het voorbeeld in tabel \ref{tab:autovoorkeur} met de voorkeur van een vrouw of een man voor een bepaald automerk. We zien dat nog steeds dertig van de honderd respondenten een voorkeur hebben voor de Mercedes, maar dat tweederde van deze dertig vrouwen zijn. We zouden  ook kunnen zeggen dat de helft van de vrouwen een voorkeur heeft voor de Mercedes. Evenzo blijkt dat een derde van de mannen een voorkeur heeft voor een Alfa Romeo, tegenover geen van de vrouwen. Het lijkt alsof de onderscheiden automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen. Om dit te staven bepalen we $\chi^{2}$ en Cramér's V. We vinden:
+  In Tabel~\ref{tab:autovoorkeur} worden de voorkeuren van vrouwen en mannen voor de gegeven automerken opgesomd. We zien dat nog steeds dertig van de honderd respondenten een voorkeur hebben voor de Mercedes, maar dat tweederde van deze dertig vrouwen zijn. We zouden  ook kunnen zeggen dat de helft van de vrouwen een voorkeur heeft voor de Mercedes. Evenzo blijkt dat een derde van de mannen een voorkeur heeft voor een Alfa Romeo, tegenover geen van de vrouwen. Het lijkt alsof de onderscheiden automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen. Om dit te staven bepalen we $\chi^{2}$ en Cramér's V. Probeer dit zelf, hetzij in R, hetzij met een rekenblad (Excel, Numbers, LibreOffice Calc)! We vinden:
   \[ \chi^{2} = 22.619 \]
   \[ V = \sqrt{\frac{22.169}{100 . (2-1)}}  = 0.476\]
 
   We vinden dus tussen een sterke tot zeer sterke samenhang.
 \end{example}
 
-
+\begin{table} \centering
+  \begin{tabular}{@{}rrrrrr@{}}
+  	\toprule
+  	        & Mercedes &  BMW & Porsche & Alfa Romeo & Totaal \\ \midrule
+  	 Mannen &     $10$ & $10$ &    $20$ &       $20$ &   $60$ \\
+  	Vrouwen &     $20$ &  $5$ &    $15$ &        $0$ &   $40$ \\
+  	 Totaal &     $30$ & $15$ &    $35$ &       $20$ &  $100$ \\ \bottomrule
+  \end{tabular}
+  \caption{Tabel die uitdrukt hoeveel vrouwen en hoeveel mannen een voorkeur voor een bepaald automerk hebben.}
+  \label{tab:autovoorkeur}
+\end{table}
 
 \section{Regressie}
 \label{sec:regressie}
@@ -390,8 +427,6 @@ Voor de tweede uitdrukking vinden we
   \label{tab:rendieren2}
 \end{table}
 
-
-
 \begin{figure}
   \begin{tikzpicture}
     \begin{axis}[
@@ -401,8 +436,8 @@ Voor de tweede uitdrukking vinden we
         width=\textwidth, height=8cm,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
-        ylabel=eiwitgehalte,
-        xlabel=gewichtstoename(gram),
+        ylabel=gewichtstoename (g),
+        xlabel=eiwitgehalte (\%),
         legend style={at={(0.1,-0.1)}, anchor=north}
       ]
       \addplot[only marks] table  {data/santa.txt};
@@ -414,39 +449,43 @@ Voor de tweede uitdrukking vinden we
   \label{fig:rendierenFiguur}
 \end{figure}
 
-
 \begin{example}
+  \label{vb:rendieren}
   We kijken naar het voorbeeld van de Kerstman en zijn rendieren. Hij wil zien of er een lineair verband bestaat tussen het eiwitgehalte van het voeder en de gewichtstoename van de rendieren. Hij voert een aantal proeven uit en bekomt de data in tabel \ref{tab:rendieren}. Door toepassing van de formules die hierboven staan bekomt men (zie tabel \ref{tab:rendieren2}):
   \[ \beta_{1} = \frac{\sum_{i=1}^{n} (x_{i}-\overline{x})(y_{i} - \overline{y})}{\sum_{i=1}^{n} (x-\overline{x})^{2}} = \frac{10990}{2800} = 3.925 \]
   \[ \beta_{0} = \overline{y} - \beta_{1} \overline{x} = 307.7143 - 3.925 \times 30 = 189.96 \]
   Men heeft dus een lineair verband gevonden die de kwadraten van de residuen minimaliseert. Let wel, er wordt niets gezegd over de sterkte of validiteit van dit verband. Dit verband wordt getekend in figuur \ref{fig:rendierenFiguur}.
 \end{example}
 
-We vinden verdere statistieken:
-\begin{itemize}
-  \item Pearson-correlatieco\"effici\"ent $R = 0.725$. Duidt op een sterke lineaire samenhang. Zie hieronder.
-  \item Determinatieco\"effici\"ent $R^{2}=0.526$. Duidt aan dat 52\% van de variantie in de bestedingen kan verklaard worden door de variantie in het aantal dagen dat iemand het restaurant bezoekt.
-\end{itemize}
+Voorbeeld~\ref{vb:rendieren} uitgewerkt in R (met plot van de regressierechte):
 
+\lstinputlisting{data/regressie.R}
 
+% TODO: Klopt dit??? Dit lijkt Van een ander voorbeeld te komen,
+% de waarden komen niet overeen met cov(x, y) in R.
+%We vinden verdere statistieken:
+%\begin{itemize}
+%  \item Pearson-correlatieco\"effici\"ent $R = 0.725$. Duidt op een sterke lineaire samenhang. Zie Sectie~\ref{sec:correlatie}.
+%  \item Determinatieco\"effici\"ent $R^{2}=0.526$. Duidt aan dat 52\% van de variantie in de bestedingen kan verklaard worden door de variantie in het aantal dagen dat iemand het restaurant bezoekt.
+%\end{itemize}
 
 \section{Correlatie}
+\label{sec:correlatie}
 
-\subsection{Pearsons product-momentcorrelatieco\"effici\"ent}
+\subsection{Pearsons product-momentcorrelatiecoëfficiënt}
 We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdrukken.
 
-\begin{definition}[Pearsons product-momentcorrelatiecoe\"ffici\"ent]
-  \index{Pearsons product-momentcorrelatieco\"effici\"ent} Pearsons product momentcorrelatieco\"effici\"ent ($R$): een maat voor de sterkte van de lineaire samenhang tussen X en Y. De waarde kan vari\"eren van -1 tot 1.
+\begin{definition}[Pearsons product-momentcorrelatiecoëfficiënt]
+   Pearsons product momentcorrelatiecoëfficiënt\index{Pearsons product-momentcorrelatiecoëfficiënt} $R$ (of kortweg correlatiecoëfficiënt\index{correlatiecoëfficiënt}) is een maat voor de sterkte van de lineaire samenhang tussen X en Y. De waarde kan vari\"eren van -1 tot 1.
+
+  \begin{itemize}
+    \item Een waarde van +1 duidt een positief lineair verband aan.
+    \item Een waarde van -1 duidt een negatief lineair verband aan.
+    \item Een waarde van 0 wil zeggen dat er totaal geen lineaire samenhang is.
+  \end{itemize}
+  
+  Hoe dichter de correlatiecoëfficiënt bij 1 of -1, hoe beter de kwaliteit van het lineair model.
 \end{definition}
-
-\begin{itemize}
-  \item Een waarde van +1 duidt een positief lineair verband aan.
-  \item Een waarde van -1 duidt een negatief lineair verband aan.
-  \item Een waarde van 0 wil zeggen dat er totaal geen lineaire samenhang is.
-\end{itemize}
-
-Hoe dichter de correlatieco\"effici\"ent bij 1 of -1, hoe beter de kwaliteit van het lineair model.
-
 
 \subsection{Determinatieco\"effici\"ent}
 \begin{definition}
@@ -676,20 +715,23 @@ Het feit dat twee variabelen gecorreleerd zijn betekent niet dat de ene de oorza
 \section{Oefeningen}
 \label{sec:analyse op 2 variabelen-oefeningen}
 
+De databestanden voor deze oefeningen zijn te vinden, zowel op Chamilo (onder \emph{Documenten > Oefenles Analyse 2 variabelen}) als op Github (onder (\emph{oefeningen/data/oef\_2variabelen})).
+
 \begin{exercise}
-	\label{oef:Kruistabellen, Cramér's V en chi-kwadraat - handmatig} % $\chi^{2}$ - handmatig}
-		Marktonderzoek toont aan dat achtergrondmuziek in een supermarkt invloed kan hebben op het aankoopgedrag van de klanten. In een onderzoek werden drie methoden met elkaar vergeleken: geen muziek, Franse chansons en Italiaanse hits. Telkens werd het aantal verkochte flessen Franse, Italiaanse en andere wijnen geteld. (bron: 'The effect of in-store music on consumer choice of wine', \textit{(Proceedings of the Nutrition Society)}, 57(1998),blz.1069A).
-	De onderzoeksdata bevindt zich in het csv-bestand MuziekWijn (zie Chamilo).
-	\newline
-	Vragen:
-	\begin{enumerate}
-		\item Stel de correcte kruistabel op. Gebruik hiervoor het R-commando \textit{table} om de frequentietabel te bekomen.
-		\item Bepaal de marginalen.
-		\item Bepaal de verwachte resultaten.
-		\item Bereken manueel de $\chi^{2}$ toetsingsgrootheid.  
-		\item Bereken manueel de Cramér's V. Wat kan je hieruit besluiten?
-	\end{enumerate}
-	
+  \label{oef:Kruistabellen, Cramér's V en chi-kwadraat - handmatig} % $\chi^{2}$ - handmatig}
+
+  Marktonderzoek toont aan dat achtergrondmuziek in een supermarkt invloed kan hebben op het aankoopgedrag van de klanten. In een onderzoek werden drie methoden met elkaar vergeleken: geen muziek, Franse chansons en Italiaanse hits. Telkens werd het aantal verkochte flessen Franse, Italiaanse en andere wijnen geteld~\autocite{Ryan1998}.
+  
+  De onderzoeksdata bevindt zich in het csv-bestand MuziekWijn.
+
+  Vragen:
+  \begin{enumerate}
+    \item Stel de correcte kruistabel op. Gebruik hiervoor het R-commando \textit{table} om de frequentietabel te bekomen.
+    \item Bepaal de marginalen.
+    \item Bepaal de verwachte resultaten.
+    \item Bereken manueel de $\chi^{2}$ toetsingsgrootheid.  
+    \item Bereken manueel de Cramér's V. Wat kan je hieruit besluiten?
+  \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
@@ -703,11 +745,11 @@ Het feit dat twee variabelen gecorreleerd zijn betekent niet dat de ene de oorza
 
 \begin{exercise}
 	\label{oef:Kruistabellen, Cramér's V en chi-kwadraat met R } %$\chi^{2}$ met R}
-Lees het databestand "Aardbevingen.csv`` in. 	
+Lees het databestand ``Aardbevingen.csv'' in. 	
 		\begin{enumerate}
-		\item Maak een histogram en een boxplot van de variabele "Magnitudes".
+		\item Maak een histogram en een boxplot van de variabele ``Magnitudes''.
 		\item Maak een lijngrafiek met het aantal aardbevingen per maand.
-		\item Onderzoek of er een verband bestaat tussen de variabelen "Type`` en "Source". Bereken ook de Cramér's V-waarde. Wat is de conclusie?
+		\item Onderzoek of er een verband bestaat tussen de variabelen ``Type'' en ``Source''. Bereken ook de Cramér's V-waarde. Wat is de conclusie?
 	\end{enumerate}
 \end{exercise}
 
@@ -761,7 +803,7 @@ Lees het databestand "Aardbevingen.csv`` in.
 
 \begin{exercise}
 	\label{oef:Lineaire regressie, correlatie en determinatiecoëfficiënt met R}
-	Lees het databestand "Cats.csv`` in. 
+	Lees het databestand ``Cats.csv'' in. 
 		\begin{enumerate}
 		\item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (Bwt) en Gewicht hart (Hwt).
 		\item Maak een spreidingsdiagram van beide variabelen.
@@ -783,7 +825,7 @@ Lees het databestand "Aardbevingen.csv`` in.
 \end{exercise}
 
 \begin{exercise}
-	Lees het databestand Pizza.csv in.
+	Lees het databestand ``Pizza.csv'' in.
 		\begin{enumerate}
 		\item Voer een volledige lineaire regressieanalyse uit op de variabelen Rating en CostPerSlice. Trek hieruit de juiste conclusies en ga deze ook grafisch na.
 		\item Onderzoek een mogelijk verband tussen Rating en Neighbourhood. Welke methode kan je hiervoor gebruiken? Kan je de gegevens van Rating hiervoor in dezelfde vorm gebruiken?
