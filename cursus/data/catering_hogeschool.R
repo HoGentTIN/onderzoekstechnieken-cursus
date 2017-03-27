@@ -34,7 +34,8 @@ plot(keuze_geslacht_xtab,
      xlab = "Geslacht",
      ylab = "Beoordeling basisassortiment")
 # Een rependiagram voor dezelfde data. Dit is een gestapeld staafdiagram waar
-# de kolommen herschaald zijn naar 100%.
+# de kolommen herschaald zijn naar 100% (met prop.table). De functie t()
+# transponeert de tabel.
 barplot(
   prop.table(t(keuze_geslacht_xtab),2),
   legend = colnames(keuze_geslacht_xtab))
