@@ -54,6 +54,16 @@ plot(keuze_geslacht_xtab,
      xlab = "Geslacht",
      ylab = "Beoordeling basisassortiment")
 
+# Staafdiagram voor dezelfde data
+keuze_geslacht_plot <- barplot(
+  keuze_geslacht_xtab, 
+  col = c('grey60', 'grey90'),
+  beside = TRUE, 
+  legend = TRUE)
+text(x = keuze_geslacht_plot, 
+     y = 1,
+     labels = keuze_geslacht_xtab)
+
 # Een rependiagram voor dezelfde data. Dit is een gestapeld staafdiagram waar
 # de kolommen herschaald zijn naar 100% (met prop.table). De functie t()
 # transponeert de tabel.
@@ -75,5 +85,5 @@ barplot(
 # men wekelijks besteedt?
 #
 plot(Bezoek, Bedrag)
-bezoek_bedrag_lm <- lm(Bedrag ~ Bezoek)
-abline(bezoek_bedrag_lm, col='red')
+bezoek_bedrag_lm <- lm(Bedrag ~ Bezoek)  # Lineair model
+abline(bezoek_bedrag_lm, col='red')      # Regressierechte
