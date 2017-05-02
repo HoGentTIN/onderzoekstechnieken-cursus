@@ -31,6 +31,8 @@
 \usepackage{pgfplotstable}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.13}
+\usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
+\usetikzlibrary{pgfplots.statistics}
 
 \usepackage[english,dutch]{babel} % English language/hyphenation
 \usepackage{iflang}
@@ -48,6 +50,7 @@
 % Paragraph style: no indent, add space between paragraphs
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1em}
+
 
 %----------------------------------------------------------------------------------------
 %	FONTS
@@ -68,8 +71,31 @@
 \usepackage[utf8]{inputenc} % Required for including letters with accents
 \usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
 
-%Om quotes mooi te maken
-\usepackage{csquotes}
+%%============================================================================
+%% Colours HoGent corporate identity
+%%============================================================================
+
+% Faculty colours
+\definecolor{HoGentFBO}{RGB}{0,147,208} % Bedrijf en Organisatie
+\definecolor{HoGentFMW}{RGB}{0,168,143} % Mens en Wetenschappen
+\definecolor{HoGentFNT}{RGB}{255,0,0}   % Natuur en Techniek
+\definecolor{HoGentSoA}{RGB}{0,0,0}     % School of Arts
+
+% Accent colours
+\definecolor{HoGentAccent1}{RGB}{0,111,184}   % Dark blue
+\definecolor{HoGentAccent2}{RGB}{244,52,69}   % Red
+\definecolor{HoGentAccent3}{RGB}{0,156,124}   % Green
+\definecolor{HoGentAccent4}{RGB}{239,170,162} % Pink
+\definecolor{HoGentAccent5}{RGB}{150,150,150} % Grey
+\definecolor{HoGentAccent6}{RGB}{255,218,0}   % Yellow
+
+% Aliases for accent colours
+\colorlet{HoGentBlue}{HoGentAccent1}
+\colorlet{HoGentRed}{HoGentAccent2}
+\colorlet{HoGentGreen}{HoGentAccent3}
+\colorlet{HoGentPink}{HoGentAccent4}
+\colorlet{HoGentGrey}{HoGentAccent5}
+\colorlet{HoGentYellow}{HoGentAccent6}
 
 %------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -292,7 +318,8 @@ backgroundcolor=black!5,
 linecolor=maincolor,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=5pt,
+innertopmargin=7pt,
+innerbottommargin=7pt,
 leftmargin=0cm,
 rightmargin=0cm,
 innerbottommargin=5pt]{tBox}
@@ -308,8 +335,8 @@ backgroundcolor=maincolor!10,
 linecolor=maincolor,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=5pt,
-innerbottommargin=5pt,
+innertopmargin=7pt,
+innerbottommargin=7pt,
 leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt]{eBox}
@@ -324,7 +351,8 @@ bottomline=false,
 linecolor=maincolor,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=0pt,
+innertopmargin=7pt,
+innerbottommargin=7pt,
 leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt,
@@ -341,7 +369,8 @@ linecolor=gray,
 backgroundcolor=black!5,
 innerleftmargin=5pt,
 innerrightmargin=5pt,
-innertopmargin=5pt,
+innertopmargin=7pt,
+innerbottommargin=7pt,
 leftmargin=0cm,
 rightmargin=0cm,
 linewidth=4pt,
@@ -506,8 +535,8 @@ innerbottommargin=5pt]{cBox}
 %	HYPERLINKS IN THE DOCUMENTS
 %----------------------------------------------------------------------------------------
 
-\usepackage[pdfusetitle]{hyperref}
-\hypersetup{hidelinks,colorlinks=false,breaklinks=true,urlcolor=maincolor,bookmarksopen=false}
+\usepackage{hyperref}
+\hypersetup{hidelinks,colorlinks=false,breaklinks=true,urlcolor= maincolor,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
 \usepackage{bookmark}
 \bookmarksetup{
 open,
@@ -538,29 +567,28 @@ addtohook={%
 \usepackage{listings}
 
 \lstset{ %
-	language=R,                     % the language of the code
-	inputencoding=utf8,             % Allow (some) Unicode characters in the code
-	extendedchars=true,
-	literate={é}{{\'e}}1 {ë}{{\"e}}1 {è}{{\`e}}1 {á}{{\'a}}1 {à}{{\`a}}1 {ó}{{\'o}}1 {ò}{{\`o}}1 {²}{{$^2$}}1 {€}{{\euro}}1,
-	basicstyle=\normalsize,       % the size of the fonts that are used for the code
-	numbers=left,                   % where to put the line-numbers
-	numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
-	stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
-	% will be numbered
-	numbersep=5pt,                  % how far the line-numbers are from the code
-	backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
-	showspaces=false,               % show spaces adding particular underscores
-	showstringspaces=false,         % underline spaces within strings
-	showtabs=false,                 % show tabs within strings adding particular underscores
-	frame=single,                   % adds a frame around the code
-	rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
-	tabsize=2,                      % sets default tabsize to 2 spaces
-	captionpos=b,                   % sets the caption-position to bottom
-	breaklines=true,                % sets automatic line breaking
-	breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-	keywordstyle=\color{blue},      % keyword style
-	commentstyle=\color{hogentblue},   % comment style
-	stringstyle=\color{blue},      % string literal style
-	%escapeinside={\%*}{*)},         % if you want to add a comment within your code
-	morekeywords={*,...}            % if you want to add more keywords to the set
+  language=R,                     % the language of the code
+  inputencoding=utf8,             % Allow (some) Unicode characters in the code
+  extendedchars=true,
+  literate={é}{{\'e}}1 {ë}{{\"e}}1 {è}{{\`e}}1 {á}{{\'a}}1 {à}{{\`a}}1 {ó}{{\'o}}1 {ò}{{\`o}}1 {²}{{$^2$}}1 {€}{{\euro}}1,
+  basicstyle=\normalsize,       % the size of the fonts that are used for the code
+  numbers=left,                   % where to put the line-numbers
+  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
+  % will be numbered
+  numbersep=5pt,                  % how far the line-numbers are from the code
+  backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+  showspaces=false,               % show spaces adding particular underscores
+  showstringspaces=false,         % underline spaces within strings
+  showtabs=false,                 % show tabs within strings adding particular underscores
+  frame=single,                   % adds a frame around the code
+  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+  tabsize=2,                      % sets default tabsize to 2 spaces
+  captionpos=b,                   % sets the caption-position to bottom
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+  keywordstyle=\color{HoGentBlue},      % keyword style
+  commentstyle=\color{HoGentGrey},   % comment style
+  stringstyle=\color{HoGentRed},      % string literal style
+  morekeywords={*,...}            % if you want to add more keywords to the set
 }
