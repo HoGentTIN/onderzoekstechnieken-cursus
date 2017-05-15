@@ -19,7 +19,7 @@ margin.table(waarderingen, 2)  # Kolomtotalen
 margin.table(waarderingen)     # Algemeen totaal (# observaties)
 
 # Gepercenteerde waarden, over de rijtotalen
-prop.table(waarderingen, 2)
+waarderingen_pct <- prop.table(waarderingen, 2)
 
 # Berekening chi-kwadraat, de moeilijke manier
 # Verwachte waarden (ahv matrix-vermenigvuldiging)
@@ -40,3 +40,12 @@ k <- min(nrow(waarderingen), ncol(waarderingen))
 V <- sqrt(chi_sq/
             (margin.table(waarderingen) *
                (k - 1)))
+
+# Plot: mosaic plot
+plot(t(waarderingen))
+
+# Clustered bar chart
+barplot(waarderingen, beside = TRUE)
+
+# Stacked percentage chart
+barplot(waarderingen_pct, horiz = TRUE)
