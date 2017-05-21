@@ -189,7 +189,7 @@ Het databestand komt uit de publicatie van \autocite{Stengos2005}. Deze dataset 
 > getwd()
 [1] "/home/eothein"
 \end{lstlisting}
-Als u niet zeker weet welke kolommen gedefnieerd zijn, kunt u de \texttt{names()} gebruiken:
+Als u niet zeker weet welke kolommen gedefnieerd zijn, kunt u  \texttt{names()} gebruiken:
 
 
 \begin{lstlisting}
@@ -264,4 +264,92 @@ trend = col_integer()
 
 \end{lstlisting}
 
+\subsection{Data types}
+We kijken naar enkele manieren waarop R gegevens kan opslaan en organiseren. Dit is een basisinleiding voor een kleine subset van de verschillende datatypen die door R worden herkend. Het doel is om de verschillende soorten informatie te demonstreren die R kan hanteren. 
 
+\subsubsection{Numbers}
+De meest eenvoudige manier om een nummer op te slaan is om een variabele van een enkel getal te nemen:
+\begin{lstlisting}
+> a <- 3
+>
+\end{lstlisting}
+Hiermee kunt u allerlei basisoperaties doen en opslaan:
+\begin{lstlisting}
+> b <- sqrt(a*a+3)
+> b
+[1] 3.464102
+\end{lstlisting}
+Als u een lijst met nummers wilt initialiseren, kan het \texttt{numeric} commando worden gebruikt. Om bijvoorbeeld een lijst van 10 nummers te makengebruikt u de volgende opdracht. Je kan ook kijken naar het type van de variabele.
+\begin{lstlisting}
+> a <- numeric(10)
+> a
+[1] 0 0 0 0 0 0 0 0 0 0
+> typeof(a)
+[1] "double"
+\end{lstlisting}
+
+\subsubsection{Strings}
+Een tekenreeks wordt gespecificeerd door gebruik te maken van quotes. Zowel enkelvoudige als dubbele quotes zullen werken:
+\begin{lstlisting}
+> a <- "hello"
+> a
+[1] "hello"
+> b <- c("hello","there")
+> b
+[1] "hello" "there"
+> b[1]
+[1] "hello"
+\end{lstlisting}
+
+\subsubsection{Factors}
+ Vaak bevat een experiment proeven voor verschillende niveaus van een  verklarende variabelen. Bijvoorbeeld een nominale variabele die gecodeerd wordt met een integer. De verschillende niveaus worden ook factoren genoemd.
+
+Je geeft aan dat een variabele een factor is met behulp van het \texttt{factor} commando. 
+
+\subsubsection{Data frames}
+Data kan worden opgeslaand aan de hand van data frames. Dit is een manier om verschillende vectoren van verschillende types te nemen en ze op te slaan in dezelfde variabele. De vectoren kunnen van alle soorten zijn. Een dataframe kan bijvoorbeeld verschillende vectoren bevatten, en elke lijst kan een vector zijn van factoren, strings of nummers.
+
+Er zijn verschillende manieren om gegevensframes te maken en te manipuleren. De meeste zijn buiten het bereik van deze introductie. Ze worden hier alleen genoemd om een meer volledige beschrijving te geven. 
+
+\lstinputlisting{data/dataframe.R}
+
+\subsubsection{Logische variabelen}
+Een ander belangrijk gegevenstype is het logische type. Er zijn twee vooraf gedefinieerde variabelen, \texttt{TRUE} en \texttt{FALSE}.
+
+\subsubsection{Tables}
+Een andere  manier om informatie op te slaan is in een tabel.  We kijken alleen maar naar het maken en defini\"eren van tabellen. 
+
+\lstinputlisting{data/tables.R}
+Als je rijen wilt toevoegen aan uw tabel, voeg dan nog een vector toe als argument van de tabelopdracht. In het onderstaande voorbeeld hebben wij twee vragen. In de eerste vraag staan de reacties  'Nooit', 'Soms' of 'Altijd'. In de tweede vraag staan de reacties 'Ja', 'No' of 'Maybe'. De set van vectoren 'a,' En "b" bevatten het antwoord voor elke meting. Het derde punt in "a" is hoe de derde persoon op de eerste vraag reageerde en het derde punt in "b" is hoe de derde persoon op de tweede vraag reageerde.
+
+\lstinputlisting{data/twotables.R}
+
+\subsubsection{Matrix}
+Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimensionale rechthoekige indeling. Een voorbeeld van een matrix is bijvoorbeeld als volgt:
+\[
+\begin{bmatrix}
+	2 & 3 \\ 
+	4 & 5  
+\end{bmatrix}
+\]
+
+\lstinputlisting{data/matrix.R}
+
+\section{Oefeningen}
+\begin{exercise}
+Bekijk de dataset mcars. Geef de waarde terug voor de eerste rij, tweede kolom. Geef ook het aantal rijen, het aantal kolommen. Geef ook een preview van het volledige data frame. Geef enkel de kolom terug met de definities van de cylinders. Om een data frame te bekomen met de twee kolommen mpg en hp, pakken we de kolomnamen in een indexvector in met single square bracket operator. Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set mtcars bepaalt.
+\end{exercise}
+
+\begin{exercise}
+Maak zelf een willekeurige datafile aan in excel en probeer deze in te lezen in R. Zijn er nog dataformaten die ondersteund worden door R?
+\end{exercise}
+
+
+
+\begin{exercise}
+	Genereer een $4x5$ array en noem die $x$. Geneer daarna een $3x2$ array waar de eerste kolom de rijindex kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0. 
+\end{exercise}
+
+\begin{exercise}
+	Genereer een vector waar een voornaam en een achternaam in komen. Benoem ook de naam van de kolommen. Geef daarna ook voornaam terug van het eerste element van de array. 
+\end{exercise}

@@ -206,12 +206,21 @@ De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwa
   \item Een \index{Extremum} extremum is een waarde die meer dan 3 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt. Wordt aangeduid met een sterretje.
 \end{itemize}
 
+\section{R}
+Zodra u een vector (of een lijst met nummers) in het geheugen hebt, zijn de meeste basiswerkingen beschikbaar. De meeste basiswerkzaamheden werken op een hele vector en kunnen gebruikt worden om snel een groot aantal berekeningen uit te voeren met een enkele opdracht. Indien je een operatie uitvoert op meerdere vectoren, is het vaak nodig dat de vectoren allemaal hetzelfde aantal inzendingen bevatten.
+
+Hieronder zie je een set van eenvoudige operaties die je met vectoren kan doen. Let op dat de operaties allemaal op een element per element basis uitgevoerd worden. 
+\lstinputlisting{data/operaties.R}
+
+De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, het  minimum, het maximum, de variantie en  de standaardafwijking van een reeks getallen te verkrijgen.
+
+\lstinputlisting{data/basics.R}
 
 
 \section{Oefeningen}
-\subsection{Centrummaten en spreidingsmaten op papier}
+
 \begin{definition}
-	Een frequentietabel is tabel waarin de frequenties van een waarde staan die in de volledige dataset voorkomt.Meestal zijn de tabellen verticaal georiënteerd.
+	Een frequentietabel is tabel waarin de frequenties van een waarde staan die in de volledige dataset voorkomt. Meestal zijn de tabellen verticaal geori\"nteerd.
 \end{definition}
 
 \begin{exercise}
@@ -220,7 +229,7 @@ De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwa
 		maken hebben met een frequentietabel? Doe dit voor de data in tabel \ref{tab:pinfreq}.
 \end{exercise}
 
-	\begin{table}
+	\begin{table}[b]
 		\centering
 		\caption{Aantal pinnen met frequentie}
 		\label{tab:pinfreq}
