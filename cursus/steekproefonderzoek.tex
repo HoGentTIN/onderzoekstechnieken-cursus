@@ -597,6 +597,32 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
   met $\overline{p} = \frac{x}{n}$ en $\overline{q} = 1- \overline{p}$
 \end{definition}
 
+
+\section{R}
+We kijken naar enkele basisoperaties die verband houden met enkele distributies. Er zijn een groot aantal verdelingen beschikbaar, maar we kijken maar naar een paar. Als u wilt weten welke distributies beschikbaar zijn, kunt u een zoekopdracht uitvoeren met behulp van de opdracht 
+
+\begin{lstlisting}
+> help.search ("distribution").
+\end{lstlisting}
+
+
+Hier geven we details over de commando's die verband houden met de normale distributie en vermelden kort de commando's voor andere distributies. De functies voor verschillende verdelingen zijn zeer vergelijkbaar.
+
+De prefixen zijn als volgt:
+\begin{description}
+	\item[d] geeft de hoogte van de respectievelijke kansdichtheidsfunctie
+	\item[p] geeft de cumulatieve kansdichtheidsfunctie
+	\item[q] geeft de omgekeerde cumulatieve dichtheidsfunctie
+	\item[r] geeft een willekeurige waarde
+\end{description}
+
+\subsection{De normale verdeling}
+Er zijn vier functies die kunnen worden gebruikt om de waarden geassocieerd met de normale distributie te genereren.
+
+De eerste functie waarnaar we kijken, is \texttt{dnorm}. Gegeven een waarde geeft het de hoogte van de kansverdeling op elk punt terug. Als u alleen de punten zonder gemiddelde en standaardafwijking wordt een gemiddelde van nul en standaardafwijking van een beschouwd. Er zijn opties om verschillende waarden voor de gemiddelde en standaardafwijking te gebruiken.
+
+\lstinputlisting{data/norm.R}
+
 \section{Oefeningen}
 \label{sec:steekproefonderzoek-oefeningen}
 
