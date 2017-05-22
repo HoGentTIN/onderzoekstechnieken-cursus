@@ -63,7 +63,7 @@ In statistiek werken we met variabelen en waarden.
     Specifieke eigenschap, invulling voor die variabele. Vb.~1.83m, 78 kg, \ldots
 \end{definition}
 
-Er worden meestal vier meetniveaus gebruikt in statische analyse. Het meetniveau bepaalt welke statische methodes bruikbaar zijn. 
+Er worden meestal vier meetniveaus gebruikt in statistische analyse. Het meetniveau bepaalt welke statische methodes bruikbaar zijn. 
 \begin{description}
 	\item [Nominaal meetniveau] \index{Nominaal}: er is slechts keuze uit een beperkt aantal categorie\"en, waarbij geen volgorde aanwezig is tussen de antwoorden.
 	\item [Ordinaal meetniveau] \index{Ordinaal}: een variabele die is ingedeeld in categorie\"en, waar er echter wel een logische volgorde is tussen de categori\"en. 
@@ -95,7 +95,7 @@ Er is niet altijd verband zichtbaar en we moeten soms verder kijken dan naar de 
 \begin{example}
 	Bij het voobeeld van Pepsi versus cola zou je initeel kunnen denken dat Pepsi lekkerder is omdat er meer mensen ervan geproefd hebben (70 ten opzichte van 30). Maar dit zou een verkeerde manier van redeneren zijn. We moeten relatief ten op zichte van de  \textit{marginale} totalen kijken. Hier zien we dan dat 56 van de 70 ($\frac{56}{70} = 0.8$) mensen die Pepsi gedronken hebben het lekker vonden en 24 van de 30 ($\frac{24}{30}$=0.8) mensen vonden cola lekker. Dus is er geen verschil in waarden voor Cola en Pepsi voor de gemiddelde waarde van smaa 
 \end{example}
-
+\pagebreak
 \section{Gebruik van R}
 \subsection{R}
 R is een softwareprogramma voor datamanipulatie, berekening en het grafisch voorstellen van data. Het heeft onder meer
@@ -147,21 +147,21 @@ Om objecten te verwijderen is de functie \texttt{rm} beschikbaar:
 > rm (x, y, z, inkt, junk, temp, foo, bar)
 \end{lstlisting}
 Alle objecten die tijdens een R-sessie zijn aangemaakt, kunnen permanent in een bestand worden opgeslagen voor gebruik in de toekomstige
-R sessies. Als u aangeeft dat u dit wilt doen, worden de objecten geschreven naar een genaamd bestand \texttt{.RData}
+R sessies. Als u aangeeft dat u dit wilt doen, worden de objecten geschreven naar een bestand met extensie \texttt{.RData}
 
 
 In dit hoofdstuk onderzoeken we hoe u een dataset definieert in R. Er worden slechts twee commando's onderzocht. De eerste is voor het eenvoudig toewijzen van gegevens, en de tweede is voor het lezen in een databestand. Er zijn verschillende manieren om gegevens in een R-sessie te lezen, maar we richten ons op slechts twee om het eenvoudig te houden.
 \subsubsection{Toewijzing}
-De meest directe manier om een lijst met nummers op te slaan is via een opdracht met behulp van het \texttt{c}-commando. (C staat voor "combineren.") Het idee is dat een lijst met nummers onder een bepaalde naam wordt opgeslagen, en de naam wordt gebruikt om te verwijzen naar de gegevens. Een lijst wordt gespecificeerd met de opdracht c, en de toewijzing wordt gespecificeerd met de symbolen "<-". Een andere term die gebruikt wordt om de lijst met nummers te omschrijven is \texttt{vector}.
+De meest directe manier om een lijst met nummers op te slaan is via een opdracht met behulp van het \texttt{c}-commando. (C staat voor "combineren.") Het idee is dat een lijst met nummers onder een bepaalde naam wordt opgeslagen, en de naam wordt gebruikt om te verwijzen naar de gegevens. Een lijst wordt gespecificeerd met de opdracht \texttt{c}, en de toewijzing wordt geduid met de symbolen "<-". Een andere term die gebruikt wordt om de lijst met nummers te omschrijven is \texttt{vector}.
 
 De cijfers binnen de c-opdracht worden gescheiden door komma's. Als voorbeeld kunnen we een nieuwe variabele maken, genaamd "x".
 
 \begin{lstlisting}
 > x <- c(10.4, 5.6, 3.1, 6.4, 21.7)
 \end{lstlisting}
-Wanneer je dit commando invoert, mag je geen uitvoer zien behalve een nieuwe opdrachtregel. Het commando maakt een lijst met nummers genaamd "x." Om te zien welke nummers zijn opgenomen in x ,typ "x" en druk op de enter-toets.
+Wanneer je dit commando invoert, mag je geen uitvoer zien behalve een nieuwe opdrachtregel. Het commando maakt een lijst met nummers genaamd "x." Om te zien welke elementen zijn opgenomen in x ,typ zijn naam en druk op de enter-toets.
 
-Als u met één van de nummers wilt werken, kunt u hier toegang krijgen tot de variabele en vervolgens vierkante haakjes noteren die aangeven welk nummer u wilt beshouwen:
+Als u met één van de nummers wilt werken, kunt u hier toegang krijgen tot de variabele en vervolgens vierkante haakjes noteren die aangeven welk nummer u wilt behouwen:
 
 \begin{lstlisting}
 > x[2]
@@ -169,9 +169,9 @@ Als u met één van de nummers wilt werken, kunt u hier toegang krijgen tot de v
 \end{lstlisting}
 
 \subsection{Een csv file lezen}
-We gaan ervan uit dat het gegevensbestand in csv formaat is: "komma-gescheiden waarden" (csv). Dat wil zeggen, elke regel bevat een rij met waarden die getallen of letters kunnen zijn, en elke waarde wordt gescheiden door een komma. We gaan ervan uit dat de eerste rij een lijst met labels bevat. Het idee is dat de labels in de bovenste rij gebruikt worden om te verwijzen naar de verschillende variabelen per rij.
+We gaan ervan uit dat het gegevensbestand een csv bestand is: "komma-gescheiden waarden" (csv). Dat wil zeggen, elke regel bevat een rij met waarden die getallen of letters kunnen zijn, en elke waarde wordt gescheiden door een komma. We gaan ervan uit dat de eerste rij een lijst met labels bevat. Het idee is dat de labels in de bovenste rij gebruikt worden om te verwijzen naar de verschillende variabelen per rij.
 
-Het commando om het gegevensbestand te lezen is \texttt{read.csv}. We moeten tenminste één argument geven aan de opdracht, maar we geven drie verschillende argumenten om aan te geven hoe het commando in verschillende situaties kan worden gebruikt. 
+Het commando om het gegevensbestand te lezen is \texttt{read.csv}. We moeten tenminste één argument geven aan de opdracht.
 
 \begin{exercise}
 	Ga met het help commando na wat de paramters zijn van het commando. Probeer daarna het bestand \texttt{computers.csv} in te lezen. 
@@ -197,7 +197,7 @@ Als u niet zeker weet welke kolommen gedefnieerd zijn, kunt u  \texttt{names()} 
 [1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"
 \end{lstlisting}
 
- Wanneer u het commando \texttt{read.csv} gebruikt, gebruikt R een specifiek soort variabele, dat een "dataframe" heeft. Alle gegevens worden opgeslagen in het dataframe als afzonderlijke kolommen. Als u niet zeker weet wat voor variabele u hebt dan kunt u de opdracht \texttt{attributes} gebruiken. Hiermee worden alle dingen vermeld die R gebruikt om de variabele te beschrijven:
+ Wanneer u het commando \texttt{read.csv} gebruikt, gebruikt R een specifiek soort variabele, dat een dataframe heet. Alle gegevens worden opgeslagen in het dataframe als afzonderlijke kolommen. Als u niet zeker weet wat voor variabele u hebt dan kunt u de opdracht \texttt{attributes} gebruiken. Hiermee worden alle dingen vermeld die R gebruikt om de variabele te beschrijven:
 
 \begin{lstlisting}
 attributes(computers)
@@ -265,7 +265,7 @@ trend = col_integer()
 \end{lstlisting}
 
 \subsection{Data types}
-We kijken naar enkele manieren waarop R gegevens kan opslaan en organiseren. Dit is een basisinleiding voor een kleine subset van de verschillende datatypen die door R worden herkend. Het doel is om de verschillende soorten informatie te demonstreren die R kan hanteren. 
+We kijken naar enkele manieren waarop R gegevens kan opslaan en organiseren. Dit is echter een inleiding dus beschouwen we maar een kleine subset van de verschillende datatypes die door R worden herkend. 
 
 \subsubsection{Numbers}
 De meest eenvoudige manier om een nummer op te slaan is om een variabele van een enkel getal te nemen:
@@ -279,7 +279,7 @@ Hiermee kunt u allerlei basisoperaties doen en opslaan:
 > b
 [1] 3.464102
 \end{lstlisting}
-Als u een lijst met nummers wilt initialiseren, kan het \texttt{numeric} commando worden gebruikt. Om bijvoorbeeld een lijst van 10 nummers te makengebruikt u de volgende opdracht. Je kan ook kijken naar het type van de variabele.
+Als u een lijst met nummers wilt initialiseren, kan het \texttt{numeric} commando worden gebruikt. Om bijvoorbeeld een lijst van 10 nummers te maken, gebruikt u de volgende opdracht. Je kan ook kijken naar het type van de variabele.
 \begin{lstlisting}
 > a <- numeric(10)
 > a
@@ -289,7 +289,7 @@ Als u een lijst met nummers wilt initialiseren, kan het \texttt{numeric} command
 \end{lstlisting}
 
 \subsubsection{Strings}
-Een tekenreeks wordt gespecificeerd door gebruik te maken van quotes. Zowel enkelvoudige als dubbele quotes zullen werken:
+Een tekenreeks wordt gespecificeerd door gebruik te maken van aanhalingstekens. Zowel enkelvoudige als dubbele aanhalingstekens zullen werken:
 \begin{lstlisting}
 > a <- "hello"
 > a
@@ -307,7 +307,7 @@ Een tekenreeks wordt gespecificeerd door gebruik te maken van quotes. Zowel enke
 Je geeft aan dat een variabele een factor is met behulp van het \texttt{factor} commando. 
 
 \subsubsection{Data frames}
-Data kan worden opgeslaand aan de hand van data frames. Dit is een manier om verschillende vectoren van verschillende types te nemen en ze op te slaan in dezelfde variabele. De vectoren kunnen van alle soorten zijn. Een dataframe kan bijvoorbeeld verschillende vectoren bevatten, en elke lijst kan een vector zijn van factoren, strings of nummers.
+Data kan worden opgeslaan aan de hand van dat frames. Dit is een manier om verschillende vectoren van verschillende types te nemen en ze op te slaan in dezelfde variabele. De vectoren kunnen van alle soorten zijn. Een dataframe kan bijvoorbeeld verschillende vectoren bevatten, en elke lijst kan een vector zijn van factoren, strings of nummers.
 
 Er zijn verschillende manieren om gegevensframes te maken en te manipuleren. De meeste zijn buiten het bereik van deze introductie. Ze worden hier alleen genoemd om een meer volledige beschrijving te geven. 
 
@@ -335,6 +335,7 @@ Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimen
 
 \lstinputlisting{data/matrix.R}
 
+\pagebreak
 \section{Oefeningen}
 \begin{exercise}
 Bekijk de dataset mcars. Geef de waarde terug voor de eerste rij, tweede kolom. Geef ook het aantal rijen, het aantal kolommen. Geef ook een preview van het volledige data frame. Geef enkel de kolom terug met de definities van de cylinders. Om een data frame te bekomen met de twee kolommen mpg en hp, pakken we de kolomnamen in een indexvector in met single square bracket operator. Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set mtcars bepaalt.
@@ -352,4 +353,8 @@ Maak zelf een willekeurige datafile aan in excel en probeer deze in te lezen in 
 
 \begin{exercise}
 	Genereer een vector waar een voornaam en een achternaam in komen. Benoem ook de naam van de kolommen. Geef daarna ook voornaam terug van het eerste element van de array. 
+\end{exercise}
+
+\begin{exercise}
+	Probeer voor de datafile \texttt{rainforest} in de library \texttt{DAAG} te tellen hoeveel rijen er zijn per species die volledig en compleet zijn (dus geen n.a. bevatten). Je kan hiervoor \texttt{with, table, complete.cases} voor gebruiken. 
 \end{exercise}

@@ -618,11 +618,23 @@ De prefixen zijn als volgt:
 
 \subsection{De normale verdeling}
 Er zijn vier functies die kunnen worden gebruikt om de waarden geassocieerd met de normale distributie te genereren.
+\subsubsection{dnorm}
 
-De eerste functie waarnaar we kijken, is \texttt{dnorm}. Gegeven een waarde geeft het de hoogte van de kansverdeling op elk punt terug. Als u alleen de punten zonder gemiddelde en standaardafwijking wordt een gemiddelde van nul en standaardafwijking van een beschouwd. Er zijn opties om verschillende waarden voor de gemiddelde en standaardafwijking te gebruiken.
+De eerste functie waarnaar we kijken, is \texttt{dnorm}. Gegeven een waarde geeft het de hoogte van de kansverdeling op elk punt terug. Als u alleen de punten zonder gemiddelde en standaardafwijking ingeeft wordt een gemiddelde van nul en standaardafwijking van 1 beschouwd. Er zijn opties om verschillende waarden voor de gemiddelde en standaardafwijking te gebruiken.
 
 \lstinputlisting{data/norm.R}
 
+\subsubsection{qnorm}
+De volgende functie die we bekijken is \texttt{qnorm}, die de inverse van \texttt{pnorm} is. Het idee achter \texttt{qnorm} is dat je het een kans $\alpha$ geeft, en het geeft het getal weer waarvan de cumulatieve distributie overeenkomt met de waarschijnlijkheid $\alpha$. 
+
+\subsubsection{rnorm}
+
+\lstinputlisting{data/qnorm.R}
+De laatste functie die we onderzoeken is de \texttt{rnorm} functie die willekeurige getallen kan genereren waarvan de distributie normaal is. Het argument dat je ingeeft is het aantal willekeurige getallen dt u wilt, met optionele argumenten om de gemiddelde en standaardafwijking op te geven:
+
+\lstinputlisting{data/rnorm.R}
+
+\pagebreak
 \section{Oefeningen}
 \label{sec:steekproefonderzoek-oefeningen}
 
@@ -668,7 +680,7 @@ De eerste functie waarnaar we kijken, is \texttt{dnorm}. Gegeven een waarde geef
 \end{exercise}
 
 \begin{exercise}
-  Bereken met behulp van de tabel van de normale verdeling de volgende kansen door de gevraagde kans te herleiden tot een linkerstaartkans. Teken ook elke keer het gevraagde gebied.
+  Bereken teken ook elke keer het gevraagde gebied.
   \begin{enumerate}[label=\alph*.]
     \item $P(Z < 1.33)$
     \item $P(Z > 1.33)$
@@ -681,6 +693,26 @@ De eerste functie waarnaar we kijken, is \texttt{dnorm}. Gegeven een waarde geef
     \item $P(-1.35 < Z < -0.10)$
     \item $P(-2.10 < Z < -0.90)$
   \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+	Bepaal de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een normale verdeling met een gemiddelde $\mu$
+	van 2,5 en $\sigma = 1,5$. Bepaal de oppervlakte voor het gebied onder de dichtheidscurve tussen
+	$x = 0.5$ en $x = 4$. Controleer uw antwoord door de berekening te doen.
+\end{exercise}
+
+\begin{exercise}
+	Bepaal de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een t-verdeling met $df = 3$. Teken ook een normale verdeling met een $\mu = 0$  en $\sigma = 1$.
+	[Vervang dnorm door dt, en geef df = 10]
+	
+	Bepaal daarnaast de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een exponentiële verdeling met e rate parameter $ \lambda$ gelijk aan 1. Herhaal met $\lambda = 2$. 
+\end{exercise}
+
+\begin{exercise}
+	Gebruik de functie rnorm () om een ​​willekeurige steekproef van 25 waarden uit een normale verdeling te tekenen met
+	een gemiddelde van 0 en een standaardafwijking gelijk aan 1,0. Gebruik een histogram, met probability = TRUE.
+	Maak een overlay over het histogram met: (a) een geschatte dichtheidscurve; (B) de theoretische
+	dichtheidscurve voor een normale verdeling met gemiddelde 0 en standaardafwijking gelijk aan 1,0. Herhaal dit voor een steekproef vna 100 en 500 waarden.
 \end{exercise}
 
 \begin{exercise}

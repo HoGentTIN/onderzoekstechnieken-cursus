@@ -206,6 +206,8 @@ De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwa
   \item Een \index{Extremum} extremum is een waarde die meer dan 3 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt. Wordt aangeduid met een sterretje.
 \end{itemize}
 
+
+\pagebreak
 \section{R}
 Zodra u een vector (of een lijst met nummers) in het geheugen hebt, zijn de meeste basiswerkingen beschikbaar. De meeste basiswerkzaamheden werken op een hele vector en kunnen gebruikt worden om snel een groot aantal berekeningen uit te voeren met een enkele opdracht. Indien je een operatie uitvoert op meerdere vectoren, is het vaak nodig dat de vectoren allemaal hetzelfde aantal elementen bevatten.
 
@@ -216,7 +218,7 @@ De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, h
 
 \lstinputlisting{data/basics.R}
 
-
+\pagebreak
 \section{Oefeningen}
 
 \begin{definition}
@@ -265,6 +267,27 @@ De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, h
 		Zoek eens zelfstandig op wat de variatieco\"effici\"ent is. Hoe
 		wordt die gedefinieerd voor een volledige populatie en wat zou
 		je ermee kunnen doen?
+\end{exercise}
+
+\subsection{Projecties in R}
+\begin{exercise}
+	Beschouw de volgende subsets uit het data frame \texttt{ais} (DAAG):
+	\begin{enumerate}
+		\item Ontleed de gegevens voor de roeiers.
+		\item Ontleed de gegevens voor de roeiers, de netballers en de tennissers.
+		\item Ontleed de gegevens voor de de vrouwelijke basketballers en roeiers.
+	\end{enumerate}
+\end{exercise}
+
+\subsection{Centrummaten en spreidingsmaten in R}
+
+\begin{exercise}
+	Gebruik de functies \texttt{mean}  en \texttt{range} om het gemiddelde en bereik van:
+	\begin{itemize}
+		\item de cijfers 1, 2, \dots, 21 
+		\item 50 willekeurige normale waarden, die  worden gegenereerd vanuit een normaL distributie met gemiddelde 0 en variantie 1
+		\item de kolommen \texttt{height} en \texttt{weight} in de data frame \texttt{women} (standaar in R).
+	\end{itemize}
 \end{exercise}
 
 \subsection{Wetenschappelijk schrijven}
@@ -339,8 +362,7 @@ De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, h
 \end{exercise}
 Indien je op vorige componenten geen antwoord vindt uit de tekst, probeer dan zelf een antwoord te formuleren indien jij dit onderzoek zou uitvoeren. 
 
-\subsection{Centrummaten en spreidingsmaten in R}
-In vorig hoofdstuk hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken gebruikt in het onderzoek van~\textcite{Akin2016}. In de volgende oefeningen gaan we trachten de resultaten na te maken. 
+In vorige oefeningen hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken gebruikt in het onderzoek van~\textcite{Akin2016}. In de volgende oefeningen gaan we trachten de resultaten na te maken. 
 
 Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu.csv} nodig. 
 
@@ -362,6 +384,7 @@ We hebben nu de data ingeladen. We kunnen eens kijken wat de gemiddelde tijd, de
 	Als je de vorige metrieken berekend hebt, wat kan je daar dan over zeggen. Kan je zinnige conclusies trekken uit de vorige resultaten. Zo ja vermeld ze, zo nee beschrijf waarom je dat denkt.
 \end{exercise}
 
+\pagebreak
 \subsection{Grafieken in R}
 
 \subsubsection{Histogram}
@@ -427,6 +450,8 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
 \begin{exercise}
 	Ga nu zelf na welke boxplots er interessant zijn om te maken, en kijken of jouw resultaten overeen met die van \textcite{Akin2016}. Welke conclusies trek je?
 \end{exercise}
+
+
 
 
 
