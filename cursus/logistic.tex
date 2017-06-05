@@ -1,0 +1,62 @@
+\chapter{Logistisch regressie}
+
+\section{Inleiding}
+
+In dit onderzoek gaan we een andere vorm van verband zoeken tussen variabelen waarbij de afhankelijke variabele twee waarden kan aannemen. 
+
+\begin{example}
+	\label{ex:slagen}
+	Stel dat je wil nagaan of het student al dan niet zal slagen voor het examen onderzoekstechnieken. We zijn dus ge\"interesseerd in de voorspelling (door
+	onafhankelijke variabelen) van de kans dat een student in de categorie 'examen slagen' of in de categorie 'niet slagen' valt. 
+\end{example}
+
+In bovenstaand voorbeeld zal een 'gewone' lineaire regressie analyse 
+algemeen wel de juiste richting van de $\beta$-co\"efficiënten opleveren. Maar de schatting is niet helemaal correct, omdat enkele belangrijke regressie assumpties geschonden worden, zoals de normaliteitsassumptie en de assumptie van homoscedasticiteit. Het grootste probleem is evenwel dat de door lineaire regressie voorspelde kansen groter kunnen zijn dan 1 en kleiner dan 0 en dat is niet te interpreteren.
+
+Bij logistische regressie gaan we werken met kansverhoudingen. In voorbeeld \ref{ex:slagen} hebben we een kansverdeling dat een student wel slaagt $p$ gedeeld door de kans om niet te slagen $1-p$:
+\[ 
+	\textnormal{verhouding} = \frac{p}{1-p}
+\]
+
+We wensen dat de waarden van de verhouding gaan van $- \infty$ tot $\infty$ gaan. Daarom gaan we de natuurlijke logaritme nemen van de verhouding. Om de functie te tekenen van de logaritmische functie kan je onderstaande code gebruiken. 
+
+\lstinputlisting{data/logcurve.R}
+
+Als we de onafhankelijke variabelen $X_1$, $X_2$  \dots $X_n$ noemen,dan ziet het logistische model er in formulevorm als volgt uit:
+\[ 
+	log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n 
+\]
+
+We kunnen het kansmodel ook herschrijven (afzonderen van de p):
+
+\[ 
+	p = \frac{e^{\beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n }}{1+ e^{\beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n }}
+\]
+
+We kunnen het kansmodel dan ook herschrijven (afzonderen van de $(1-p)$):
+\[ 
+1-p = \frac{1}{1+ e^{\beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n }}
+\]
+Aan deze formules is af te lezen dat de kansen $p$ en $1-p$ bij elkaar opgeteld gelijk zijn aan \'e\'en.
+Verder is te zien dat de kansen $p$ en $1-p$ afhankelijk zijn van de variabelen $X_1, X_2 \cdots X_n$, maar dat deze afhankelijkheid niet lineair is. Een logistische regressielijn ziet er dus niet als een rechte lijn
+uit, maar als een S-vormige curve. (TODO: hier zou een tekening moeten komen van de sigmo\"ide functie).
+
+Bij logistische regressie gaan we dus op zoek naar goede waarden voor $\beta_0 \cdots \beta_n$. Dit kan in R makkelijk door de methode \texttt{glm}.
+
+\section{Logistische regressie in R}
+
+We gaan het voorbeeld nemen dan in Kaggle \footnote{\href{https://www.kaggle.com/c/titanic/data}{https://www.kaggle.com/c/titanic/data}} gegeven wordt. Het bevat de informatie rond de mensen die de reis van de titanic ondernomen hebben en het overleefd hebben of niet. De analyse komt uit het blog artikel \cite{michy}
+
+\subsection{Data cleaning}
+
+We gaan de data opruimen en kijken welke parameters er in het model kunnen zitten. We gaan dit na door te kijken welke parameters in de dataset niet voldoende aanwezig zijn. 
+
+\begin{lstlisting}
+sapply(train,function(x) sum(is.na(x)))
+sapply(train, function(x) length(unique(x)))
+missmap(train, main = "Missing values vs observed")
+\end{lstlisting}
+Hierbij zien we dat de variabelen \texttt{cabin} te weinig waarden bevat. Ook \texttt{tickets} laten we vallen aangezien dit weinig invloed zal hebben. 
+ We nemen dus een subset van de data en gaan hiermee aan de slag. 
+ 
+ 

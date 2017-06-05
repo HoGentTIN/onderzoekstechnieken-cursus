@@ -18,4 +18,5 @@ correlate(women$height,women$weight)
 0.995^2
 
 #Stap 6: regressierechte tekenen op tekening
-abline(regressie)
+abline(regression)
+lines(women$height,x,type="o", col = 'red')
