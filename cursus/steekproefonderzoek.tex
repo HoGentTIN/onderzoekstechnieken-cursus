@@ -337,7 +337,7 @@ R heeft eveneens functies voor het rekenen met kansen van normaal verdeelde vari
   	\verb|qnorm(p, m, s)| & Onder welke grens zal \texttt{p}\% van de waarnemingen liggen? \\
   	\verb|rnorm(n, m, s)| & Genereer \texttt{n} normaal verdeelde random getallen
   \end{tabular}
-  
+
   \caption{Kansberekeningsfuncties in R voor een normale verdeling met gemiddelde \texttt{m} en standaardafwijking \texttt{s}. Indien argumenten \texttt{m} en \texttt{s} weglaten worden, wordt de standaardnormaalverdeling verondersteld.}
   \label{rab:norm-prob-r}
 \end{table}
@@ -597,12 +597,50 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
   met $\overline{p} = \frac{x}{n}$ en $\overline{q} = 1- \overline{p}$
 \end{definition}
 
+
+\section{R}
+We kijken naar enkele basisoperaties die verband houden met enkele distributies. Er zijn een groot aantal verdelingen beschikbaar, maar we kijken maar naar een paar. Als u wilt weten welke distributies beschikbaar zijn, kunt u een zoekopdracht uitvoeren met behulp van de opdracht
+
+\begin{lstlisting}
+> help.search ("distribution").
+\end{lstlisting}
+
+
+Hier geven we details over de commando's die verband houden met de normale distributie en vermelden kort de commando's voor andere distributies. De functies voor verschillende verdelingen zijn zeer vergelijkbaar.
+
+De prefixen zijn als volgt:
+\begin{description}
+	\item[d] geeft de hoogte van de respectievelijke kansdichtheidsfunctie
+	\item[p] geeft de cumulatieve kansdichtheidsfunctie
+	\item[q] geeft de omgekeerde cumulatieve dichtheidsfunctie
+	\item[r] geeft een willekeurige waarde
+\end{description}
+
+\subsection{De normale verdeling}
+Er zijn vier functies die kunnen worden gebruikt om de waarden geassocieerd met de normale distributie te genereren.
+\subsubsection{dnorm}
+
+De eerste functie waarnaar we kijken, is \texttt{dnorm}. Gegeven een waarde geeft het de hoogte van de kansverdeling op elk punt terug. Als u alleen de punten zonder gemiddelde en standaardafwijking ingeeft wordt een gemiddelde van nul en standaardafwijking van 1 beschouwd. Er zijn opties om verschillende waarden voor de gemiddelde en standaardafwijking te gebruiken.
+
+\lstinputlisting{data/norm.R}
+
+\subsubsection{qnorm}
+De volgende functie die we bekijken is \texttt{qnorm}, die de inverse van \texttt{pnorm} is. Het idee achter \texttt{qnorm} is dat je het een kans $\alpha$ geeft, en het geeft het getal weer waarvan de cumulatieve distributie overeenkomt met de waarschijnlijkheid $\alpha$.
+
+\subsubsection{rnorm}
+
+\lstinputlisting{data/qnorm.R}
+De laatste functie die we onderzoeken is de \texttt{rnorm} functie die willekeurige getallen kan genereren waarvan de distributie normaal is. Het argument dat je ingeeft is het aantal willekeurige getallen dt u wilt, met optionele argumenten om de gemiddelde en standaardafwijking op te geven:
+
+\lstinputlisting{data/rnorm.R}
+
+\pagebreak
 \section{Oefeningen}
 \label{sec:steekproefonderzoek-oefeningen}
 
 \begin{exercise}
   Een onderzoeker wil zo correct mogelijk de consumptiegewoontes van de inwoners van 18 jaar en ouder in een bepaalde gemeente, met 3 woonkernen, onderzoeken.  Hij onderscheidt 4 leeftijdsgroepen zodat hij uiteindelijk aan 12 deelgroepen komt. Hij vraagt de procentuele samenstelling van de bevolking op in de gemeente en berekent daaruit hoeveel bevragingen hij per deelgroep moet uitvoeren.  Dit noemen we een \emph{quotasteekproef}.
-  
+
   Vragen:
   \begin{enumerate}[label=\alph*.]
     \item Wat zijn de voor- en nadelen?
@@ -612,19 +650,19 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 \end{exercise}
 
 \begin{exercise}
-  Een onderzoeksbureau wil het aankoopgedrag van wasproducten nagaan. Men beslist een aantal vragen te stellen aan vrouwen tussen de 25 en 55 jaar omdat men ervan uitgaat dat de relevante populatie uit deze categorie consumenten bestaat. 
-  
+  Een onderzoeksbureau wil het aankoopgedrag van wasproducten nagaan. Men beslist een aantal vragen te stellen aan vrouwen tussen de 25 en 55 jaar omdat men ervan uitgaat dat de relevante populatie uit deze categorie consumenten bestaat.
+
   Vraag:
-  
+
   \begin{enumerate}[label=\alph*.]
-    \item Welke fout wordt hier gemaakt? 
+    \item Welke fout wordt hier gemaakt?
     \item Hoe groot is de impact van deze fout?
   \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
-  	De vakbonden willen een onderzoek doen naar de werkomstandigheden van de werknemers van een IT-bedrijf. Dat bedrijf heeft in totaal 3200 werknemers die verdeeld zijn over 
-  12 vestigingen. Omdat het aantal werknemers groot is worden aselect 40 werknemers gekozen per vestiging. De steekproefomvang is dus $n = 480$.	
+  	De vakbonden willen een onderzoek doen naar de werkomstandigheden van de werknemers van een IT-bedrijf. Dat bedrijf heeft in totaal 3200 werknemers die verdeeld zijn over
+  12 vestigingen. Omdat het aantal werknemers groot is worden aselect 40 werknemers gekozen per vestiging. De steekproefomvang is dus $n = 480$.
   \begin{enumerate}[label=\alph*.]
     \item Welk bezwaar kan tegen deze steekproefprocedure worden gebracht?
     \item Wanneer zou dit geen bezwaar zijn?
@@ -633,7 +671,7 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 
 \begin{exercise}
   We willen een onderzoek voeren naar onze studenten aan de Hogeschool Gent, faculteit Bedrijf en Organisatie. Hiervoor worden de aanwezige studenten in een bepaald opleidingsonderdeel bevraagd.
-  
+
   \begin{enumerate}[label=\alph*.]
     \item Welke kritiek kan je op deze methode geven?
     \item Stel dat de aanwezige docent een kernvak geeft, zeer streng is en tijdens de bevraging rondloopt. Welk bezwaar kan hier gegeven worden?
@@ -642,7 +680,7 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 \end{exercise}
 
 \begin{exercise}
-  Bereken met behulp van de tabel van de normale verdeling de volgende kansen door de gevraagde kans te herleiden tot een linkerstaartkans. Teken ook elke keer het gevraagde gebied.
+  Bereken teken ook elke keer het gevraagde gebied.
   \begin{enumerate}[label=\alph*.]
     \item $P(Z < 1.33)$
     \item $P(Z > 1.33)$
@@ -658,6 +696,28 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 \end{exercise}
 
 \begin{exercise}
+	Bepaal de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een normale verdeling met een gemiddelde $\mu$
+	van 2,5 en $\sigma = 1,5$. Bepaal de oppervlakte voor het gebied onder de dichtheidscurve tussen
+	$x = 0.5$ en $x = 4$. Controleer uw antwoord door de berekening te doen.
+\end{exercise}
+
+\begin{exercise}
+	Bepaal de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een t-verdeling met $df = 3$. Teken ook een normale verdeling met een $\mu = 0$  en $\sigma = 1$.
+	[Vervang dnorm door dt, en geef df = 10]
+
+	Bepaal daarnaast de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een exponentiële verdeling met e rate parameter $ \lambda$ gelijk aan 1. Herhaal met $\lambda = 2$.
+\end{exercise}
+
+\begin{exercise}
+    Gebruik de functie \verb|rnorm()| een willekeurige steekproef van 25 waarden uit een normale verdeling te tekenen met
+een gemiddelde van 0 en een standaardafwijking gelijk aan 1,0. Gebruik een histogram, met \verb|probability = TRUE|.
+Maak een overlay over het histogram met: (a) een geschatte dichtheidscurve; (b) de theoretische
+dichtheidscurve voor een normale verdeling met gemiddelde 0 en standaardafwijking gelijk aan 1,0. Herhaal dit voor een steekproef van 100 en 500 waarden.
+\end{exercise}
+
+%\lstinputlisting{oplossingen/oefn38HistCruve.R}
+
+\begin{exercise}
   In de  Hogeschool zijn er twee klassen voor het vak onderzoekstechnieken. De studenten werden willekeurig over de klassen verdeeld, zodat we mogen veronderstellen dat de ene klas niet slimmer is dan de andere. In de A-klas geeft mevr. X les, in de B-klas geeft mr. Y les. X is nogal streng en op het einde van het schooljaar behaalt haar klas een gemiddelde van 54 op 100 met een standaardafwijking van 11.
 
   Y is iets losser en stimuleert de leerlingen al gauw met een puntje meer. Op het einde van het schooljaar behaalt zijn klas een gemiddelde van 62 op 100 en een standaardafwijking van 7.
@@ -667,19 +727,19 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 
 \begin{exercise}
   Een gezondheidsonderzoek tussen 1988 en 1994 gaf aan dat de gemiddelde cholesterolwaarde bij vrouwen tussen 20 en 29 jaar 183 mg/dl bedroeg, met een standaardafwijking gelijk aan 36. We nemen nu een aselecte steekproef van 81 vrouwen. Los volgende vragen op:
-  
+
   \begin{enumerate}[label=\alph*.]
     \item Schets de kansdichtheidsfunctie voor de populatie en de kansverdeling van het steekproefgemiddelde $\overline{x}$.
     \item Bepaald de kans dat $\overline{x}$ kleiner is dan 185.
     \item Bepaal de kans dat $\overline{x}$ tussen 175 en 185 ligt.
-    \item Bepaal de kans dat $\overline{x}$ groter is dan 190. 
+    \item Bepaal de kans dat $\overline{x}$ groter is dan 190.
   \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
   Een aselecte steekproef van 64 stuks wordt getrokken uit een populatie met onbekende verdeling. De verwachting en de standaardafwijking van de populatie
   zijn wel gekend: $\mu = 20$ en $\sigma=16$. Los volgende vragen op:
-  
+
   \begin{enumerate}[label=\alph*.]
     \item Bepaal de verwachting en standaardafwijking van het steekproefgemiddelde.
     \item Beschrijf de vorm van de verdeling van het steekproefgemiddelde. In hoeverre hangt je antwoord af van de grootte van de steekproef?
@@ -692,7 +752,7 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 
 \begin{exercise}
   Verkeersdrempels zijn bedoeld om de snelheid van automobilisten te be\"invloeden. Afhankelijk van de gewenste snelheid in een straat worden de drempels steiler of minder steil gemaakt. Drempel A is zo ontworpen dat 85 \% van de automobilisten de drempel passeert met een snelheid van minder dan 50 km per uur. In de praktijk blijkt dat de passeersnelheid bij een drempel normaal verdeeld is. Bij drempel A werd een gemiddelde passeersnelheid van 43,1 km/h gevonden met standaardafwijking 6,6 km/h.
-  
+
   \begin{enumerate}[label=\alph*.]
     \item Toon aan dat 85\% van de automobilisten niet harder dan 50 km/h rijdt.
     \item Bij hoeveel van de 1200 metingen kan, op grond van eerdere ervaringen, een snelheid van meer dan 55 km/h worden verwacht?
@@ -701,7 +761,7 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 
 \begin{exercise}
   Gegeven 20 examenresultaten in Tabel~\ref{tab:examen}. Uit resultaten van de laatste jaren blijkt dat $\sigma = 2.45$.
-  
+
   \begin{enumerate}[label=\alph*.]
     \item Wat is $\sigma_{\overline{x}}$ , de standaardafwijking van $\overline{x}$?
     \item Geef het 92\% betrouwbaarheidsinterval voor $\mu$.
@@ -713,7 +773,7 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
   \centering
   \begin{tabular}{llllllllll}
     11.5 & 16.5 & 11 & 17.3 & 10.8 & 5.6  & 13.1 & 11.5 & 14.2 & 12.9 \\
-    8.7  & 9.2  & 15 & 14.4 & 10   & 10.3 & 18.3 & 12.9 & 14.2 & 8.7 
+    8.7  & 9.2  & 15 & 14.4 & 10   & 10.3 & 18.3 & 12.9 & 14.2 & 8.7
   \end{tabular}
   \caption{Examenresultaten}
   \label{tab:examen}
@@ -726,7 +786,7 @@ Aangezien $\overline{p}$ een steekproefgemiddelde is van het aantal successen, s
 \begin{exercise}
   Een conservenfabrikant krijgt de laatste tijd klachten over de netto inhoud van zijn conserven met wortelen en erwtjes, die volgens de verpakking netto 1 liter zouden moeten bevatten. Daarom laat hij een steekproef nemen waarin de netto inhoud van 40 willekeurig gekozen blikjes wordt gecontroleerd. De resultaten worden samengevat in Tabel~\ref{tab:Steekproefwaarden}.
 
-Vraag A: 
+Vraag A:
 \begin{itemize}
   \item Vul de tabel aan met de cummulatieve absolute frequentie
   \item Vul de tabel aan met de relatieve frequentie
@@ -753,7 +813,7 @@ Vraag B:
     $[970,980[$ & 3 \\
     $[980,990[$ & 5 \\
     $[990,1000[$ & 13 \\
-    $[1000,1010[$ & 11 \\ 
+    $[1000,1010[$ & 11 \\
     $[1010,1020[$ & 5 \\
     $[1020,1030[$ & 3 \\
     \bottomrule
@@ -764,10 +824,10 @@ Vraag B:
 
 \begin{exercise}
   Een webhostingfirma heeft een Service Level Agreement met een klant voor een gegarandeerde uptime van ``five nines'' (99,999\%).  Die wordt aan het einde van elk jaar gecontroleerd en als de minimale uptime niet gehaald wordt, moet de hostingfirma een boete betalen.
-  
+
   Om de uptime te meten, voert een monitoringsysteem elke minuut een \texttt{HTTP GET /} uit en controleert het resultaat a.h.v.
   de HTTP return code. In de maand januari is er één enkele HTTP request onsuccesvol geweest.
-  
+
   \begin{itemize}
     \item Als deze trend zich voortzet, wat is de kans dat de SLA niet gehaald wordt aan het einde van het jaar? Gebruik de formule voor de kansverdeling van een fractie.
     \item De gebruikte formule is eigenlijk niet geschikt in dit specifieke geval en geeft een vertekend beeld. Wat zou de reden kunnen zijn?

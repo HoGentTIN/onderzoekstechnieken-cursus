@@ -1,0 +1,244 @@
+\chapter{Logistisch regressie}
+
+\section{Inleiding}
+
+In dit onderzoek gaan we een andere vorm van verband zoeken tussen variabelen waarbij de afhankelijke variabele twee waarden kan aannemen. 
+
+\begin{example}
+	\label{ex:slagen}
+	Stel dat je wil nagaan of het student al dan niet zal slagen voor het examen onderzoekstechnieken. We zijn dus ge\"interesseerd in de voorspelling (door
+	onafhankelijke variabelen) van de kans dat een student in de categorie 'examen slagen' of in de categorie 'niet slagen' valt. 
+\end{example}
+
+In bovenstaand voorbeeld zal een 'gewone' lineaire regressie analyse 
+algemeen wel de juiste richting van de $\beta$-co\"efficiënten opleveren. Maar de schatting is niet helemaal correct, omdat enkele belangrijke regressie assumpties geschonden worden, zoals de normaliteitsassumptie en de assumptie van homoscedasticiteit. Het grootste probleem is evenwel dat de door lineaire regressie voorspelde kansen groter kunnen zijn dan 1 en kleiner dan 0 en dat is niet te interpreteren.
+
+Bij logistische regressie gaan we werken met kansverhoudingen. In voorbeeld \ref{ex:slagen} hebben we een kansverdeling dat een student wel slaagt $(y = 1)$ met kans $p$ gedeeld door de kans om niet te slagen $(y=0)$ met kans $q = 1-p$:
+\[ 
+	\textnormal{verhouding} = \frac{p}{1-p}
+\]
+
+We wensen dat de waarden van de verhouding gaan van $- \infty$ tot $\infty$. Daarom gaan we de natuurlijke logaritme nemen van de verhouding. Om de functie te tekenen van de logaritmische functie kan je onderstaande code gebruiken. 
+
+\lstinputlisting{data/logcurve.R}
+
+Als we de onafhankelijke variabelen $X_1$, $X_2$  \dots $X_n$ noemen,dan ziet het logistische model er in formulevorm als volgt uit:
+\[ 
+	log(\frac{p}{1-p}) = \beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n 
+\]
+
+We kunnen het kansmodel ook herschrijven (afzonderen van de $p$):
+
+\begin{eqnarray}
+	p = \frac{e^{\beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n }}{1+ e^{\beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n }}
+	\label{eq:prob}
+\end{eqnarray} 
+
+
+
+We kunnen het kansmodel dan ook herschrijven (afzonderen van de $(1-p)$):
+\[ 
+1-p = \frac{1}{1+ e^{\beta_0 + \beta_1 X_1 + \cdots + \beta_n X_n }}
+\]
+
+Aan deze formules is af te lezen dat de kansen $p$ en $1-p$ bij elkaar opgeteld gelijk zijn aan \'e\'en.
+Verder is te zien dat de kansen $p$ en $1-p$ afhankelijk zijn van de variabelen $X_1, X_2 \cdots X_n$, maar dat deze afhankelijkheid niet lineair is. Een logistische regressielijn ziet er dus niet als een rechte lijn
+uit, maar als een S-vormige curve. (TODO: hier zou een tekening moeten komen van de sigmo\"ide functie).
+
+Bij logistische regressie gaan we dus op zoek naar goede waarden voor $\beta_0 \cdots \beta_n$ die het model zo goed mogelijk beschrijven zodat we ook voorspellingen kunnen doen. Dit kan in R makkelijk door de methode \texttt{glm}.
+
+Om de logistische functie te tekenen kunnen we gebruik maken van onderstaande code (twee parameters).
+
+\lstinputlisting{data/sigmoid.R}
+
+\subsection{Intu\"itie rond de oplossingsmethode}
+Om de waarden van $\beta_0, \beta_1 \cdots \beta_n$ te bepalen gaan we deze keer niet gebruik maken van de kleinste kwadratenmethode (zie sectie \ref{sec:regressie}), maar wel van een meer algemene methode : maximum likelihood methode \index{maximum likelihood}. Hierbij proberen we waarden voor de $\beta_i$ te vinden die ervoor zorgen dat in de trainingsdataset (de dataset die we gebruiken om de parameters $\beta_i$ te bepalen) de elementen die een label 1 krijgen zo goed mogelijk benaderd worden door 1 in vergelijking \ref{eq:prob} en de elementen die een label 0 krijgen zo goed mogelijk benaderd worden door 0. Dit doen we door volgende vergelijking te maximaliseren. 
+
+\begin{equation}
+	\Pi_{i: y_i=1} p(x_i) \Pi_{j= y_j = 0} (1 - p(x_j)) 
+\end{equation}
+
+De oplossingsmethode wordt ge\"implementeerd in R en is buiten de scope van deze cursus. We refereren de ge\"interesseerde lezer naar \cite{Hastie2009} voor meer informatie rond deze methode. 
+
+
+\subsection{Performantie van het model}
+Er zijn een aantal performantiematen die in rekening moeten gebracht worden wanneer aan logistische regressie gedaan wordt. 
+
+\subsubsection{Akaike Information Criteria}
+\index{Akaike Information Criteria}
+Dit is een statistiek die wat overeenkomt met $R^2$ vanuit sectie \ref{sec:determinatiecoef}. Het geeft aan hoe goed de opgenomen variabelen in ons model het resultaat weergeven en we wensen die AIC zo laag mogelijk te houden. Het geeft ons dus een inkijk in het gebruik van de variabelen en zorgt ervoor dat we niet te veel variabelen in ons model opnemen. 
+
+De waarde van de AIC is op zichzelf niet van belang, maar wordt vooral gebruikt wanneer de verschillende modellen wilt vergelijken: dan neem je best het model met de laagste AIC. 
+
+\subsubsection{Null deviance}
+\index{null deviance}
+Dit is een indicatie hoe goed het model de data fit waarbij alleen gebruik gemaakt wordt van de intercept. Hoe lager deze waarde hoe beter.
+
+\subsubsection{Residual deviance}
+\index{residual deviance}
+Dit is een indicatie hoe goed het model de data fit, waarbij de onafhankelijke variabelen toegevoegd zijn. Hier geldt ook, hoe lager deze waarde hoe beter.
+
+Bij de output in R krijg je bovenstaande waarden. Waar je als onderzoeker vooral ge\"interesseerd in bent is een lage AIC en een een significante daling van the Null Deviance naar de Residual deviance. 
+
+
+\section{Logistische regressie in R}
+
+We gaan het voorbeeld nemen dan in Kaggle \footnote{\href{https://www.kaggle.com/c/titanic/data}{https://www.kaggle.com/c/titanic/data}} gegeven wordt. Het bevat de informatie rond de mensen die de reis van de titanic ondernomen hebben en het overleefd hebben of niet. De analyse komt uit het blog artikel \cite{michy}, maar is wat aangepast aangezien niet alle conclusies in dit artikel kloppen. 
+
+\subsection{Data cleaning}
+
+Importeer de data, en zorg ervoor dat de juiste types voor de juiste variabelen gekozen zijn (Sex is bijvoorbeeld een \texttt{factor} variabele)
+
+We gaan de data opruimen en kijken welke parameters er in het model kunnen zitten. We gaan dit na door te kijken welke parameters in de dataset niet voldoende aanwezig zijn. 
+
+\begin{lstlisting}
+sapply(train,function(x) sum(is.na(x)))
+sapply(train, function(x) length(unique(x)))
+missmap(train, main = "Missing values vs observed")
+\end{lstlisting}
+Hierbij zien we dat de variabelen \texttt{cabin} te weinig waarden bevat. Ook \texttt{tickets} laten we vallen aangezien dit weinig invloed zal hebben. 
+We nemen bijgevolg een subset van de data en gaan hiermee aan de slag. 
+ 
+\begin{lstlisting}
+data <- subset(train,select=c(2,3,5,6,7,8,10,12))
+\end{lstlisting} 
+
+We moeten ervoor zorgen dat de andere data elementen die er te kort zijn zinvol ingevuld worden. Je hebt hier verschillende methodieken voor. Je kan vervangen door:
+\begin{itemize}
+	\item het gemiddelde
+	\item de mediaan
+	\item de modus
+	\item een elementen uit een bepaalde distributie
+\end{itemize} 
+
+We gaan voor de optie om de \texttt{NA} elementen te vervangen door hun gemiddelde. 
+
+\begin{lstlisting}
+data$Age[is.na(data$Age)] <- mean(data$Age,na.rm=T)
+\end{lstlisting}
+
+Voor de nominale en ordinale variabelen kunnen we kijken hoe ze gecodeerd worden door R. 
+\begin{lstlisting}
+contrasts(data$Sex)
+\end{lstlisting}
+
+\subsection{Fitten van de data in R}
+We gaan de data opsplitsen in een trainingsset en een testset. We gaan hiervoor de library \texttt{caTools} gebruiken. 
+
+\begin{lstlisting}
+install.packages('caTools')
+library(caTools)
+\end{lstlisting}
+
+Nu kunnen we het model laten opbouwen door R.
+
+\begin{lstlisting}
+model <- glm(Survived ~.,family=binomial(link='logit'),data=train)
+summary(model)
+\end{lstlisting}
+
+Je krijgt volgende output na het uitvoeren van dit commando:
+\begin{description}
+	\item[Coefficient] De schatting voor de co\"effici\"ent in het model
+	\item[Std. error] De standard errors op de co\"effci\"ent. 
+	\item[z-statistic] Dit komt overeen met de $\frac{\beta_i}{SE(\beta_i)}$. 
+	\item[P-value] De p-waarde geassocieerd met de null-hypothese van de co\"effci\"ent. 
+\end{description}
+Deze laatste twee getallen hebben wat verduidelijking nodig. Voor elke $\beta_i$ wordt een null-hypothese $H^i_0$ opgesteld. Deze stelt dat 
+\[ 
+	p(X_i) = \frac{e^{\beta_0 + \cdots \beta_{i-1} + \beta_{i+1} + \cdots \beta_n}}{1+e^{\beta_0 + \cdots \beta_{i-1} + \beta_{i+1} + \cdots \beta_n}}
+\]
+wat eigenlijk neerkomt dat het model niet afhangt van $X_i$. Wanneer de $|z|$ groot genoeg is en bijgevolg de $p$-waarde klein is mag de $H^i_0$ verworpen worden en kunnen we stellen dat $X_i$ wel degelijk van belang is in het model. 
+
+Om een betrouwbaarheidsinterval te bouwen rond de geschatte parameter $\beta_i$ kan je gewoonweg volgende formule gebruiken:
+\[
+	\beta_i +z_i  \times SE(\beta_i)
+\]
+
+Als output krijgen we:
+\begin{lstlisting}
+Coefficients:
+(Intercept)      Pclass2      Pclass3    Sexfemale          Age       SibSp0       Parch1         Fare    EmbarkedC    EmbarkedQ  
+1.36178     -0.96344     -2.19975      2.67728     -0.04503     -0.49519      0.08984      0.00105      0.37631      0.68404  
+
+Degrees of Freedom: 666 Total (i.e. Null);  657 Residual
+Null Deviance:	    887.4 
+Residual Deviance: 582.5 	AIC: 602.5
+\end{lstlisting}
+
+En met \texttt{summary} van het model bekomen we volgende output:
+
+\begin{lstlisting}
+Call:
+glm(formula = Survived ~ ., family = binomial(link = "logit"), 
+data = dresstrain)
+
+Deviance Residuals: 
+Min       1Q   Median       3Q      Max  
+-2.4971  -0.6377  -0.3730   0.6240   2.5854  
+
+Coefficients:
+Estimate Std. Error z value Pr(>|z|)    
+(Intercept)  1.361775   0.495174   2.750  0.00596 ** 
+Pclass2     -0.963440   0.339019  -2.842  0.00449 ** 
+Pclass3     -2.199753   0.335770  -6.551  5.7e-11 ***
+Sexfemale    2.677281   0.224722  11.914  < 2e-16 ***
+Age         -0.045028   0.009096  -4.951  7.4e-07 ***
+SibSp0      -0.495189   0.252907  -1.958  0.05023 .  
+Parch1       0.089835   0.304233   0.295  0.76778    
+Fare         0.001050   0.002259   0.465  0.64190    
+EmbarkedC    0.376309   0.277878   1.354  0.17566    
+EmbarkedQ    0.684037   0.364547   1.876  0.06060 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+Null deviance: 887.35  on 666  degrees of freedom
+Residual deviance: 582.46  on 657  degrees of freedom
+AIC: 602.46
+
+Number of Fisher Scoring iterations: 5
+\end{lstlisting}
+
+Hieruit kunnen we volgende dingen zeggen:
+\begin{itemize}
+	\item SibSp, Parch1, Fare, EmbarkedC en EmbarkedQ zijn niet statisch significant. 
+	\item We zien dat Sexfemale erg significant. De positieve co\"effici\"ent voor sexFemale toont aan dat vrouw zijn ervoor zorgt dat je meer kans hebt op overleven.  
+\end{itemize}
+
+Bij de \texttt{anova} wordt getoond wat het effect is van een variabele een per een toe te voegen aan het model. \textbf{TODO: dit nog eens deftig interpreteren.}
+
+
+De volledige code kan je hier nog eens bekijken:
+\lstinputlisting{data/titanicregression.R}
+
+\section{Oefeningen}
+
+\begin{exercise}
+	
+	\begin{itemize}
+		\item Beschouw de dataset \texttt{Smarker} van de package \texttt{ISLR}. 
+		Deze dataset bestaat uit
+		het rendement voor de S \& P 500 aandelenindex over 1250 dagen, van 
+		begin 2001 tot eind 2005. Voor elke datum hebben we het  retourneer percentage opgenomen voor elk van de vijf vorige handelsdagen (Lag1 t.e.m. Lag5). We hebben ook het Volume opgenomen (het aantal verhandelde aandelen) en het percentage van vandaag. Daarnaast hebben we ook opgenomen of de markt daalde of steeg.
+		\item Schrijf de algemene statistieken uit van de verschillende variabelen. 
+		\item Probeer eens een plot te maken die aanduid of het volume stijgt of daalt met de jaren. 
+		\item We gaan proberen een logistisch model op te stellen dat het stijgen of dalen in functie van lag1 t.e.m. lag5 en volume uitzet. Gebruik hiervoor het commando glm.
+		\item Analyseer de co\"effici\"enten. Wat kan je erover zeggen?
+		\item Kijk nu eens hoe goed het model de dataset zelf voorspelt. Dit kan je doen door aan het predict commando geen dataset mee te geven. 
+		\item Zet de voorspelde probabiliteit om in juiste labels ($\geq 0.5$ up)
+		\item  Cree\"er een matrix die de vals positieven en ware positieven e.a. uitzet t.o.v. elkaar. Gebruik hiervoor de methode table. 
+		\item Wat kom je hier nu voor uit?
+	\end{itemize}
+\end{exercise}
+
+\begin{exercise}
+	
+	\begin{itemize}
+		\item Beschouw dezelfde dataset als hierboven, maar train nu de dataset met de elementen van voor 2005 en gebruik als testset de elementen boven 2005. Wat kom je nu uit?
+		\item Probeer nu het model aan te passen door de juiste variabelen te kiezen om mee te nemen in het model. 
+		\item Wanneer je tevreden bent met het model, probeer dan een voorspelling te doen van een willekeurige dataset.
+	\end{itemize}
+\end{exercise}
+

@@ -1,0 +1,6 @@
+par(mfrow = c(1, 3), pty = "s")
+x <- rnorm(50)
+hist(x, probability = TRUE)
+lines(density(x))
+xval <- pretty(c(-3, 3), 50)
+lines(xval, dnorm(xval), col = "red")
