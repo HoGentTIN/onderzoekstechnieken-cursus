@@ -2,23 +2,136 @@
 
 Cursusmateriaal Onderzoekstechnieken.
 
-## Cursus-pdf genereren
+## Installatie software
 
-De directory `cursus/` bevat de LaTeX-broncode voor de cursustekst. We publiceren bewust niet de PDF-versie om je aan te moedigen om met LaTeX te werken. De procedure om de PDF-versie zelf te genereren:
+Voor de cursus onderzoekstechnieken maak je gebruik van verschillende softwarepakketten. Hier vind je wat uitleg over de installatie en hoe je er mee aan de slag kan. Heb je ondanks deze richtlijnen toch problemen? Tijdens de oefeningensessies kan je hulp vragen aan je lector. Als die je niet meteen kan verder helpen, kan je ook contact opnemen met [Bert Van Vreckem](mailto:bert.vanvreckem@hogent.be?subject='[OZT] Vraag ivm software-installatie')
 
-1. `latexmk -pdf "cursus-onderzoekstechnieken"`
-2. `biber "cursus-onderzoekstechnieken"`
-3. `latexmk -pdf "cursus-onderzoekstechnieken"`
+### Windows
 
-Het commando `latexmk` (dat normaal beschikbaar is als je LaTeX geïnstalleerd hebt op je systeem), genereert de PDF aan de hand van het "hoofddocument" `cursus-onderzoekstechnieken.tex`. Het document is dan nog niet klaar, want de bibliografie zal op dat nog niet opgenomen zijn in de tekst. Daarom moet je nog eens het commando `biber` uitvoeren en opnieuw `latexmk`.
+Traditionele werkwijze: download vanaf de projectwebsite en installeer:
 
-In TeXstudio:
+- Git: <https://git-scm.com/download/win>
+- MikTeX: <https://miktex.org/download>
+- TeXStudio: <http://www.texstudio.org/>
+- JabRef: <https://www.fosshub.com/JabRef.html>
+- R: <https://lib.ugent.be/CRAN/>
+- Rstudio: <https://www.rstudio.com/products/rstudio/download/#download>
 
-1. Controleer eerst deze instellingen:
-    - Options > Configure TeXstudio > Build
-    - Default Compiler: `latexmk`
+Een makkelijker alternatief is installeren via de Chocolatey package manager (<https://chocolatey.org/>). Voer volgende commando's uit als Administrator in een CMD of PowerShell terminal.
+
+```
+choco install git
+choco install miktex
+choco install texstudio
+choco install JabRef
+choco install r.project
+choco install r.studio
+```
+
+### MacOS X
+
+Traditionele werkwijze
+
+- Git: <https://git-scm.com/download/mac>
+- MacTeX: <https://www.tug.org/mactex/mactex-download.html>
+- TeXStudio: <http://www.texstudio.org/>
+- JabRef: <https://www.fosshub.com/JabRef.html>
+- R: <https://lib.ugent.be/CRAN/>
+- Rstudio: <https://www.rstudio.com/products/rstudio/download/#download>
+
+Via de homebrew package manager (<https://brew.sh/>). *Let op: werkwijze nog niet getest, feedback welkom!*
+
+```
+brew install git
+brew cask install mactex
+brew cask install texstudio
+brew cask install jabref
+brew tap homebrew/science
+brew install Caskroom/cask/xquartz
+brew install --with-x11 r
+brew cask install --appdir=/Applications rstudio
+```
+
+### Linux:
+
+**Ubuntu/Debian.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
+
+```
+sudo aptitude update
+sudo aptitude install git texlive-latex-base texstudio jabref r-base
+wget https://download1.rstudio.org/rstudio-1.0.143-amd64.deb
+sudo dpkg -i ./rstudio-1.0.143-amd64.deb
+```
+
+**Fedora.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
+
+```
+sudo dnf install git texstudio texlive-collection-latex texlive-babel-dutch jabref R https://download1.rstudio.org/rstudio-1.0.143-x86_64.rpm
+```
+
+## Instellingen
+
+### Git, Github
+
+Wellicht heb je Git al geconfigureerd voor enkele van je andere vakken. Kijk eventueel alles nog eens na! Als alles ok is, kan je deze sectie overslaan.
+
+**Wij raden aan om Git via de command line te gebruiken.** Zo krijg je het beste inzicht in de werking. Het commando `git status` geeft op elk moment een goed overzicht van de toestand van je lokale repository en geeft aan met welk commando je een stap verder kan zetten of de laatste stap ongedaan maken.
+
+Eerst enkele tips:
+
+- Als je nog geen gebruikersnaam hebt, kies er dan één die je na je afstuderen nog kan gebruiken (dus bv. niet je HoGent login). De kans is erg groot dat je tijdens je carrière nog van Github gebruik zult maken.
+- Koppel je *HoGent*-emailadres aan je Github account (je kan meerdere adressen registreren). Op die manier kan je aanspraak maken op het [Github student developer pack](https://education.github.com/pack), wat je gratis toegang geeft tot een aantal in principe betalende producten en diensten.
+
+Windows-gebruikers voeren volgende instructies uit via Git Bash, MacOS X- en Linux-gebruikers via de standaard (Bash) terminal.
+
+```
+git config --global user.name 'Pieter Stevens'
+git config --global user.email 'pieter.stevens.u12345@student.hogent.be'
+git config --global push.default simple
+```
+
+Maak ook een [SSH-sleutel](https://help.github.com/articles/connecting-to-github-with-ssh/) aan om het synchroniseren met Github te vereenvoudigen (je moet dan geen wachtwoord meer opgeven bij push/pull van/naar een private repository).
+
+```
+ssh-keygen
+```
+
+Volg de instructies op de command-line, druk gewoon ENTER als je gevraagd wordt een wachtwoordzin (pass phrase) in te vullen. In de home-directory van je gebruiker (bv. `c:\Users\Bert` op Windows, `/Users/bert` op Mac, `/home/bert` op Linux) is nu een directory met de naam `.ssh/` aangemaakt met twee bestanden: `id_rsa` (je private key) en `id_rsa.pub` (je public key). Open dit laatste bestand met een teksteditor en kopieer de volledige inhoud naar het klembord. Ga vervolgens naar je [Github profiel](https://github.com/settings/profile) en kies links voor [SSH and GPG keys](https://github.com/settings/keys). Klik rechtsboven op de groene knop met "New SSH Key" en plak de inhoud van je publieke sleutel in het veld "Key". Bevestig je keuze.
+
+Test nu of je de code van de cursus Onderzoekstechnieken kan downloaden. Ga in de Bash shell naar een directory waar je dit project lokaal wil bijhouden en voer uit:
+
+```
+git clone git@github.com:HoGentTIN/onderzoekstechnieken-cursus.git
+```
+
+Als dit lukt, is er nu een directory aangemaakt met dezelfde naam als de repository, `onderzoekstechnieken-cursus/`. Doe tijdens het semester regelmatig `git pull` om de laatste wijzigingen in het cursusmateriaal bij te werken. Pas zelf geen bestanden aan binnen dit project, dit zal leiden tot conflicten.
+
+### TeXStudio configureren
+
+Controleer deze instellingen via menu-item *Options > Configure TeXstudio*
+
+- Build
+    - Default Compiler: `pdflatex`
     - Default Bibliography tool: `biber`
-3. Compile (F6)
+- Editor:
+    - Indentation mode: *Indent and Unindent Automatically*
+    - Replace Indentation Tab by Spaces: *Aanvinken*
+    - Replace Tab in Text by spaces: *Aanvinken*
+    - Replace Double Quotes: *English Quotes: ``''*
+
+Om te testen of TeXStudio goed werkt, kan je het bestand `cursus/cursus-onderzoekstechnieken.tex` openen. Kies *Tools > Build & View* om de cursus te compileren in een PDF-bestand.
+
+Veel functionaliteiten van LaTeX zitten in aparte packages die niet noodzakelijk standaard geïnstalleerd zijn. De eerste keer dat je een bestand compileert, is het dan ook mogelijk dat er extra packages moeten gedownload worden. MiKTeX zal een pop-up tonen om je toestemming te vragen, bevestig dit. De eerste keer compileren kan enkele minuten duren zonder dat je feedback krijgt over wat er gebeurt. Even geduld, dus.
+
+Indien er zich fouten voordoen bij de compilatie, kan je onderaan in het tabblad *Log* een overzicht krijgen van de foutboodschappen. Wanneer je bij je lector hulp vraagt, is het belangrijk om de **exacte foutboodschap** mee te geven. Dat kan het makkelijkst door het tabblad *Logbestand* te selecteren en de gehele inhoud te kopiëren.
+
+### JabRef
+
+[JabRef](http://www.jabref.org/) is een GUI voor het bewerken van BibTeX-bestanden, een soort database van bronnen uit de wetenschappelijke of vakliteratuur voor een LaTeX-document.
+
+- Kies in het menu voor *File > Switch to BibLaTeX mode*. Dit maakt de bestandsindeling
+van de bibliografische databank compatibel met dat van de cursus en het aangeboden LaTeX-sjabloon voor de bachelorproef.
+- Kies in het *Preferences*-venster voor de categorie *File* en geef een directory op voor het bijhouden van PDFs van de gevonden bronnen onder *Main file directory*. Het is heel interessant om de gevonden artikels te downloaden en onder die directory bij te houden. Nog beter is om als naam van het bestand de BibTeX key te nemen (typisch naam van de eerste auteur + jaartal, bv. Knuth1998.pdf). Je kan het bestand dan makkelijk openen vanuit Jabref.
 
 ## Interessante artikels, ...
 
