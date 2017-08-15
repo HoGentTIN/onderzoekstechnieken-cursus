@@ -514,7 +514,7 @@ Wanneer dubbele smoothing niet werkt kan driedubbele smoothing gebruikt worden, 
 	X_{t} = \alpha \frac{x_{t}}{c_{t-L}} + (1-\alpha) (X_{t-1} + b_{t-1}) & \textnormal{Smoothing}\\
 	b_{t} = \gamma (X_{t} - X_{t-1}) + (1-\gamma)b_{t-1} & \textnormal{Trend smoothing} \\
 	c_{t} = \beta \frac{x_{t}}{X_{t}} + (1-\beta)c_{t-L} & \textnormal{Seasonal smoothing} \\
-	F_{t+m} = (X_{t} + mb_{t})c_{t-L+m} \mod L & \textnormal{Voorspelling}
+	F_{t+m} = (X_{t} + mb_{t})c_{t-L+m \mod L}  & \textnormal{Voorspelling}
 \label{eq:HoltWinters}
 \end{eqnarray}
  met 
@@ -528,15 +528,15 @@ Wanneer dubbele smoothing niet werkt kan driedubbele smoothing gebruikt worden, 
 \end{itemize}
 
 $\alpha, \beta, \gamma$ zijn constanten die geschat moeten worden. 
-
+De manier om dit met R op te lossen is gelijkaardig als bij exponenti\"ele smoothing. Het maken van de correlogram, de Ljung–Box test en het testen van de normaliteit van de errors gebeurt om dezelfde manier. 
 
 \section{Oefeningen}
 \label{sec:tijdreeksen-oefeningen}
 
 \begin{exercise}
-In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal de omzet, het advertentiebudget en het BNP van een middelgroot bedrijf.  en voeg een kolom 'Kwartaalnummer' toe.
+In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal de omzet, het advertentiebudget en het BNP van een middelgroot bedrijf. Voeg zelf nog een kolom 'Kwartaalnummer' toe.
 \begin{enumerate}
-	\item Bereken het voortschrijdend gemiddelde \emph{(simple moving average)} over de periodes 4 en 12 voor deze data. Gebruik hiervoor de methode SMA. Maak een lijngrafiek van $X$, $MA(4)$ en $MA(12)$.
+	\item Bereken het voortschrijdend gemiddelde \emph{(simple moving average)} over de periodes 4 en 12 voor deze data. Gebruik hiervoor de methode SMA. Maak een lijngrafiek van $X$, $SMA(4)$ en $SMA(12)$.
 	\item Welke techniek die we eerder gezien hebben (in het deel over beschrijvende statistiek) is ook geschikt om voorspellingen te maken over de waarden van $X$? Werk dit uit aan de hand van de daarvoor bestemde functie en plot het resultaat in de grafiek.
 	\item Gebruik de methode \emph{forecast} om voorspellingen voor de 10 volgende periodes met elk van voorgaande methoden (dus moving average 4 en 10 en regressie) te maken. Teken deze eveneens op de grafiek.
 \item Is het gebruik van één van deze technieken interessant om voor deze data voorspellingen te maken? 
@@ -557,7 +557,7 @@ In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal
 \end{exercise}
 
 \begin{exercise}
-	In bijgevoegd bestand \emph{Passagiers2.csv} vind je vanaf januari 1949 tot december 1960 het aantal passagiers van een luchtvaartmaatschappij. 
+	In bestand \emph{Passagiers2.csv} vind je vanaf januari 1949 tot december 1960 het aantal passagiers van een luchtvaartmaatschappij. 
 	\begin{enumerate}
 		\item Bereken het voortschrijdend gemiddelde \emph{(simple moving average)} over de periodes 4 en 12 voor deze data. Gebruik hiervoor de methode \emph{ma}. Maak een lijngrafiek van $X$, $MA(4)$ en $MA(12)$.
 		\item Welke techniek die we eerder gezien hebben (in het deel over beschrijvende statistiek) is ook geschikt om voorspellingen te maken over de waarden van $X$? Werk dit uit aan de hand van de daarvoor bestemde functie en plot het resultaat in de grafiek.
@@ -576,3 +576,7 @@ In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal
 	\end{enumerate}
 	
 \end{exercise}	
+
+\begin{exercise}
+	
+\end{exercise}
