@@ -11,6 +11,7 @@ Een tijdreeks is dus eens stochastisch proces. Denk hierbij maar aan:
 	\item maandelijkse vraag naar melk
 	\item jaarlijkse instroom van studenten bij de Hogeschool
 	\item dagelijks debiet van een rivier
+	\item verkoop van een bepaalde order bij een bedrijf
 \end{itemize}
 
 Het voorspellen van tijdreeksen is een belangrijk onderdeel van onderzoek omdat ze vaak de basis vormen voor beslissingsmodellen. Voorbeelden hiervan zijn :
@@ -18,17 +19,35 @@ Het voorspellen van tijdreeksen is een belangrijk onderdeel van onderzoek omdat 
 \begin{itemize}
 	\item algemene ontwikkeling van toekomstplannen (investeringen, capaciteit \dots)
 	\item plannen van budgettering om tekortkomingen te vermijden (operationeel budget, marketing budget \dots)
-	\item competitieve leveringstijden te bezorgen van een bedrijf
+	\item competitieve leveringstijden van een bedrijf
 	\item ondersteuning van financi\"ele objectieven
 	\item onzekerheid vermijden
 	\item de mogelijkheid om ontwikkelingen in de verkeersveiligheid
 kwantitatief te modelleren
 \end{itemize}
 
-Tijdreeksen modelleren is een statistisch probleem: we gaan ervan uit dat de observaties vari\"eren volgens een bepaalde kansdichtheidsfunctie in functie van de tijd. 
+Tijdreeksen modelleren is een statistisch probleem: we gaan ervan uit dat de observaties vari\"eren volgens een bepaalde kansdichtheidsfunctie in functie van de tijd. Vaak gaan we ervan uit dat de observaties in een tijdsreeks gecorreleerd zijn en dus niet uit een random sample komen. 
 
-Er zijn verschillende types modellen in gebruik voor het analyseren van tijdreeksen. Deze modellen hebben met elkaar gemeen dat ze in principe niet alleen de ontwikkeling in een geobserveerde tijdreeks kunnen beschrijven, maar dat we ze ook kunnen gebruiken om verklaringen voor de ontwikkeling in een geobserveerde tijdreeks te vinden, en om de toekomstige waarden van de
-ontwikkeling in een geobserveerde tijdreeks te voorspellen. Hun geschiktheid voor het verwezenlijken van deze doelstellingen loopt echter sterk uiteen. In dit hoofdstuk beperken we ons tot het gebruik van tijdreeksen met een geschiedenis om tijdsafhankelijke modellen te bepalen. 
+Er zijn verschillende types modellen in gebruik voor het analyseren van tijdreeksen. Deze modellen hebben met elkaar gemeen dat ze in principe niet alleen de ontwikkeling in een geobserveerde tijdreeks kunnen beschrijven, maar dat we ze ook kunnen gebruiken om
+\begin{inparaenum}[(i)]
+	\item verklaringen te vinden voor die ontwikkeling en
+	\item om de toekomstige waarden van de tijdreeks te voorspellen
+\end{inparaenum}
+Hun geschiktheid voor het verwezenlijken van deze doelstellingen loopt echter sterk uiteen. In dit hoofdstuk beperken we ons tot het gebruik van tijdreeksen met een geschiedenis om tijdsafhankelijke modellen te bepalen. Een voorbeeld van een tijdsreeks is bijvoorbeeld de leeftijd van de opeenvolgende koningen van Engeland startend van Willem De Veroveraar \autocite{Hipel194}.
+\begin{lstlisting}
+kings <- scan(file = 'Documents/education/onderzoekstechnieken-cursus/cursus/data/tijdsreeksen/kings.data', skip = 3)
+kingstimeseries <- ts(kings)
+plot.ts(kingstimeseries, ylab='leeftijd', xlab="tijd")
+grid(lty=2,lwd=1,col='black')
+\end{lstlisting}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{images/tijdsreeksen/tijdsreekskings.png}
+	\caption{De tijdsreeks die de leeftijden van de koningen voorstelt.}
+	\label{fig:tijdreeks11}
+\end{figure}
+
 
 \section{Tijdreeksmodellen}
 \subsection{Wiskundig model}
@@ -40,17 +59,12 @@ Ons doel is het opstellen van een model dat een verklaring vindt voor de geobser
 \end{equation}
 
 \begin{description}
-	\item [$X_{t}$] stelt een random variabele voor dat de onbekende is op tijdstip $t$.
-	\item [$x_{t}$] stelt een observatie voor op tijdstip $t$ (en is dus gekend). 
+	\item [$X_{t}$] stelt een \textit{variabele} voor dat de onbekende is op tijdstip $t$.
+	\item [$x_{t}$] stelt een \textit{observatie} voor op tijdstip $t$ (en is dus gekend). 
 	\item [$\epsilon_{t}$] noemt met de \textit{storing} (engels \textsl{noise}) en wordt geacht een gemiddelde van $0$ te hebben met variantie $\sigma^{2}$ en normaal verdeeld. 
 \end{description}
 
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[width=\textwidth]{images/tijdsreeksen/tijdsreeks11.jpg}
-	\caption{Een tijdreeks voor een wekelijkse vraag voor een bepaald product}
-	\label{fig:tijdreeks11}
-\end{figure}
+
 
 
 We kunnen ook ervan uit gaan dat er een lineair verband is:
@@ -75,7 +89,21 @@ De vergelijking in \ref{eq:constante} en \ref{eq:lineair8} zijn speciale gevalle
 \end{equation}
 \end{exercise}
 
-Antwoord: dit is een cyclische tijdreeks met periode $= 4$. Dit zou bijvoorbeeld kunnen gebruikt worden bij een tijdreeks voor seizoenen.
+\begin{solution}
+Antwoord: dit is een cyclische tijdreeks met periode $= 4$. Dit zou bijvoorbeeld kunnen gebruikt worden bij een tijdreeks voor seizoenen. 
+
+\begin{lstlisting}
+f <- function(a, b,t){
+	return(a + b * sin((2 * pi*4)/4) + b * cos((2 * pi*4)/4) + rnorm(1))
+}
+t <- seq(from = 1, to = 100, by = 1)
+X <- lapply(t,f,a=5,b=5)
+plot(x = t, y=X, type = 'l')
+\end{lstlisting}
+	
+\end{solution}
+
+
 
 \subsubsection{Algemeen}
 
@@ -95,13 +123,11 @@ We aanvaarden vervolgens nog volgende stellingen:
 Eenmaal het model gekozen, rest enkel nog het  probleem van het schatten van de parameters voor vergelijking \ref{eq:general}. Dit is wat in de volgende stukken besproken zal worden.
 
 \section{Schatten van de parameters}
-Eenmaal een model geselecteerd wordt, is het aan de onderzoeker om de parameters te gaan schatten, i.e. parameters die ervoor zorgen dat het model de geobserveerde waarden zo goed mogelijk benaderen. Meestal gaan we ervan uit dat alle waarden gelijkwaardig zijn, maar dat is niet zo bij tijdreeksen. Aangezien onze onafhankelijke parameter de tijd is moeten we methoden bekomen die ervoor zorgen dat recentere data belangrijker zijn dat oude data. 
+Eenmaal een model geselecteerd wordt, is het aan de onderzoeker om de parameters te gaan schatten, i.e. parameters die ervoor zorgen dat het model de geobserveerde waarden zo goed mogelijk benaderen. Meestal gaan we ervan uit dat alle waarden gelijkwaardig zijn, maar dat is niet zo bij tijdreeksen. Aangezien onze onafhankelijke parameter de tijd is moeten we methoden bekomen die ervoor zorgen dat recentere data belangrijker zijn dat oude data of omgekeerd. 
 
 In wat volgt beschrijven we de tijdreeksen met geschatte waarden voor de parameters. We zetten hievoor een hoedje op de parameters:
 
 \[ \widehat{b}_{1}, \widehat{b}_{2} \dots \widehat{b}_{n} \] 
-
-Het schatten van de variatie voor $\sigma_{\epsilon}$ duiden we aan als $\widehat{\sigma}_{\epsilon}$.
 
 \subsection{Voorbeeld - moving average}
 
@@ -121,38 +147,54 @@ Stel dat de statisticus de data in tabel \ref{tab:data} tot het twintigste datap
 
 Met dit model, zijn de waarden random waarden uit een populatie met gemiddelde $b$. De beste schatter voor $b$ is het gemiddelde van deze twintig data punten. 
 
+\begin{lstlisting}
+	data <- c(4 , 16 , 12 , 25 , 13 , 12 , 4 , 8  , 9 , 14, 
+	+           3 , 14 , 14 , 20 , 7  , 9  , 6 , 11 , 3 , 11, 
+	+           8 , 7  , 2  , 8  , 8  , 10 , 7 , 16 , 9 , 4 )
+	mean(data[1:20])
+\end{lstlisting}
+
 \[ \widehat{b} = \frac{1}{20} \sum_{1}^{20} x_{t}= 10.75 \] 
 
-Dit is de beste schatter vertrekkende van de 20 datapunten. We merken wel op dat $x_{1} =  4$ evenveel waarde heeft als $x_{20} = 11$. 
+Dit is de beste schatter vertrekkende van de 20 datapunten. We merken wel op dat $x_{1} =  4$ evenveel \textit{waarde} heeft als $x_{20} = 11$, of ander verwoord: de co\"effici\"ent van  $x_{1}$ is dezelfde als die van $x_{20}$, namelijk $\frac{1}{20}$.
 
 Indien we dit als schatter zouden gebruiken dan zien we dat dit in figuur \ref{fig:tijdreeks21} geen goed idee is.
 
+\begin{lstlisting}
+AV20 <- matrix(10.75,30,1)
+plot.ts(data, col="blue", type='b', xlab='tijd', ylab='Data')
+lines(AV20,col='red', type='l')
+legend(x= 'topright',legend = c("Data","Average 10.75"), lty = c(1,1), lwd = c(2.5,2.5), col=c('blue','red'))
+\end{lstlisting}
+
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks21.jpg}
-	\caption{Tijdreeks met constant gemiddelde}
+		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks20.png}
+	\caption{Tijdreeks met constant gemiddelde $10.75$}
 	\label{fig:tijdreeks21}
 \end{figure}
 
 
-Indien we veronderstellen dat de data verandert met de tijd is het beter om oude data minder waarde te geven en de recente data meer waarde. Een mogelijkheid is om enkel recente data te gebruiken, bijvoorbeeld de 10 (zie fig. \ref{fig:tijdreeks31}) en 5 laatste datapunten (zie figuur \ref{fig:tijdreeks41}).
+Indien we veronderstellen dat de data verandert met de tijd is het beter om oude data minder waarde te geven en de recente data meer waarde. Een mogelijkheid is om enkel recente data te gebruiken, bijvoorbeeld de 10 en 5 laatste datapunten (zie figuur \ref{fig:tijdreeks31}).
 
 \[ \widehat{b} = \frac{1}{10} \sum_{10}^{20} x_{t} = 10.18 \] en
 \[ \widehat{b} = \frac{1}{5} \sum_{15}^{20} x_{t} = 7.83 \]
 
-\begin{figure}
-	\centering
-		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks31.jpg}
-		\caption{Tijdreeks met moving average $m = 10$}. 
-	\label{fig:tijdreeks31}
-\end{figure}
+\begin{lstlisting}
+sma10 <- SMA(x =data,n=10)
+sma5 <- SMA(x=data,n=5)
+plot.ts(x = data, col = 'blue',type = 'l')
+lines(sma10, col='red', type = 'b')
+lines(sma5, col='purple', type = 'b')
+\end{lstlisting}
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks41.jpg}
-	\caption{Tijdreeks met moving average $m = 5$}
-	\label{fig:tijdreeks41}
+		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreekssma.png}
+		\caption{Tijdreeks met moving average $m = 10$ en $m=5$}. 
+	\label{fig:tijdreeks31}
 \end{figure}
+
 
 
 
@@ -173,20 +215,21 @@ Welke schatter is nu de beste? We kunnen dit nu nog niet zeggen.
 	met $k = t-m+1$. $m$ is de time range en is de parameter van de methode.
 \end{definition}
 
+\pagebreak
+\subsection{Meten van de nauwkeurigheid van voorspellingen}
 
-\begin{table}
-    \begin{tabular}{|lllllllllll|}
-    \hline
-    ~         & 11   & 12   & 13   & 14   & 15   & 16   & 17   & 18   & 19   & 20   \\
-    Data      & 3    & 14   & 14   & 20   & 7    & 9    & 6    & 11   & 3    & 11   \\
-    Schatting & 11.7 & 11.6 & 11.4 & 11.6 & 11.1 & 10.5 & 10.2 & 10.4 & 10.7 & 10.1 \\
-    Error     & -8.7 & 2.4  & 2.6  & 8.4  & -4.1 & -1.5 & -4.2 & 0.6  & -7.7 & 0.9  \\ \hline
-    \end{tabular}
-		\caption{Voorspellingsfout voor een moving average $m = 10$}
-		\label{tab:error}
+\begin{table}[h]
+	\begin{tabular}{|lllllllllll|}
+		\hline
+		~         & 11   & 12   & 13   & 14   & 15   & 16   & 17   & 18   & 19   & 20   \\
+		Data      & 3    & 14   & 14   & 20   & 7    & 9    & 6    & 11   & 3    & 11   \\
+		Schatting & 11.7 & 11.6 & 11.4 & 11.6 & 11.1 & 10.5 & 10.2 & 10.4 & 10.7 & 10.1 \\
+		Error     & -8.7 & 2.4  & 2.6  & 8.4  & -4.1 & -1.5 & -4.2 & 0.6  & -7.7 & 0.9  \\ \hline
+	\end{tabular}
+	\caption{Voorspellingsfout voor een moving average $m = 10$}
+	\label{tab:error}
 \end{table}
 
-\subsection{Meten van de nauwkeurigheid van voorspellingen}
 
 Een methode om de voorspelling te meten is het gemiddelde van de deviaties ($MAD$): gemiddelde absolute verschil tussen het voorspelde en de werkelijke waarden van de tijdsreeks.
 
@@ -225,7 +268,7 @@ Als laatste interessante parameter kan gekeken worden naar de wortel uit de gemi
 \end{equation}
 \end{definition}
 
-
+\pagebreak
 \section{Exponenti\"ele smoothing}
 Bij een moving average krijgen alle voorgaande observaties een gelijk gewicht. Bij exponentieel smoothing worden kleinere gewichten toegekend aan oudere observaties. M.a.w.: recente observaties krijgen relatief meer gewicht dan oudere observaties.
 
@@ -237,12 +280,13 @@ Voor een tijdseenheid $T$ wordt het enkelvoudige exponenti\"ele smoothing gevond
 
 \begin{definition}[Exponenti\"ele smoothing]
 \begin{equation}
-	X_{T} = \alpha x_{t-1} + (1-\alpha)X_{t-1}, 0 \leq \alpha \leq 1, t \geq 3
+	X_{T} = \alpha x_{t} + (1-\alpha)X_{t-1}, 0 \leq \alpha \leq 1, t \geq 3
 \label{eq:singleExpSmooting}
 \end{equation}
 \end{definition}
 
-$\alpha$ wordt de smoothing constante genoemd.
+$\alpha$ wordt de smoothing constante genoemd. Met andere woorden,$X_{T}$ is een gewogen gemiddelde van de huidige waarneming $x_t$ en de vorige exponenti\"ele smooting $X_{t-1}$.
+
 
 \subsubsection{Inti\"ele setting}
 Het bepalen van $X_{2}$ is een belangrijke parameter. Men kan kiezen om:
@@ -258,10 +302,10 @@ Het bepalen van $X_{2}$ is een belangrijke parameter. Men kan kiezen om:
 \end{exercise}
 Antwoord: als we zouden substitueren vinden we bv. voor $X_{t-1}$:
 
-\[ X_{t} = \alpha x_{t-1} + (1-\alpha)\left[\alpha x_{t-2} + (1-\alpha)X_{t-2}\right] \] 
-\[ X_{t} = \alpha x_{t-1} + \alpha (1-\alpha)x_{t-2} + (1-\alpha)^{2} X_{t-2} \]
+\[ X_{t} = \alpha x_{t} + (1-\alpha)\left[\alpha x_{t-1} + (1-\alpha)X_{t-2}\right] \] 
+\[ X_{t} = \alpha x_{t-1} + \alpha (1-\alpha)x_{t-1} + (1-\alpha)^{2} X_{t-2} \]
 of dus algemeen gesteld :
-\[ X_{t} = \alpha \sum_{i=1}^{t-2}(1-\alpha)^{i-1}x_{t-i} + (1-\alpha)^{t-2} X_{2}, t \geq 2 \]
+\[ X_{t} = \alpha \sum_{i=0}^{t-2}(1-\alpha)^{i-1}x_{t-i} + (1-\alpha)^{t-2} X_{2}, t \geq 2 \]
 
 Zo merk je dat oudere componenten een exponentieel kleiner gewicht verkrijgen. 
 
@@ -279,28 +323,107 @@ De snelheid waarmee de oude observaties ''vergeten`` worden hang af van $\alpha$
 		\caption{Waarden voor $\alpha$ en $(1-\alpha)^{n}$}
 		\label{tab:alpha}
 \end{table}
- 
-In figuur \ref{fig:tijdreeks51} vind je de tijdreeksen voor $\alpha=0.1 , 0.5, 0.9$.  
 
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks51.jpg}
-	\caption{Enkelvoudig exponentieel model voor $\alpha=0.1 , 0.5, 0.9$}
-	\label{fig:tijdreeks51}
-\end{figure}
+
+Bijvoorbeeld, het bestand \texttt{precip.data} bevat totale jaarlijkse neerslag in inches voor Londen, vanaf 1813-1912. Laten we dit eens analyseren met R.
+\begin{lstlisting}
+rain <- scan("Documents/education/onderzoekstechnieken-cursus/cursus/data/tijdsreeksen/precip.data",skip=1)
+rainseries <- ts(rain,start=c(1813))
+plot.ts(rainseries)
+plot(rainseriesforecasts)
+\end{lstlisting} 
+
+%TODO figuur maken voor verschillende alpha's
 
 \subsubsection{Voorspelling met exponenti\"ele effening}
 Stel dat het doel is om de volgende waarde $X_{t+1}$ te voorspellen, dan wordt dit gelijk gesteld aan de smoothing waarde op tijdstip $t$.
 
 \begin{equation}
-	X_{t+1} = EMA_t = X_t + \alpha(x_t - X_t)
+	X_{t+1} = EMA_t = X_t
 	\label{eq:EMA}
 \end{equation}
+Met $X_t$ de laatst voorspelde waarde. 
+
+ We kunnen dit eenvoudig uitvoeren in R. Je krijgt hierbij een prediction interval: 
+ Een prediction interval geeft een interval waarin we verwachten dat de voorspelde waarde met een bepaalde waarschijnlijkheid zal liggen. Standaard krijg je een 80\% en een 95\% interval. 
+\begin{lstlisting} 
+library('forecast')
+rainseriesforecasts2 <- forecast.HoltWinters(rainseriesforecasts, h=8)
+plot.forecast(rainseriesforecasts2)
+\end{lstlisting} 
+
+We zouden correlaties mogen zien tussen de voorspellingsfouten voor opeenvolgende voorspellingen. Met andere woorden, als er sprake is van een correlatie tussen prognosefouten voor opeenvolgende voorspellingen, is het eerder waarschijnlijk dat de simpele exponentiële effening kan worden verbeterd door een andere voorspellingstechniek te gebruiken.
+
+Om te achterhalen of dit het geval is, kunnen we een correlogram verkrijgen van de in-sample voorspellingsfouten voor.
+
+We weten nog uit hoofdstuk \ref{ch:analyse2var} dat de covariantie of correlate de lineaire relatie beschrijft tussen twee variabelen. . De autocovariantie en autocorrelatie meten de lineaire relatie tussen \textit{lagged} waarden voor een tijdsreeks. Met lagged bedoelen we een aantal stappen terug in de tijd.
+
+\begin{definition}[Autocovariantie]
+	We defini\"eren de autocovariantie bij lag $k$ door $c_k$.
+	\[ c_k = \sum_{t=k+1}^{T} (y_t - \overline{y})(y_{t-k} - \overline{y}) \]
+\end{definition}
+
+\begin{definition}[Autocorrelatie]
+	We defini\"eren de autocorrelatie bij lag $k$ door $r_k$.
+	\[ r_k = \frac{c_k}{c_0} \]
+\end{definition}
+
+ We kunnen een correlogram die de autocorrelaties tekent, berekenen van de voorspellingsfouten met behulp van de functie 'acf ()' in R. Om de maximale lag te bepalen die we willen bekijken, gebruiken we de parameter 'lag.max' in acf ().
+
+Bijvoorbeeld, om een ​​correlogram te berekenen van de in-steekprognosefouten voor de London-regenvalgegevens voor lags 1-20, typen we:
+
+\begin{lstlisting}
+	acf(rainseriesforecasts2$residuals, lag.max=20, na.action = na.pass)
+\end{lstlisting}
+
+Om te testen of er significant bewijs is voor significante correlaties bij lags 1-20, kunnen we een Ljung-Box test uitvoeren. Dit kan in R worden gedaan met de functie "Box.test ()". De maximale vertraging die we willen bekijken, wordt gespecificeerd met behulp van de parameter "Lag" in de Box.test () functie.
+
+De test volledig uitleggen is buiten het bereik van deze cursus, maar de test gaat uit van volgende $H_0$ en $H_1$. De teststatistieken kunnen dan gewoon ge\"intepreteerd worden zoals alle andere hypothesetesten die beschreven geweest zijn in vorige hoofdstukken. 
+
+\begin{itemize}
+	\item $H_0$ De gegevens zijn onafhankelijk verdeeld (d.w.z. de correlaties in de populatie waaruit de sample wordt genomen, zijn 0, zodat elke waargenomen correlatie in de data voortvloeien uit willekeurigheid).
+	\item $H_1$ De gegevens zijn niet onafhankelijk verdeeld: ze tonen een linaire correlatie.
+\end{itemize}
+
+ Bijvoorbeeld, om te testen of er geen nul autocorrelaties zijn op lags 1-20, voor de in-sample voorspellingen fouten voor Londen regenval data, typen we:
+ \begin{lstlisting}
+ Box.test(rainseriesforecasts2$residuals, lag=20, type="Ljung-Box")
+ Box-Ljung test
+ data:  rainseriesforecasts2$residuals
+ X-squared = 17.4008, df = 20, p-value = 0.6268
+ \end{lstlisting}
+ 
+ Als laatste moeten we ook kijken naar de distributie van de errors van de voorspelling. Zoals boven vermeld gaan we ervan uit dat de errors normaal verdeeld zijn met een gemiddelde $\mu = 0$ en een standaardafwijking die constant is. Om te controleren of de voorspellingsfouten normaal verdeeld zijn met gemiddelde nul, kunnen we een histogram van de prognosefouten plotten, met een overlappende normale curve met gemiddelde nul en dezelfde standaardafwijking heeft als de verdeling van de voorspellingsfouten. Om dit te kunnen doen, kunnen we een R-functie "plotForecastErrors ()" definiëren. Het is ook aangewezen de methodes zoals beschreven in sectie \ref{sec:normtesting}.
+ 
+ \begin{lstlisting}
+ plotForecastErrors <- function(forecasterrors)
+ {
+ # make a histogram of the forecast errors:
+ mybinsize <- IQR(forecasterrors)/4
+ mysd   <- sd(forecasterrors)
+ mymin  <- min(forecasterrors) - mysd*5
+ mymax  <- max(forecasterrors) + mysd*3
+ # generate normally distributed data with mean 0 and standard deviation mysd
+ mynorm <- rnorm(10000, mean=0, sd=mysd)
+ mymin2 <- min(mynorm)
+ mymax2 <- max(mynorm)
+ if (mymin2 < mymin) { mymin <- mymin2 }
+ if (mymax2 > mymax) { mymax <- mymax2 }
+ # make a red histogram of the forecast errors, with the normally distributed data overlaid:
+ mybins <- seq(mymin, mymax, mybinsize)
+ hist(forecasterrors, col="red", freq=FALSE, breaks=mybins)
+ # freq=FALSE ensures the area under the histogram = 1
+ # generate normally distributed data with mean 0 and standard deviation mysd
+ myhist <- hist(mynorm, plot=FALSE, breaks=mybins)
+ # plot the normal curve as a blue line on top of the histogram of forecast errors:
+ points(myhist$mids, myhist$density, type="l", col="blue", lwd=2)
+ }
+ \end{lstlisting}
 
 \subsection{Dubbele exponenti\"ele smoothing}
 Enkelvoudige smoothing wordt gebruikt wanneer er geen trend zichtbaar is. Wanneer er een trend (stijgend of dalend) is dan kan er iets fout gaan. Zie bijvoorbeeld de data in tabel \ref{tab:trend} en figuur \ref{fig:tijdreeks61}.
 
-\begin{table}
+\begin{table}[h]
 \centering
     \begin{tabular}{|ll|}
     \hline
@@ -320,7 +443,7 @@ Enkelvoudige smoothing wordt gebruikt wanneer er geen trend zichtbaar is. Wannee
 		\label{tab:trend}
 \end{table}
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks61.jpg}
 	\caption{Exponenti\"ele smoothing bij een trend}
@@ -382,6 +505,8 @@ Als we nu de tekening maken met enkelvoudige smoothing ($\alpha = 0.977$) en dub
 	\label{fig:tijdreeks71}
 \end{figure}
 
+De manier om dit met R op te lossen is gelijkaardig als bij exponenti\"ele smoothing, alleen moet de parameter gamma $\gamma$ niet op NULL gezet worden. Het maken van de correlogram, de Ljung–Box test en het testen van de normaliteit van de errors gebeurt om dezelfde manier. 
+
 \subsection{Driedubbele exponenti\"ele smoothing}
 Wanneer dubbele smoothing niet werkt kan driedubbele smoothing gebruikt worden, ofwel Holt-Winters methode genoemd.
 
@@ -389,7 +514,7 @@ Wanneer dubbele smoothing niet werkt kan driedubbele smoothing gebruikt worden, 
 	X_{t} = \alpha \frac{x_{t}}{c_{t-L}} + (1-\alpha) (X_{t-1} + b_{t-1}) & \textnormal{Smoothing}\\
 	b_{t} = \gamma (X_{t} - X_{t-1}) + (1-\gamma)b_{t-1} & \textnormal{Trend smoothing} \\
 	c_{t} = \beta \frac{x_{t}}{X_{t}} + (1-\beta)c_{t-L} & \textnormal{Seasonal smoothing} \\
-	F_{t+m} = (X_{t} + mb_{t})c_{t-L+m} & \textnormal{Voorspelling}
+	F_{t+m} = (X_{t} + mb_{t})c_{t-L+m \mod L}  & \textnormal{Voorspelling}
 \label{eq:HoltWinters}
 \end{eqnarray}
  met 
@@ -403,15 +528,15 @@ Wanneer dubbele smoothing niet werkt kan driedubbele smoothing gebruikt worden, 
 \end{itemize}
 
 $\alpha, \beta, \gamma$ zijn constanten die geschat moeten worden. 
-
+De manier om dit met R op te lossen is gelijkaardig als bij exponenti\"ele smoothing. Het maken van de correlogram, de Ljung–Box test en het testen van de normaliteit van de errors gebeurt om dezelfde manier. 
 
 \section{Oefeningen}
 \label{sec:tijdreeksen-oefeningen}
 
 \begin{exercise}
-In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal de omzet, het advertentiebudget en het BNP van een middelgroot bedrijf.  en voeg een kolom 'Kwartaalnummer' toe.
+In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal de omzet, het advertentiebudget en het BNP van een middelgroot bedrijf. Voeg zelf nog een kolom 'Kwartaalnummer' toe.
 \begin{enumerate}
-	\item Bereken het voortschrijdend gemiddelde \emph{(simple moving average)} over de periodes 4 en 12 voor deze data. Gebruik hiervoor de methode SMA. Maak een lijngrafiek van $X$, $MA(4)$ en $MA(12)$.
+	\item Bereken het voortschrijdend gemiddelde \emph{(simple moving average)} over de periodes 4 en 12 voor deze data. Gebruik hiervoor de methode SMA. Maak een lijngrafiek van $X$, $SMA(4)$ en $SMA(12)$.
 	\item Welke techniek die we eerder gezien hebben (in het deel over beschrijvende statistiek) is ook geschikt om voorspellingen te maken over de waarden van $X$? Werk dit uit aan de hand van de daarvoor bestemde functie en plot het resultaat in de grafiek.
 	\item Gebruik de methode \emph{forecast} om voorspellingen voor de 10 volgende periodes met elk van voorgaande methoden (dus moving average 4 en 10 en regressie) te maken. Teken deze eveneens op de grafiek.
 \item Is het gebruik van één van deze technieken interessant om voor deze data voorspellingen te maken? 
@@ -432,7 +557,7 @@ In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal
 \end{exercise}
 
 \begin{exercise}
-	In bijgevoegd bestand \emph{Passagiers2.csv} vind je vanaf januari 1949 tot december 1960 het aantal passagiers van een luchtvaartmaatschappij. 
+	In bestand \emph{Passagiers2.csv} vind je vanaf januari 1949 tot december 1960 het aantal passagiers van een luchtvaartmaatschappij. 
 	\begin{enumerate}
 		\item Bereken het voortschrijdend gemiddelde \emph{(simple moving average)} over de periodes 4 en 12 voor deze data. Gebruik hiervoor de methode \emph{ma}. Maak een lijngrafiek van $X$, $MA(4)$ en $MA(12)$.
 		\item Welke techniek die we eerder gezien hebben (in het deel over beschrijvende statistiek) is ook geschikt om voorspellingen te maken over de waarden van $X$? Werk dit uit aan de hand van de daarvoor bestemde functie en plot het resultaat in de grafiek.
@@ -451,3 +576,7 @@ In bijgevoegd bestand \emph{Budget.csv} vind je vanaf 1981 tot 2005 per kwartaal
 	\end{enumerate}
 	
 \end{exercise}	
+
+\begin{exercise}
+	
+\end{exercise}
