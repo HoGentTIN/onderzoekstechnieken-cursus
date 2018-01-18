@@ -1,0 +1,457 @@
+\chapter{Aan de slag}
+\label{ch:aan-de-slag}
+
+\section{Installatie software}
+
+Voor de cursus onderzoekstechnieken maak je gebruik van verschillende softwarepakketten. Hier vind je wat uitleg over de installatie en hoe je er mee aan de slag kan.
+
+\begin{itemize}
+  \item Git client (versiebeheersysteem);
+  \item \LaTeX{} compiler;
+  \item \LaTeX{} editor;
+  \item Jabref (bibliografische databank);
+  \item R (statistische analysesoftware);
+  \item Rstudio (IDE voor R).
+\end{itemize}
+
+Sommige van deze applicaties nemen veel schijfruimte in, dus zorg dat je voldoende ruimte vrij hebt.
+
+\subsection{Windows}
+
+Omdat het hier toch gaat om een vrij groot aantal applicaties, kunnen Windows-gebruikers beter gebruik maken van de Chocolatey package manager\footnote{\url{https://chocolatey.org/}} in plaats van alles manueel te downloaden en installeren.
+
+Na installatie van Chocolatey\footnote{\url{https://chocolatey.org/install}}, voer je volgende commando's uit als Administrator in een CMD of PowerShell terminal:
+
+\begin{verbatim}
+choco install -y git
+choco install -y miktex
+choco install -y texstudio
+choco install -y JabRef
+choco install -y r.project
+choco install -y r.studio
+\end{verbatim}
+
+Wie toch de ``klassieke'' werkwijze wil hanteren vindt hier de verschillende softwarepakketten:
+
+\begin{itemize}
+  \item Git client: \url{https://git-scm.com/download/win}
+  \item \LaTeX{} compiler: \url{https://miktex.org/download}
+  \item TeXStudio: \url{http://www.texstudio.org/}
+  \item Jabref: \url{https://www.fosshub.com/JabRef.html}
+  \item R: \url{https://lib.ugent.be/CRAN/}
+  \item Rstudio: \url{https://www.rstudio.com/products/rstudio/download/#download}
+\end{itemize}
+
+\subsection{MacOS X}
+
+MacOS X gebruikers installeren de nodige software best via de Homebrew\footnote{\url{https://brew.sh/}} package manager\footnote{\textbf{Let op!} Deze werkwijze is nog niet getest. Feedback van Mac-gebruikers is welkom!}:
+
+\begin{verbatim}
+brew install git
+brew cask install mactex
+brew cask install texstudio
+brew cask install jabref
+brew tap homebrew/science
+brew install Caskroom/cask/xquartz
+brew install --with-x11 r
+brew cask install --appdir=/Applications rstudio
+\end{verbatim}
+
+Wie toch alles manueel wil installeren kan de applicaties hier downloaden:
+
+\begin{itemize}
+  \item Git client: \url{https://git-scm.com/download/mac}
+  \item \LaTeX{} compiler: \url{https://www.tug.org/mactex/mactex-download.html}
+  \item TeXStudio: \url{http://www.texstudio.org/}
+  \item Jabref: \url{https://www.fosshub.com/JabRef.html}
+  \item R: \url{https://lib.ugent.be/CRAN/}
+  \item Rstudio: \url{https://www.rstudio.com/products/rstudio/download/#download}
+\end{itemize}
+
+\subsection{Linux}
+
+Op RStudio na zijn alle nodige softwarepakketten beschikbaar in de repositories van de meest gebruikte Linux-distributies. We geven hier command-line instructies voor enerzijds Ubuntu (Xenial/16.04) en Debian 9 en anderzijds Fedora.
+
+\paragraph{Ubuntu/Debian} 
+
+Controleer eerst de link naar de laatste versie van RStudio via de website.
+
+\begin{verbatim}
+sudo aptitude update
+sudo aptitude install git texlive-latex-base texstudio jabref r-base
+wget https://download1.rstudio.org/rstudio-xenial-1.1.414-amd64.deb
+sudo dpkg -i ./rstudio-xenial-1.1.414-amd64.deb
+\end{verbatim}
+
+\paragraph{Fedora}
+
+Controleer eerst de link naar de laatste versie van RStudio via de website. Dit is één lang commando:
+
+\begin{verbatim}
+sudo dnf install git texstudio jabref R \
+  texlive-collection-latex texlive-babel-dutch \
+  https://download1.rstudio.org/rstudio-1.1.414-x86_64.rpm
+\end{verbatim}
+
+\section{Configuratie}
+
+\subsection{Git, Github}
+
+Wellicht heb je Git al geconfigureerd voor enkele van je andere vakken. Kijk eventueel alles nog eens na! Als alles ok is, kan je deze sectie overslaan.
+
+\emph{Wij raden aan om Git via de command line te gebruiken.} Zo krijg je het beste inzicht in de werking. Het commando \texttt{git status} geeft op elk moment een goed overzicht van de toestand van je lokale repository en geeft aan met welk commando je een stap verder kan zetten of de laatste stap ongedaan maken.
+
+Als je nog geen Github-account hebt, kies dan een gebruikersnaam die je na je afstuderen nog kan gebruiken (dus bv.~niet je HoGent login). De kans is erg groot dat je tijdens je carrière nog van Github gebruik zult maken. Koppel ook je HoGent-emailadres aan je Github account (je kan meerdere adressen registreren). Op die manier kan je aanspraak maken op het Github student developer pack\footnote{\url{https://education.github.com/pack}}, wat je gratis toegang geeft tot een aantal in principe betalende producten en diensten.
+
+Windows-gebruikers voeren volgende instructies uit via Git Bash, MacOS X- en Linux-gebruikers via de standaard (Bash) terminal.
+
+\begin{verbatim}
+git config --global user.name 'Pieter Stevens'
+git config --global user.email 'pieter.stevens.u12345@student.hogent.be'
+git config --global push.default simple
+\end{verbatim}
+
+Maak ook een SSH-sleutel aan om het synchroniseren met Github te vereenvoudigen (je moet dan geen wachtwoord meer opgeven bij push/pull van/naar een private repository).
+
+\begin{verbatim}
+ssh-keygen
+\end{verbatim}
+
+Volg de instructies op de command-line, druk gewoon ENTER als je gevraagd wordt een wachtwoordzin (pass phrase) in te vullen. In de home-directory van je gebruiker (bv. \verb|c:\Users\Pieter| op Windows, \verb|/Users/pieter| op Mac, \verb|/home/pieter| op Linux) is nu een directory met de naam .ssh/ aangemaakt met twee bestanden: \verb|id_rsa| (je private key) en \verb|id_rsa.pub| (je public key). Open dit laatste bestand met een teksteditor en kopieer de volledige inhoud naar het klembord. Ga vervolgens naar je Github profiel en kies in het menu links links voor SSH and GPG keys. Klik rechtsboven op de groene knop met ``New SSH Key'' en plak de inhoud van je publieke sleutel in het veld ``Key''. Bevestig je keuze.
+
+Test nu of je de code van de cursus Onderzoekstechnieken kan downloaden. Ga in de Bash shell naar een directory waar je dit project lokaal wil bijhouden en voer uit:
+
+\begin{verbatim}
+git clone git@github.com:HoGentTIN/onderzoekstechnieken-cursus.git
+\end{verbatim}
+
+Als dit lukt, is er nu een directory aangemaakt met dezelfde naam als de repository. Doe tijdens het semester regelmatig \texttt{git pull} om de laatste wijzigingen in het cursusmateriaal bij te werken. Pas zelf geen bestanden aan binnen deze repository, dit zal leiden tot conflicten.
+
+\subsection{TeXStudio}
+
+Controleer deze instellingen via menu-item \emph{Options > Configure TeXstudio}:
+
+\begin{itemize}
+  \item Build
+  \begin{itemize}
+    \item Default Compiler: pdflatex
+    \item Default Bibliography tool: biber
+  \end{itemize}
+  \item Editor:
+  \begin{itemize}
+    \item Indentation mode: Indent and Unindent Automatically
+    \item Replace Indentation Tab by Spaces: Aanvinken
+    \item Replace Tab in Text by spaces: Aanvinken
+    \item Replace Double Quotes: English Quotes: \verb|``''|
+  \end{itemize}
+
+\end{itemize}
+
+Om te testen of TeXStudio goed werkt, kan je het bestand \texttt{cursus/cursus-onderzoekstechnieken.tex} openen. Kies \emph{Tools > Build \& View} (of druk F5) om de cursus te compileren in een PDF-bestand.
+
+Veel functionaliteiten van \LaTeX{} zitten in aparte packages die niet noodzakelijk standaard geïnstalleerd zijn. De eerste keer dat je een bestand compileert, is het dan ook mogelijk dat er extra packages moeten gedownload worden. MiK\TeX{} zal een pop-up tonen om je toestemming te vragen, bevestig dit. Op Linux is het mogelijk dat je deze packages nog manueel moet installeren. De eerste keer compileren kan enkele minuten duren zonder dat je feedback krijgt over wat er gebeurt. Even geduld, dus!
+
+Indien er zich fouten voordoen bij de compilatie, kan je onderaan in het tabblad Log een overzicht krijgen van de foutboodschappen.
+
+\subsection{JabRef}
+
+JabRef\footnote{\url{http://www.jabref.org/}} is een GUI voor het bewerken van Bib\TeX{}-bestanden, een soort database van bronnen uit de wetenschappelijke of vakliteratuur voor een \LaTeX{}-document.
+
+Kies in het menu voor \emph{File > Switch to BibLaTeX} mode. Dit maakt de bestandsindeling van de bibliografische databank compatibel met dat van de cursus en het aangeboden \LaTeX{}-sjabloon voor de bachelorproef.
+
+Kies in het \emph{Preferences}-venster voor de categorie \emph{File} en geef een directory op voor het bijhouden van PDFs van de gevonden bronnen onder \emph{Main file directory}. Het is heel interessant om alle gevonden artikels te downloaden en onder die directory bij te houden. Nog beter is om als naam van het bestand de Bib\TeX{} key te nemen (typisch naam van de eerste auteur + jaartal, bv. \texttt{Knuth1998.pdf}). Je kan het bestand dan makkelijk openen vanuit JabRef.
+
+Voor meer gedetailleerde informatie over het bijhouden van bibliografische referenties, zie de bachelorproefgids~\autocite{VanVreckem2017}.
+
+
+\section{Gebruik van R}
+
+R is een softwareprogramma voor datamanipulatie, berekening en het grafisch voorstellen van data. Het heeft onder meer
+
+\begin{enumerate}
+  \item een effectieve gegevensbeheer- en opslagfaciliteit,
+  \item een reeks operatoren voor berekeningen op arrays, in het bijzonder matrices,
+  \item een grote verzameling van instrumenten voor data-analyse,
+  \item grafische faciliteiten voor data-analyse en weergave en;
+  \item een goed ontwikkelde, eenvoudige en effectieve programmeertaal (genaamd 'S')
+\end{enumerate}
+
+R heeft een ingebouwde hulpfaciliteit die vergelijkbaar is met die van UNIX man-pages. Voor meer informatie over elke specifieke functie, bijvoorbeeld \texttt{solve}, kan je volgende commando oproepen
+
+\begin{lstlisting}
+> help (solve)
+\end{lstlisting}
+
+Een alternatief is
+\begin{lstlisting}
+> ?solve
+\end{lstlisting}
+
+\subsection{Commando's opslaan en output uitvoeren}
+
+Als de commando's in een extern bestand worden opgeslagen, bv. \texttt{commands.R} in de werkmap, dan kunnen deze op elk moment uitgevoerd worden in een R-sessie met de opdracht
+
+\begin{lstlisting}
+> source ("commands.R")
+\end{lstlisting}
+
+De functie \texttt{sink},
+
+\begin{lstlisting}
+> sink ("record.lis")
+\end{lstlisting}
+
+Zal alle volgende uitvoer van de console naar een extern bestand, \texttt{record.lis}, wegschrijven. Het bevel
+
+\begin{lstlisting}
+> sink()
+\end{lstlisting}
+
+Herstelt de output opnieuw naar de console.
+
+\subsection{R omgeving en workspace}
+
+De entiteiten die R creëert en manipuleert staan bekend als objecten. Deze kunnen variabelen zijn, arrays
+van cijfers, reeksen, functies of meer algemene structuren die uit dergelijke componenten zijn gebouwd.
+Tijdens een R-sessie worden objecten gemaakt en opgeslagen op naam. Het R commando
+
+\begin{lstlisting}
+> objects()
+\end{lstlisting}
+
+geeft een oplijsting van alle objecten die gemaakt zijn tot op dat moment.
+De verzameling van objecten die momenteel zijn opgeslagen, heet de werkruimte.
+Om objecten te verwijderen is de functie \texttt{rm} beschikbaar:
+
+\begin{lstlisting}
+> rm (x, y, z, inkt, junk, temp, foo, bar)
+\end{lstlisting}
+
+Alle objecten die tijdens een R-sessie zijn aangemaakt, kunnen permanent in een bestand worden opgeslagen voor gebruik in de toekomstige
+R sessies. Als u aangeeft dat u dit wilt doen, worden de objecten geschreven naar een bestand met extensie \texttt{.RData}
+
+In dit hoofdstuk onderzoeken we hoe u een dataset definieert in R. Er worden slechts twee commando's onderzocht. De eerste is voor het eenvoudig toewijzen van gegevens, en de tweede is voor het lezen in een databestand. Er zijn verschillende manieren om gegevens in een R-sessie te lezen, maar we richten ons op slechts twee om het eenvoudig te houden.
+
+\subsection{Toewijzing}
+
+De meest directe manier om een lijst met nummers op te slaan is via een opdracht met behulp van het \texttt{c}-commando. (C staat voor "combineren.") Het idee is dat een lijst met nummers onder een bepaalde naam wordt opgeslagen, en de naam wordt gebruikt om te verwijzen naar de gegevens. Een lijst wordt gespecificeerd met de opdracht \texttt{c}, en de toewijzing wordt geduid met de symbolen "<-". Een andere term die gebruikt wordt om de lijst met nummers te omschrijven is \texttt{vector}.
+
+De cijfers binnen de c-opdracht worden gescheiden door komma's. Als voorbeeld kunnen we een nieuwe variabele maken, genaamd "x".
+
+\begin{lstlisting}
+> x <- c(10.4, 5.6, 3.1, 6.4, 21.7)
+\end{lstlisting}
+
+Wanneer je dit commando invoert, mag je geen uitvoer zien behalve een nieuwe opdrachtregel. Het commando maakt een lijst met nummers genaamd "x." Om te zien welke elementen zijn opgenomen in x ,typ zijn naam en druk op de enter-toets.
+
+Als u met één van de nummers wilt werken, kunt u hier toegang krijgen tot de variabele en vervolgens vierkante haakjes noteren die aangeven welk nummer u wilt behouwen:
+
+\begin{lstlisting}
+> x[2]
+[1] 5.6
+\end{lstlisting}
+
+\subsection{Een csv file lezen}
+
+We gaan ervan uit dat het gegevensbestand een csv bestand is: "komma-gescheiden waarden" (csv). Dat wil zeggen, elke regel bevat een rij met waarden die getallen of letters kunnen zijn, en elke waarde wordt gescheiden door een komma. We gaan ervan uit dat de eerste rij een lijst met labels bevat. Het idee is dat de labels in de bovenste rij gebruikt worden om te verwijzen naar de verschillende variabelen per rij.
+
+Het commando om het gegevensbestand te lezen is \texttt{read.csv}. We moeten tenminste één argument geven aan de opdracht.
+
+\begin{exercise}
+  Ga met het help commando na wat de parameters zijn van het commando. Probeer daarna het bestand \texttt{computers.csv} in te lezen. 
+\end{exercise}
+
+Als u niet zeker bent welke bestanden in de huidige werkmap zitten, kunt u het commando \texttt{dir}  gebruiken om de bestanden en het  \texttt{getwd} commando op te roepen om de huidige werkmap te bepalen.
+
+Het databestand komt uit de publicatie van \autocite{Stengos2005}. Deze dataset bevat data van 1993 tot 1995 over de prijzen van computers. Je kan nagaan wat het effect van de toevoeging van cd-rom-station is op de prijs van de computer of  het effect van de kloksnelheid op de prijs. 
+
+\begin{lstlisting}
+> dir()
+[1] "breakingbad.csv"  "Desktop"          "Documents"        "Downloads"        "dumps"            "earch php-"       "examples.desktop"
+[8] "f.r"              "kids.csv"         "kmissles.csv"     "kmissles.ods"     "Music"            "out.pdf"          "Pictures"        
+[15] "public"           "Public"           "R"                "Templates"        "test"             "test.php"         "Videos"          
+> getwd()
+[1] "/home/eothein"
+\end{lstlisting}
+
+Als u niet zeker weet welke kolommen gedefinieerd zijn, kunt u \texttt{names()} gebruiken:
+
+\begin{lstlisting}
+> names(computers)
+[1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"
+\end{lstlisting}
+
+Wanneer u het commando \texttt{read.csv} gebruikt, gebruikt R een specifiek soort variabele, dat een dataframe heet. Alle gegevens worden opgeslagen in het dataframe als afzonderlijke kolommen. Als u niet zeker weet wat voor variabele u hebt dan kunt u de opdracht \texttt{attributes} gebruiken. Hiermee worden alle dingen vermeld die R gebruikt om de variabele te beschrijven:
+
+\begin{lstlisting}
+attributes(computers)
+$names
+[1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"  
+
+$class
+[1] "tbl_df"     "tbl"        "data.frame"
+
+$row.names
+[1]    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25   26   27
+[28]   28   29   30   31   32   33   34   35   36   37   38   39   40   41   42   43   44   45   46   47   48   49   50   51   52   53   54
+[55]   55   56   57   58   59   60   61   62   63   64   65   66   67   68   69   70   71   72   73   74   75   76   77   78   79   80   81
+[82]   82   83   84   85   86   87   88   89   90   91   92   93   94   95   96   97   98   99  100  101  102  103  104  105  106  107  108
+[109]  109  110  111  112  113  114  115  116  117  118  119  120  121  122  123  124  125  126  127  128  129  130  131  132  133  134  135
+[136]  136  137  138  139  140  141  142  143  144  145  146  147  148  149  150  151  152  153  154  155  156  157  158  159  160  161  162
+[163]  163  164  165  166  167  168  169  170  171  172  173  174  175  176  177  178  179  180  181  182  183  184  185  186  187  188  189
+[190]  190  191  192  193  194  195  196  197  198  199  200  201  202  203  204  205  206  207  208  209  210  211  212  213  214  215  216
+[217]  217  218  219  220  221  222  223  224  225  226  227  228  229  230  231  232  233  234  235  236  237  238  239  240  241  242  243
+[244]  244  245  246  247  248  249  250  251  252  253  254  255  256  257  258  259  260  261  262  263  264  265  266  267  268  269  270
+[271]  271  272  273  274  275  276  277  278  279  280  281  282  283  284  285  286  287  288  289  290  291  292  293  294  295  296  297
+[298]  298  299  300  301  302  303  304  305  306  307  308  309  310  311  312  313  314  315  316  317  318  319  320  321  322  323  324
+[325]  325  326  327  328  329  330  331  332  333  334  335  336  337  338  339  340  341  342  343  344  345  346  347  348  349  350  351
+[352]  352  353  354  355  356  357  358  359  360  361  362  363  364  365  366  367  368  369  370  371  372  373  374  375  376  377  378
+[379]  379  380  381  382  383  384  385  386  387  388  389  390  391  392  393  394  395  396  397  398  399  400  401  402  403  404  405
+[406]  406  407  408  409  410  411  412  413  414  415  416  417  418  419  420  421  422  423  424  425  426  427  428  429  430  431  432
+[433]  433  434  435  436  437  438  439  440  441  442  443  444  445  446  447  448  449  450  451  452  453  454  455  456  457  458  459
+[460]  460  461  462  463  464  465  466  467  468  469  470  471  472  473  474  475  476  477  478  479  480  481  482  483  484  485  486
+[487]  487  488  489  490  491  492  493  494  495  496  497  498  499  500  501  502  503  504  505  506  507  508  509  510  511  512  513
+[514]  514  515  516  517  518  519  520  521  522  523  524  525  526  527  528  529  530  531  532  533  534  535  536  537  538  539  540
+[541]  541  542  543  544  545  546  547  548  549  550  551  552  553  554  555  556  557  558  559  560  561  562  563  564  565  566  567
+[568]  568  569  570  571  572  573  574  575  576  577  578  579  580  581  582  583  584  585  586  587  588  589  590  591  592  593  594
+[595]  595  596  597  598  599  600  601  602  603  604  605  606  607  608  609  610  611  612  613  614  615  616  617  618  619  620  621
+[622]  622  623  624  625  626  627  628  629  630  631  632  633  634  635  636  637  638  639  640  641  642  643  644  645  646  647  648
+[649]  649  650  651  652  653  654  655  656  657  658  659  660  661  662  663  664  665  666  667  668  669  670  671  672  673  674  675
+[676]  676  677  678  679  680  681  682  683  684  685  686  687  688  689  690  691  692  693  694  695  696  697  698  699  700  701  702
+[703]  703  704  705  706  707  708  709  710  711  712  713  714  715  716  717  718  719  720  721  722  723  724  725  726  727  728  729
+[730]  730  731  732  733  734  735  736  737  738  739  740  741  742  743  744  745  746  747  748  749  750  751  752  753  754  755  756
+[757]  757  758  759  760  761  762  763  764  765  766  767  768  769  770  771  772  773  774  775  776  777  778  779  780  781  782  783
+[784]  784  785  786  787  788  789  790  791  792  793  794  795  796  797  798  799  800  801  802  803  804  805  806  807  808  809  810
+[811]  811  812  813  814  815  816  817  818  819  820  821  822  823  824  825  826  827  828  829  830  831  832  833  834  835  836  837
+[838]  838  839  840  841  842  843  844  845  846  847  848  849  850  851  852  853  854  855  856  857  858  859  860  861  862  863  864
+[865]  865  866  867  868  869  870  871  872  873  874  875  876  877  878  879  880  881  882  883  884  885  886  887  888  889  890  891
+[892]  892  893  894  895  896  897  898  899  900  901  902  903  904  905  906  907  908  909  910  911  912  913  914  915  916  917  918
+[919]  919  920  921  922  923  924  925  926  927  928  929  930  931  932  933  934  935  936  937  938  939  940  941  942  943  944  945
+[946]  946  947  948  949  950  951  952  953  954  955  956  957  958  959  960  961  962  963  964  965  966  967  968  969  970  971  972
+[973]  973  974  975  976  977  978  979  980  981  982  983  984  985  986  987  988  989  990  991  992  993  994  995  996  997  998  999
+[1000] 1000
+[ reached getOption("max.print") -- omitted 5259 entries ]
+
+$spec
+cols(
+price = col_integer(),
+speed = col_integer(),
+hd = col_integer(),
+ram = col_integer(),
+screen = col_integer(),
+cd = col_character(),
+multi = col_character(),
+premium = col_character(),
+ads = col_integer(),
+trend = col_integer()
+)
+
+\end{lstlisting}
+
+\subsection{Data types}
+
+We kijken naar enkele manieren waarop R gegevens kan opslaan en organiseren. Dit is echter een inleiding dus beschouwen we maar een kleine subset van de verschillende datatypes die door R worden herkend. 
+
+\subsubsection{Numbers}
+
+De meest eenvoudige manier om een nummer op te slaan is om een variabele van een enkel getal te nemen:
+
+\begin{lstlisting}
+> a <- 3
+>
+\end{lstlisting}
+
+Hiermee kunt u allerlei basisoperaties doen en opslaan:
+
+\begin{lstlisting}
+> b <- sqrt(a*a+3)
+> b
+[1] 3.464102
+\end{lstlisting}
+
+Als u een lijst met nummers wilt initialiseren, kan het \texttt{numeric} commando worden gebruikt. Om bijvoorbeeld een lijst van 10 nummers te maken, gebruikt u de volgende opdracht. Je kan ook kijken naar het type van de variabele.
+
+\begin{lstlisting}
+> a <- numeric(10)
+> a
+[1] 0 0 0 0 0 0 0 0 0 0
+> typeof(a)
+[1] "double"
+\end{lstlisting}
+
+\subsubsection{Strings}
+
+Een tekenreeks wordt gespecificeerd door gebruik te maken van aanhalingstekens. Zowel enkelvoudige als dubbele aanhalingstekens zullen werken:
+
+\begin{lstlisting}
+> a <- "hello"
+> a
+[1] "hello"
+> b <- c("hello","there")
+> b
+[1] "hello" "there"
+> b[1]
+[1] "hello"
+\end{lstlisting}
+
+\subsubsection{Factors}
+
+Vaak bevat een experiment proeven voor verschillende niveaus van een  verklarende variabelen. Bijvoorbeeld een nominale variabele die gecodeerd wordt met een integer. De verschillende niveaus worden ook factoren genoemd.
+
+Je geeft aan dat een variabele een factor is met behulp van het \texttt{factor} commando. 
+
+\subsubsection{Data frames}
+
+Data kan worden opgeslaan aan de hand van dat frames. Dit is een manier om verschillende vectoren van verschillende types te nemen en ze op te slaan in dezelfde variabele. De vectoren kunnen van alle soorten zijn. Een dataframe kan bijvoorbeeld verschillende vectoren bevatten, en elke lijst kan een vector zijn van factoren, strings of nummers.
+
+Er zijn verschillende manieren om gegevensframes te maken en te manipuleren. De meeste zijn buiten het bereik van deze introductie. Ze worden hier alleen genoemd om een meer volledige beschrijving te geven. 
+
+\lstinputlisting{data/dataframe.R}
+
+\subsubsection{Logische variabelen}
+
+Een ander belangrijk gegevenstype is het logische type. Er zijn twee vooraf gedefinieerde variabelen, \texttt{TRUE} en \texttt{FALSE}.
+
+\subsubsection{Tables}
+
+Een andere  manier om informatie op te slaan is in een tabel.  We kijken alleen maar naar het maken en defini\"eren van tabellen. 
+
+\lstinputlisting{data/tables.R}
+Als je rijen wilt toevoegen aan uw tabel, voeg dan nog een vector toe als argument van de tabelopdracht. In het onderstaande voorbeeld hebben wij twee vragen. In de eerste vraag staan de reacties  'Nooit', 'Soms' of 'Altijd'. In de tweede vraag staan de reacties 'Ja', 'No' of 'Maybe'. De set van vectoren 'a,' En "b" bevatten het antwoord voor elke meting. Het derde punt in "a" is hoe de derde persoon op de eerste vraag reageerde en het derde punt in "b" is hoe de derde persoon op de tweede vraag reageerde.
+
+\lstinputlisting{data/twotables.R}
+
+\subsubsection{Matrix}
+
+Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimensionale rechthoekige indeling. Een voorbeeld van een matrix is bijvoorbeeld als volgt:
+
+\[
+\begin{bmatrix}
+2 & 3 \\ 
+4 & 5  
+\end{bmatrix}
+\]
+
+\lstinputlisting{data/matrix.R}
+
+\section{Oefeningen}
+
+\begin{exercise}
+  Bekijk de dataset mtcars. Geef de waarde terug voor de eerste rij, tweede kolom. Geef ook het aantal rijen, het aantal kolommen. Geef ook een preview van het volledige data frame. Geef enkel de kolom terug met de definities van de cylinders. Om een data frame te bekomen met de twee kolommen mpg en hp, pakken we de kolomnamen in een indexvector in met single square bracket operator. Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set mtcars bepaalt.
+\end{exercise}
+
+\begin{exercise}
+  Maak zelf een willekeurige datafile aan in excel en probeer deze in te lezen in R. Zijn er nog dataformaten die ondersteund worden door R?
+\end{exercise}
+
+\begin{exercise}
+  Genereer een $4x5$ array en noem die $x$. Geneer daarna een $3x2$ array waar de eerste kolom de rijindex kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0. 
+\end{exercise}
+
+\begin{exercise}
+  Genereer een vector waar een voornaam en een achternaam in komen. Benoem ook de naam van de kolommen. Geef daarna ook voornaam terug van het eerste element van de array. 
+\end{exercise}
+
+\begin{exercise}
+  Probeer voor de datafile \texttt{rainforest} in de library \texttt{DAAG} te tellen hoeveel rijen er zijn per species die volledig en compleet zijn (dus geen n.a. bevatten). Je kan hiervoor \texttt{with, table, complete.cases} voor gebruiken. 
+\end{exercise}

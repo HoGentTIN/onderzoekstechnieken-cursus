@@ -161,22 +161,11 @@ Dit geeft ons dus inzicht in wat normaal is en wat abnormaal is: een kleine stan
 
 Een aangename eigenschap van de standaardafwijking is dat het uitgedrukt kan worden in dezelfde metriek als de gemeten data. Bij ons voorbeeld van de superhelden, wil dat zeggen dat de standaardafwijking 26.28 cm is.
 
-\begin{exercise}
-  Waarom nemen we het gemiddelde van het kwadraat van het verschil. Waarom bv. niet de gewone getallen of gemiddelde absolute waarde van de afwijking? Probeer dit eens op het voorbeeld in de slides.
-\end{exercise}
-
-Antwoord:
-\begin{itemize}
-  \item Bij de gewone waarde zouden de negatieve de positieve getallen uitcancellen en dus 0 tot resultaat hebben.
-  \item Bij absolute waarde komen beide voorbeelden dezelfde spreiding uit, alhoewel voorbeeld twee meer verspreid ligt.
-  \item Bij kwadratuur hebben we vorige problemen niet.
-\end{itemize}
-
 Zoals het gemiddelde is de variantie en de standaarddeviatie gevoelig aan outliers (uitschieters). De variantie is eigenlijk gevoeliger dan het gemiddelde. Inderdaad, voor een outlier is de afstand tot het gemiddelde kleiner dan het kwadraat van deze afstand.
 
 \section[Centrum- en spreidingsmaten toepassen]{Toepassing spreidingsmaten en maten centraliteit op verschillende soorten variabelen}
 
-\begin{table}[htbp]
+\begin{table}
   \centering
   \begin{tabular}{|l|l|l|l|l|}
     \hline
@@ -206,8 +195,6 @@ De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwa
   \item Een \index{Extremum} extremum is een waarde die meer dan 3 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt. Wordt aangeduid met een sterretje.
 \end{itemize}
 
-
-\pagebreak
 \section{R}
 Zodra u een vector (of een lijst met nummers) in het geheugen hebt, zijn de meeste basiswerkingen beschikbaar. De meeste basiswerkzaamheden werken op een hele vector en kunnen gebruikt worden om snel een groot aantal berekeningen uit te voeren met een enkele opdracht. Indien je een operatie uitvoert op meerdere vectoren, is het vaak nodig dat de vectoren allemaal hetzelfde aantal elementen bevatten.
 
@@ -218,20 +205,19 @@ De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, h
 
 \lstinputlisting{data/basics.R}
 
-\pagebreak
 \section{Oefeningen}
 
+\subsection{Centrum- en spreidingsmaten}
+
 \begin{definition}
-	Een frequentietabel is tabel waarin de frequenties van een waarde staan die in de volledige dataset voorkomt. Meestal zijn de tabellen verticaal geori\"nteerd.
+	Een frequentietabel is tabel waarin de frequenties van een waarde staan die in de volledige dataset voorkomt. Meestal zijn de tabellen verticaal georiënteerd.
 \end{definition}
 
 \begin{exercise}
-		De formule voor standaardafwijking en variatie staan beschreven in sectie \ref{sec:varEnSD}. 
-		Hoe moet de formule aangepast worden om $\sigma$ en $\sigma^{2}$ te berekenen wanneer we te
-		maken hebben met een frequentietabel? Doe dit voor de data in tabel \ref{tab:pinfreq}.
+  De formule voor standaardafwijking en variatie staan beschreven in sectie \ref{sec:varEnSD}. Hoe moet de formule aangepast worden om $\sigma$ en $\sigma^{2}$ te berekenen wanneer we te maken hebben met een frequentietabel? Doe dit voor de data in tabel \ref{tab:pinfreq}.
 \end{exercise}
 
-	\begin{table}[b]
+	\begin{table}
 		\centering
 		\caption{Aantal pinnen met frequentie}
 		\label{tab:pinfreq}
@@ -253,118 +239,43 @@ De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, h
 	\end{table}
 	
 \begin{exercise}
-		In de formule voor de variantie  wordt het
-		verschil tussen de meetpunten en het gemiddelde gekwadrateerd.
-		Waarom? Zoek dit uit door volgende berekenigswijzen eens uit te proberen.
-		\[ \sigma^{2}_{1} = \frac{1}{n} \sum_{i=1}^{n} (\mu - x) \]
-		\[ \sigma^{2}_{2} = \frac{1}{n} \sum_{i=1}^{n} \left| \mu - x\right| \]
-		\[ \sigma^{2}_{3} = \frac{1}{n} \sum_{i=1}^{n} (\mu - x)^{2} \]
-		Dataset X \[ \left\{ 4,4,-4,-4 \right\} \]
-		Dataset Y \[ \left\{ 7,1,-6,-2 \right\} \]
+In de formule voor de variantie  wordt het verschil tussen de meetpunten en het gemiddelde gekwadrateerd. Waarom? Zoek dit uit door volgende berekenigswijzen eens uit te proberen.
+
+\[ \sigma^{2}_{1} = \frac{1}{n} \sum_{i=1}^{n} (\mu - x) \]
+\[ \sigma^{2}_{2} = \frac{1}{n} \sum_{i=1}^{n} \left| \mu - x\right| \]
+\[ \sigma^{2}_{3} = \frac{1}{n} \sum_{i=1}^{n} (\mu - x)^{2} \]
+
+Dataset X \[ \left\{ 4,4,-4,-4 \right\} \]
+Dataset Y \[ \left\{ 7,1,-6,-2 \right\} \]
 \end{exercise}
 
 \begin{exercise}
-		Zoek eens zelfstandig op wat de variatieco\"effici\"ent is. Hoe
-		wordt die gedefinieerd voor een volledige populatie en wat zou
-		je ermee kunnen doen?
-\end{exercise}
-
-\subsection{Projecties in R}
-\begin{exercise}
-	Beschouw de volgende subsets uit het data frame \texttt{ais} (DAAG):
-	\begin{enumerate}
-		\item Ontleed de gegevens voor de roeiers.
-		\item Ontleed de gegevens voor de roeiers, de netballers en de tennissers.
-		\item Ontleed de gegevens voor de de vrouwelijke basketballers en roeiers.
-	\end{enumerate}
-\end{exercise}
-
-\subsection{Centrummaten en spreidingsmaten in R}
-
-\begin{exercise}
-	Gebruik de functies \texttt{mean}  en \texttt{range} om het gemiddelde en bereik van:
-	\begin{itemize}
-		\item de cijfers 1, 2, \dots, 21 
-		\item 50 willekeurige normale waarden, die  worden gegenereerd vanuit een normale distributie met gemiddelde 0 en variantie 1
-		\item de kolommen \texttt{height} en \texttt{weight} in de data frame \texttt{women} (standaard in R).
-	\end{itemize}
-\end{exercise}
-
-\subsection{Wetenschappelijk schrijven}
- 
- In de Bachelorproef van~\textcite{Akin2016} wordt een vergelijkende studie verricht rond verschillende persistentiemogelijkheden in Android. In de Abstract kunnen we het volgende lezen:
- 
- \begin{displayquote}
- 	Vandaag de dag bestaan er veel applicaties, maar hoeveel daarvan blijven werken
- 	zonder internetverbinding? Tegenwoordig is het ondersteunen van offline werking in
- 	een applicatie geen luxe meer, maar een must-have. Om offline-support te voorzien
- 	binnen een applicatie, is er nood aan het gebruik van een database. Hierdoor zijn
- 	databases belangrijk binnen de IT-sector.
- 	
- 	Er bestaan verschillende soorten databases, maar welke moet men gebruiken?
- 	Welke is het meest geschikt bij een bepaalde soort applicatie? De keuze van de database
- 	kan een grote invloed hebben op verschillende eigenschappen: performantie,
- 	opstartsnelheid, CPU-gebruik,.. Als de database deze eigenschappen op een negatieve
- 	manier beïnvloedt, kan dit tot gevolg hebben dat het aantal gebruikers van de mobiele
- 	applicatie zal verminderen. Ter beantwoording van de probleemstelling zijn volgende
- 	deelvragen geformuleerd met betrekking op de applicatie:
- 	\begin{itemize}
- 		\item 	Wat is de invloed van de gekozen database op de opstartsnelheid? Vertraagt het
- 		gebruik van de gekozen database de opstartsnelheid van de applicatie, of heeft
- 		het helemaal geen invloed (in vergelijking met gebruik van andere databases)?
- 		\item Wat is de invloed van de gekozen database op het CPU-gebruik? Een hoger
- 		CPU-gebruik zal zorgen voor meer batterijverbruik. Zal de applicatie bij gebruik
- 		van de gekozen database meer of juist minder CPU gebruiken (in vergelijking
- 		met gebruik van andere databases)?
- 		\item  Wat is de gemiddelde snelheid van de gekozen database bij het toevoegen van
- 		records aan de database?
- 	\end{itemize}
- 	
- 	
- 	Het onderzoek werd uitgevoerd op drie verschillende applicatieprofielen: weinig data
- 	(profiel 1), gemiddelde hoeveelheid data (profiel 2), veel data (profiel 3).
- 	De verwachtingen waren dat Realm altijd de beste keuze zou zijn, behalve bij
- 	applicatieprofiel 1. Daar zou SharedPreferences de beste keuze moeten zijn, aangezien
- 	het speciaal ontwikkeld is voor kleine hoeveelheden simpele data. Het onderzoek heeft
- 	echter volgend resultaat opgeleverd:
- 	
- 	\begin{enumerate}
- 		\item Weinig data : Realm
- 		\item Gemiddelde hoeveelheid data : Realm
- 		\item Veel data : SQLite
- 	\end{enumerate}
- 	De details van het onderzoek zijn te vinden in het volgende deel van dit scriptie.
- \end{displayquote}
- 
- We gaan dit onderzoek eens onder de loep nemen, kijken wat er goed aan was en wat de eventuele verbeterpunten kunnen zijn. 
- 
-\begin{exercise}
-	Probeer volgende vragen zo goed mogelijk te beantwoorden.
-	\begin{enumerate}
-		\item Wat is de doelstelling van het onderzoek?
-		\item Wie is het publiek?
-		\item Worden de conclusies expliciet gemaakt? 
-		\item Schets kort hoe de structuur van het document in elkaar zit. Komt dit overeen met wat er gezien is in de les?
-	\end{enumerate}
+Zoek eens zelfstandig op wat de variatieco\"effici\"ent is. Hoe
+wordt die gedefinieerd voor een volledige populatie en wat zou
+je ermee kunnen doen?
 \end{exercise}
 
 \begin{exercise}
-	Schrijf voor jezelf hoe de volgende componenten van het onderzoek ingevuld zijn.
-	\begin{itemize}
-		\item Context
-		\item Nood
-		\item Taak
-		\item Object
-		\item Resultaat
-		\item Conclusie
-		\item Perspectief
-	\end{itemize}
+Beschouw de volgende subsets uit het data frame \texttt{ais} (uit de library DAAG):
+\begin{enumerate}
+\item Ontleed de gegevens voor de roeiers.
+\item Ontleed de gegevens voor de roeiers, de netballers en de tennissers.
+\item Ontleed de gegevens voor de de vrouwelijke basketballers en roeiers.
+\end{enumerate}
 \end{exercise}
-Indien je op vorige componenten geen antwoord vindt uit de tekst, probeer dan zelf een antwoord te formuleren indien jij dit onderzoek zou uitvoeren. 
 
-In vorige oefeningen hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken gebruikt in het onderzoek van~\textcite{Akin2016}. In de volgende oefeningen gaan we trachten de resultaten na te maken. 
+\begin{exercise}
+Gebruik de functies \texttt{mean}  en \texttt{range} om het gemiddelde en bereik van:
+\begin{itemize}
+  \item de cijfers 1, 2, \dots, 21 
+  \item 50 willekeurige normale waarden, die  worden gegenereerd vanuit een normale distributie met gemiddelde 0 en variantie 1
+  \item de kolommen \texttt{height} en \texttt{weight} in de data frame \texttt{women} (standaard in R).
+\end{itemize}
+\end{exercise}
 
-Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu.csv} nodig. 
+In vorige oefeningen hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken ook gebruikt in het onderzoek van~\textcite{Akin2016}. In de volgende oefeningen gaan we trachten de resultaten te reproduceren.
+
+Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu.csv} nodig. Je vindt die in de Github-repository van deze cursus, onder directory \texttt{oefeningen/data/oef\_3\_1variabele}
 
 \begin{exercise}
   \label{oef:casus-akin2016-1var}
@@ -384,10 +295,7 @@ We hebben nu de data ingeladen. We kunnen eens kijken wat de gemiddelde tijd, de
 	Als je de vorige metrieken berekend hebt, wat kan je daar dan over zeggen. Kan je zinnige conclusies trekken uit de vorige resultaten. Zo ja vermeld ze, zo nee beschrijf waarom je dat denkt.
 \end{exercise}
 
-\pagebreak
 \subsection{Grafieken in R}
-
-\subsubsection{Histogram}
 
 Een histogram is een eenvoudige plot. het toont de frequenties van de data die in een bepaald bereik voorkomen. 
 
@@ -399,7 +307,6 @@ hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd",br
 	Wat concludeer je als je bovenstaande grafiek\footnote{Heb je wat problemen met het genereren van grafieken, volgende link \url{https://www.datacamp.com/community/tutorials/15-questions-about-r-plots\#gs.RK_ORsI} bevat een aantal goede tips and tricks om je op weg te helpen.} genereert? Is dit een zinnig resultaat? Wat gebeurt er als je de variabele breaks verhoogt?
 \end{exercise}
 
-\subsubsection{Boxplot}
 Een boxplot toont de mediaan, de kwartielen, het maximum en het minimum van een dataset. Dit geeft ons een duidelijk impressie van hoe de data er uitziet.
 
 \begin{lstlisting}
