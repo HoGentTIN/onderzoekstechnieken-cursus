@@ -33,7 +33,7 @@ Er zijn verschillende types modellen in gebruik voor het analyseren van tijdreek
 	\item verklaringen te vinden voor die ontwikkeling en
 	\item om de toekomstige waarden van de tijdreeks te voorspellen
 \end{inparaenum}
-Hun geschiktheid voor het verwezenlijken van deze doelstellingen loopt echter sterk uiteen. In dit hoofdstuk beperken we ons tot het gebruik van tijdreeksen met een geschiedenis om tijdsafhankelijke modellen te bepalen. Een voorbeeld van een tijdsreeks is bijvoorbeeld de leeftijd van de opeenvolgende koningen van Engeland startend van Willem De Veroveraar \autocite{Hipel194}.
+Hun geschiktheid voor het verwezenlijken van deze doelstellingen loopt echter sterk uiteen. In dit hoofdstuk beperken we ons tot het gebruik van tijdreeksen met een geschiedenis om tijdsafhankelijke modellen te bepalen. Een voorbeeld van een tijdsreeks is bijvoorbeeld de leeftijd van de opeenvolgende koningen van Engeland startend van Willem De Veroveraar \autocite{Hipel1994}.
 \begin{lstlisting}
 kings <- scan(file = 'Documents/education/onderzoekstechnieken-cursus/cursus/data/tijdsreeksen/kings.data', skip = 3)
 kingstimeseries <- ts(kings)
@@ -41,7 +41,7 @@ plot.ts(kingstimeseries, ylab='leeftijd', xlab="tijd")
 grid(lty=2,lwd=1,col='black')
 \end{lstlisting}
 
-\begin{figure}[htbp]
+\begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/tijdsreeksen/tijdsreekskings.png}
 	\caption{De tijdsreeks die de leeftijden van de koningen voorstelt.}
@@ -167,7 +167,7 @@ lines(AV20,col='red', type='l')
 legend(x= 'topright',legend = c("Data","Average 10.75"), lty = c(1,1), lwd = c(2.5,2.5), col=c('blue','red'))
 \end{lstlisting}
 
-\begin{figure}[htbp]
+\begin{figure}
 	\centering
 		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks20.png}
 	\caption{Tijdreeks met constant gemiddelde $10.75$}
@@ -218,7 +218,7 @@ Welke schatter is nu de beste? We kunnen dit nu nog niet zeggen.
 \pagebreak
 \subsection{Meten van de nauwkeurigheid van voorspellingen}
 
-\begin{table}[h]
+\begin{table}
 	\begin{tabular}{|lllllllllll|}
 		\hline
 		~         & 11   & 12   & 13   & 14   & 15   & 16   & 17   & 18   & 19   & 20   \\
@@ -356,7 +356,7 @@ We zouden correlaties mogen zien tussen de voorspellingsfouten voor opeenvolgend
 
 Om te achterhalen of dit het geval is, kunnen we een correlogram verkrijgen van de in-sample voorspellingsfouten voor.
 
-We weten nog uit hoofdstuk \ref{ch:analyse2var} dat de covariantie of correlate de lineaire relatie beschrijft tussen twee variabelen. . De autocovariantie en autocorrelatie meten de lineaire relatie tussen \textit{lagged} waarden voor een tijdsreeks. Met lagged bedoelen we een aantal stappen terug in de tijd.
+We weten nog uit hoofdstuk \ref{ch:analyse2var} dat de covariantie of correlate de lineaire relatie beschrijft tussen twee variabelen. De autocovariantie en autocorrelatie meten de lineaire relatie tussen \textit{lagged} waarden voor een tijdsreeks. Met lagged bedoelen we een aantal stappen terug in de tijd.
 
 \begin{definition}[Autocovariantie]
 	We defini\"eren de autocovariantie bij lag $k$ door $c_k$.
@@ -370,7 +370,7 @@ We weten nog uit hoofdstuk \ref{ch:analyse2var} dat de covariantie of correlate 
 
  We kunnen een correlogram die de autocorrelaties tekent, berekenen van de voorspellingsfouten met behulp van de functie 'acf ()' in R. Om de maximale lag te bepalen die we willen bekijken, gebruiken we de parameter 'lag.max' in acf ().
 
-Bijvoorbeeld, om een ​​correlogram te berekenen van de in-steekprognosefouten voor de London-regenvalgegevens voor lags 1-20, typen we:
+Bijvoorbeeld, om een correlogram te berekenen van de in-steekprognosefouten voor de London-regenvalgegevens voor lags 1-20, typen we:
 
 \begin{lstlisting}
 	acf(rainseriesforecasts2$residuals, lag.max=20, na.action = na.pass)
@@ -423,7 +423,7 @@ De test volledig uitleggen is buiten het bereik van deze cursus, maar de test ga
 \subsection{Dubbele exponenti\"ele smoothing}
 Enkelvoudige smoothing wordt gebruikt wanneer er geen trend zichtbaar is. Wanneer er een trend (stijgend of dalend) is dan kan er iets fout gaan. Zie bijvoorbeeld de data in tabel \ref{tab:trend} en figuur \ref{fig:tijdreeks61}.
 
-\begin{table}[h]
+\begin{table}
 \centering
     \begin{tabular}{|ll|}
     \hline
@@ -443,7 +443,7 @@ Enkelvoudige smoothing wordt gebruikt wanneer er geen trend zichtbaar is. Wannee
 		\label{tab:trend}
 \end{table}
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
 		\includegraphics[width=1.00\textwidth]{images/tijdsreeksen/tijdsreeks61.jpg}
 	\caption{Exponenti\"ele smoothing bij een trend}
