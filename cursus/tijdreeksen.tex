@@ -95,8 +95,6 @@ De vergelijking in \ref{eq:constante} en \ref{eq:lineair8} zijn speciale gevalle
 \end{equation}
 \end{exercise}
 
-\begin{solution}
-  
 Antwoord: dit is een cyclische tijdreeks met periode $= 4$. Dit zou bijvoorbeeld kunnen gebruikt worden bij een tijdreeks voor seizoenen. 
 
 \begin{lstlisting}
@@ -107,8 +105,6 @@ t <- seq(from = 1, to = 100, by = 1)
 X <- lapply(t,f,a=5,b=5)
 plot(x = t, y=X, type = 'l')
 \end{lstlisting}
-
-\end{solution}
 
 \subsubsection{Algemeen}
 
