@@ -4,7 +4,7 @@ Cursusmateriaal Onderzoekstechnieken.
 
 ## Installatie software
 
-Voor de cursus onderzoekstechnieken maak je gebruik van verschillende softwarepakketten. Hier vind je wat uitleg over de installatie en hoe je er mee aan de slag kan. Heb je ondanks deze richtlijnen toch problemen? Tijdens de oefeningensessies kan je hulp vragen aan je lector. Als die je niet meteen kan verder helpen, kan je ook contact opnemen met [Bert Van Vreckem](mailto:bert.vanvreckem@hogent.be?subject='[OZT] Vraag ivm software-installatie')
+Voor de cursus onderzoekstechnieken maak je gebruik van verschillende softwarepakketten. Hier vind je wat uitleg over de installatie en hoe je er mee aan de slag kan. Heb je ondanks deze richtlijnen toch problemen? Tijdens de oefeningensessies kan je hulp vragen aan je lector. Als die je niet meteen kan verder helpen, kan je ook contact opnemen met [Bert Van Vreckem](mailto:bert.vanvreckem@hogent.be?subject=[OZT]%20Vraag%20ivm%20software-installatie).
 
 ### Windows
 
