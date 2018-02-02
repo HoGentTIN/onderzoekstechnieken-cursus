@@ -126,3 +126,9 @@ sympy-plots-for-*.tex/
 
 # xindy
 *.xdy
+
+# Vim-Latex
+*.latexmain
+
+# ghostwriter
+*.md.backup
