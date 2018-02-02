@@ -85,8 +85,8 @@ Eerst enkele tips:
 Windows-gebruikers voeren volgende instructies uit via Git Bash, MacOS X- en Linux-gebruikers via de standaard (Bash) terminal.
 
 ```
-git config --global user.name 'Pieter Stevens'
-git config --global user.email 'pieter.stevens.u12345@student.hogent.be'
+git config --global user.name "Pieter Stevens"
+git config --global user.email pieter.stevens.u12345@student.hogent.be
 git config --global push.default simple
 ```
 
