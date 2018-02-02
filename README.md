@@ -143,5 +143,3 @@ van de bibliografische databank compatibel met dat van de cursus en het aangebod
 - [Simpson's paradox](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
 - [Twenty Statistical Errors Even YOU Can Find in Biomedical Research Articles](http://web.udl.es/Biomath/Bioestadistica/CMJ%2020%20stat%20errors.pdf)
 - [Anscombe's Quartet](https://en.wikipedia.org/wiki/Anscombe%27s_quartet): vier verschillende datasets met identieke statistische eigenschappen. Toont het belang aan van data-visualisatie.
-
-[2]: mailto:bert.vanvreckem@hogent.be?subject=eee
