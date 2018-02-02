@@ -8,16 +8,8 @@ Voor de cursus onderzoekstechnieken maak je gebruik van verschillende softwarepa
 
 ### Windows
 
-Traditionele werkwijze: download vanaf de projectwebsite en installeer:
-
-- Git: <https://git-scm.com/download/win>
-- MikTeX: <https://miktex.org/download>
-- TeXStudio: <http://www.texstudio.org/>
-- JabRef: <https://www.fosshub.com/JabRef.html>
-- R: <https://lib.ugent.be/CRAN/>
-- Rstudio: <https://www.rstudio.com/products/rstudio/download/#download>
-
-Een makkelijker alternatief is installeren via de Chocolatey package manager (<https://chocolatey.org/>). Voer volgende commando's uit als Administrator in een CMD of PowerShell terminal.
+Installeer eerst de Chocolatey package manager als Administrator in een PowerShell (of CMD) terminal (<https://chocolatey.org/>).
+Daarna voer je onderstaande commando's uit, opnieuw als Administrator in een PowerShell (of CMD) terminal.
 
 ```
 choco install git
@@ -27,6 +19,15 @@ choco install JabRef
 choco install r.project
 choco install r.studio
 ```
+
+Als alternatief kun je de software ook op de *traditionele* wijze installeren. Download vanaf de projectwebsites en installeer:
+
+- Git: <https://git-scm.com/download/win>
+- MikTeX: <https://miktex.org/download>
+- TeXStudio: <http://www.texstudio.org/>
+- JabRef: <https://www.fosshub.com/JabRef.html>
+- R: <https://lib.ugent.be/CRAN/>
+- Rstudio: <https://www.rstudio.com/products/rstudio/download/#download>
 
 ### MacOS X
 
