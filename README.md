@@ -60,14 +60,15 @@ brew cask install --appdir=/Applications rstudio
 ```
 sudo aptitude update
 sudo aptitude install git texlive-latex-base texstudio jabref r-base
-wget https://download1.rstudio.org/rstudio-1.0.143-amd64.deb
-sudo dpkg -i ./rstudio-1.0.143-amd64.deb
+wget https://download1.rstudio.org/rstudio-1.1.419-amd64.deb
+sudo dpkg -i ./rstudio-1.1.419-amd64.deb
 ```
 
 **Fedora.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
 
 ```
-sudo dnf install git texstudio texlive-collection-latex texlive-babel-dutch jabref R https://download1.rstudio.org/rstudio-1.0.143-x86_64.rpm
+sudo dnf install git texstudio texlive-collection-latex texlive-babel-dutch jabref
+sudo dnf install R https://download1.rstudio.org/rstudio-1.1.419-x86_64.rpm
 ```
 
 ## Instellingen
