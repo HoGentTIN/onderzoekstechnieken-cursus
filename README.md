@@ -84,7 +84,8 @@ Eerst enkele tips:
 - Als je nog geen gebruikersnaam hebt, kies er dan één die je na je afstuderen nog kan gebruiken (dus bv. niet je HoGent login). De kans is erg groot dat je tijdens je carrière nog van Github gebruik zult maken.
 - Koppel je *HoGent*-emailadres aan je Github account (je kan meerdere adressen registreren). Op die manier kan je aanspraak maken op het [Github student developer pack](https://education.github.com/pack), wat je gratis toegang geeft tot een aantal in principe betalende producten en diensten.
 
-Windows-gebruikers voeren volgende instructies uit via Git Bash, MacOS X- en Linux-gebruikers via de standaard (Bash) terminal.
+Windows-gebruikers voeren volgende instructies uit via **Git Bash**,  
+MacOS X- en Linux-gebruikers via de standaard (Bash) terminal.
 
 ```
 git config --global user.name "Pieter Stevens"

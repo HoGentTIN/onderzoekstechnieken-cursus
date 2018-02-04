@@ -132,3 +132,6 @@ sympy-plots-for-*.tex/
 
 # ghostwriter
 *.md.backup
+
+# jabref
+*.bib.bak
