@@ -376,16 +376,17 @@
   \frametitle{Voorbeeld voorwoord/samenvatting (abstract)}
 
   \begin{center}
-    \only<1>{Context+nood}
-    \only<2>{Taak}
-    \only<3>{Object}
-    \only<4>{Conclusie}
+    \only<1>{Context}
+    \only<2>{Nood}
+    \only<3>{Taak}
+    \only<4>{Object}
+    \only<5>{Resultaat+Conclusie}
   \end{center}
 
   \scriptsize
   \textbf{Energy-Efficient Resource Provisioning Algorithms for Optical Clouds}
 
-  \alert<1>{Rising energy costs and climate change have led to an increased concern for energy-efficiency (EE). As Information and Communication Technology (ICT) is responsible for about 4\% of total energy consumption worldwide, it is essential to devise policies aimed at reducing it.} \alert<2>{In this paper, we propose a routing and scheduling algorithm for a cloud architecture, which targets minimal total energy consumption by enabling switching off unused network and/or Information Technology (IT) resources, exploiting the cloud-specific anycast principle.} \alert<3>{A detailed energy model for the entire cloud infrastructure comprising wide area optical network and IT resources is provided. This model is used to make a single-step decision on which IT end points to use for a given request, including the routing of the network connection towards these end points. Our simulations quantitatively assess the EE algorithm’s potential energy savings, but also assess the influence this may have on traditional Quality of Service parameters such as service blocking. Furthermore, we compare the one-step scheduling with traditional scheduling and routing schemes, which calculate the resource provisioning in a two-step approach (selecting first the destination IT end point, and subsequently using unicast routing towards it).} \alert<4>{We show that depending on the offered infrastructure load, our proposed one step calculation considerably lowers the total energy consumption (reduction up to 50\%) compared to the traditional iterative scheduling and routing, especially in low to medium load scenarios, without any significant increase in the service blocking.}
+  \alert<1>{Rising energy costs and climate change have led to an increased concern for energy-efficiency (EE).} \alert<2>{As Information and Communication Technology (ICT) is responsible for about 4\% of total energy consumption worldwide, it is essential to devise policies aimed at reducing it.} \alert<3>{In this paper, we propose a routing and scheduling algorithm for a cloud architecture, which targets minimal total energy consumption by enabling switching off unused network and/or Information Technology (IT) resources, exploiting the cloud-specific anycast principle.} \alert<4>{A detailed energy model for the entire cloud infrastructure comprising wide area optical network and IT resources is provided. This model is used to make a single-step decision on which IT end points to use for a given request, including the routing of the network connection towards these end points. Our simulations quantitatively assess the EE algorithm’s potential energy savings, but also assess the influence this may have on traditional Quality of Service parameters such as service blocking. Furthermore, we compare the one-step scheduling with traditional scheduling and routing schemes, which calculate the resource provisioning in a two-step approach (selecting first the destination IT end point, and subsequently using unicast routing towards it).} \alert<5>{We show that depending on the offered infrastructure load, our proposed one step calculation considerably lowers the total energy consumption (reduction up to 50\%) compared to the traditional iterative scheduling and routing, especially in low to medium load scenarios, without any significant increase in the service blocking.}
 
 \end{frame}
 
@@ -462,7 +463,7 @@
 
   \begin{itemize}
     \item Definities, eerste vermelding vakterm
-    \item Letterlijk citaat uit bron of vertalen/parafraseren
+    \item Overnemen uit bron van letterlijk citaat, vertaling/parafrase, of afbeelding
       \begin{itemize}
         \item Geen referentie = \alert{plagiaat!}
       \end{itemize}
@@ -503,33 +504,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Software}
-
-  JabRef (\url{https://jabref.sf.net/})
-
-  \begin{itemize}
-    \item Windows, MacOS, Linux (Java-platform)
-    \item Gratis, open source
-    \item Bedoeld voor Bib{\TeX}, export naar RTF
-  \end{itemize}
-
-  \pause
-
-  Mendeley (\url{https://mendeley.com/})
-
-  \begin{itemize}
-    \item Windows, MacOS, Linux
-    \item Gratis, met betalende versie voor grotere teams
-    \item Desktop + web (500MB opslagruimte)
-    \item Integratie {\LaTeX}, MS Office, Libre/OpenOffice
-  \end{itemize}
-
-  \pause
-
-  Eventueel: Endnote (via \url{https://apollo.hogent.be/})
-\end{frame}
-
-\begin{frame}
   \frametitle{Informatie opzoeken}
 
   Start bij \alert{tertiare} bronnen:
@@ -541,7 +515,7 @@
     \item Wikipedia (uiteraard\dots)
   \end{itemize}
 
-  \brightbox{Let op: tertiare bronnen, ihb.~Wikipedia zijn \textcolor{HoGentAccent6}{niet} aanvaardbaar als referentie}
+  \brightbox{Let op: tertiare bronnen, ihb.~Wikipedia, zijn zelf \textcolor{HoGentAccent6}{niet} aanvaardbaar als referentie}
 
   \pause
 
@@ -556,12 +530,12 @@
   \frametitle{Tips}
 
   \begin{itemize}
-    \item<+-> Bezoek website BYB: \url{http://bib.hogent.be/hoekanik/}
+    \item<+-> Bezoek website BYB: \url{http://bib.hogent.be/} (``How to'')
       \begin{itemize}
-        \item Zoeken, Scripties/Taken (\url{http://bib.hogent.be/zoeken/scripties-hogent/})
-        \item Informatievaardigheden (\url{http://bib.hogent.be/cursus/overzicht/})
+        \item Zoeken, Scripties/Taken, Databanken (\url{https://bib.hogent.be/zoeken/})
+        \item Cursus Informatievaardigheden (\url{https://bib.hogent.be/how-to/kritisch-denken-en-onderzoekscompetenties/})
       \end{itemize}
-    \item<+-> Apollo (\url{https://apollo.hogent.be/})
+    \item<+-> Apollox (\url{https://apollox.hogent.be/})
       \begin{itemize}
         \item start applicaties/zoekmachines vanop HoGent
         \item vb.~SPSS, Endnote, Visio, Office
@@ -583,7 +557,7 @@
   \begin{itemize}
     \item Presentaties vakconferenties (via Youtube, Vimeo, Slideshare, \dots)
       \begin{itemize}
-        \item vb. Google IO, WWDC, \dots
+        \item vb. Google IO, WWDC, FOSDEM, Velocity, \dots
         \item Zoeken via Lanyrd (\url{http://lanyrd.com/topics/})
       \end{itemize}
     \item<+-> Technische portaalsites voor ict-gerelateerde onderwerpen
@@ -639,14 +613,16 @@
 
 \begin{frame}
   \frametitle{Checklist kwaliteit bronnen}
+  \framesubtitle{Doe de CRAP test}
 
-  \begin{itemize}
-    \item Publicatiejaar? Is het voldoende recent? Is dit nog conform de \emph{state-of-the-art}?
-    \item Auteur? Is dit een erkend expert?
-    \item Is het relevant voor je onderzoeksvraag?
-    \item Wordt er elders naar verwezen?
-    \item Is het objectief?
-  \end{itemize}
+  \begin{description}
+    \item[Current] Publicatiejaar? Is het voldoende recent? Is dit nog conform de \emph{state-of-the-art}?
+    \item[Reliable] Is het objectief? Gebalanceerd of eenzijdig? 
+    Bronvermeldingen?
+    \item[Authoritative] Auteur? Is dit een erkend expert? Wordt er elders naar verwezen?
+    \item[Purpose/Point of View] Opinie of feiten? Wil de auteur iets verkopen? Is het relevant voor je onderzoeksvraag?
+  \end{description}
+
 \end{frame}
 
 \begin{frame}[fragile]
@@ -684,22 +660,23 @@
   
   \item Literatuurlijst invoegen: \verb|\printbibliography|
   
-  \item Compileren:
+  \item Compileren (in TexStudio):
   
   \begin{enumerate}
-    \item `pdflatex artikel` (of `latexmk -pdf`)
-    \item `biber artikel` selecteert de gerefereerde bronnen en maakt ze klaar
-    \item `pdflatex artikel` om de referenties en literatuurlijst in te voegen
+    \item Build/Compile (F5 of F6): bronnen worden nog niet toegevoegd, ``keys'' van bronnen in het vet aangeduid
+    \item Bibliography (F8): selecteert de gerefereerde bronnen en maakt ze klaar
+    \item Build/Compile (F5 of F6): effectief invoegen verwijzingen en literatuurlijst
   \end{enumerate}
   \end{itemize}
   
-  Zie de voorziene sjablonen voor voorbeelden!
+  Zie de voorziene sjablonen of de cursus voor voorbeelden!
 \end{frame}
 
 \begin{frame}
   \frametitle{Oefening}
 
   \begin{itemize}
+    \item Compileer de cursus Onderzoekstechnieken in TexStudio en controleer of het lukt de bibliografie en bronverwijzingen in te voegen
     \item Zoek een aantal artikels i.v.m.~onderwerp van het project
     \item Voer ze in in JabRef
       \begin{itemize}
