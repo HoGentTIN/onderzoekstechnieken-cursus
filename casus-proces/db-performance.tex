@@ -4,11 +4,6 @@
 % Gebaseerd op LaTeX-sjabloon ‘Stylish Article’ (zie voorstel.cls)
 % Auteur: Jens Buysse, Bert Van Vreckem
 
-% Compileren document:
-% 1) latexmk -pdf db-performance
-% 2) biber db-performance
-% 3) latexmk -pdf db-performance
-
 \documentclass[fleqn,10pt]{voorstel}
 
 %------------------------------------------------------------------------------
@@ -16,22 +11,23 @@
 %------------------------------------------------------------------------------
 
 \JournalInfo{HoGent Bedrijf en Organisatie} % Journal information
-\Archive{Onderzoekstechnieken 2016 - 2017} % Additional notes (e.g. copyright, DOI, review/research article)
+\Archive{Onderzoekstechnieken 2017 - 2018} % Additional notes (e.g. copyright, DOI, review/research article)
 
 %---------- Titel & auteur ----------------------------------------------------
 
 \PaperTitle{Performantievergelijking van database-systemen}
 \PaperType{Casus onderzoeksproces} % Type document
 
-\Authors{Jens Buysse\textsuperscript{1}, Anita Bernard\textsuperscript{2}, Bert Van Vreckem\textsuperscript{3}} % Authors
+\Authors{Jens Buysse\textsuperscript{1}, Wim De Bruyn\textsuperscript{2}, Wim Goedertier\textsuperscript{2}, Bert Van Vreckem\textsuperscript{4}} % Authors
 \affiliation{\textbf{Contact:}
   \textsuperscript{1} \href{mailto:jens.buysse@hogent.be}{jens.buysse@hogent.be};
-  \textsuperscript{2} \href{mailto:anita.bernard@hogent.be}{anita.bernard@hogent.be};
-  \textsuperscript{3} \href{mailto:bert.vanvreckem@hogent.be}{bert.vanvreckem@hogent.be}}
+  \textsuperscript{2} \href{mailto:wim.debruyn@hogent.be}{wim.debruyn@hogent.be};
+  \textsuperscript{3} \href{mailto:wim.goedertier@hogent.be}{wim.goedertier@hogent.be};
+  \textsuperscript{4} \href{mailto:bert.vanvreckem@hogent.be}{bert.vanvreckem@hogent.be}}
 
 %---------- Abstract ----------------------------------------------------------
 
-\Abstract{ Aan de hand van een concrete casus wordt een typisch onderzoeksproces doorlopen. De onderzoeksvraag is onderdeel van de opdracht: het vergelijken van de performantie van verschillende database-systemen. Eerst wordt er aan de hand van een literatuurstudie een beeld gevormd van de stand van zaken in het onderzoeksdomein. Ook wordt de onderzoeksvraag verder gespecifieerd. Vervolgens wordt een experiment opgezet om een antwoord te formuleren op de onderzoeksvraag. De resultaten worden gevisualiseerd en geanalyseerd. Tenslotte wordt het gehele verloop samengevat in een artikel. }
+\Abstract{ Aan de hand van een concrete casus, meer bepaald het vergelijken van de performantie van verschillende database-systemen, wordt een typisch onderzoeksproces doorlopen. Eerst wordt er aan de hand van een literatuurstudie een beeld gevormd van de stand van zaken in het onderzoeksdomein. Ook wordt de onderzoeksvraag verder gespecificeerd. Vervolgens wordt een reproduceerbaar experiment opgezet om een antwoord te formuleren op de onderzoeksvraag. De resultaten worden gevisualiseerd en geanalyseerd. Tenslotte wordt het gehele verloop samengevat in een artikel. }
 
 %---------- Onderzoeksdomein en sleutelwoorden --------------------------------
 
@@ -55,11 +51,13 @@
 \section{Introductie} % The \section*{} command stops section numbering
 \label{sec:introductie}
 
-De doelstelling van deze casus is om een mini-onderzoek uit te voeren zoals dat in de praktijk typisch zou moeten verlopen. Concreet is het de bedoeling om een performantievergelijking uit te voeren op enkele database-systemen en daarover te rapporteren. Een eerste stap is het verkennen van de vakliteratuur en het proberen te reproduceren van eerder geleverd onderzoek. De resultaten van de eigen experimenten worden op een methodologisch correcte manier geanalyseerd en samengevat in een artikel (in {\LaTeX}, met een opgegeven sjabloon).
+De doelstelling van deze opdracht is om een mini-onderzoek uit te voeren zoals dat in de praktijk typisch zou moeten verlopen. Concreet is het de bedoeling om een performantievergelijking uit te voeren op enkele database-systemen en daarover te rapporteren. Een eerste stap is het verkennen van de vakliteratuur en het proberen te reproduceren van eerder geleverd onderzoek. De resultaten van de eigen experimenten worden op een methodologisch correcte manier geanalyseerd en samengevat in een artikel dat opgemaakt is met {\LaTeX}, aan de hand van een opgegeven sjabloon.
 
 \section{Praktische afspraken}
 
-Voor deze casus werken jullie samen in teams van 4 personen waarvan jullie de samenstelling zelf kiezen (bv. teams Projecten II, als dat mogelijk/wenselijk is). Elk team krijgt een Github-repository waarin alle resultaten van dit onderzoek bijgehouden worden: bibliografische databank, verslagen, resultaten van experimenten, {\LaTeX} broncode artikel, enz. Gebruik Github Projects\footnote{Zie \url{https://help.github.com/articles/about-projects/}} voor de taakverdeling en het opvolgen van de vooruitgang van elke taak. Elk teamlid is verantwoordelijk voor het aantonen van de eigen bijdrage aan de hand van Git commits. 
+Voor deze casus werken jullie samen in teams van 4 personen waarvan jullie de samenstelling zelf kiezen. Je kan bijvoorbeeld samenwerken met hetzelfde team als voor Projecten II, als dat mogelijk/wenselijk is. Ook teams met studenten uit verschillende klasgroepen kunnen. Studenten die niet tijdig aansluiten bij een groep worden door de lectoren ingedeeld. Samenwerken met minder dan vier studenten kan enkel als binnen dezelfde klasgroep niet meer voldoende studenten zijn om een volledig team te vormen en kan enkel na overleg met je begeleidende lector.
+
+Elk team krijgt een Github-repository waarin alle resultaten van dit onderzoek bijgehouden worden: bibliografische databank, verslagen, scripts voor het uivoeren van experimenten, ruwe resultaten, R code voor statistische verwerking van deze data, {\LaTeX} broncode artikel, enz. Gebruik Github Projects\footnote{Zie \url{https://help.github.com/articles/about-projects/}} voor de taakverdeling en het opvolgen van de vooruitgang van elke taak. Elk teamlid is verantwoordelijk voor het aantonen van de eigen bijdrage aan de hand van Git commits. 
 
 Tijdens de oefeningensessies kunnen jullie de begeleidende lector advies vragen, maar verder gebeuren alle onderlinge afspraken binnen het team op zelfstandige basis. Voor een leidraad in het voeren van een literatuuronderzoek, het gebruik van een bibliografische databank, gebruik van \LaTeX{}, zie de cursus en ook~\autocite{VanVreckem2017}.
 
@@ -77,15 +75,15 @@ Organiseer een \emph{reading group} met je team waar je samen door de gevonden t
 
 Probeer ook te komen tot een preciezere definitie van ``performantie.'' Is dit een éénduidig begrip? Hoe kan je concreet performantie meten op een objectieve manier die toelaat om vergelijkingen te maken? Formuleer deelonderzoeksvragen waar jullie definitie concreet en duidelijk toegelicht wordt.
 
-Maak een verslag van de \emph{reading group} waarin alle hierboven opgesomde vragen aan bod komen. Verwerk daarna de samenvattingen van de artikels en de kritische beschouwing ervan in een doorlopende tekst. Dit wordt een onderdeel van jullie artikel (state of the art/kritische literatuurstudie). Probeer daarbij de stijl van de gelezen artikels over te nemen!
+Maak een verslag van de \emph{reading group} waarin alle hierboven opgesomde vragen aan bod komen. Verwerk daarna de samenvattingen van de artikels en de kritische beschouwing ervan in een doorlopende tekst. Dit wordt een onderdeel van jullie artikel (state of the art/kritische literatuurstudie). Probeer daarbij de schrijfstijl van de gelezen artikels over te nemen! Hanteer in elk geval een wetenschappelijke schrijfstijl~\autocite{Taalwinkel2014}.
 
 Deliverables voor deze fase:
 
 \begin{itemize}
-	\item Bibliografische databank waar elk teamlid minstens één uniek artikel heeft toegevoegd;
-	\item Verslag reading group;
-	\item Lijst deelonderzoeksvragen;
-	\item Tekst kritische literatuurstudie.
+  \item Bibliografische databank waar elk teamlid minstens één uniek artikel heeft toegevoegd;
+  \item Verslag reading group;
+  \item Lijst deelonderzoeksvragen;
+  \item Tekst kritische literatuurstudie.
 \end{itemize}
 
 \section{Opzetten en uitvoeren experiment}
@@ -103,14 +101,14 @@ Beschrijf in detail in welke omstandigheden jullie de experimenten uitvoeren: op
 Deliverables voor deze fase:
 
 \begin{itemize}
-	\item Alle nodige code, scripts en/of procedures voor het uitvoeren van het experiment;
-	\item Resultaten van de experimenten (CSV-bestanden);
-	\item Sectie ``methodologie'' voor het artikel.
+  \item Alle nodige code, scripts en procedures voor het uitvoeren van het experiment op Github. Er is een README voorzien met instructies voor het herhalen van de experimenten. Het moet mogelijk zijn om zonder hulp de experimenten te herhalen, en al wat nodig is (behalve te installeren software, uiteraard) moet op Github beschikbaar zijn.
+  \item Resultaten van de experimenten in de vorm van CSV-bestanden, op Github.
+  \item Sectie ``methodologie'' voor het artikel.
 \end{itemize}
 
 \section{Analyse resultaten}
 
-De volgende stap is het analyseren van de resultaten. Bekijk opnieuw het oorspronkelijke artikel. Zijn de resultaten goed gerapporteerd? Is het duidelijk of de verschillen tussen de database-systemen ook statistisch significant zijn?
+De volgende stap is het analyseren van de resultaten met R. Bekijk opnieuw het oorspronkelijke artikel. Zijn de resultaten goed gerapporteerd? Is het duidelijk of de verschillen tussen de database-systemen ook statistisch significant zijn?
 
 Visualiseer de resultaten van de experimenten. Het is vooral belangrijk dat de spreiding van de datapunten zichtbaar is.
 
@@ -121,8 +119,9 @@ Vat de resultaten samen in een doorlopende tekst die onderdeel wordt van jullie 
 Deliverables voor deze fase:
 
 \begin{itemize}
-	\item Tabellen en grafieken voor alle resultaten van experimenten;
-	\item Tekst resultaten experimenten.
+  \item R-broncode voor het analyseren van de resultaten;
+  \item Tabellen en grafieken voor alle resultaten van experimenten;
+  \item Tekst resultaten experimenten.
 \end{itemize}
 
 \section{Rapportering}
@@ -133,18 +132,18 @@ Schrijf een \emph{inleiding} waarin de context van het onderzoek besproken wordt
 
 Formuleer de belangrijkste \emph{conclusies} van het onderzoek en eventuele kritische bedenkingen daarbij. Wat zouden eventuele volgende stappen kunnen zijn als jullie het onderzoek zouden verder zetten? Welke nieuwe onderzoeksvragen zijn bij jullie opgekomen bij het voeren van dit onderzoek?
 
-Schrijf als laatste een \emph{samenvatting} waarin alle verwachte componenten (context, nood, taak, object, resultaat, conclusie en perspectief) aanwezig zijn.
+Schrijf als laatste een \emph{samenvatting} (abstract) waarin alle verwachte componenten (context, nood, taak, object, resultaat, conclusie en perspectief) aanwezig zijn.
 
 Herformuleer de titel zodat die een concreet beeld geeft van het gevoerde onderzoek en de (bijgestuurde) onderzoeksdoelstellingen.
 
-De tekst staat geheel op zichzelf, d.w.z.~er wordt niet verondersteld dat de lezer bepaalde voorkennis heeft. De lezer moet alle informatie krijgen om de tekst te begrijpen. Het artikel is duidelijk en logisch gestructureerd en is vlot leesbaar, waarbij elk onderdeel mooi op elkaar aansluit. Er wordt een wetenschappelijke schrijfstijl\footnote{Zie \url{http://www.taalwinkel.nl/schrijfproces/een-wetenschappelijke-schrijfstijl/}} gehanteerd. 
+De tekst staat geheel op zichzelf, d.w.z.~er wordt niet verondersteld dat de lezer bepaalde voorkennis heeft. De lezer moet alle informatie krijgen om de tekst te begrijpen. Het artikel is duidelijk en logisch gestructureerd en is vlot leesbaar, waarbij elk onderdeel mooi op elkaar aansluit. De gehele tekst is geschreven in een wetenschappelijke schrijfstijl~\autocite{Taalwinkel2014}.
 
 Zorg er voor dat je eigen tekst beter is dan het origineel, met de nadruk op reproduceerbaar maken van de experimenten, en correcte analyse en bespreking van de testresultaten. Alle beweringen en keuzes worden ondersteund, hetzij door eigen resultaten, hetzij door verwijzen naar gezaghebbende bronnen.
 
 Deliverables voor deze fase:
 
 \begin{itemize}
-	\item Het afgewerkte artikel.
+  \item Het afgewerkte artikel: broncode op Github, PDF voor de deadline ingediend via Chamilo.
 \end{itemize}
 
 \section{Richtlijn tijdpad}
@@ -152,7 +151,7 @@ Deliverables voor deze fase:
 Om deze casus met succes te voltooien, is het belangrijk om meteen aan de slag te gaan, de taken efficiënt te verdelen en ook voldoende tijd te spenderen aan bijvoorbeeld het voeren van experimenten. Hieronder volgt een aanbeveling, het is aan jullie om die al dan niet te volgen.
 
 \begin{description}
-	\item[W1-2] Opzetten Github-project; artikel~\textcite{Bassil2012} lezen; tweede artikel zoeken en toevoegen aan de bibliografische databank;
+	\item[W1-2] Groepverdeling en opzetten Github-project; artikel~\textcite{Bassil2012} lezen; tweede artikel zoeken en toevoegen aan de bibliografische databank;
 	\item[W3-4] Reading group organiseren;
 	\item[W5-6-7] Opzetten experiment (testopstelling, scripts, enz.); bijsturen onderzoeksdoelstellingen;
 	\item[Paasvakantie] Uitvoeren experimenten;
@@ -160,9 +159,15 @@ Om deze casus met succes te voltooien, is het belangrijk om meteen aan de slag t
 	\item[W9] Rapportering en indienden.
 \end{description}
 
+De deadline is \textbf{strikt}. Na verlopen van de deadline is het niet meer mogelijk nog in te dienen.
+
 \section{Beoordeling}
 
-Het resultaat wordt beoordeeld naargelang het voldoet aan de hierboven opgesomde richtlijnen. In principe krijgen alle teamleden dezelfde beoordeling, tenzij uit de Github logs blijkt dat iemand er -in de goede of de slechte zin- uit springt. Studenten die hun bijdrage niet kunnen aantonen, krijgen 0. Het resultaat voor deze casus telt mee voor 15\% van het examencijfer voor dit opleidingsonderdeel.
+Het resultaat wordt beoordeeld naargelang het voldoet aan de hierboven opgesomde richtlijnen. In principe krijgen alle teamleden dezelfde beoordeling, tenzij uit de Github logs blijkt dat iemand er -in de goede of de slechte zin- uit springt.
+
+Voor dit groepswerk is Artikel 37 van het Facultair Onderwijs en Examenreglement over ``Betrokkenheid bij groepswerk'' van kracht. Wie niet deelneemt aan het groepswerk of onvoldoende bijdrage levert, loopt het risico om als afwezig beschouwd te worden. Studenten die op het einde van de rit hun bijdrage niet kunnen aantonen aan de hand van activiteiten op Github, in het bijzonder commits met significante bijdragen, worden ook beschouwd als ``afwezig'' en krijgen 0 voor deze taak.
+
+Het resultaat voor deze casus telt mee voor 30\% van het examencijfer voor dit opleidingsonderdeel of 6/20. Merk op dat voor deze opdracht geen tweede examenkans voorzien is en dat dit resultaat dus ongewijzigd wordt overgenomen in de tweede zittijd. Het is dus belangrijk om de nodige inspanning te leveren!
 
 %------------------------------------------------------------------------------
 % Referentielijst
