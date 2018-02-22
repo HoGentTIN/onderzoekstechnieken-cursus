@@ -3,7 +3,7 @@
 # grep -v -e '^$' -e '^#' .gitignore |sort -u
 
 pdflatex_cmd="pdflatex -interaction=batchmode -quiet"
-tmp_extensions="aux bbl bcf blg cmptexlog idx log nav out run.xml snm toc vrb"
+tmp_extensions="aux bib.bbl bcf bib.blg cmptexlog idx log nav out run.xml snm synctex.gz toc vrb"
 
 cmd=$0
 nothing_processed=1
@@ -14,8 +14,12 @@ set -u
 usage() {
     echo "Usage: $0 FILE [FILE [FILE ...]]"
     echo "       $0 [DIRECTORY]"
-    echo "Compile one or more LaTex files"
-    echo "Compile all LaTex files in 'DIRECTORY' and its subdirs (default value: .)"
+    #echo "Usage: $0 [-f|--force] FILE [FILE [FILE ...]]"
+    #echo "       $0 [-f|--force] [DIRECTORY]"
+    echo "Compile the Tex FILE(s) listed"
+    echo "Compile all Tex files in 'DIRECTORY' and its subdirs (default value: .)"
+    echo "By default, the files are compiled only if the Tex file is newer than the PDF"
+    #echo " -f, --force : *always* process the files, also if the TeX file is newer"
 }
 
 die() {
@@ -35,16 +39,22 @@ compile_file() {
     cd $(dirname $1)
     filebase=$(basename $1)
     filebase=${filebase%.tex}
-    exitcode=0
-    echo "=== compiling $1 ==="
-    $pdflatex_cmd ${filebase}.tex || exitcode=$?
-    if [ $exitcode -eq 0 ]; then
-        # cleanup stuff
-        for i in $tmp_extensions; do rm -f ${filebase}.$i; done
-        # show remaining stuff (for debugging)
-        #ls -l ${filebase}.*
+    if [ -s ${filebase}.pdf -a ${filebase}.pdf -nt ${filebase}.tex ]; then
+        echo "=== skipping $1 (PDF newer than TEX)"
+        #ls -lrt ${filebase}.{tex,pdf} #for debugging
     else
-        echo
+        exitcode=0
+        echo "=== compiling $1"
+        rm -f ${filebase}.pdf
+        $pdflatex_cmd ${filebase}.tex || exitcode=$?
+        if [ $exitcode -eq 0 ]; then
+            echo "    OK"
+            # cleanup stuff
+            for i in $tmp_extensions; do rm -f ${filebase}.$i; done
+            #ls -l ${filebase}.* #for debugging
+        else
+            echo # because errors from pdflatex doesn't always end with newline
+        fi
     fi
     cd - >/dev/null
     nothing_processed=0
