@@ -3,7 +3,7 @@
 # grep -v -e '^$' -e '^#' .gitignore |sort -u
 
 pdflatex_cmd="pdflatex -interaction=batchmode -quiet"
-tmp_extensions="aux bbl bcf blg cmptexlog idx latexmain log nav out run.xml snm toc vrb"
+tmp_extensions="aux bbl bcf blg cmptexlog idx log nav out run.xml snm toc vrb"
 
 cmd=$0
 nothing_processed=1
