@@ -47,7 +47,6 @@ brew install git
 brew cask install mactex
 brew cask install texstudio
 brew cask install jabref
-brew tap homebrew/science
 brew install Caskroom/cask/xquartz
 brew install --with-x11 r
 brew cask install --appdir=/Applications rstudio
