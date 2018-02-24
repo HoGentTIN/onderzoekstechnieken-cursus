@@ -50,7 +50,7 @@ compile_file() {
     else
         echo "=== compiling $1"
         for i in $tmp_extensions; do rm -f ${filebase}.$i; done
-        rm -f ${filebase}.pdf
+        rm -f ${filebase}.pdf ${filebase}-withERRORS.pdf
         exitcode=0
         $pdflatex_cmd ${filebase}.tex || exitcode=$?
         if [ $exitcode -eq 0 -a -f ${filebase}.bcf ]; then
@@ -75,6 +75,9 @@ compile_file() {
             #ls -l ${filebase}.* #for debugging
         else
             echo # because errors from pdflatex doesn't always end with newline
+            if [ -f ${filebase}.pdf ]; then
+                mv ${filebase}.pdf ${filebase}-withERRORS.pdf
+            fi
         fi
     fi
     cd - >/dev/null
