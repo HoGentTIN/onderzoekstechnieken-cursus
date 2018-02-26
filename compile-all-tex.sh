@@ -11,7 +11,9 @@ set -u
 
 cmd=$0
 nothing_processed=1
-always=0
+force=0
+cleanup=0
+nocleanup=0
 
 usage() {
     echo "Usage: $0 [-a] FILE [FILE [FILE ...]]"
@@ -20,11 +22,11 @@ usage() {
     echo "Compile all TeX files in 'DIRECTORY' and its subdirs (default value: .)"
     echo "By default, the files are compiled only if the TeX file is newer than the PDF"
     echo "By default, all temporary files are removed, but only after a successful build"
-    echo " -a, --always  : always process the files, also if the TeX file is newer"
-    #echo " -c, --cleanup : always remove tmp files, also if build failed or file is skipped"
-    #echo " -nc, --nocleanup: never remove temporary files, even if build was successful"
-    #echo " -b, --biber   : force to run biber (by default only if .bcf contains 'citekey')"
-    #echo " -nb, --nobiber: don't run biber"
+    echo " -f, --force   : always process the files, also if the TeX file is newer"
+    echo " -c, --cleanup : always remove tmp files, also if build failed or file is skipped"
+    echo " -nc, --nocleanup: never remove temporary files, even if build was successful"
+    #TODO echo " -b, --biber   : force to run biber (by default only if .bcf contains 'citekey')"
+    #TODO echo " -nb, --nobiber: don't run biber"
 }
 
 die() {
@@ -44,9 +46,9 @@ compile_file() {
     cd $(dirname $1)
     filebase=$(basename $1)
     filebase=${filebase%.tex}
-    if [ $always -eq 0 -a -s ${filebase}.pdf -a ${filebase}.pdf -nt ${filebase}.tex ]; then
+    if [ $force -eq 0 -a -s ${filebase}.pdf -a ${filebase}.pdf -nt ${filebase}.tex ]; then
         echo "=== skipping $1 (PDF newer than TEX)"
-        #ls -lrt ${filebase}.{tex,pdf} #for debugging
+        if [ $cleanup -eq 1 ]; then cleanup; fi
     else
         echo "=== compiling $1"
         for i in $tmp_extensions; do rm -f ${filebase}.$i; done
@@ -67,28 +69,38 @@ compile_file() {
         fi
         if [ $exitcode -eq 0 ]; then
             echo "    OK"
-            # cleanup stuff
-            for i in $( grep '^\\\@input' ${filebase}.aux | tr '{' '}'|cut -d'}' -f2);
-                do rm -f $i;
-            done
-            for i in $tmp_extensions; do rm -f ${filebase}.$i; done
-            #ls -l ${filebase}.* #for debugging
+            if [ $nocleanup -eq 0 ]; then cleanup; fi
         else
-            echo # because errors from pdflatex doesn't always end with newline
+            # add '\n' because errors from pdflatex doesn't always end with newline
+            echo 
+            # rename pdf if build failed
             if [ -f ${filebase}.pdf ]; then
                 mv ${filebase}.pdf ${filebase}-withERRORS.pdf
             fi
+            # cleanup if requested
+            if [ $cleanup -eq 1 ]; then cleanup; fi
         fi
     fi
     cd - >/dev/null
     nothing_processed=0
 }
 
+cleanup() {
+    if [ -f ${filebase}.aux ]; then
+        for i in $( grep '^\\\@input' ${filebase}.aux | tr '{' '}'|cut -d'}' -f2);
+            do rm -f $i;
+        done
+    fi
+    for i in $tmp_extensions; do rm -f ${filebase}.$i; done
+}
+
 ## main ##
 
 for i in "$@"; do
     case $i in
-    -a|--always) always=1 ;;
+    -f|--force) force=1 ;;
+    -c|--cleanup) cleanup=1 ;;
+    -nc|--nocleanup) nocleanup=1 ;;
     -*) die "Unexpected argument '$i'";;
     esac
 done
