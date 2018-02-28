@@ -11,6 +11,7 @@ set -u
 
 cmd=$0
 nothing_processed=1
+
 force=0
 cleanup=0
 nocleanup=0
@@ -52,30 +53,40 @@ compile_file() {
     else
         echo "=== compiling $1"
         for i in $tmp_extensions; do rm -f ${filebase}.$i; done
-        rm -f ${filebase}.pdf ${filebase}-withERRORS.pdf
         exitcode=0
-        $pdflatex_cmd ${filebase}.tex || exitcode=$?
+        rm -f ${filebase}.pdf ${filebase}-withERRORS.pdf || exitcode=$?
+        if [ $exitcode -eq 0 ]; then
+            $pdflatex_cmd ${filebase}.tex || exitcode=$?
+        fi
         if [ $exitcode -eq 0 -a -f ${filebase}.bcf ]; then
             if grep 'bcf:citekey' ${filebase}.bcf >/dev/null; then
                 echo "    running biber and recompiling"
-                exitcode=0
                 $biber_cmd $filebase || exitcode=$?
                 if [ $exitcode -eq 0 ]; then
                     rm -f ${filebase}.pdf
-                    exitcode=0
                     $pdflatex_cmd ${filebase}.tex || exitcode=$?
                 fi
+            fi
+        elif [ $exitcode -eq 0 ]; then
+            changed=1
+            grep 'Package rerunfilecheck Info: File' -A1 ${filebase}.log | tr -d '\n' | grep -e 'has not changed' >/dev/null && changed=0
+            #TODO: add double check
+            #grep 'Package rerunfilecheck Warning: File' -A1 ${filebase}.log | tr -d '\n' | grep -e 'has changed' && changed=1
+            if [ $changed -eq 1 ]; then
+                #echo "    compiling 2nd time"
+                $pdflatex_cmd ${filebase}.tex || exitcode=$?
             fi
         fi
         if [ $exitcode -eq 0 ]; then
             echo "    OK"
             if [ $nocleanup -eq 0 ]; then cleanup; fi
         else
-            # add '\n' because errors from pdflatex doesn't always end with newline
+            # errors from pdflatex doesn't always end with a newline
+            # so, the 'echo' below will add a newline
             echo 
             # rename pdf if build failed
             if [ -f ${filebase}.pdf ]; then
-                mv ${filebase}.pdf ${filebase}-withERRORS.pdf
+                mv ${filebase}.pdf ${filebase}-withERRORS.pdf || tmp=0 #don't die on failure
             fi
             # cleanup if requested
             if [ $cleanup -eq 1 ]; then cleanup; fi
