@@ -1,6 +1,8 @@
 ---
-title: "1. Aan de slag"
-output: html_document
+title: "1 -- Aan de slag"
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}

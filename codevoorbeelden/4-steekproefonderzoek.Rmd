@@ -1,5 +1,5 @@
 ---
-title: "4. steekproefonderzoek"
+title: "4 -- steekproefonderzoek"
 output:
   html_document: default
   pdf_document: default
@@ -104,7 +104,7 @@ Om een betrouwbaarheidsinterval te bepalen gaan we als volgt te werk:
 m <- 5.2      # steekproefgemiddelde
 s <- 1.5      # standaardafwijking van de populatie
 n <- 100      # steekproefgrootte
-alpha <- 0.05 # 1 - α is het zekerheidsniveau
+alpha <- 0.05 # 1 - alpha is het zekerheidsniveau
 # Stap 2
 z <- qnorm(1-alpha/2) # waarom delen door 2?
 z
@@ -118,7 +118,7 @@ We stellen dus met een betrouwbaarheidsniveau van 95% dat de reactiesnelheid van
 
 ## Betrouwbaarheidsinterval bij kleine steekproeven
 
-Wanneer we een kleine steekproef hebben ($n \lt 30$) valt de veronderstelling die we in de centrale limietstelling gedaan hebben weg. We kunnen in dat geval ook de normale verdeling niet gebruiken.
+Wanneer we een kleine steekproef hebben (kleiner dan 30) valt de veronderstelling die we in de centrale limietstelling gedaan hebben weg. We kunnen in dat geval ook de normale verdeling niet gebruiken.
 
 Via de zgn. Student-$t$-verdeling is er echter toch een manier om een betrouwbaarheidsinterval te construeren. Deze verdeling lijkt op de normale verdeling in die zin dat ze ook op een Gauss-curve lijkt. De Student-$t$-verdeling houdt echter rekening met de steekproefgrootte $n$ en moet je ook mee opgeven. De dichtheidsfunctie krijgt dan een extra parameter die het aantal *vrijheidsgraden* genoemd wordt (Eng. *degrees of freedom*, afgekort `df`) en gelijk is aan $n - 1$.
 
@@ -160,7 +160,7 @@ Om dit te illustreren nemen we hetzelfde voorbeeld van hierboven, maar veronders
 m <- 5.2      # steekproefgemiddelde
 s <- 1.5      # standaardafwijking van de populatie
 n <- 15       # steekproefgrootte
-alpha <- 0.05 # 1 - α is het zekerheidsniveau
+alpha <- 0.05 # 1 - alpha is het zekerheidsniveau
 # Stap 2, maar nu gebruiken we de Student-t-verdeling!
 t <- qt(1-alpha/2, df = n - 1)
 t

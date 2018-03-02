@@ -1,9 +1,8 @@
 ---
-title: "5. Toetsingsprocedures"
+title: "5 -- Toetsingsprocedures"
 output:
-  word_document: default
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -93,7 +92,7 @@ abline(v=m0)                   # Trek daar een vertikale lijn
 text(m0, 1.5, 'aanvaardingsgebied (H0)')
 ```
 
-## De linkszijdige $z$-toets
+### De linkszijdige $z$-toets
 
 Stel dat het resultaat van de steekproef $\overline{x} = 3.117$ was. Dan hebben we redenen om aan te nemen dat het populatiegemiddelde *kleiner* is dan 3.3. Dit kunnen we verifiëren met een linksszijdige $z$-toets.
 
@@ -250,7 +249,7 @@ Als de veronderstellingen die gemaakt werden om de $z$-toets te mogen toepassen 
 
 ### Rechtszijdige $t$-toets
 
-Stel dat de onderzoekers van de superhelden uit Voorbeeld 5.1 door tijdsdruk niet in staat waren om een voldoende grote steekproef te nemen en slechts $n = 20$ observaties gedaan hebben, met hetzelfde steekproefgemiddelde $\overline{x} = 3.483$. De standaardafwijking in deze steekproef bleek $s = 0.55$.
+Stel dat de onderzoekers van de superhelden door tijdsdruk niet in staat waren om een voldoende grote steekproef te nemen en slechts $n = 20$ observaties gedaan hebben, met hetzelfde steekproefgemiddelde $\overline{x} = 3.483$. De standaardafwijking in deze steekproef bleek $s = 0.55$.
 
 Kunnen we in deze omstandigheden, met eenzelfde significantieniveau $\alpha = 0.05$, het besluit dat superhelden dagelijks *meer* dan 3.3 mensen redden aanhouden?
 
