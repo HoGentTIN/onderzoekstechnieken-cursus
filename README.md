@@ -59,7 +59,8 @@ brew cask install --appdir=/Applications rstudio
 
 ```
 sudo aptitude update
-sudo aptitude install git texlive-latex-base texstudio jabref r-base
+sudo aptitude install texlive-latex-base texlive-latex-extra texlive-lang-european texlive-bibtex-extra biber
+sudo aptitude install git texstudio jabref r-base
 wget https://download1.rstudio.org/rstudio-1.1.419-amd64.deb
 sudo dpkg -i ./rstudio-1.1.419-amd64.deb
 ```
