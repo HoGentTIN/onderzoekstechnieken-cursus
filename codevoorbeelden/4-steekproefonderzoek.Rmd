@@ -24,10 +24,16 @@ Wat is de kans dat zijn reactiesnelheid groter is dan 6.5 ms? Wiskundige notatie
 # Bereken eerst de z-score
 x <- 6.5
 z <- (x - m) / s
+z
+```
 
-# De *linker*staartkans P(X < 6.5) = P(Z < 1)
-pnorm(z)
-pnorm(x, m, s)
+Met "pnorm()" kunnen we enkel de *linker*startkans $P(X < 6.5)$ of $P(Z < 1)$ bereken.
+Er wordt gevraagd naar de kans dat de reactiesnelheid *groter* is dan 6.5 ms,
+we berekenen dus $1-P(X<6.5)$ of $1-P(Z<1)$:
+
+```{r}
+1-pnorm(z)
+1-pnorm(x, m, s)
 ```
 
 Grafische voorstelling van deze situatie:
