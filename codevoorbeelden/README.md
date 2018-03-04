@@ -11,6 +11,3 @@ De documenten zijn opgemaakt in R Markdown (.Rmd) die toelaat om een opgemaakt H
 "Knit" is waarschijnlijk nog niet geïnstalleerd in R-studio.
 Ga naar "Tools" -> "Install Packages" en tik "knitr".
 Zorg ervoor dat "Install dependencies" aangevinkt is.
-
-
-Om "Knit" te installeren moet je 
