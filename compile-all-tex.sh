@@ -47,33 +47,50 @@ compile_file() {
     cd $(dirname $1)
     filebase=$(basename $1)
     filebase=${filebase%.tex}
-    if [ $force -eq 0 -a -s ${filebase}.pdf -a ${filebase}.pdf -nt ${filebase}.tex ]; then
+    # checking if (one of) the tex file(s) has changed
+    needrebuild=1
+    if [ -s ${filebase}.pdf ]; then
+        if [ ${filebase}.pdf -nt ${filebase}.tex ]; then
+            needrebuild=0
+            for tmpfile in $(grep '\\include{' ${filebase}.tex|cut -b10-|tr -d '}'); do
+                if [ ${filebase}.pdf -ot ${tmpfile}.tex ]; then
+                    needrebuild=1
+                    break
+                fi
+            done
+        fi
+    fi
+    if [ $force -eq 0 -a $needrebuild -eq 0 ]; then
         echo "=== skipping $1 (PDF newer than TEX)"
         if [ $cleanup -eq 1 ]; then cleanup; fi
     else
         echo "=== compiling $1"
+        # remove old tmp files from previous run
         for i in $tmp_extensions; do rm -f ${filebase}.$i; done
         exitcode=0
         rm -f ${filebase}.pdf ${filebase}-withERRORS.pdf || exitcode=$?
+        # compile, only if we were able to remove the previous pdf
         if [ $exitcode -eq 0 ]; then
             $pdflatex_cmd ${filebase}.tex || exitcode=$?
         fi
+        # run biber, only if necessary
         if [ $exitcode -eq 0 -a -f ${filebase}.bcf ]; then
             if grep 'bcf:citekey' ${filebase}.bcf >/dev/null; then
                 echo "    running biber and recompiling"
                 $biber_cmd $filebase || exitcode=$?
+                # compile 2nd time, only if biber was successful
                 if [ $exitcode -eq 0 ]; then
-                    rm -f ${filebase}.pdf
                     $pdflatex_cmd ${filebase}.tex || exitcode=$?
                 fi
             fi
         elif [ $exitcode -eq 0 ]; then
+            # compile 2nd time, if necessary
             changed=1
             grep 'Package rerunfilecheck Info: File' -A1 ${filebase}.log | tr -d '\n' | grep -e 'has not changed' >/dev/null && changed=0
             #TODO: add double check
             #grep 'Package rerunfilecheck Warning: File' -A1 ${filebase}.log | tr -d '\n' | grep -e 'has changed' && changed=1
             if [ $changed -eq 1 ]; then
-                #echo "    compiling 2nd time"
+                echo "    compiling 2nd time"
                 $pdflatex_cmd ${filebase}.tex || exitcode=$?
             fi
         fi
