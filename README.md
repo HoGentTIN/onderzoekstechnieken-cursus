@@ -16,6 +16,7 @@ choco install git
 choco install miktex
 choco install texstudio
 choco install JabRef
+choco install ghostwriter
 choco install r.project
 choco install r.studio
 ```
@@ -26,6 +27,7 @@ Als alternatief kun je de software ook op de *traditionele* wijze installeren. D
 - MikTeX: <https://miktex.org/download>
 - TeXStudio: <http://www.texstudio.org/>
 - JabRef: <https://www.fosshub.com/JabRef.html>
+- Ghostwriter: <https://wereturtle.github.io/ghostwriter/>
 - R: <https://lib.ugent.be/CRAN/>
 - Rstudio: <https://www.rstudio.com/products/rstudio/download/#download>
 
@@ -52,6 +54,8 @@ brew install --with-x11 r
 brew cask install --appdir=/Applications rstudio
 ```
 
+Het is ook handig om een markdown editor te installeren (bvb. retext, ...)
+
 ### Linux:
 
 **Ubuntu/Debian.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
@@ -64,10 +68,13 @@ wget https://download1.rstudio.org/rstudio-1.1.419-amd64.deb
 sudo dpkg -i ./rstudio-1.1.419-amd64.deb
 ```
 
+Het is ook handig om een markdown editor te installeren (bvb. retext, ghostwriter, ...)
+
 **Fedora.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
 
 ```
 sudo dnf install git texstudio texlive-collection-latex texlive-babel-dutch jabref
+sudo dnf install retext
 sudo dnf install R https://download1.rstudio.org/rstudio-1.1.419-x86_64.rpm
 ```
 
