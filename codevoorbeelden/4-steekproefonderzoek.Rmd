@@ -27,8 +27,8 @@ z <- (x - m) / s
 z
 ```
 
-Met "pnorm()" kunnen we enkel de *linker*startkans $P(X < 6.5)$ of $P(Z < 1)$ bereken.
-Er wordt gevraagd naar de kans dat de reactiesnelheid *groter* is dan 6.5 ms,
+Met "pnorm()" kunnen we enkel de *linker*startkans $P(X < 6.5)$ of $P(Z < 1)$ berekenen.
+Er wordt gevraagd naar de kans dat de reactiesnelheid ***groter*** is dan 6.5 ms,
 we berekenen dus $1-P(X<6.5)$ of $1-P(Z<1)$:
 
 ```{r}
