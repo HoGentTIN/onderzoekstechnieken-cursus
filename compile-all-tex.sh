@@ -2,7 +2,11 @@
 
 # grep -v -e '^$' -e '^#' .gitignore |sort -u
 
-pdflatex_cmd="pdflatex -interaction=batchmode -quiet"
+if pdflatex --help|grep '\-quiet'>/dev/null; then
+    pdflatex_cmd="pdflatex -interaction=batchmode -quiet"
+else
+    pdflatex_cmd="pdflatex -interaction=batchmode"
+fi
 biber_cmd="biber --quiet"
 tmp_extensions="aux bcf bbl blg idx log nav out run.xml snm synctex.gz toc vrb"
 
@@ -18,14 +22,15 @@ nocleanup=0
 
 usage() {
     echo "Usage: $0 [-a] FILE [FILE [FILE ...]]"
-    echo "       $0 [-a] [DIRECTORY]"
-    echo "Compile the TeX FILE(s) listed"
-    echo "Compile all TeX files in 'DIRECTORY' and its subdirs (default value: .)"
+    echo "   or: $0 [-a] [DIR [DIR [DIR ...]]]"
+    echo "Compile the specified TeX FILE(s) compile *all* TeX files"
+    echo "in the specified DIR(s) and all the underlying subdirs (default value: .)"
     echo "By default, the files are compiled only if the TeX file is newer than the PDF"
     echo "By default, all temporary files are removed, but only after a successful build"
-    echo " -f, --force   : always process the files, also if the TeX file is newer"
-    echo " -c, --cleanup : always remove tmp files, also if build failed or file is skipped"
+    echo " -f, --force     : always process the files, also if the PDF file is newer"
+    echo " -c, --cleanup   : always remove tmp files, also if build failed or PDF newer"
     echo " -nc, --nocleanup: never remove temporary files, even if build was successful"
+    echo " -h, --help      : show this help message"
     #TODO echo " -b, --biber   : force to run biber (by default only if .bcf contains 'citekey')"
     #TODO echo " -nb, --nobiber: don't run biber"
 }
@@ -38,12 +43,14 @@ die() {
 }
 
 search_files() {
-    for i in $(grep --files-with-matches '^\\documentclass' $(find $1 -type f -name '*.tex')); do
+    #echo search_files $1 #debug
+    for i in $(grep --files-with-matches '^\\documentclass' $(find $1 -type f -name '*.tex') /dev/null); do
         compile_file $i
     done
 }
 
 compile_file() {
+    #echo compile_file $1 #debug
     cd $(dirname $1)
     filebase=$(basename $1)
     filebase=${filebase%.tex}
@@ -126,6 +133,7 @@ cleanup() {
 
 for i in "$@"; do
     case $i in
+    -h|--help) usage; exit 1 ;;
     -f|--force) force=1 ;;
     -c|--cleanup) cleanup=1 ;;
     -nc|--nocleanup) nocleanup=1 ;;
@@ -133,7 +141,7 @@ for i in "$@"; do
     esac
 done
 
-# get rid all options in beginning of command line
+# get rid of all options in beginning of command line
 while [ $# -gt 0 ]; do
     case $1 in
     -*) shift;;
@@ -158,7 +166,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ $nothing_processed -eq 1 ]; then
-    usage
+    die 'no valid TeX files found'
 else
     echo "=== done! ==="
 fi
