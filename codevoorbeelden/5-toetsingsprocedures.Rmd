@@ -94,7 +94,7 @@ text(m0, 1.5, 'aanvaardingsgebied (H0)')
 
 ### De linkszijdige $z$-toets
 
-Stel dat het resultaat van de steekproef $\overline{x} = 3.117$ was. Dan hebben we redenen om aan te nemen dat het populatiegemiddelde *kleiner* is dan 3.3. Dit kunnen we verifiëren met een linksszijdige $z$-toets.
+Stel dat het resultaat van de steekproef $\overline{x} = 3.117$ was. Dan hebben we redenen om aan te nemen dat het populatiegemiddelde *kleiner* is dan 3.3. Dit kunnen we verifi&euml;ren met een linksszijdige $z$-toets.
 
 1. Formuleer de hypothesen:
     - $H_0: \mu = 3.3$
@@ -374,11 +374,11 @@ Merk op dat in de oproep van `t.test` het significantieniveau (5%) en het verond
 
 ### De $t$-toets voor gepaarde steekproeven
 
-In deze variant van de $t$-toets is een meting uitgevoerd op elk element van de steekproef, één keer vóór en één keer na een interventie. De bedoeling is om na te gaan of die interventie een significant effect gehad heeft op de meting.
+In deze variant van de $t$-toets is een meting uitgevoerd op elk element van de steekproef, &eacute;&eacute;n keer v&oacute;&oacute;r en &eacute;&eacute;n keer na een interventie. De bedoeling is om na te gaan of die interventie een significant effect gehad heeft op de meting.
 
-In een studie werd nagegaan of auto’s die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto’s werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto’s opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten.
+In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto's werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto's opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten.
 
-We gaan door middel van een gepaarde $t$-toets na of auto’s significant zuiniger rijden op benzine met additieven.
+We gaan door middel van een gepaarde $t$-toets na of auto's significant zuiniger rijden op benzine met additieven.
 
 ```{r}
 regular   <- c(16,20,21,22,23,22,27,25,27,28)
@@ -389,4 +389,4 @@ t.test(additives, regular, alternative="greater", paired=TRUE)
 
 De optie `paired=TRUE` geeft aan dat het hier om een gepaarde t-toets gaat.
 
-De $p$-waarde, 0.0007749, ligt onder het significantieniveau 0.05, dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto’s inderdaad zuiniger op benzine met additieven.
+De $p$-waarde, 0.0007749, ligt onder het significantieniveau 0.05, dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto's inderdaad zuiniger op benzine met additieven.
