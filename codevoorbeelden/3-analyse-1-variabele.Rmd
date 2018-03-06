@@ -1,0 +1,159 @@
+---
+title: "3 -- Univariate Analysis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Quantitative variables
+
+Some basic functions for univariate analysis on a quantitative variable.
+
+```{r}
+# Lengths superheroes
+lengths <- c(141, 198, 143, 201, 184)
+```
+
+### Measures of central tendency
+
+```{r}
+mean(lengths)                     # mean or average
+median(lengths)
+```
+
+### Measures of dispersion
+
+```{r}
+range(lengths)                    # minimum & maximum
+abs(max(lengths) - min(lengths))  # range
+summary(lengths)                  # Quartiles, etc.
+IQR(lengths)                      # Interquartile range
+sd(lengths)                       # standard deviation of a *sample*
+```
+
+### Formula breakdown
+
+Mathematical formulae can often be translated to R quite straightforwardly. Take e.g. the formula for the mean:
+
+$\mu = \frac{\sum_{x=1}^{n}x_i}{n}$
+
+In R, this becomes:
+
+```{r}
+sum(lengths) / length(lengths)
+```
+
+The same goes for the variance and standard deviation. In the example below, we use the definition of population variance (denominator $n$).
+
+$\sigma^2 = \frac{\sum_{i=1}^{n} \left(x_{i} - \mu\right)^2}{n}$
+
+In the code below, we break down the formula in parts:
+
+```{r}
+res_1 <- lengths - mean(lengths)    # difference of data points with mean
+res_2 <- res_1^2                    # squared differences
+res_3 <- sum(res_2)                 # take the sum
+variance <- res_3 / length(lengths) # calculate average
+stdev <- sqrt(variance)             # take the square root
+```
+
+Or, the entire calculation of variance in one formula. Can you recognize the mathematical formula in the R-code?
+
+```{r}
+variance <- sum((lengths - mean(lengths))^2) / length(lengths)
+```
+
+## Qualitative variables
+
+In R, qualitative variables are called *factors*. As an example, we'll use the `esoph` dataset from the `datasets` package, available in R.
+
+```{r}
+?esoph
+View(esoph)
+```
+
+### Measures of central tendency
+
+About the only measure of central tendency for a factor/qualitative variable is the mode. There is no actual mode function in R, but you can find it in several ways. The first is to print a frequency table and read the maximum from there:
+
+```{r}
+freq_tab <- table(esoph$agegp) # Calculate a frequency table
+freq_tab
+summary(esoph$agegp)           # The summary function applied to a factor
+```
+
+The output of both `table` and `summary` (applied to a factor) is identical.
+
+From there, we could look for the value that occurs the most:
+
+```{r}
+which.max(table(esoph$agegp)) # Only works for the case with a single mode
+names(freq_tab)[freq_tab == max(freq_tab)] # Also works for multimodal variables
+```
+
+It's a bit convoluted, but in R, this is the only way to calculate the mode.
+
+## Charts in R
+
+For univariate statistics, the most common chart types are:
+
+- **boxplot**, that shows the spread of a (quantitative)
+- **bar chart**, which can be used for
+    - showing the values of a quantitative variable
+    - showing the frequencies of a qualitative variable
+- **histogram**, a variant of the bar chart for frequencies, where ranges of x-values are taken together in "buckets"
+
+```{r}
+# Chart types
+barplot(lengths)  # bar chart (without any fancy layout add-ons)
+boxplot(lengths)  # boxplot
+
+# Example "Active Duty Personnel, 1998"
+active_duty_personnel <- c(492, 363, 381, 176)
+
+barplot(active_duty_personnel)
+pie(active_duty_personnel)       # Shown for reference, avoid pie charts!
+
+# Plot of the frequencies of a qualitative variable
+barplot(table(esoph$agegp))
+```
+
+As an example of a histogram, we take the `cars` dataset as an example. 
+
+```{r}
+# For reference, a boxplot of the data
+boxplot(cars$dist, horizontal = TRUE)
+
+# A simple histogram, the hist function decides on the number
+# of buckets
+hist(cars$dist)
+
+# Only 4 "breaks" between buckets => 5 buckets
+hist(cars$dist, breaks = 4)  
+
+# Specify boundaries between buckets explicitly
+hist(cars$dist, breaks = c(0,30,60,90,120))  
+```
+
+
+### More elaborate charts
+
+Charts can be extended with titles, legends, colours, etc. A few examples are given here, you can find a lot more on the Internet. Remark that there is a separate chart library in R, called `ggplot`, that is not discussed in this guide.
+
+```{r}
+heroes <- c("Spiderman", "Batman", "Superman",
+            "Deadpool", "Catwoman")
+barplot(lengths,
+        main = "Lengths of super heroes",
+        names = heroes,
+        xlab = "Hero",
+        ylab = "Length (cm)",
+        col = "light blue"
+        )
+
+military_categories <- c("Army", "Air Force", "Navy", "Marine Corps")
+barplot(active_duty_personnel,
+        names = military_categories)
+```
