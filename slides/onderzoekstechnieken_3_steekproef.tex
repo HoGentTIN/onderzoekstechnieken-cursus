@@ -421,14 +421,28 @@
   \frametitle{Hoe groot is de kans dat\dots}
 
   Zijn reactiesnelheid langer is dan 6,5 milliseconden?
+  
+  Wisk. notatie: $P( x > 6,5)$
 
   \vspace{2cm}
 
   \begin{itemize}
-    \item $z$-tabel
+    \item $z$-tabel (of R-functie \texttt{pnorm})
     \item Symmetrieregel
     \item Regel van 100\% kans
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{De $z$-score}
+  
+  \begin{itemize}
+    \item Stel, $x \in X \sim Nor(\mu, \sigma)$
+    \item Welke $z \in Z \sim Nor(0, 1)$ ligt op dezelfde positie van de Gauss-curve?
+    \pause
+    \item Antwoord: $z = \frac{x - \mu}{\sigma}$
+  \end{itemize}
+  
 \end{frame}
 
 \begin{frame}[fragile]
@@ -452,13 +466,13 @@
 \begin{frame}
   \frametitle{Berekeningswijzen}
 
-  \begin{itemize}
+  \begin{enumerate}
     \item Hoe groot is de kans dat de reactiesnelheid van Superman minder dan 4 ms is?
     \item Hoe groot is de kans dat hij in minder dan 7 ms reageert?
     \item Hoe groot is de kans dat Superman in minder dan 3 ms reageert?
     \item Hoe groot is de kans dat hij reageert tussen de 2 en de 6,5 ms?
     \item Binnen welke tijd ligt 80\% van zijn reactiesnelheid?
-  \end{itemize}
+  \end{enumerate}
 \end{frame}
 
 \begin{frame}
@@ -528,6 +542,8 @@
     \includegraphics[width=2cm]{img/les2-hero-3}
   \end{columns}
 
+Demo: \url{https://students.brown.edu/seeing-theory/probability-distributions/index.html}
+
 \end{frame}
 
 \begin{frame}
@@ -546,10 +562,28 @@
 \subsection{Betrouwbaarheidsintervallen}
 \begin{frame}
   \frametitle{Betrouwbaarheidsinterval}
-  \brightbox{Een betrouwbaarheidsinterval is een regel of een formule die ons zegt hoe we uit de steekproef een interval moeten berekenen dat de waarde van de parameter met een zeker betrouwbaarheidsniveau bevat.}
+  \brightbox{Een \textcolor{HoGentAccent6}{betrouwbaarheidsinterval} is een regel of een formule die ons zegt hoe we uit de steekproef een interval kunnen berekenen dat de waarde van de parameter met een zeker \textcolor{HoGentAccent6}{betrouwbaarheidsniveau} bevat.}
 \end{frame}
 
 \subsection{Betrouwbaarheidsinterval grote steekproef}
+
+
+\begin{frame}
+\frametitle{Betrouwbaarheidsinterval}
+
+Gegeven een steekproef met gemiddelde $\overline{x}$, zoeken we een interval waarvan we met een betrouwbaarheidsniveau $1 - \alpha = 0.95$ weten dat $\mu$ er binnen ligt.
+
+\begin{enumerate}
+  \item<+-> Eerste schatting: $\overline{x}$
+  \item<+-> $z$-score voor $\overline{x}$: $Z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}}$
+  \item<+-> Zoek $z$ in $Z \sim Nor(0, 1)$ zodat $P(-z < Z < z) = 1 - \alpha = 0.95$
+    \begin{itemize}
+      \item<+-> $P(Z < z) = 0.975$
+      \item<+-> \texttt{qnorm(0.975)} $ \approx 1.96$ 
+    \end{itemize}
+\end{enumerate}
+
+\end{frame}
 
 \begin{frame}
   \frametitle{Betrouwbaarheidsinterval}
@@ -573,6 +607,21 @@
 \caption{Standaardnormale verdeling die 95\% betrouwbaarheidsinterval aanduidt.}
 \label{fig:verdelingStandaardnormaal}
 \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Betrouwbaarheidsinterval}
+  
+  \begin{enumerate}
+    \setcounter{enumi}{4}
+    \item Toepassen op oorspronkelijke distributie:
+    
+    \[ P\left(-1.96 < \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} < 1.96 \right) = 0.95 \]
+    
+    \item $\mu$ afzonderen:
+    
+    \[ P\left( \overline{x}-1.96 \frac{\sigma}{\sqrt{n}} < \mu < \overline{x}+1.96 \frac{\sigma}{\sqrt{n}} \right)  = 0.95 \]
+  \end{enumerate}
 \end{frame}
 
 \subsection{Betrouwbaarheidsinterval voor kleine steekproef}
