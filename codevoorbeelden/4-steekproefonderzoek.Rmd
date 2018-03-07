@@ -63,21 +63,23 @@ observaties <- rnorm(n, m, s)
 histogram <- hist(observaties, main="")
 ```
 
-Als je de dichtheidsfunctie op deze grafiek zou plotten, dan zal je een vlakke lijn rond het nulpunt krijgen. De schaal op de y-as voor de dichtheidsfunctie is immers veel kleiner dan die van het histogram (vergelijk met de plot van de dichtheidsfunctie). Daarom moeten we de dichtheidsfunctie mee schalen met het histogram. Als je een histogram tekent, dan kan je de gebruikte schalingswaarden eruit opvragen:
+Als je de dichtheidsfunctie op deze grafiek zou plotten, dan zal je een vlakke lijn rond het nulpunt krijgen. De schaal op de y-as voor de dichtheidsfunctie is immers veel kleiner dan die van het histogram (vergelijk met de plot van de dichtheidsfunctie).
+
+Je kan een histogram echter ook als *relatieve* frequenties plotten, dan zouden de hoogtes van de balken moeten overeenkomen met het verloop van de Gausscurve.
 
 ```{r}
 # Genereer 10000 willekeurige normaal verdeelde getallen:
 n <- 10000
 observations <- rnorm(n, m, s)
 
-# Teken een histogram en hou het als een "object" bij.
-histogram <- hist(observations)
-
-# Zoek de schalingsfactor op voor de dichtheidsfunctie
-scale_factor <- (histogram$counts[1] / histogram$density[1])
+# Teken een histogram van de relatieve ipv de absolute
+# frequenties.
+# Speel met de waarde van "breaks" om een "fijner" of "grover"
+# histogram te bekomen.
+hist(observations, freq = FALSE, breaks = 50)
 
 # Bereken y-waarden voor de dichtheidsfunctie
-y <- dnorm(x, m, s) * scale_factor
+y <- dnorm(x, m, s)
 
 # Voeg deze functie toe aan het histogram
 lines(x, y, col = 'blue')
