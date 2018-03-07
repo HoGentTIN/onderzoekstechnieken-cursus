@@ -9,6 +9,83 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## De normale verdeling
+
+In R een functie plotten kan je niet rechtstreeks. R kan aan de hand van een lijst met x- en y-coördinaten wel punten tekenen en lijnen ertussen. Die moeten we dus eerst berekenen.
+
+### Plot van de standaardnormale verdeling
+
+Specifiek kan je voor de standaardnormale verdeling $Z \sim Nor(\mu = 0, \sigma = 1)$ als volgt te werk gaan:
+
+```{r}
+# Maak een lijst van 200 getallen tussen het interval [-4, 4]
+# die gelijk verdeeld zijn.
+x <- seq(from = -4,
+         to = 4,
+         length.out = 200)
+# Bereken voor elke x-waarde het punt op de Gauss-curve
+y <- dnorm(x)
+
+# Maak hier een lijngrafiek van
+plot(x, y, type = 'l')
+```
+
+### Plot van een normale verdeling
+
+We kunnen deze werkwijze veralgemenen voor een normale verdeling. Als voorbeeld nemen we $X \sim Nor(\mu = 5, \sigma = 1.5)$. Alle "interessante" punten op de Gausscurve liggen op max. 4 standaardafwijkingen links of rechts van het gemiddelde. We gaan onze x-waarden dan ook zo berekenen. De `dnorm`-functie laat toe om gemiddelde en standaardafwijking ook op te geven.
+
+```{r}
+m <- 5    # gemiddelde
+s <- 1.5  # standaardafwijking
+# Bepaal de "interessante" x-waarden voor de plot
+x <- seq(from = m-4*s,
+         to = m+4*s, 
+         length.out = 200)
+# Bereken de dichtheidsfunctie
+y <- dnorm(x, m, s)
+
+# Maak hier een lijngrafiek van
+plot(x, y, type = 'l')
+```
+
+De *vorm* van deze grafiek is volledig dezelfde als die van de *standaard*normaalverdeling, enkel de schaal (zowel op de x- als de y-as) is anders.
+
+### Histogram met dichtheidsfunctie
+
+Het volgende voorbeeldje toont hoe je een histogram kan tekenen van normaal verdeelde data en de plot van de "theoretische" dichtheidsfunctie.
+
+```{r}
+# Genereer 10000 willekeurige normaal verdeelde getallen:
+n <- 10000
+observaties <- rnorm(n, m, s)
+
+# Teken een histogram (zonder titel)
+histogram <- hist(observaties, main="")
+```
+
+Als je de dichtheidsfunctie op deze grafiek zou plotten, dan zal je een vlakke lijn rond het nulpunt krijgen. De schaal op de y-as voor de dichtheidsfunctie is immers veel kleiner dan die van het histogram (vergelijk met de plot van de dichtheidsfunctie). Daarom moeten we de dichtheidsfunctie mee schalen met het histogram. Als je een histogram tekent, dan kan je de gebruikte schalingswaarden eruit opvragen:
+
+```{r}
+# Genereer 10000 willekeurige normaal verdeelde getallen:
+n <- 10000
+observations <- rnorm(n, m, s)
+
+# Teken een histogram en hou het als een "object" bij.
+histogram <- hist(observations)
+
+# Zoek de schalingsfactor op voor de dichtheidsfunctie
+scale_factor <- (histogram$counts[1] / histogram$density[1])
+
+# Bereken y-waarden voor de dichtheidsfunctie
+y <- dnorm(x, m, s) * scale_factor
+
+# Voeg deze functie toe aan het histogram
+lines(x, y, col = 'blue')
+```
+
+
+De oproep van de functie `lines` maakt dat de nieuwe plot bovenop het reeds bestaande histogram wordt getekend. Als je hier de `plot`-functie gebruikt, dan wordt de tekening gewist en begin je opnieuw.
+
 ## Kansverdeling in de normale verdeling
 
 Stel, Superman heeft een reactiesnelheid die normaal verdeeld is met gemiddelde 5 ms en standaardafwijking 1.5 ms.
@@ -27,9 +104,9 @@ z <- (x - m) / s
 z
 ```
 
-Met "pnorm()" kunnen we enkel de *linker*startkans $P(X < 6.5)$ of $P(Z < 1)$ berekenen.
-Er wordt gevraagd naar de kans dat de reactiesnelheid ***groter*** is dan 6.5 ms,
-we berekenen dus $1-P(X<6.5)$ of $1-P(Z<1)$:
+Met de `pnorm` kunnen we enkel de *linker*staartkans $P(X < 6.5)$ of $P(Z < 1)$ berekenen.
+Er wordt gevraagd naar de kans dat de reactiesnelheid ***groter*** is dan 6.5 ms, dus
+we berekenen $1-P(X<6.5)$ of $1-P(Z<1)$:
 
 ```{r}
 1-pnorm(z)
@@ -67,10 +144,10 @@ Andere voorbeelden van kansberekening:
     pnorm(4, m, s)
     ```
 
-2. Hoe groot is de kans dat hij in minder dan 7 ms reageert?
+2. Hoe groot is de kans dat hij in *meer* dan 7 ms reageert?
 
     ```{r}
-    pnorm(7, m, s)
+    1 - pnorm(7, m, s)
     ```
 
 3. Hoe groot is de kans dat Superman in minder dan 3 ms
@@ -97,7 +174,7 @@ ms?
 
 Een betrouwbaarheidsinterval is een schatting aan de hand van een gebied waarbinnen je met een gekozen betrouwbaarheid kan veronderstellen dat het onbekende populatiegemiddelde erbinnen zal liggen.
 
-Stel, er is een meting gebeurd van de reactiesnelheid van *n* = 100 superhelden en we bekomen een steekproefgemiddelde van 5.2 ms. We veronderstellen dat de standaardafwijking van de *populatie* gekend is en 1.5 ms is.
+Stel, we hebben *n* = 100 metingen gedaan van de reactiesnelheid van Superman en we bekomen een steekproefgemiddelde van 5.2 ms. We veronderstellen dat we de werkelijke standaardafwijking van zijn reactiesnelheid kennen en dat die 1.5 ms is.
 
 Om een betrouwbaarheidsinterval te bepalen gaan we als volgt te werk:
 
