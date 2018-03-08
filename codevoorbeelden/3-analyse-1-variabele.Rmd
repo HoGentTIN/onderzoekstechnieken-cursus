@@ -65,6 +65,25 @@ Or, the entire calculation of variance in one formula. Can you recognize the mat
 variance <- sum((lengths - mean(lengths))^2) / length(lengths)
 ```
 
+### Calculations by group
+
+Often, you want to get calculations of mean, standard deviation, etc. grouped by some factor. This can be done using the `aggregate` function, and the "group by" `~` operator.
+
+We show some examples from the `mtcars` dataset.
+
+```{r}
+View(mtcars)
+# Show the average mileage per gallon for cars with and
+# without an automatic transmission.
+aggregate(mpg ~ am, data = mtcars, FUN = mean)
+# Standard deviation
+aggregate(mpg ~ am, data = mtcars, FUN = sd)
+# Apply the summary function
+aggregate(mpg ~ am, data = mtcars, FUN = summary)
+```
+
+Remark that the `data` parameter allows you to reference the column names directly, instead of having to use the notation `mtcars$mpg ~ mtcars$am`.
+
 ## Qualitative variables
 
 In R, qualitative variables are called *factors*. As an example, we'll use the `esoph` dataset from the `datasets` package, available in R.

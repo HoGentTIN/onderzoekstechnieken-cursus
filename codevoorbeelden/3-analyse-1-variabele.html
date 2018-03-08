@@ -166,6 +166,29 @@ stdev &lt;- sqrt(variance)             # take the square root</code></pre>
 <p>Or, the entire calculation of variance in one formula. Can you recognize the mathematical formula in the R-code?</p>
 <pre class="r"><code>variance &lt;- sum((lengths - mean(lengths))^2) / length(lengths)</code></pre>
 </div>
+<div id="calculations-by-group" class="section level3">
+<h3>Calculations by group</h3>
+<p>Often, you want to get calculations of mean, standard deviation, etc. grouped by some factor. This can be done using the <code>aggregate</code> function, and the “group by” <code>~</code> operator.</p>
+<p>We show some examples from the <code>mtcars</code> dataset.</p>
+<pre class="r"><code>View(mtcars)
+# Show the average mileage per gallon for cars with and
+# without an automatic transmission.
+aggregate(mpg ~ am, data = mtcars, FUN = mean)</code></pre>
+<pre><code>##   am      mpg
+## 1  0 17.14737
+## 2  1 24.39231</code></pre>
+<pre class="r"><code># Standard deviation
+aggregate(mpg ~ am, data = mtcars, FUN = sd)</code></pre>
+<pre><code>##   am      mpg
+## 1  0 3.833966
+## 2  1 6.166504</code></pre>
+<pre class="r"><code># Apply the summary function
+aggregate(mpg ~ am, data = mtcars, FUN = summary)</code></pre>
+<pre><code>##   am mpg.Min. mpg.1st Qu. mpg.Median mpg.Mean mpg.3rd Qu. mpg.Max.
+## 1  0 10.40000    14.95000   17.30000 17.14737    19.20000 24.40000
+## 2  1 15.00000    21.00000   22.80000 24.39231    30.40000 33.90000</code></pre>
+<p>Remark that the <code>data</code> parameter allows you to reference the column names directly, instead of having to use the notation <code>mtcars$mpg ~ mtcars$am</code>.</p>
+</div>
 </div>
 <div id="qualitative-variables" class="section level2">
 <h2>Qualitative variables</h2>
