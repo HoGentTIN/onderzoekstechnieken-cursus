@@ -417,50 +417,64 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Hoe groot is de kans dat\dots}
-
-  Zijn reactiesnelheid langer is dan 6,5 milliseconden?
-  
-  Wisk. notatie: $P( x > 6,5)$
-
-  \vspace{2cm}
-
-  \begin{itemize}
-    \item $z$-tabel (of R-functie \texttt{pnorm})
-    \item Symmetrieregel
-    \item Regel van 100\% kans
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{De $z$-score}
-  
-  \begin{itemize}
-    \item Stel, $x \in X \sim Nor(\mu, \sigma)$
-    \item Welke $z \in Z \sim Nor(0, 1)$ ligt op dezelfde positie van de Gauss-curve?
-    \pause
-    \item Antwoord: $z = \frac{x - \mu}{\sigma}$
-  \end{itemize}
-  
-\end{frame}
-
 \begin{frame}[fragile]
-  \frametitle{Belangrijkste functies in R}
-  
-  Voor een normale verdeling met gemiddelde \texttt{m} en standaardafwijking \texttt{s}:
-  \vfill
-  \centering
-  \begin{tabular}{ll}
-  	\textbf{Functie}      & \textbf{Betekenis}                          \\ \hline
-  	\verb|pnorm(x, m, s)| & Linkerstaartkans, $P(X<\mathtt{x})$         \\
-  	\verb|dnorm(x, m, s)| & Hoogte van de Gausscurve op punt \texttt{x} \\
-  	\verb|qnorm(p, m, s)| & Onder welke grens zal \texttt{p}\% van de   \\
-  	                      & waarnemingen liggen?                        \\
-  	\verb|rnorm(n, m, s)| & Genereer \texttt{n} normaal verdeelde random getallen
-  \end{tabular}
-  \vfill
-  Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de standaardnormaalverdeling.
+\frametitle{Belangrijkste functies in R}
+
+Voor een normale verdeling met gemiddelde \texttt{m} en standaardafwijking \texttt{s}:
+\vfill
+\centering
+\begin{tabular}{ll}
+    \textbf{Functie}      & \textbf{Betekenis}                          \\ \hline
+    \verb|pnorm(x, m, s)| & Linkerstaartkans, $P(X<\mathtt{x})$         \\
+    \verb|dnorm(x, m, s)| & Hoogte van de Gausscurve op punt \texttt{x} \\
+    \verb|qnorm(p, m, s)| & Onder welke grens zal \texttt{p}\% van de   \\
+    & waarnemingen liggen?                        \\
+    \verb|rnorm(n, m, s)| & Genereer \texttt{n} normaal verdeelde random getallen
+\end{tabular}
+\vfill
+Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de standaardnormaalverdeling.
+\end{frame}
+
+\begin{frame}
+\frametitle{De $z$-score}
+
+\begin{itemize}
+    \item Stel, $x \in X \sim Nor(\mu, \sigma)$\\
+    welke $z \in Z \sim Nor(0, 1)$\\
+    heeft dezelfde positie op de Gauss-curve?
+    \pause
+    \vspace{1cm}
+    \item Antwoord: $z = \frac{x - \mu}{\sigma}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Hoe groot is de kans dat\dots}
+De reactiesnelheid van Superman meer dan 6,5 milliseconden is?\\
+Wisk. notatie: $P( X > 6,5)$
+\begin{enumerate}
+\item Oude methode
+\begin{itemize}
+    \item zet om naar een \emph{linker}staartkans, kleiner dan 50\%,\\
+    d.m.v. symmetrie-regel en/of regel van 100\% kans\\
+    (e.g. symmetrie: $P(X>6.5)=P(X<3.5)$)\\
+    \pause
+    \item bereken de $z$-score ($z=\frac{3.5-5.0}{1.5}=-1$)
+    \pause
+    \item zoek $z$ op in een $z$-tabel met linkerstartkansen\\
+    e.g.~\url{http://sixsigmastudyguide.com/wp-content/uploads/2014/04/z-table.jpg}
+\end{itemize}
+\pause
+\item Nieuwe methode
+\begin{itemize}
+    \item zet om naar een \emph{linker}staartkans\\
+    d.m.v. de regel van 100\% kans\\
+    e.g. $P(X>6.5)=1-P(X<6.5)$
+    \pause
+    \item bereken met R:\\
+    e.g. $1-P(X<6.5)=\texttt{1-pnorm(6.5,5,1.5)}$
+\end{itemize}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}
