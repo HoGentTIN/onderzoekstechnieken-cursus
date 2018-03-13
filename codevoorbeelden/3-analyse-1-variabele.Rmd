@@ -98,6 +98,7 @@ View(esoph)
 About the only measure of central tendency for a factor/qualitative variable is the mode. There is no actual mode function in R, but you can find it in several ways. The first is to print a frequency table and read the maximum from there:
 
 ```{r}
+levels(esoph$agegp)            # Show all values of the variable
 freq_tab <- table(esoph$agegp) # Calculate a frequency table
 freq_tab
 summary(esoph$agegp)           # The summary function applied to a factor

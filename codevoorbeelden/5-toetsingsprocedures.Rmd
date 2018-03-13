@@ -54,11 +54,11 @@ De toetsingsprocedure loopt dan als volgt:
     g <- m0 + qnorm(1-a) * s / sqrt(n)
     g
     # Als het gevonden steekproefgemiddelde onder g ligt, kan je H0 niet verwerpen
-if (sm < g) {
-  print("H0 niet verwerpen")
-} else {
-  print("H0 verwerpen")
-}
+    if (sm < g) {
+      print("H0 niet verwerpen")
+    } else {
+      print("H0 verwerpen")
+    }
     ```
     
 We besluiten dus dat als we uitgaan van $H_0$, de kans dat we uit de populatie een steekproef trekken met het bekomen steekproefgemiddelde zeer klein is. We kunnen met het gekozen significantieniveau dan ook de nulhypothese verwerpen.
@@ -129,11 +129,11 @@ Stel dat het resultaat van de steekproef $\overline{x} = 3.117$ was. Dan hebben 
     g <- m0 - qnorm(1-a) * s / sqrt(n)
     g
     # Als het gevonden steekproefgemiddelde boven g ligt, kan je H0 niet verwerpen
-if (sm < g) {
-  print("H0 verwerpen")
-} else {
-  print("H0 niet verwerpen")
-}
+    if (sm < g) {
+      print("H0 verwerpen")
+    } else {
+      print("H0 niet verwerpen")
+    }
     ```
     
 We besluiten dus dat als we uitgaan van $H_0$, de kans dat we uit de populatie een steekproef trekken met het bekomen steekproefgemiddelde zeer klein is. We kunnen met het gekozen significantieniveau dan ook de nulhypothese verwerpen.
@@ -177,13 +177,13 @@ Hier willen we niet meteen testen of het populatiegemiddelde kleiner dan wel gro
     ```{r}
     # We hebben een steekproef met
     n <- 30      # steekproefgrootte
-    sm <- 3.117  # steekproefgemiddelde
+    sm <- 3.483  # steekproefgemiddelde
     s <- 0.55    # standaardafwijking (verondersteld gekend)
     a <- 0.05    # significantieniveau (gekozen door de onderzoeker)
     m0 <- 3.3    # hypothetisch populatiegemiddelde (H0)
     ```
 
-3. Bepaal de waarde van de toetsingsgrootheid, in dit geval $\overline{x} = 3.117$
+3. Bepaal de waarde van de toetsingsgrootheid, in dit geval $\overline{x} = 3.483$
 4. Bepaal de overschrijdingskans $p$ en verwerp $H_0$ als $p < \alpha/2$ (waarom delen door 2?).
 
     ```{r}
@@ -204,11 +204,11 @@ Hier willen we niet meteen testen of het populatiegemiddelde kleiner dan wel gro
     c(g1, g2)
     
     # Als het gevonden steekproefgemiddelde tussen g1 en g2 ligt, kan je H0 niet verwerpen
-if (g1 < sm & sm < g2) {
-  print("H0 niet verwerpen")
-} else {
-  print("H0 verwerpen")
-}
+    if (g1 < sm & sm < g2) {
+      print("H0 niet verwerpen")
+    } else {
+      print("H0 verwerpen")
+    }
     ```
 
 De plot van deze situatie ziet er zo uit:
@@ -288,11 +288,11 @@ De toetsingsprocedure loopt dan als volgt:
     g <- m0 + qt(1-a, df = n-1) * s / sqrt(n)
     g
     # Als het gevonden steekproefgemiddelde onder g ligt, kan je H0 niet verwerpen
-if (sm < g) {
-  print("H0 niet verwerpen")
-} else {
-  print("H0 verwerpen")
-}
+    if (sm < g) {
+      print("H0 niet verwerpen")
+    } else {
+      print("H0 verwerpen")
+    }
     ```
     
 De plot voor deze situatie:
@@ -371,6 +371,14 @@ t.test(control, intervention, alternative="less")
 De gemiddelde reactietijd van de controlegroep (88.83) blijkt inderdaad significant lager te zijn dan die van de interventiegroep (101.67).
 
 Merk op dat in de oproep van `t.test` het significantieniveau (5%) en het veronderstelde populatiegemiddelde ($\mu_1 - \mu_2 = 0$) niet meegegeven werden. De waarden die we voor deze parameters willen kiezen zijn net de standaardwaarden van `t.test`.
+
+In de functie `t.test` kan je ook de "group by" operator (`~`) gebruiken. Bijvoorbeeld, in de dataset `mtcars` kan je de vraag stellen "Zijn auto's met een manuele versnellingsbak zuiniger dan die met een automaat?"
+
+```{r}
+t.test(mpg ~ am, data = mtcars, alternative = 'less')
+```
+
+De $p$-waarde is zeer klein, dus zelfs met een signigicantieniveau van 99% zou je de nulhypothese kunnen verwerpen.
 
 ### De $t$-toets voor gepaarde steekproeven
 
