@@ -395,7 +395,7 @@
   axis lines*=left, xlabel=$x$ (ms), ylabel=$y$,
   every axis y label/.style={at=(current axis.above origin),anchor=south},
   every axis x label/.style={at=(current axis.right of origin),anchor=west},
-  height=5cm, width=12cm,
+  height=5cm, width=11cm,
   xtick={5,3.5,6.5}, ytick=\empty,
   enlargelimits=false, clip=false, axis on top,
   grid = major
@@ -465,20 +465,13 @@ Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de \textit{\text
 
 \begin{frame}
 \frametitle{De $z$-score}
-
-\begin{itemize}
-    \item Gegeven: $x \in X \sim Nor(\mu, \sigma)$\\
-%    \vspace{0.3cm}
-\vfill
-    Welke $z \in Z \sim Nor(0, 1)$\\
-    heeft dezelfde positie op de Gauss-curve?
-\end{itemize}
-\vfill
+\centering
 \begin{columns}[c]
 \column{.5\textwidth}
+normaalverdeling
+$x \in X \sim Nor(\mu, \sigma)$
   \begin{tikzpicture}
   \begin{axis}[
-  title=normaalverdeling,
   domain=-2.5:2.5,
   axis lines*=left,
   xmin=-2.5, xmax=2.5,
@@ -497,13 +490,14 @@ Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de \textit{\text
   \addplot[very thick,smooth,draw=HoGentFBO]{gauss(0,1.4)};
   \draw [-](axis cs:0.4,0) -- (axis cs:0.4,0.274); %vertical line
   \node at (axis cs: 0.56,0.1) {$x$}; %label x
-  \draw [-latex](axis cs:2.2,0.25) -- (axis cs:3.5,0.25);
+  \draw [latex-latex](axis cs:2.2,0.22) -- (axis cs:3.5,0.22);
   \end{axis}
   \end{tikzpicture}
 \column{.5\textwidth}
+\textbf{standaard}normaalverdeling
+$z \in Z \sim Nor(0, 1)$
   \begin{tikzpicture}
   \begin{axis}[
-  title=\textbf{standaard}normaalverdeling,
   domain=-2.5:2.5,
   axis lines*=left,
   xmin=-2.5, xmax=2.5,
@@ -523,12 +517,12 @@ Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de \textit{\text
   \end{axis}
   \end{tikzpicture}
 \end{columns}
-
 \vfill
-\begin{itemize}
-    \pause
-    \item Antwoord: {\Large $z = \frac{x - \mu}{\sigma}$}
-\end{itemize}
+$x$ en $z$ hebben een vergelijkbare positie op de Gauss-curve
+Wat is het wiskundig verband tussen $x$ en $z$?
+\vfill
+\pause
+{\Large $x = \mu + z . \sigma$} ~~~ and ~~~ {\Large $z = \frac{x - \mu}{\sigma}$}
 \end{frame}
 
 \begin{frame}
@@ -575,8 +569,8 @@ $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
     $z=\frac{6-5}{1,5}=0,667$ dus $P(X>6) = P(Z>0,667)$
     \item zet eerst om naar een \textbf{\textit{linker}}staartkans
     \begin{itemize}
-       \item regel van 100\% kans: $P(X>0,667)=1-P(X<0,667)$
-       \item of symmetrie-regel: $P(X>0,667)=P(X<-0,667)$
+       \item regel van 100\% kans: $P(Z>0,667)=1-P(Z<0,667)$
+       \item of symmetrie-regel: $P(Z>0,667)=P(Z<-0,667)$
     \end{itemize}
     \item zoek op in $z$-tabel\\
     \url{http://sixsigmastudyguide.com/wp-content/uploads/2014/04/z-table.jpg}
@@ -707,7 +701,7 @@ Demo: \url{https://students.brown.edu/seeing-theory/probability-distributions/in
 Gegeven een steekproef met gemiddelde $\overline{x}$.\\
 We zoeken nu een interval $\left[ ~\overline{x}-b~,~\overline{x}+b~\right]$ waarvan we met een betrouwbaarheidsniveau $(1-\alpha)$ van bvb. 95\% kunnen zeggen dat $\mu$ erbinnen ligt.
 \vfill
-\[ P\left( \overline{x}-b < \mu < \overline{x}-b \right) = 1-\alpha = 0,95 \]
+\[ P\left( \overline{x}-b < \mu < \overline{x}+b \right) = 1-\alpha = 0,95 \]
 \vfill
 \begin{tikzpicture}
 \begin{axis}[
@@ -837,7 +831,7 @@ We kunnen nu met 95\% zekerheid zeggen dat:
 
 \subsection{Betrouwbaarheidsinterval voor kleine steekproef}
 \begin{frame}
-  \frametitle{Student t-verdeling bij \textit{kleine} steekproef}
+  \frametitle{Student $t$-verdeling bij \textit{kleine} steekproef}
   Bij een \textit{\textbf{kleine}} steekproef is de centrale limietstelling \textbf{niet} meer geldig.
   \vfill
   Er geldt wél:\\
@@ -846,11 +840,15 @@ We kunnen nu met 95\% zekerheid zeggen dat:
   en je neemt een \textit{kleine} steekproef met gemiddelde $\overline{x}$ en standaardafwijking $s$\\
   dan is
 \[ t = \frac{\overline{x} - \mu}{\frac{s}{\sqrt{n}}} \]
-verdeeld volgens een t-verdeling met $(n-1)$ vrijheidsgraden
+verdeeld volgens een t-verdeling met ~$n-1$~ vrijheidsgraden\\
+(degrees of freedom)
 
 \end{frame}
 
-
+\begin{frame}
+  \frametitle{Student $t$-verdeling bij \textit{kleine} steekproef}
+  \includegraphics[width=\linewidth]{img/les04-t-distrib}
+\end{frame}
 
 \begin{frame}[fragile]
 \frametitle{Student $t$-verdeling in R}
