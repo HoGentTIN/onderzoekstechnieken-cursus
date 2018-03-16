@@ -689,6 +689,7 @@ De laatste functie die we onderzoeken is de \texttt{rnorm} functie die willekeur
 \end{exercise}
 
 \begin{exercise}
+  \label{ex:prob-norm-dist}
   Bereken ook elke keer het gevraagde gebied.
   \begin{enumerate}[label=\alph*.]
     \item $P(Z < 1.33)$
@@ -712,19 +713,15 @@ De laatste functie die we onderzoeken is de \texttt{rnorm} functie die willekeur
 
 \begin{exercise}
 	Bepaal de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een t-verdeling met $df = 3$. Teken ook een normale verdeling met een $\mu = 0$  en $\sigma = 1$.
-	[Vervang dnorm door dt, en geef df = 10]
-
-	Bepaal daarnaast de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een exponentiële verdeling met e rate parameter $ \lambda$ gelijk aan 1. Herhaal met $\lambda = 2$.
 \end{exercise}
 
 \begin{exercise}
-    Gebruik de functie \verb|rnorm()| een willekeurige steekproef van 25 waarden uit een normale verdeling te tekenen met
-een gemiddelde van 0 en een standaardafwijking gelijk aan 1,0. Gebruik een histogram, met \verb|probability = TRUE|.
-Maak een overlay over het histogram met: (a) een geschatte dichtheidscurve; (b) de theoretische
-dichtheidscurve voor een normale verdeling met gemiddelde 0 en standaardafwijking gelijk aan 1,0. Herhaal dit voor een steekproef van 100 en 500 waarden.
-\end{exercise}
+Gebruik de functie \verb|rnorm()| een willekeurige steekproef van 25 waarden uit een normale verdeling te tekenen met een gemiddelde van 0 en een standaardafwijking gelijk aan 1,0. Gebruik een histogram, met \verb|probability = TRUE|.
 
-%\lstinputlisting{oplossingen/oefn38HistCruve.R}
+Maak een overlay over het histogram met: (a) de theoretische dichtheidscurve voor een normale verdeling met gemiddelde 0 en standaardafwijking gelijk aan 1,0; (b) een ``geschatte'' dichtheidscurve op basis van het gemeten steekproefgemiddelde en -standaardafwijking.
+
+Herhaal dit voor een steekproef van 100 en 500 waarden.
+\end{exercise}
 
 \begin{exercise}
   In de  Hogeschool zijn er twee klassen voor het vak onderzoekstechnieken. De studenten werden willekeurig over de klassen verdeeld, zodat we mogen veronderstellen dat de ene klas niet slimmer is dan de andere. In de A-klas geeft mevr. X les, in de B-klas geeft mr. Y les. X is nogal streng en op het einde van het schooljaar behaalt haar klas een gemiddelde van 54 op 100 met een standaardafwijking van 11.
@@ -842,3 +839,21 @@ Vraag B:
     \item De gebruikte formule is eigenlijk niet geschikt in dit specifieke geval en geeft een vertekend beeld. Wat zou de reden kunnen zijn?
   \end{itemize}
 \end{exercise}
+
+\section{Antwoorden op geselecteerde oefeningen}
+\label{sec:oplossingen-steekproefonderzoek}
+
+\paragraph{Oefening \ref{ex:prob-norm-dist}}
+
+\begin{enumerate}[label=\alph*.]
+  \item $0,908$
+  \item $0,092$
+  \item $0,092$
+  \item $0,908$
+  \item $0,674$
+  \item $0,853$
+  \item $0,742$
+  \item $0,559$
+  \item $0,372$
+  \item $0,166$
+\end{enumerate}

@@ -381,3 +381,59 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
   \item $\sigma^2 \approx 5.7333$
   \item $\sigma \approx 2.3944$
 \end{itemize}
+
+\paragraph{Oefening \ref{ex:ais}}
+
+De opgave van deze oefening is zeer algemeen gesteld. Onder ``ontleed de gegevens'' wordt concreet bedoeld alle technieken voor de analyse van een variabele uit te proberen op de dataset. We geven hier een voorbeeld van de resultaten voor enerzijds kwantitatieve en anderzijds kwalitatieve variabelen.
+
+Tabel \ref{tab:opl-ais-ht} geeft een overzicht met de belangrijkste centrum- en spreidingsmaten voor de variabele \texttt{ht} (height, lengte) over de gevraagde groepen.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}l|r|rrrr|rr@{}}
+    \toprule
+    & \textbf{(1)} & \multicolumn{4}{c}{\textbf{(2)}}                                                 & \multicolumn{2}{c}{\textbf{(3)}} \\ 
+    & \textbf{Row} & \textbf{hele groep} & \textbf{Row} & \textbf{Netball} & \textbf{Tennis} & \textbf{B\_ball}  & \textbf{Row} \\ \midrule
+    \textbf{gemiddelde} & 182.376      & 179.066                      & 182.376      & 176.087          & 174.164         & 182.269           & 178.859      \\
+    \textbf{stdev}      & 7.798        & 7.936                        & 7.798        & 4.124            & 9.858           & 8.621             & 5.970        \\
+    \textbf{min}        & 156.000      & 156.000                      & 156.000      & 168.600          & 157.900         & 169.100           & 156.000      \\
+    \textbf{Q1}         & 179.300      & 174.200                      & 179.300      & 173.450          & 167.300         & 174.000           & 177.600      \\
+    \textbf{mediaan}    & 181.800      & 179.500                      & 181.800      & 176.000          & 175.000         & 184.600           & 179.650      \\
+    \textbf{Q3}         & 186.300      & 183.400                      & 186.300      & 179.150          & 180.750         & 188.700           & 181.200      \\
+    \textbf{max}        & 198.000      & 198.000                      & 198.000      & 183.300          & 190.800         & 195.900           & 186.300      \\
+    \textbf{IQR}        & 7.000        & 9.150                        & 7.000        & 5.700            & 13.450          & 14.700            & 3.600        \\ \bottomrule
+  \end{tabular}
+  \caption{Overzicht resultaten in oefening \ref{ex:ais} voor de variabele \texttt{ht} (height/lengte), met drie cijfers na de komma. In deeloefening 2 zijn de resultaten zowel gegeven voor de hele groep (roeiers, netballers én tennissers) als opgesplitst (via de functie \texttt{aggregate}).}
+  \label{tab:opl-ais-ht}
+\end{table}
+
+In deeloefening 1 en 2 nemen we de variabele \texttt{sex} als voorbeeld. Zie tabel \ref{tab:opl-ais-sex} voor een overzicht. Over kwalitatieve variabelen valt minder te zeggen, we geven hier een frequentietabel waaruit we de modus kunnen afleiden.
+
+In deeloefening 3 zijn enkel vrouwen geselecteerd, en voor deze oefening tonen we in tabel \ref{tab:opl-ais-sport} de frequenties van variabele \texttt{sport}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}l|r|rrrr}
+  	\toprule
+  	               & \textbf{(1)} &                    \multicolumn{4}{c}{\textbf{(2)}}                     \\
+  	               & \textbf{Row} & \textbf{hele groep} & \textbf{Row} & \textbf{Netball} & \textbf{Tennis} \\ \midrule
+  	\textbf{f}     &           22 &                  52 &           22 &               23 &               7 \\
+  	\textbf{m}     &           15 &                  19 &           15 &                0 &               4 \\
+  	\textbf{modus} &            f &                   f &            f &                f &               f \\ \bottomrule
+  \end{tabular}
+  \caption{Overzicht resultaten in oefening \ref{ex:ais} (1) en (2) voor de variabele \texttt{sex}. Meer bepaald zijn hier de frequenties van de waarden opgegeven, en ook telkens de modus.}
+  \label{tab:opl-ais-sex}
+\end{table}
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}l|l}
+  	\toprule
+  	                 & Frequenties \\ \midrule
+  	\textbf{B\_ball} & 13          \\
+  	\textbf{Row}     & 22          \\
+  	\textbf{modus}   & Row         \\ \bottomrule
+  \end{tabular}
+  \caption{Overzicht resultaten in oefening \ref{ex:ais} (3) voor de variabele \texttt{sport}.}
+  \label{tab:opl-ais-sport}
+\end{table}
