@@ -95,7 +95,7 @@ In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uit
     
     \item De kritieke grenswaarde berekenen. De $z$-waarde voor een significantieniveau van $0,05$ is 1,645\footnote{In R kan je dit berekenen met \texttt{qnorm(1 - 0.05)}}.
     
-    \[ g = \mu + z \times \frac{\sigma}{\sqrt{n}} = 3,3 + 1,645 \times \frac{0,5}{\sqrt{30}} \approx 3,45 \]
+    \[ g = \mu + z \times \frac{\sigma}{\sqrt{n}} = 3,3 + 1,645 \times \frac{0,55}{\sqrt{30}} \approx 3,45 \]
     
     Het steekproefgemiddelde $\overline{x} = 3,483$ ligt nog verder van $\mu = 3,3$ dan de grenswaarde $g = 3,45$. De kans is heel klein dat zo'n steekproef getrokken wordt uit een populatie met dit gemiddelde. Slechts in 34 steekproeven op 1000 zal een dergelijke gebeurtenis optreden. Met andere woorden, de steekproefwaarde ligt in het verwerpingsgebied. We kunnen dus $H_0$ verwerpen en besluiten met dat superhelden inderdaad \emph{meer} dan 3,3 mensen per dag redden.
   \end{enumerate}
@@ -111,18 +111,24 @@ In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uit
   \begin{tikzpicture}
     \begin{axis}[
         domain=3:3.6, samples=100,
-        axis lines*=left, xlabel=$z$,
+        axis lines*=left, xlabel=$x$,
         every axis y label/.style={at=(current axis.above origin),anchor=south},
         every axis x label/.style={at=(current axis.right of origin),anchor=west},
         height=5cm, width=12cm,
         xtick={3.3,3.483}, ytick=\empty,
+        xticklabels={$\mu$,$\overline{x}$},
         enlargelimits=false, clip=false, axis on top,
-        grid = major
+        grid = minor
       ]
-      \addplot [fill=cyan!20, draw=none, domain=3:3.6] {gauss(3.3,0.101328673)} \closedcycle;
+      \addplot [fill=cyan!20, draw=none, domain=3:3.465] {gauss(3.3,0.1004)} \closedcycle;
+      \addplot [fill=none, draw=black, domain=3:3.6] {gauss(3.3,0.1004)} \closedcycle;
+      \draw [-](axis cs:3.465,1.6) -- (axis cs:3.465,0);
+      \node at (axis cs:3.465,1.8) {3.465};
+      \node at (axis cs:3.483,-0.7) {3.483};
+      \node at (axis cs:3.3,-0.7) {3.3};
     \end{axis}
   \end{tikzpicture}
-  \caption{Verdeling van het aantal mensen dat gemiddeld per dag gered wordt door een superheld (Voorbeeld~\ref{ex:hypothesetoets-dagelijkse-reddingen}). De kansverdeling voor het steekproefgemiddelde is normaal verdeeld met $\mu = 3,3$ en $\sigma = 0,5$. Het steekproefgemiddelde $\overline{x} =3,483$.}
+  \caption{Verdeling van het aantal mensen dat gemiddeld per dag gered wordt door een superheld (Voorbeeld~\ref{ex:hypothesetoets-dagelijkse-reddingen}). De kansverdeling voor het steekproefgemiddelde is normaal verdeeld met $\mu = 3,3$ en $\sigma = 0,55$. Het steekproefgemiddelde $\overline{x} =3,483$. De grens voor aanvaarding/verwerping van $H_{0}$ is 3.465.}
   \label{fig:hypothesetoets-reddingen-per-dag}
 \end{figure}
 
