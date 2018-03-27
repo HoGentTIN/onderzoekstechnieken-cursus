@@ -93,6 +93,9 @@ compile_file() {
                 # compile 2nd time, only if biber was successful
                 if [ $exitcode -eq 0 ]; then
                     $pdflatex_cmd ${filebase}.tex || exitcode=$?
+                else
+                    echo "    if biber failed due to UTF-8 errors, it might help to run following command:"
+                    echo "    iconv -f WINDOWS-1252 -t UTF-8 biblio.bib >tmpfile; mv tmpfile biblio.bib"
                 fi
             fi
         elif [ $exitcode -eq 0 ]; then
