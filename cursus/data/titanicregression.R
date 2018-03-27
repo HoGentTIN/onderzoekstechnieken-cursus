@@ -40,7 +40,7 @@ missmap(data, main = "Missing elements from dataset")
 library(caTools)
 
 set.seed(88)
-split <- sample.split(data$Survived, SplitRatio = 0.89)
+split <- sample.split(data$Survived, SplitRatio = 0.90)
 
 dresstrain <- subset(data, split == TRUE)
 dresstest <- subset(data, split == FALSE)
@@ -66,3 +66,6 @@ auc <- performance(pr, measure = "auc")
 auc <- auc@y.values[[1]]
 auc
 
+#Odds ratio berekenen in R
+require(MASS)
+exp(cbind(coef(model), confint(model)))  
