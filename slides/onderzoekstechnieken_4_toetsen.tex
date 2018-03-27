@@ -98,6 +98,7 @@
     \item[Toetsingsgrootheid] De variabele die berekend wordt uit de steekproef (ook: teststatistiek)
     \item[Aanvaardingsgebied] Het gebied van waarden die de nulhypothese \emph{ondersteunt}
     \item[Kritieke of Verwerpingsgebied] Het gebied van waarden die de nulhypothese \emph{verwerpt}
+    \item[Significantieniveau] De maximale kans dat $H_0$ \emph{onterecht} verworpen wordt
   \end{description}
 \end{frame}
 
@@ -109,7 +110,7 @@
 
   \begin{enumerate}
     \item Bepalen van de hypotheses ($H_0$ en $H_1$)
-    \item Vastlegen significantieniveau ($\alpha$ en $n$)
+    \item Vastlegen significantieniveau ($\alpha$)
     \item Toetsingsgrootheid berekenen
     \item Het kritieke gebied of de overschrijdingskans bepalen
     \item Conclusies trekken
@@ -144,32 +145,27 @@
 \end{frame}
 
 \begin{frame}
-
-  Stel, in een steekproef van $n = 30$ dagen werd een gemiddelde van $3.483$ reddingen gemeten.
-
+  Stel, in een periode van 30 dagen werden er gemiddelde $3,483$ mensen per dag gered ($\overline{x}=3,483$, $n=30$)
+  \vfill
   \begin{enumerate}
-    \item Hypothese:
-    
-    $H_0: \mu = 3,3$; $H_1: \mu > 3,3$
-    
-    \item Significantieniveau $\alpha = 0,05$ en steekproefgrootte $n = 30$
-    
+    \item Hypothese: $H_0: \mu = 3,3$; $H_1: \mu > 3,3$
+    \item Significantieniveau: $\alpha = 0,05$
     \item Steekproefgrootheid: $\overline{x} = 3,483$
-    
-    Populatiestandaardafwijking (verondersteld gekend): $\sigma = 0,55$
   \end{enumerate}
+  \vfill
+  Populatiestandaardafwijking (verondersteld gekend): $\sigma = 0,55$
 \end{frame}
 
 \begin{frame}
   \frametitle{Berekenen toetsingsgrootheid}
   
-  Uit centrale limietstelling volgt: $M \sim Nor(\mu = 3,3; \sigma = \frac{0,55}{\sqrt{30}})$
+  Uit centrale limietstelling volgt: $M \sim Nor(\mu = 3,3; \sigma = \frac{0,55}{\sqrt{30}}=0,1)$
 
   \centering
   \begin{tikzpicture}
     \begin{axis}[domain=3.0:3.6, ymax=4.2, samples=100, enlargelimits=false ]
       \addplot [very thick,smooth,draw=HoGentFBO] {gauss(3.3, 0.10041580220928045413)};
-      \node [coordinate, pin={\small{3.483}}] at (axis cs: 3.483, 0){};
+      \node [coordinate, pin={$\overline{x}= 3.483$}] at (axis cs: 3.483, 0){};
     \end{axis}
   \end{tikzpicture}
 \end{frame}
@@ -196,6 +192,8 @@
       \addplot [smooth, fill=black!20, domain=1.822:3.5] {gauss(0,1)} \closedcycle;
       \addplot [very thick,smooth,draw=HoGentFBO] {gauss(0, 1)};
       \node  at (axis cs: 1.822, -.04){\small 1.822};
+      \draw [-latex](axis cs:2.1,0.02) -- (axis cs:2.35,0.06);
+      \node [text width=0.5cm] at (axis cs: 2.5, .095){$p= 0,0344$};
     \end{axis}
   \end{tikzpicture}
   
@@ -210,9 +208,12 @@
   
   \brightbox{Het \textcolor{HoGentAccent6}{kritieke gebied} is de verzameling van alle waarden voor de toetsingsgrootheid waarbij de nulhypothese kan verworpen worden.}
   
-  Bepaald door grenswaarde:
-  
-  \[g = \mu + z \times \frac{\sigma}{\sqrt{n}} \]
+  We zoeken een grenswaarde $g$ waarvoor geldt:
+  \[ P(M > g) = \alpha \]
+
+  Bepaal $z_\alpha$ waarvoor geldt:
+  \[ P(Z > z_\alpha) = \alpha \]
+  \[ \Rightarrow g = \mu + z_\alpha . \frac{\sigma}{\sqrt{n}} \]
   
   \begin{itemize}
     \item Links van $g$: aanvaardingsgebied ($H_0$ niet verwerpen)
@@ -228,13 +229,18 @@
   \centering
   \begin{tikzpicture}
     \begin{axis}[domain=-3.5:3.5, ymax=0.42, samples=100, enlargelimits=false, clip=false ]
+      \draw [-](axis cs:1.645,-0.03) -- (axis cs:1.645,0.06);
       \addplot [smooth, fill=black!20, domain=1.645:3.5] {gauss(0,1)} \closedcycle;
       \addplot [very thick,smooth,draw=HoGentFBO] {gauss(0, 1)};
-      \node  at (axis cs: 1.645, -.04){\small 1.645};
+      \node [text width=0.8cm] at (axis cs: 1.645, -.06){$z_{\alpha}= 1.645$};
+      \draw [-latex](axis cs:2.1,0.02) -- (axis cs:2.35,0.06);
+      \node [text width=0.5cm] at (axis cs: 2.5, .095){$\alpha= 0.05$};
     \end{axis}
   \end{tikzpicture}
+
+significantieniveau $\alpha = 0.05$ $\Rightarrow$ grenswaarde $z_{\alpha}$=1.645\\
+($z_{\alpha} = $\texttt{qnorm(0.95)})
   
-  De $z$-waarde die de grenswaarde bepaalt voor een significantieniveau $\alpha = 0,05$
 \end{frame}
 
 \begin{frame}
@@ -520,5 +526,11 @@ mean of the differences
     \caption{Mogelijke fouten bij het trekken van conclusies uit statistische toetsen.}
     \label{tab:hypfouten}
   \end{table}
+\vfill
+P(type I error) = $\alpha$ (= significantie niveau)\\
+P(type II error) = $\beta$
+\vfill
+Het is \textbf{\textit{niet}} triviaal om $\beta$ te berekenen,
+maar we weten dat als $\alpha \searrow$, dan $\beta \nearrow$ 
 \end{frame}
 \end{document}

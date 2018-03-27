@@ -217,8 +217,10 @@
   \frametitle{Hoe elementen voor een steekproef kiezen?}
 
   \begin{description}
-    \item[Aselecte steekproef] elk element uit de onderzoekspopulatie heeft een even grote kans om in de steekproef terecht te komen
-    \item[Selecte steekproef] of een element in de steekproef terecht komt is afhankelijk van een persoonlijke beoordeling van een onderzoeker
+    \item[Aselecte (of random) steekproef]: elk element uit de onderzoekspopulatie heeft een even grote kans om in de steekproef terecht te komen
+    \item[Selecte steekproef]: de elementen voor de steekproef worden \textit{niet} random geselecteerd.
+    Objecten die \textit{gemakkelijk} kunnen verzameld worden, hebben meer kans om in de steekproef terecht te komen.
+    (convenience sampling)
   \end{description}
 
   \begin{center}
@@ -236,8 +238,9 @@
       \end{itemize}
     \item<+-> Systematische steekproeffouten
       \begin{itemize}
-        \item straatenquête: enkel wie daar op dat moment loopt
-        \item vrijwillige enquête: enkel geïnteresseerden doen mee
+        \item Online enquête: mensen zonder internet worden uitgesloten
+        \item Straatenquête: enkel wie daar op dat moment loopt
+        \item Vrijwillige enquête: enkel geïnteresseerden doen mee
       \end{itemize}
     \item<+-> Toevallige niet-steekproeffouten
       \begin{itemize}
@@ -411,60 +414,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Standaardnormale verdeling}
-
-  % Bron: http://johncanning.net/wp/?p=1202
-  \begin{center}
-    \begin{tikzpicture}
-      \begin{axis}[
-          no markers, domain=0:10, samples=100,
-          axis lines*=left,height=6cm, width=10cm,
-          xtick={-3, -2, -1, 0, 1, 2, 3}, ytick=\empty,
-          enlargelimits=false, clip=false, axis on top,
-          grid = major
-        ]
-        \addplot [smooth,fill=cyan!20, draw=none, domain=-3:3] {gauss(0,1)} \closedcycle;
-        \addplot [smooth,fill=orange!20, draw=none, domain=-3:-2] {gauss(0,1)} \closedcycle;
-        \addplot [smooth,fill=orange!20, draw=none, domain=2:3] {gauss(0,1)} \closedcycle;
-        \addplot [smooth,fill=blue!20, draw=none, domain=-2:-1] {gauss(0,1)} \closedcycle;
-        \addplot [smooth,fill=blue!20, draw=none, domain=1:2] {gauss(0,1)} \closedcycle;
-        \addplot[<->] coordinates {(-1,0.4) (1,0.4)};
-        \addplot[<->] coordinates {(-2,0.3) (2,0.3)};
-        \addplot[<->] coordinates {(-3,0.2) (3,0.2)};
-        \node[coordinate, pin={68.3\%}] at (axis cs: 0, 0.35){};
-        \node[coordinate, pin={95.4\%}] at (axis cs: 0, 0.25){};
-        \node[coordinate, pin={99.7\%}] at (axis cs: 0, 0.15){};
-        \node[coordinate, pin={34.1\%}] at (axis cs: -0.5, 0){};
-        \node[coordinate, pin={34.1\%}] at (axis cs: 0.5, 0){};
-        \node[coordinate, pin={13.6\%}] at (axis cs: 1.5, 0){};
-        \node[coordinate, pin={13.6\%}] at (axis cs: -1.5, 0){};
-        \node[coordinate, pin={2.1\%}] at (axis cs: 2.5, 0){};
-        \node[coordinate, pin={2.1\%}] at (axis cs: -2.5, 0){};
-      \end{axis}
-    \end{tikzpicture}
-  \end{center}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Belangrijkste functies in R}
-
-Voor een normale verdeling met gemiddelde \texttt{m} en standaardafwijking \texttt{s}:
-\vfill
-\centering
-\begin{tabular}{ll}
-    \textbf{Functie}      & \textbf{Betekenis}                          \\ \hline
-    \verb|pnorm(x, m, s)| & Linkerstaartkans, $P(X<\mathtt{x})$         \\
-    \verb|dnorm(x, m, s)| & Hoogte van de Gausscurve op punt \texttt{x} \\
-    \verb|qnorm(p, m, s)| & Onder welke grens zal \texttt{p}\% van de   \\
-    & waarnemingen liggen?                        \\
-    \verb|rnorm(n, m, s)| & Genereer \texttt{n} normaal verdeelde random getallen
-\end{tabular}
-\vfill
-Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de \textit{\textbf{standaard}}normaalverdeling: \texttt{pnorm(x)=pnorm(x,0,1)}
-\end{frame}
-
-\begin{frame}
-\frametitle{De $z$-score}
+\frametitle{\textit{Standaard} normale verdeling en de $z$-score}
 \centering
 \begin{columns}[c]
 \column{.5\textwidth}
@@ -518,11 +468,64 @@ $z \in Z \sim Nor(0, 1)$
   \end{tikzpicture}
 \end{columns}
 \vfill
-$x$ en $z$ hebben een vergelijkbare positie op de Gauss-curve
+$x$ en $z$ hebben een vergelijkbare positie op de Gauss-curve.\\
 Wat is het wiskundig verband tussen $x$ en $z$?
 \vfill
 \pause
 {\Large $x = \mu + z . \sigma$} ~~~ and ~~~ {\Large $z = \frac{x - \mu}{\sigma}$}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Standaardnormale verdeling}
+
+  % Bron: http://johncanning.net/wp/?p=1202
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[
+          no markers, domain=0:10, samples=100,
+          axis lines*=left,height=6cm, width=10cm,
+          xtick={-3, -2, -1, 0, 1, 2, 3}, ytick=\empty,
+          enlargelimits=false, clip=false, axis on top,
+          grid = major
+        ]
+        \addplot [smooth,fill=cyan!20, draw=none, domain=-3:3] {gauss(0,1)} \closedcycle;
+        \addplot [smooth,fill=orange!20, draw=none, domain=-3:-2] {gauss(0,1)} \closedcycle;
+        \addplot [smooth,fill=orange!20, draw=none, domain=2:3] {gauss(0,1)} \closedcycle;
+        \addplot [smooth,fill=blue!20, draw=none, domain=-2:-1] {gauss(0,1)} \closedcycle;
+        \addplot [smooth,fill=blue!20, draw=none, domain=1:2] {gauss(0,1)} \closedcycle;
+        \addplot[<->] coordinates {(-1,0.4) (1,0.4)};
+        \addplot[<->] coordinates {(-2,0.3) (2,0.3)};
+        \addplot[<->] coordinates {(-3,0.2) (3,0.2)};
+        \node[coordinate, pin={68.3\%}] at (axis cs: 0, 0.35){};
+        \node[coordinate, pin={95.4\%}] at (axis cs: 0, 0.25){};
+        \node[coordinate, pin={99.7\%}] at (axis cs: 0, 0.15){};
+        \node[coordinate, pin={34.1\%}] at (axis cs: -0.5, 0){};
+        \node[coordinate, pin={34.1\%}] at (axis cs: 0.5, 0){};
+        \node[coordinate, pin={13.6\%}] at (axis cs: 1.5, 0){};
+        \node[coordinate, pin={13.6\%}] at (axis cs: -1.5, 0){};
+        \node[coordinate, pin={2.1\%}] at (axis cs: 2.5, 0){};
+        \node[coordinate, pin={2.1\%}] at (axis cs: -2.5, 0){};
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Belangrijkste functies in R}
+
+Voor een normale verdeling met gemiddelde \texttt{m} en standaardafwijking \texttt{s}:
+\vfill
+\centering
+\begin{tabular}{ll}
+    \textbf{Functie}      & \textbf{Betekenis}                          \\ \hline
+    \verb|pnorm(x, m, s)| & Linkerstaartkans, $P(X<\mathtt{x})$         \\
+    \verb|dnorm(x, m, s)| & Hoogte van de Gausscurve op punt \texttt{x} \\
+    \verb|qnorm(p, m, s)| & Onder welke grens zal \texttt{p}\% van de   \\
+    & waarnemingen liggen?                        \\
+    \verb|rnorm(n, m, s)| & Genereer \texttt{n} normaal verdeelde random getallen
+\end{tabular}
+\vfill
+Argumenten \texttt{m} en \texttt{s} weglaten geeft waarden voor de \textit{\textbf{standaard}}normaalverdeling: \texttt{pnorm(x)=pnorm(x,0,1)}
 \end{frame}
 
 \begin{frame}
@@ -581,7 +584,7 @@ $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
   \pause
   \item zet eerst om naar een \textbf{\textit{linker}}staartkans:\\
   met regel van 100\% kans: $P(X>6)=1-P(X<6)$
-  \item bereken met R: $1-P(X<6)=$\texttt{1-pnorm(x=6,$\mu$=5,$\sigma$=1.5)}
+  \item bereken met R: $1-P(X<6)=$\texttt{1-pnorm(6,5,1.5)}
 \end{itemize}
 \end{enumerate}
 \end{frame}
@@ -648,7 +651,7 @@ $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
 \begin{frame}
   \frametitle{De centrale limietstelling}
 
-  \brightbox{Als de steekproefomvang voldoende groot is, dan kan de kansverdeling van het steekproefgemiddelde benaderd worden met een normale verdeling. Dit geldt ongeacht de vorm van de kansverdeling van de individuele waarnemingen}
+  \brightbox{Als de steekproefomvang voldoende groot is, dan kan de kansverdeling van het steekproefgemiddelde benaderd worden met een normale verdeling. Dit geldt ongeacht de vorm van de kansverdeling van de onderliggende populatie}
 
   \vfill
 
@@ -672,18 +675,18 @@ Demo: \url{https://students.brown.edu/seeing-theory/probability-distributions/in
 
 \begin{frame}
   \frametitle{De centrale limietstelling}
-  Beschouw een aselecte steekproef van $n$ waarnemingen die uit een willekeurige populatie met verwachting $\mu$ en standaardafwijking $\sigma$ wordt genomen. Als $n$ groot genoeg is zal de kansverdeling van $\overline{x}$ een normale verdeling benaderen met verwachting $\mu_{\overline{x}} = \mu$ en standaardafwijking $\sigma_{\overline{x}} = \frac{\sigma}{\sqrt{n}}$.
+  Beschouw een aselecte steekproef van $n$ waarnemingen die uit een populatie met een willekeurige distributie met verwachtingswaarde $\mu$ en standaardafwijking $\sigma$. Als $n$ groot genoeg is zal de kansverdeling van $\overline{x}$ een normale verdeling benaderen met verwachting $\mu_{\overline{x}} = \mu$ en standaardafwijking $\sigma_{\overline{x}} = \frac{\sigma}{\sqrt{n}}$.
 
 \vspace{0.4cm}
   Hoe groter de steekproef is, des te beter zal de kansverdeling van $\overline{x}$ overeenkomen met een normaalverdeling.
 \end{frame}
 
-\section{Van steekproef naar populatie}
+\section{Van steekproef naar population}
 \sectionframelogo{}
 
 \begin{frame}
   \frametitle{Puntschatter}
-    \brightbox{Een puntschatter voor een populatieparameter is een regel of een formule die ons zegt hoe we uit de steekproef een getal moeten berekenen om de populatieparameter te schatten.}
+    \brightbox{Een \textcolor{HoGentYellow}{puntschatter} voor een populatieparameter is een regel of een formule die ons zegt hoe we uit de steekproef een getal moeten berekenen om de populatieparameter te schatten.}
 \end{frame}
 
 \subsection{Betrouwbaarheidsintervallen}
@@ -696,7 +699,7 @@ Demo: \url{https://students.brown.edu/seeing-theory/probability-distributions/in
 
 
 \begin{frame}
-\frametitle{Betrouwbaarheidsinterval}
+\frametitle{Betrouwbaarheidsinterval grote steekproef}
 
 Gegeven een steekproef met gemiddelde $\overline{x}$.\\
 We zoeken nu een interval $\left[ ~\overline{x}-b~,~\overline{x}+b~\right]$ waarvan we met een betrouwbaarheidsniveau $(1-\alpha)$ van bvb. 95\% kunnen zeggen dat $\mu$ erbinnen ligt.
@@ -730,7 +733,7 @@ clip=false,
 \end{frame}
 
 \begin{frame}
-\frametitle{Betrouwbaarheidsinterval}
+\frametitle{Betrouwbaarheidsinterval grote steekproef}
 Dankzij de centrale limietstelling weten we dat
 \[ \overline{x} \in \overline{X} \sim Nor(\mu,\frac{\sigma}{\sqrt{n}}) \]
 
@@ -772,7 +775,7 @@ clip=false,
 \end{frame}
 
 \begin{frame}
-\frametitle{Betrouwbaarheidsinterval}
+\frametitle{Betrouwbaarheidsinterval grote steekproef}
 
 We bepalen nu de $z$-score voor $\overline{x}$:
 \[ z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} \]
@@ -813,7 +816,7 @@ clip=false,
 \end{frame}
 
 \begin{frame}
-  \frametitle{Betrouwbaarheidsinterval}
+\frametitle{Betrouwbaarheidsinterval grote steekproef}
   
 We krijgen nu:
 \[ P\left(-1,96 < \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} < 1,96 \right) = 0,95 \]
@@ -836,8 +839,8 @@ We kunnen nu met 95\% zekerheid zeggen dat:
   \vfill
   Er geldt wél:\\
   \vfill
-  Als een populatie $X$ normaal verdeeld is $(X \sim Nor(\mu,\sigma))$\\
-  en je neemt een \textit{kleine} steekproef met gemiddelde $\overline{x}$ en standaardafwijking $s$\\
+  Als een populatie $X$ normaal verdeeld is $(X \sim Nor(\mu,\sigma))$
+  en je neemt een \textit{kleine} steekproef met gemiddelde $\overline{x}$ en standaardafwijking $s$,
   dan is
 \[ t = \frac{\overline{x} - \mu}{\frac{s}{\sqrt{n}}} \]
 verdeeld volgens een t-verdeling met ~$n-1$~ vrijheidsgraden\\
@@ -853,7 +856,7 @@ verdeeld volgens een t-verdeling met ~$n-1$~ vrijheidsgraden\\
 \begin{frame}[fragile]
 \frametitle{Student $t$-verdeling in R}
 
-Voor een $t$-verdeling met \texttt{df} vrijheidsgraden:\\
+Voor een $t$-verdeling met ~\texttt{df}~ vrijheidsgraden:\\
 \small (\texttt{df = degrees of freedom})
 \vfill
 \centering
@@ -874,7 +877,7 @@ Om een betrouwbaarheidsinterval voor het gemiddelde $\mu$ van een populatie te b
 
 \vfill
 Bij een betrouwbaarheidsniveau van 95\% is $\frac{\alpha}{2}=0,025$\\
-Veronderstel $n=5$, dan is
+Veronderstel $n=5$ (dus \texttt{df=4}), dan is
 \[ t_ {\frac{\alpha}{2},df} = \texttt{qt(0.975,4)} = 2.776 \]
 
 \vfill

@@ -20,6 +20,10 @@ force=0
 cleanup=0
 nocleanup=0
 
+n_skipped=0
+n_failed=0
+n_succes=0
+
 usage() {
     echo "Usage: $0 [-a] FILE [FILE [FILE ...]]"
     echo "   or: $0 [-a] [DIR [DIR [DIR ...]]]"
@@ -68,7 +72,8 @@ compile_file() {
         fi
     fi
     if [ $force -eq 0 -a $needrebuild -eq 0 ]; then
-        echo "=== skipping $1 (PDF newer than TEX)"
+        n_skipped=$((n_skipped + 1))
+        echo "=== skipping $1"
         if [ $cleanup -eq 1 ]; then cleanup; fi
     else
         echo "=== compiling $1"
@@ -102,9 +107,11 @@ compile_file() {
             fi
         fi
         if [ $exitcode -eq 0 ]; then
+            n_succes=$((n_succes + 1))
             echo "    OK"
             if [ $nocleanup -eq 0 ]; then cleanup; fi
         else
+            n_failed=$((n_failed + 1))
             # errors from pdflatex doesn't always end with a newline
             # so, the 'echo' below will add a newline
             echo 
@@ -168,5 +175,10 @@ done
 if [ $nothing_processed -eq 1 ]; then
     die 'no valid TeX files found'
 else
-    echo "=== done! ==="
+    n_total=$((n_skipped + n_failed + n_succes))
+    echo
+    echo "= REPORT ="
+    [ $n_skipped -eq 0 ] || echo "  $n_skipped/$n_total files were skipped because TeX file was newer than PDF ==="
+    [ $n_succes -eq 0 ] || echo "  $n_succes/$n_total TeX files successfully compiled into PDF file ==="
+    [ $n_failed -eq 0 ] || echo "  $n_failed/$n_total ERRORS: TeX files were NOT compiled successfully ==="
 fi
