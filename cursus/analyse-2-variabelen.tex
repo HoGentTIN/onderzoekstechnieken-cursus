@@ -598,7 +598,7 @@ Als we aannemen dat $x$ niet bijdraagt aan de voorspelling van $y$ dan is de bes
 
 Indien we aannemen dat $x$ wel een rol speelt bij de voorspelling van $y$, berekenen we de regressielijn bij dezelfde gegevensverzameling en de afwijkingen van de punten ten opzichte van de lijn zoals in figuur \ref{fig:rendierenFiguur2}.
 
-\[ SSE_{yy} = \sum(y_{i} - \overline{y})^{2} \]
+\[ SSE_{yy} = \sum(y_{i} - \widehat{y})^{2} \]
 
  Als we nu de afwijkingen vergelijken met elkaar zien we het volgende:
 \begin{enumerate}
@@ -616,7 +616,7 @@ De vermindering in de som van de kwadraten die toegeschreven kan worden aan het 
 We noemen $SS_{yy}$ de totale steekproefvariantie van de meetwaarden rond het steekproefgemiddelde $\overline{y}$ en $SSE_{yy}$ de overblijvende niet-verklaarde steekproefvariantie, na het schatten van de lijn $\widehat{y} = \beta_{0} + \beta_{1}x$. Dus dan is $(SS_{yy} - SSE_{yy})$ de verklaarde variantie die toe te schrijven is aan de lineaire relatie met $x$.
 
 Er kan nu worden aangetoond dat bij enkelvoudige lineaire regressie deze fractie
-\[ \frac{SS_{yy} - SS}{SS_{yy}} = \frac{\textnormal{verklaarde variantie}}{\textnormal{totale steekproefvariantie}} \]
+\[ \frac{SS_{yy} - SSE_{yy}}{SS_{yy}} = \frac{\textnormal{verklaarde variantie}}{\textnormal{totale steekproefvariantie}} \]
 gelijk is aan het kwadraat van de pearsoncorrelatieco\"effici\"ent.  (= het deel van de totale variantie dat verklaard wordt door de lineaire rechte).
 
 
