@@ -709,14 +709,45 @@ gelijk is aan het kwadraat van de pearsoncorrelatieco\"effici\"ent.  (= het deel
 
 
 \section{Conclusie}
-Er bestaan verschillende soorten verbanden tussen variabelen. Wij zijn ge\"intereesseerd in monotone en lineaire verbanden. We beschikken hier over een correlatieco\"effici\"ent en lineaire regressie. Deze technieken mogen niet met nominale en ordinale variabelen gebruikt worden. Een kleine waarde $(=0)$ voor een maat voor verband betekent alleen dat het overeenkomend verband afwezig is: er kan een ander soort verband aanwezig zijn. Het gebruik van een spreidingsdiagram is dus altijd aan te raden.
+
+Er bestaan verschillende soorten verbanden tussen variabelen. Wij zijn geïnteresseerd in monotone en lineaire verbanden. We beschikken hier over een correlatieco\"effici\"ent en lineaire regressie. Deze technieken mogen niet met nominale en ordinale variabelen gebruikt worden. Een kleine waarde $(=0)$ voor een maat voor verband betekent alleen dat het overeenkomend verband afwezig is: er kan een ander soort verband aanwezig zijn. Het gebruik van een spreidingsdiagram is dus altijd aan te raden.
 
 Het feit dat twee variabelen gecorreleerd zijn betekent niet dat de ene de oorzaak is van de andere.
+
+\section{Samenvatting}
+
+In dit hoofdstuk zijn verschillende technieken voorgesteld om na te gaan of er een verband bestaat tussen twee variabelen. De ene variabele noemen we de \emph{onafhankelijke}, de andere de \emph{afhankelijke} variabele. Wat we willen uitzoeken is of de waarde van de onafhankelijke variabele een impact heeft op die van de afhankelijke.
+
+De technieken die we kunnen gebruiken (hetzij rekenkundige, hetzij voor visualisatie), hangen af van het meetniveau van de onderzochte variabelen. Tabel~\ref{tab:overzicht-2-variabelen} geeft een overzicht.
+
+\begin{table}
+
+  \begin{tabular}{llll}
+    \toprule
+    \multicolumn{2}{c}{\textbf{Meetniveau variabele}}             & \textbf{}                   & \textbf{}                                             \\
+    \textbf{Onafhankelijke}       & \textbf{Afhankelijke}         & \textbf{Numeriek}           & \textbf{Visualisatie}                                 \\
+    \midrule
+    \multirow{3}{*}{Kwalitatief}  & \multirow{3}{*}{Kwalitatief}  & $\chi^2$                    & mozaïekdiagram                                        \\
+    &                               & Cramér's V                  & geclusterd staafdiagram                               \\
+    &                               &                             & rependiagram                                          \\
+    \midrule
+    \multirow{2}{*}{Kwalitatief}  & \multirow{2}{*}{Kwantitatief} & t-toets voor 2 steekproeven & boxplot                                               \\
+    &                               &                             & \parbox{4.5cm}{(evt. staafdiagram gemiddelde met standaardafwijking)} \\
+    \midrule
+    \multirow{3}{*}{Kwantitatief} & \multirow{3}{*}{Kwantitatief} & covariantie                 & spreidings-/XY-diagram \\
+    &                               & correlatiecoëfficiënt       & regressierechte                                       \\
+    &                               & determinatiecoëfficiënt     &                                                      \\
+    \bottomrule
+  \end{tabular}
+  
+  \caption{Overzicht technieken voor de analyse van twee variabelen.}
+  \label{tab:overzicht-2-variabelen}
+\end{table}
 
 \section{Oefeningen}
 \label{sec:analyse op 2 variabelen-oefeningen}
 
-De databestanden voor deze oefeningen zijn te vinden, zowel op Chamilo (onder \emph{Documenten > Oefenles Analyse 2 variabelen}) als op Github (onder (\emph{oefeningen/data/oef\_2variabelen})).
+De databestanden voor deze oefeningen zijn te vinden op Github (in de directory \emph{oefeningen/data/hfst6\_2variabelen}).
 
 \begin{exercise}
   \label{oef:Kruistabellen, Cramér's V en chi-kwadraat - handmatig} % $\chi^{2}$ - handmatig}
