@@ -109,7 +109,7 @@ weight_gain <- read.csv("../cursus/data/santa.txt",
 
 ### Kleinste kwadratenmethode: uitgewerkte berekening
 
-We proberen een verzameling van punten $(x_i, y_i)$ (voor $i: 1, \ldots, n$) zo goed mogelijk te benaderen met een rechte $y = \beta_0 + \beta_1 x$. De parameters $\beta_0$ en $\beta_1$ worden als volgt berekend:
+We proberen een verzameling van punten $(x_i, y_i)$ (voor $i: 1, \ldots, n$) zo goed mogelijk te benaderen met een rechte $\hat{y} = \beta_0 + \beta_1 x$. Het symbool $\hat{y}$ betekent "een schatting voor $y$". De parameters $\beta_0$ en $\beta_1$ worden als volgt berekend:
 
 $\beta_1 = \frac{\sum_{i=1}^{n}(x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^{n}(x_i - x)^2}$
 
@@ -193,7 +193,11 @@ cor(families$x, families$y)
 
 Determinatiecoëfficiënt:
 
-$R^2$
+- Definieer $SS_{tot} = \sum_{i=1}^{n}(y_i - \overline{y})^2$, de totale variantie van de steekproef (SS is een afkorting voor *squared sum*)
+- Definieer $SS_{res} = \sum_{i=1}^{n}(y_i - \hat{y})^2$, de residuën t.o.v. de regressierechte, of de niet-verklaarde variantie van de steekproef
+- De determinatiecoëfficiënt is dan $R^2 = \frac{SS_{tot} - SS_{res}}{SS_{tot}}$
+
+De determinatiecoëfficiënt heeft als eigenschap dat die het kwadraat is van de correlatiecoëfficiënt (wat de notatie $R^2$ verklaart). Dit is een getal tussen 0 en 1 dat je kan interpreteren als het percentage van de variantie in $y$ die kan verklaard worden door $x$. Dit is een maat die aangeeft hoe goed de regressielijn de echte datapunten benadert. Hoe dichter bij 1, hoe beter de benadering is, dus hoe dichter de geobserveerde datapunten bij de regressierechte liggen.
 
 ```{r}
 # gemiddelde van y
@@ -205,8 +209,8 @@ ss_tot <- sum((weight_gain$y - my)^2)
 regression <- lm(weight_gain$y ~ weight_gain$x) # regressiemodel
 yy <- predict.lm(regression, weight_gain)       # voorspelde waarden
 ss_res <- sum((weight_gain$y - yy)^2)           # som v kwadraten
-# R^2 
-1 - ss_res / ss_tot
+# R^2 aan de hand van de definite
+(ss_tot - ss_res) / ss_tot
 
 # R^2 aan de hand van correlatie:
 correlation <- cor(x = weight_gain$x, y = weight_gain$y)
@@ -243,12 +247,12 @@ In deze grafiek is de frequentietabel getransponeerd met de functie `t()`. Op di
 #### Geclusterde staafgrafiek
 
 ```{r}
-barplot(t(prop.table(observed,2)),
+barplot(t(prop.table(observed, 2)),
         beside = TRUE,
         legend = TRUE)
 ```
 
-De waarden van de afhankelijke variabele worden op de X-as uitgezet, en elke cluster toont de frequenties van de waarden in de onafhankelijke variabele.
+De waarden van de afhankelijke variabele worden op de X-as uitgezet, en elke cluster toont de *relatieve* frequenties van de waarden in de onafhankelijke variabele. Per waarde in de onafhankelijke variabele (hier: man/vrouw) werden de frequenties in de afhankelijke variabele (goed t/m slecht) herberekend tot percentages.
 
 #### Rependiagram
 
@@ -257,9 +261,7 @@ proportions <- prop.table(observed, margin = 2)
 barplot(proportions, horiz = TRUE)
 ```
 
-In deze grafiek worden *relatieve* frequenties getoond. Per waarde in de onafhankelijke variabele (hier: man/vrouw) werden de frequenties in de afhankelijke variabele (goed t/m slecht) herberekend tot percentages.
-
-Merk de gelijkenissen met het mozaïekdiagram op! Een mozaïekdiagram geeft echter nog iets meer informatie, want in het rependiagram is niet meer duidelijk of er een verschillend aantal mannen dan wel vrouwen is ondervraagd.
+In deze grafiek worden eveneens *relatieve* frequenties getoond. Merk de gelijkenissen met het mozaïekdiagram op! Een mozaïekdiagram geeft echter nog iets meer informatie, want in het rependiagram is niet meer duidelijk of er een verschillend aantal mannen dan wel vrouwen is ondervraagd.
 
 ### Kwalitatief - kwantitatief
 
@@ -312,6 +314,8 @@ Jammer genoeg is er geen eenvoudige manier om foutstaven toe te voegen aan een g
  
 Het is belangrijk in het bijschrift van de grafiek te vermelden wat de error bars precies voorstellen. Soms wordt ook 2x de standaardafwijking getoond.
 
+In de meeste gevallen is een boxplot een betere grafiek die meer informatie bevat. Bekijk het codevoorbeeld in de handleiding van `?boxplot` voor een vergelijking van beide grafiektypes. Vooral als er uitschieters in de data zitten, zal het gemiddelde en standaardafwijking een verkeerd beeld van de spreiding geven. Ook als de afhankelijke variabele niet normaal verdeeld is, heeft gemiddelde en standaardafwijking geen zin.
+
 ### Kwantitatief - kwantitatief
 
 Voor dit soort verbanden wordt typisch een XY-grafiek (scatter plot) gebruikt. De onafhankelijke variabele wordt typisch op de X-as uitgezet, de afhankelijke op de Y-as.
@@ -326,6 +330,6 @@ regression <- lm(mtcars$wt ~ mtcars$disp) # bereken de regressierechte
 abline(regression, col = 'red')           # teken die in het rood
 ```
 
-De algemene `plot()`-functie zal voor elk datapunt een cirkel teken in een Cartesiaans assenstelsel. Je kan uiteraard het symbool veranderen (kruisje, punt, sterretje, ...). Zie de handleiding van `plot` voor meer info.
+De algemene `plot()`-functie zal voor elk datapunt een cirkel teken in een Cartesiaans assenstelsel. Je kan uiteraard het symbool veranderen (kruisje, punt, sterretje, ...). Zie de handleiding van `?plot` voor meer info.
 
 De regressierechte wordt hier ook getoond in het rood. Daarmee is wel duidelijk dat er een positief verband bestaat tussen volume en gewicht (wat je ook wel kan verwachten: grotere wagens zijn zwaarder).
