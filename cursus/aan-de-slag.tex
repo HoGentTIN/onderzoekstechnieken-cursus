@@ -24,7 +24,7 @@ In de eerste plaats is dit een voorbereiding op de bachelorproef, waar je deze t
   \item Kan formules, stellingen uit de beschrijvende en inductieve statistiek in onderzoeksvraagstukken correct toepassen
   \item Kan data analyseren met statistische software
   \item Kan een gestructureerd wetenschappelijk document schrijven en voorzien van referenties in \LaTeX{}
-  \item Kan de wetenschappelijke methode vergelijken met niet-wetenschappelijke onderzoeksmethodes en daarbij voor en nadelen opsommen 
+  \item Kan de wetenschappelijke methode vergelijken met niet-wetenschappelijke onderzoeksmethodes en daarbij voor- en nadelen opsommen 
 \end{itemize}
 
 Deze vind je ook terug in de studiefiche.
@@ -51,7 +51,7 @@ Hoofdstuk~\ref{ch:tijdreeksen} geeft een inleiding op het analyseren van hoe de 
 
 Het belangrijkste leermateriaal voor dit opleidingsonderdeel is deze cursus, die ook de oefeningenopgaven bevat. Die wordt ter beschikking gesteld via Chamilo als PDF. Op Chamilo vind je ook de PDF's met de slides gebruikt tijdens de lessen.
 
-Daarnaast krijgen studenten toegang tot een Github-repository met de broncode voor:
+Daarnaast krijgen studenten toegang tot een GitHub-repository met de broncode voor:
 
 \begin{itemize}
   \item Deze cursus
@@ -59,7 +59,7 @@ Daarnaast krijgen studenten toegang tot een Github-repository met de broncode vo
   \item Broncodevoorbeelden in R voor alle technieken die in de cursus aan bod komen.
 \end{itemize}
 
-\textbf{Errata en wijzigingen} aan de cursus worden in Github aangebracht. De PDF's op Chamilo zullen niet noodzakelijk bijgewerkt worden. Studenten kunnen zelf de laatste versies van alle documenten met \LaTeX{} genereren.
+\textbf{Errata en wijzigingen} aan de cursus worden in GitHub aangebracht. De PDF's op Chamilo zullen niet noodzakelijk bijgewerkt worden. Studenten kunnen zelf de laatste versies van alle documenten met \LaTeX{} genereren.
 
 De software die nodig is voor dit opleidingsonderdeel is gratis/open source. Instructies voor de installatie kan je vinden in Sectie~\ref{sec:installatie-software}.
 
@@ -207,9 +207,9 @@ Wie toch de ``klassieke'' werkwijze wil hanteren vindt hier de verschillende sof
   \item Rstudio: \url{https://www.rstudio.com/products/rstudio/download/#download}
 \end{itemize}
 
-\subsection{MacOS X}
+\subsection{macOS}
 
-MacOS X gebruikers installeren de nodige software best via de Homebrew\footnote{\url{https://brew.sh/}} package manager\footnote{\textbf{Let op!} Deze werkwijze is nog niet getest. Feedback van Mac-gebruikers is welkom!}:
+macOS gebruikers installeren de nodige software best via de Homebrew\footnote{\url{https://brew.sh/}} package manager\footnote{\textbf{Let op!} Deze werkwijze is nog niet getest. Feedback van Mac-gebruikers is welkom!}:
 
 \begin{verbatim}
 brew install git
@@ -260,15 +260,15 @@ sudo dnf install git texstudio jabref R \
 
 \section{Configuratie}
 
-\subsection{Git, Github}
+\subsection{Git, GitHub}
 
 Wellicht heb je Git al geconfigureerd voor enkele van je andere vakken. Kijk eventueel alles nog eens na! Als alles ok is, kan je deze sectie overslaan.
 
-\emph{Wij raden aan om Git via de command line te gebruiken.} Zo krijg je het beste inzicht in de werking. Het commando \texttt{git status} geeft op elk moment een goed overzicht van de toestand van je lokale repository en geeft aan met welk commando je een stap verder kan zetten of de laatste stap ongedaan maken.
+\emph{Wij raden aan om Git via de command line te gebruiken.} Zo krijg je het beste inzicht in de werking. Het commando \texttt{git status} geeft op elk moment een goed overzicht van de toestand van je lokale repository en geeft aan met welk commando je een stap verder kan zetten of de laatste stap ongedaan kan maken.
 
-Als je nog geen Github-account hebt, kies dan een gebruikersnaam die je na je afstuderen nog kan gebruiken (dus bv.~niet je HoGent login). De kans is erg groot dat je tijdens je carrière nog van Github gebruik zult maken. Koppel ook je HoGent-emailadres aan je Github account (je kan meerdere adressen registreren). Op die manier kan je aanspraak maken op het Github student developer pack\footnote{\url{https://education.github.com/pack}}, wat je gratis toegang geeft tot een aantal in principe betalende producten en diensten.
+Als je nog geen GitHub-account hebt, kies dan een gebruikersnaam die je na je afstuderen nog kan gebruiken (dus bv.~niet je HoGent login). De kans is erg groot dat je tijdens je carrière nog van GitHub gebruik zult maken. Koppel ook je HoGent-emailadres aan je GitHub account (je kan meerdere adressen registreren). Op die manier kan je aanspraak maken op het GitHub Student Developer Pack\footnote{\url{https://education.github.com/pack}}, wat je gratis toegang geeft tot een aantal in principe betalende producten en diensten.
 
-Windows-gebruikers voeren volgende instructies uit via Git Bash, MacOS X- en Linux-gebruikers via de standaard (Bash) terminal.
+Windows-gebruikers voeren volgende instructies uit via Git Bash, macOS- en Linux-gebruikers via de standaard (Bash) terminal.
 
 \begin{verbatim}
 git config --global user.name 'Pieter Stevens'
@@ -276,13 +276,13 @@ git config --global user.email 'pieter.stevens.u12345@student.hogent.be'
 git config --global push.default simple
 \end{verbatim}
 
-Maak ook een SSH-sleutel aan om het synchroniseren met Github te vereenvoudigen (je moet dan geen wachtwoord meer opgeven bij push/pull van/naar een private repository).
+Maak ook een SSH-sleutel aan om het synchroniseren met GitHub te vereenvoudigen (je moet dan geen wachtwoord meer opgeven bij push/pull van/naar een private repository).
 
 \begin{verbatim}
 ssh-keygen
 \end{verbatim}
 
-Volg de instructies op de command-line, druk gewoon ENTER als je gevraagd wordt een wachtwoordzin (pass phrase) in te vullen. In de home-directory van je gebruiker (bv. \verb|c:\Users\Pieter| op Windows, \verb|/Users/pieter| op Mac, \verb|/home/pieter| op Linux) is nu een directory met de naam .ssh/ aangemaakt met twee bestanden: \verb|id_rsa| (je private key) en \verb|id_rsa.pub| (je public key). Open dit laatste bestand met een teksteditor en kopieer de volledige inhoud naar het klembord. Ga vervolgens naar je Github profiel en kies in het menu links links voor SSH and GPG keys. Klik rechtsboven op de groene knop met ``New SSH Key'' en plak de inhoud van je publieke sleutel in het veld ``Key''. Bevestig je keuze.
+Volg de instructies op de command-line, druk gewoon ENTER als je gevraagd wordt een wachtwoordzin (pass phrase) in te vullen. In de home-directory van je gebruiker (bv. \verb|c:\Users\Pieter| op Windows, \verb|/Users/pieter| op Mac, \verb|/home/pieter| op Linux) is nu een directory met de naam .ssh/ aangemaakt met twee bestanden: \verb|id_rsa| (je private key) en \verb|id_rsa.pub| (je public key). Open dit laatste bestand met een teksteditor en kopieer de volledige inhoud naar het klembord. Ga vervolgens naar je GitHub profiel en kies in het menu links voor SSH and GPG keys. Klik rechtsboven op de groene knop met ``New SSH Key'' en plak de inhoud van je publieke sleutel in het veld ``Key''. Bevestig je keuze.
 
 Test nu of je de code van de cursus Onderzoekstechnieken kan downloaden. Ga in de Bash shell naar een directory waar je dit project lokaal wil bijhouden en voer uit:
 
@@ -292,7 +292,7 @@ git clone git@github.com:HoGentTIN/onderzoekstechnieken-cursus.git
 
 Als dit lukt, is er nu een directory aangemaakt met dezelfde naam als de repository. Doe tijdens het semester regelmatig \texttt{git pull} om de laatste wijzigingen in het cursusmateriaal bij te werken. Pas zelf geen bestanden aan binnen deze repository, dit zal leiden tot conflicten.
 
-\subsection{TeXStudio}
+\subsection{TeXstudio}
 
 Controleer deze instellingen via menu-item \emph{Options > Configure TeXstudio}:
 
@@ -312,7 +312,7 @@ Controleer deze instellingen via menu-item \emph{Options > Configure TeXstudio}:
 
 \end{itemize}
 
-Om te testen of TeXStudio goed werkt, kan je het bestand \texttt{cursus/cursus-onderzoekstechnieken.tex} openen. Kies \emph{Tools > Build \& View} (of druk F5) om de cursus te compileren in een PDF-bestand.
+Om te testen of TeXstudio goed werkt, kan je het bestand \texttt{cursus/cursus-onderzoekstechnieken.tex} openen. Kies \emph{Tools > Build \& View} (of druk F5) om de cursus te compileren in een PDF-bestand.
 
 Veel functionaliteiten van \LaTeX{} zitten in aparte packages die niet noodzakelijk standaard geïnstalleerd zijn. De eerste keer dat je een bestand compileert, is het dan ook mogelijk dat er extra packages moeten gedownload worden. MiK\TeX{} zal een pop-up tonen om je toestemming te vragen, bevestig dit. Op Linux is het mogelijk dat je deze packages nog manueel moet installeren. De eerste keer compileren kan enkele minuten duren zonder dat je feedback krijgt over wat er gebeurt. Even geduld, dus!
 
@@ -320,7 +320,7 @@ Indien er zich fouten voordoen bij de compilatie, kan je onderaan in het tabblad
 
 \subsection{JabRef}
 
-JabRef\footnote{\url{http://www.jabref.org/}} is een GUI voor het bewerken van Bib\TeX{}-bestanden, een soort database van bronnen uit de wetenschappelijke of vakliteratuur voor een \LaTeX{}-document.
+JabRef\footnote{\url{http://www.jabref.org/}} is een GUI voor het bewerken van Bib\TeX{}-bestanden, een soort database van bronnen uit de wetenschappelijke- of vakliteratuur voor een \LaTeX{}-document.
 
 Kies in het menu voor \emph{File > Switch to BibLaTeX} mode. Dit maakt de bestandsindeling van de bibliografische databank compatibel met dat van de cursus en het aangeboden \LaTeX{}-sjabloon voor de bachelorproef.
 
@@ -331,14 +331,14 @@ Voor meer gedetailleerde informatie over het bijhouden van bibliografische refer
 
 \section{Gebruik van R}
 
-R is een softwareprogramma voor datamanipulatie, berekening en het grafisch voorstellen van data. Het heeft onder meer
+R is een softwareprogramma voor datamanipulatie, berekening en het grafisch voorstellen van data. Het heeft onder meer:
 
 \begin{enumerate}
   \item een effectieve gegevensbeheer- en opslagfaciliteit,
   \item een reeks operatoren voor berekeningen op arrays, in het bijzonder matrices,
   \item een grote verzameling van instrumenten voor data-analyse,
   \item grafische faciliteiten voor data-analyse en weergave en
-  \item een goed ontwikkelde, eenvoudige en effectieve programmeertaal (genaamd 'S')
+  \item een goed ontwikkelde, eenvoudige en effectieve programmeertaal (genaamd 'S').
 \end{enumerate}
 
 R heeft een ingebouwde hulpfaciliteit die vergelijkbaar is met die van UNIX man-pages. Voor meer informatie over elke specifieke functie, bijvoorbeeld \texttt{solve}, kan je volgende commando oproepen
@@ -399,7 +399,7 @@ In dit hoofdstuk onderzoeken we hoe je een dataset definieert in R. Er worden sl
 
 \subsection{Toewijzing}
 
-De meest directe manier om een lijst met nummers op te slaan is via een opdracht met behulp van het \texttt{c}-commando. (C staat voor "combineren.") Het idee is dat een lijst met nummers onder een bepaalde naam wordt opgeslagen en de naam wordt gebruikt om te verwijzen naar de gegevens. Een lijst wordt gespecificeerd met de opdracht \texttt{c}, en de toewijzing wordt geduid met de symbolen "<-". Een andere term die gebruikt wordt om de lijst met nummers te omschrijven is \texttt{vector}.
+De meest directe manier om een lijst met nummers op te slaan is via een opdracht met behulp van het \texttt{c}-commando. (C staat voor "combineren.") Het idee is dat een lijst met nummers onder een bepaalde naam wordt opgeslagen, en de naam wordt gebruikt om te verwijzen naar de gegevens. Een lijst wordt gespecificeerd met de opdracht \texttt{c}, en de toewijzing wordt geduid met de symbolen "<-". Een andere term die gebruikt wordt om de lijst met nummers te omschrijven is \texttt{vector}.
 
 De cijfers binnen de \texttt{c}-opdracht worden gescheiden door komma's. Als voorbeeld kunnen we een nieuwe variabele maken, genaamd "\texttt{x}".
 
@@ -407,9 +407,9 @@ De cijfers binnen de \texttt{c}-opdracht worden gescheiden door komma's. Als voo
 > x <- c(10.4, 5.6, 3.1, 6.4, 21.7)
 \end{lstlisting}
 
-Wanneer je dit commando invoert, mag je geen uitvoer zien behalve een nieuwe opdrachtregel. Het commando maakt een lijst met nummers genaamd "x." Om te zien welke elementen zijn opgenomen in x ,typ zijn naam en druk op de enter-toets.
+Wanneer je dit commando invoert, mag je geen uitvoer zien behalve een nieuwe opdrachtregel. Het commando maakt een lijst met nummers genaamd "x". Om te zien welke elementen zijn opgenomen in x, typ zijn naam en druk op de enter-toets.
 
-Als u met één van de nummers wilt werken, kunt u hier toegang krijgen tot de variabele en vervolgens vierkante haakjes noteren die aangeven welk nummer u wilt behouwen:
+Als u met één van de nummers wilt werken, kunt u hier toegang krijgen tot de variabele en vervolgens vierkante haakjes noteren die aangeven welk nummer u wilt beschouwen:
 
 \begin{lstlisting}
 > x[2]
@@ -426,7 +426,7 @@ Het commando om het gegevensbestand te lezen is \texttt{read.csv}. We moeten ten
   Ga met het help commando na wat de parameters zijn van het commando. Probeer daarna het bestand \texttt{computers.csv} in te lezen. 
 \end{exercise}
 
-Als u niet zeker bent welke bestanden in de huidige werkmap zitten, kunt u het commando \texttt{dir}  gebruiken om de bestanden en het  \texttt{getwd} commando op te roepen om de huidige werkmap te bepalen.
+Als u niet zeker bent welke bestanden in de huidige werkmap zitten, kunt u het commando \texttt{dir} gebruiken om een lijst van bestanden weer te geven. Het \texttt{getwd} commando gebruikt u om de huidige werkmap te bepalen.
 
 Het databestand komt uit de publicatie van \autocite{Stengos2005}. Deze dataset bevat data van 1993 tot 1995 over de prijzen van computers. Je kan nagaan wat het effect van de toevoeging van cd-rom-station is op de prijs van de computer of  het effect van de kloksnelheid op de prijs. 
 
@@ -446,7 +446,7 @@ Als u niet zeker weet welke kolommen gedefinieerd zijn, kunt u \texttt{names()} 
 [1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"
 \end{lstlisting}
 
-Wanneer u het commando \texttt{read.csv} gebruikt, gebruikt R een specifiek soort variabele, dat een dataframe heet. Alle gegevens worden opgeslagen in het dataframe als afzonderlijke kolommen. Als u niet zeker weet wat voor variabele u hebt dan kunt u de opdracht \texttt{attributes} gebruiken. Hiermee worden alle dingen vermeld die R gebruikt om de variabele te beschrijven:
+Wanneer u het commando \texttt{read.csv} gebruikt, gebruikt R een specifiek soort variabele, dat een dataframe heet. Alle gegevens worden opgeslagen in het dataframe als afzonderlijke kolommen. Als u niet zeker weet wat voor variabele u hebt, dan kunt u de opdracht \texttt{attributes} gebruiken. Hiermee worden alle dingen vermeld die R gebruikt om de variabele te beschrijven:
 
 \begin{lstlisting}
 attributes(computers)
@@ -547,7 +547,7 @@ Een ander belangrijk gegevenstype is het logische type. Er zijn twee vooraf gede
 Een andere  manier om informatie op te slaan is in een tabel.  We kijken alleen maar naar het maken en defini\"eren van tabellen. 
 
 \lstinputlisting{data/tables.R}
-Als je rijen wilt toevoegen aan uw tabel, voeg dan nog een vector toe als argument van de tabelopdracht. In het onderstaande voorbeeld hebben wij twee vragen. In de eerste vraag staan de reacties  'Nooit', 'Soms' of 'Altijd'. In de tweede vraag staan de reacties 'Ja', 'No' of 'Maybe'. De set van vectoren 'a,' En "b" bevatten het antwoord voor elke meting. Het derde punt in "a" is hoe de derde persoon op de eerste vraag reageerde en het derde punt in "b" is hoe de derde persoon op de tweede vraag reageerde.
+Als je rijen wilt toevoegen aan uw tabel, voeg dan nog een vector toe als argument van de tabelopdracht. In het onderstaande voorbeeld hebben wij twee vragen. In de eerste vraag staan de reacties  'Nooit', 'Soms' of 'Altijd'. In de tweede vraag staan de reacties 'Ja', 'No' of 'Maybe'. De set van vectoren 'a', en 'b' bevatten het antwoord voor elke meting. Het derde punt in 'a' is hoe de derde persoon op de eerste vraag reageerde en het derde punt in 'b' is hoe de derde persoon op de tweede vraag reageerde.
 
 \lstinputlisting{data/twotables.R}
 
@@ -571,11 +571,11 @@ Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimen
 \end{exercise}
 
 \begin{exercise}
-  Maak zelf een willekeurige datafile aan in excel en probeer deze in te lezen in R. Zijn er nog dataformaten die ondersteund worden door R?
+  Maak zelf een willekeurige datafile aan in Excel en probeer deze in te lezen in R. Zijn er nog dataformaten die ondersteund worden door R?
 \end{exercise}
 
 \begin{exercise}
-  Genereer een $4x5$ array en noem die $x$. Geneer daarna een $3x2$ array waar de eerste kolom de rijindex kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0. 
+  Genereer een $4x5$ array en noem die $x$. Geneer daarna een $3x2$ array waar de eerste kolom de rij-index kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0. 
 \end{exercise}
 
 \begin{exercise}
