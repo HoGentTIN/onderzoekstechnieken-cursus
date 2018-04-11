@@ -1,0 +1,63 @@
+---
+title: "Betrouwbaarheid"
+author: "Brecht en Jens"
+date: "April 5, 2018"
+output: html_document
+---
+
+#Betrouwbaarheidsintervallen berekenen
+We lezen de datafile in
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr) 
+data <- read_csv("nesexample2.csv")
+```
+#Datanalyse op eerste zicht
+``` {r Algemeen}
+summary(data$therm.dems)
+sd(data$therm.dems, na.rm = TRUE)
+boxplot(data$therm.dems)
+```
+We halen de NA elementen uit de dataset
+``` {r Naeruithalen}
+narmdata <- na.omit(data$therm.dems)
+```
+We bekijken hoeveel elementen er in de resulterende dataset zitten
+``` {r Statistieken bepalen}
+N <- length(narmdata)
+MU <- mean(narmdata)
+```
+
+
+
+``` {r Data analyse}
+
+betrouwjehet <- function(loops, grootte, popdata,alpha, popMU){
+  z <- -1*qnorm(alpha/2)
+  aantalSucces <- 0  
+  for (i in 1:loops){
+    steekproef <- sample(popdata,grootte)
+    gemiddelde <- mean(steekproef)
+    sdev <- sd(steekproef)
+    min <- gemiddelde - z * (sdev/sqrt(grootte))
+    max <- gemiddelde + z * (sdev/sqrt(grootte))
+    if(min < popMU && popMU < max){
+      aantalSucces <- aantalSucces + 1
+    }
+  }
+  return(aantalSucces/loops)
+}
+```
+We zoeken het percentage
+
+``` {r resultaat}
+  loopVector <- seq(100,100000,100)
+  resultaatVector <- c()  
+  for(i in 1:length(loopVector)){
+    resultaatVector[i] <- betrouwjehet(i,64,narmdata,0.25, MU)
+  }
+  plot(loopVector, resultaatVector)
+```
+
+
+ 
