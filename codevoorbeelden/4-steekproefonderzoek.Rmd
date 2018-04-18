@@ -63,9 +63,9 @@ observaties <- rnorm(n, m, s)
 histogram <- hist(observaties, main="")
 ```
 
-Als je de dichtheidsfunctie op deze grafiek zou plotten, dan zal je een vlakke lijn rond het nulpunt krijgen. De schaal op de y-as voor de dichtheidsfunctie is immers veel kleiner dan die van het histogram (vergelijk met de plot van de dichtheidsfunctie).
+Als je op bovenstaand histogram een Gauss-curve zou plotten, dan zal je niet veel zien. De schaal op de y-as voor de Gauss-curve is immers veel kleiner dan die van het histogram (zie bovenstaande plot van een normale verdeling).
 
-Je kan een histogram echter ook als *relatieve* frequenties plotten, dan zouden de hoogtes van de balken moeten overeenkomen met het verloop van de Gausscurve.
+We kunnen ook een histogram tekenen met *densiteiten*. In dit geval is de *oppervlakte* van een staaf gelijk aan de *relatieve* frequentie van die klasse. (De *densiteit* of *dichtheid* is de *relatieve* frequentie gedeeld door de *breedte* van de klasse.) De som van alle oppervlaktes van alle balken is één. Dit komt overeen met de oppervlakte onder de Gauss-curve die is ook gelijk aan één. Het histogram en de Gausscurve kunnen dan dezelfde y-as gebruiken.
 
 ```{r}
 # Genereer 10000 willekeurige normaal verdeelde getallen:
