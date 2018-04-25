@@ -701,3 +701,23 @@ In deze situatie ($n = 14 < 30$) mogen we geen $z$-toets gebruiken, maar vallen 
 \end{itemize}
 
 Er is op basis van deze steekproef dus geen reden om aan te nemen dat het gemiddelde prijsverschil op de inruilprijs van oude wagens significant groter is dan door de importeur aanbevolen.
+
+\paragraph{Oefening~\ref{oef:casus-akin2016-toets}}
+
+Tabel~\ref{tab:akin2016-resultaten-ttoets} geeft een overzicht met voor elke datasetgrootte het beste en tweede beste persistentietype (op basis van het steekproefgemiddelde). De conclusie van~\textcite{Akin2016}, dat \emph{Realm} het performantste persistentietype is, blijft overeind, maar voor de kleine datasets is het verschil niet significant.
+
+Merk op dat we hier niet expliciet vooraf een significantieniveau gekozen hebben. Voor $\alpha = 0,1$, $0,05$ of zelfs $0,01$, kunnen we echter dezelfde conclusie trekken.
+
+\begin{table}
+  \begin{center}
+\begin{tabular}{llll}
+  \toprule
+  \textbf{Grootte} & \textbf{Beste} & \textbf{2e beste} & \textbf{$p$-waarde} \\ \midrule
+  Small            & Realm          & SharedPreferences & 0.1699     \\
+  Medium           & Realm          & GreenDAO          & 0.0002506  \\
+  Large            & Realm          & SQLite            & 0.0017     \\ \bottomrule
+\end{tabular}
+\end{center}
+  \caption{Resultaten $t$-toets voor de beste en 2e beste persistentietype op basis van steekproefgemiddelde~\autocite{Akin2016}.}
+  \label{tab:akin2016-resultaten-ttoets}
+\end{table}

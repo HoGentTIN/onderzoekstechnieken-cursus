@@ -242,8 +242,9 @@ Controleer eerst de link naar de laatste versie van RStudio via de website.
 
 \begin{verbatim}
 sudo aptitude update
-sudo aptitude install texlive-latex-base texlive-latex-extra texlive-lang-european texlive-bibtex-extra biber
-sudo aptitude install git texstudio jabref r-base
+sudo aptitude install texlive-latex-base texlive-latex-extra \
+  texlive-lang-european texlive-bibtex-extra texlive-extra-utils \
+  biber git texstudio jabref r-base
 wget https://download1.rstudio.org/rstudio-xenial-1.1.414-amd64.deb
 sudo dpkg -i ./rstudio-xenial-1.1.414-amd64.deb
 \end{verbatim}
@@ -253,9 +254,16 @@ sudo dpkg -i ./rstudio-xenial-1.1.414-amd64.deb
 Controleer eerst de link naar de laatste versie van RStudio via de website. Dit is één lang commando:
 
 \begin{verbatim}
-sudo dnf install git texstudio jabref R \
-  texlive-collection-latex texlive-babel-dutch \
+sudo dnf install git texstudio R \
+  java-1.8.0-openjdk-openjfx texlive-collection-latex \
+  texlive-texliveonfly texlive-babel-dutch \
   https://download1.rstudio.org/rstudio-1.1.414-x86_64.rpm
+\end{verbatim}
+
+Je kan JabRef ook installeren vanuit de Fedora package repository, maar dan krijg je een verouderde versie. Je kan dan beter de ``Platform Independent Runnable Jar'' downloaden via de projectwebsite\footnote{\url{https://jabref.org/}}. Die kan je dan opstarten vanuit de shell met het commando (hier voorbeeld voor versie 4.1):
+
+\begin{verbatim}
+java -jar JabRef-4.1.jar
 \end{verbatim}
 
 \section{Configuratie}
