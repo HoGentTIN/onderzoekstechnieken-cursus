@@ -1,25 +1,27 @@
 #!/bin/bash
 
-# grep -v -e '^$' -e '^#' .gitignore |sort -u
+set -o errexit # exit immediately if a command exits with a non-zero status
+set -o nounset # do not allow to use an unset variable
+set -o pipefail # force exit code of a pipeline to non-zero, if one of commands fails with non-zero
 
+# define the commands and their options here, for maintainability
 if pdflatex --help|grep '\-quiet'>/dev/null; then
     pdflatex_cmd="pdflatex -interaction=batchmode -quiet"
 else
+    # some versions of pdflatex (eg. on Mac) don't recognize the '-quiet' option
     pdflatex_cmd="pdflatex -interaction=batchmode"
 fi
 biber_cmd="biber --quiet"
+
+# tmp_extensions: these files will be removed after a successful run
 tmp_extensions="aux bcf bbl blg idx log nav out run.xml snm synctex.gz toc vrb"
 
-set -e
-set -u
-
-cmd=$0
-nothing_processed=1
-
+# variables for argument parsing
 force=0
 cleanup=0
 nocleanup=0
 
+# variables for statistics
 n_skipped=0
 n_failed=0
 n_succes=0
@@ -27,7 +29,7 @@ n_succes=0
 usage() {
     echo "Usage: $0 [-a] FILE [FILE [FILE ...]]"
     echo "   or: $0 [-a] [DIR [DIR [DIR ...]]]"
-    echo "Compile the specified TeX FILE(s) compile *all* TeX files"
+    echo "Compile the specified TeX FILE(s) or compile *all* TeX files"
     echo "in the specified DIR(s) and all the underlying subdirs (default value: .)"
     echo "By default, the files are compiled only if the TeX file is newer than the PDF"
     echo "By default, all temporary files are removed, but only after a successful build"
@@ -127,10 +129,11 @@ compile_file() {
         fi
     fi
     cd - >/dev/null
-    nothing_processed=0
 }
 
 cleanup() {
+    # if the TeX-file contains 'includes', there will be additional files listed in aux-file
+    # they are removed one-by-one
     if [ -f ${filebase}.aux ]; then
         for i in $( grep '^\\\@input' ${filebase}.aux | tr '{' '}'|cut -d'}' -f2);
             do rm -f $i;
@@ -175,10 +178,10 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-if [ $nothing_processed -eq 1 ]; then
+n_total=$((n_skipped + n_failed + n_succes))
+if [ $n_total -eq 0 ]; then
     die 'no valid TeX files found'
 else
-    n_total=$((n_skipped + n_failed + n_succes))
     echo
     echo "= REPORT ="
     [ $n_skipped -eq 0 ] || echo "  $n_skipped/$n_total files were skipped because TeX file was newer than PDF ==="
