@@ -261,6 +261,7 @@ The results of the survey are given in the following table:
 ```{r}
 doll_hill <- matrix(data = c(21178, 83, 3092, 1),
                     ncol = 2,
+                    byrow = TRUE,
                     dimnames = list(c("Smoker", "Non-smoker"),
                                  c("No Cancer", "Cancer")))
 doll_hill
