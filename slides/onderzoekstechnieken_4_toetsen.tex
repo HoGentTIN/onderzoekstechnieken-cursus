@@ -433,8 +433,8 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
   Vervolgens wordt reactiesnelheid gemeten:
   
   \begin{itemize}
-    \item Controlegroep: 91, 87, 99, 77, 88, 91
-    \item Interventiegroep: 101, 110, 103, 93, 99, 104
+    \item Controlegroep: 91, 87, 99, 77, 88, 91 ~~~~~~~~~~~($\overline{x}=88,83$)
+    \item Interventiegroep: 101, 110, 103, 93, 99, 104 ~~($\overline{y}=101,67$)
   \end{itemize}
   
   Zijn er significante verschillen tussen de interventie- en controlegroep?
@@ -446,15 +446,15 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
 \begin{enumerate}
   \item Hypothese:
     \begin{itemize}
-     \item $H_0$: $\overline{x} - \overline{y} = 0$
-     \item $H_1$: $\overline{x} - \overline{y} < 0$
+     \item $H_0$: $\mu_1 - \mu_2 = 0$
+     \item $H_1$: $\mu_1 - \mu_2 < 0$
     \end{itemize}
   \item Significantieniveau: $\alpha = 0,05$
   \item Steekproefgrootheid:
     \begin{itemize}
-     \item $\overline{x}-\overline{y}$
-     \item $\overline{x} = \textnormal{gemiddelde(controlegroep)} = 88,83$ 
-     \item $\overline{y} = \textnormal{gemiddelde(interventiegroep)} = 101,67$ 
+     \item $\overline{x}-\overline{y} = -12,833$
+     \item $\overline{x} =$ schatting voor $\mu_1$ (controlegroep) 
+     \item $\overline{y} =$ schatting voor $\mu_2$ (interventiegroep) 
     \end{itemize}
 \end{enumerate}
 \vfill
@@ -489,6 +489,7 @@ mean of x mean of y
 }
 \vfill
 $\overline{x}-\overline{y}=-12,833$ komt overeen met $t=-3,4456$\\
+$df=9,48$ wordt berekend door \texttt{t.test()} op basis van $x$ en $y$\\
 $p = 0,003391 < \alpha = 0,05$ dus $H_1$ aanvaard (significant verschil)
 \end{frame}
 

@@ -418,11 +418,19 @@ sample estimates:
 mean of x 
 0.4564444 
 \end{verbatim}
-    
     \item Conclusie. De overschrijdingskans $p = 0,029 < \alpha = 0,05$. We kunnen dus de nulhypothese verwerpen; er is met ander worden en vrij sterke aanwijzing dat het gemiddelde Salmonella-niveau in het ijs groter is dan 0,3 MPN/g.
     
-    Je kan uit de uitvoer van de \texttt{t.test}-functie ook het kritieke gebied aflezen: $[0,3245133; +\infty[$. Het steekproefgemiddelde $0,4564444$ ligt in het kritieke gebied, wat eveneens leidt tot de conclusie dat de nulhypothese kan verworpen worden.
+    \sout{Je kan uit de uitvoer van de \texttt{t.test}-functie ook het kritieke gebied aflezen: $[0,3245133; +\infty[$. Het steekproefgemiddelde $0,4564444$ ligt in het kritieke gebied, wat eveneens leidt tot de conclusie dat de nulhypothese kan verworpen worden.}
   \end{enumerate}
+\textbf{Opmerking}: \texttt{``confidence interval: 0.3245133 Inf''} heeft niet rechtstreeks met het
+aanvaardingsgebied of het kritieke gebied te maken.
+Het staat ook los van de waarde $\mu_{0}=0,3$.
+Het zegt enkel dat vermits $\overline{x}=0,45644$,
+dat we met 95\% procent zekerheid kunnen zeggen dat het \textit{\'echte} gemiddelde ($\mu$) van de populatie
+tussen $0,3245133$ en $+\infty$ ligt.
+Zie paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
+en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef})
+over betrouwbaarheidsintervallen.
 \end{example}
 
 \section{De \texorpdfstring{$t$}{t}-toets voor twee steekproeven}
@@ -444,17 +452,23 @@ In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van
   
   Zes deelnemers kregen een medicijn toegekend (interventiegroep) en zes anderen een placebo (controlegroep). Vervolgens werd hun reactietijd op een stimulus gemeten (in ms). We willen nagaan of er significante verschillen zijn tussen de interventie- en controlegroep.
   
+  \textbf{Opmerking}: De intervantiegroep en de controle groep zijn hier toevallig even groot (elk 6 proefpersonen).
+  Dit is niet noodzakelijk. Bij een onafhankelijke (niet-gepaarde) steekproeven
+  mogen de 2 groepen een verschillende grootte hebben.
+
   \begin{itemize}
-    \item Controlegroep: 91, 87, 99, 77, 88, 91
-    \item Interventiegroep: 101, 110, 103, 93, 99, 104
+    \item Controlegroep: 91, 87, 99, 77, 88, 91 ~~~~~~~~~~~~($\overline{x}=88,83$)
+    \item Interventiegroep: 101, 110, 103, 93, 99, 104 ~~($\overline{y}=101,67$)
   \end{itemize}
   
-  We noteren $\mu_1$ voor het populatiegemiddelde van de patiënten die het medicijn nemen en $\mu_2$ voor het gemiddelde van de niet behandelde populatie.
+  We noteren $\mu_1$ voor het gemiddelde van de niet behandelde populatie (controlegroep) en $\mu_2$ voor het populatiegemiddelde van de patiënten die het medicijn nemen (interventiegroep).
   
   De hypothesen worden formeel als volgt genoteerd:
   
   $H_0: \mu_1 - \mu_2 = 0$ en $H_1: \mu_1 - \mu_2 < 0$
   
+  Als teststatistiek (steekproefgrootheid) gebruiken we $\overline{x}-\overline{y}$, met $\overline{x}$ en $\overline{y}$ schattingen voor de \textit{\'echte} waarden $\mu_1$ en $\mu_2$ .
+
   Het gaat hier dus over een linkszijdige test, wat weergegeven wordt door de optie \texttt{alternative = "less"}. In de nulhypothese veronderstellen we dat het verschil tussen de populatiegemiddelden 0 is, wat met de optie \texttt{mu = 0} wordt aangeduid. Merk op dat dit de standaardwaarde is voor deze parameter en dus in principe niet moet worden opgegeven.
   
 \begin{lstlisting}
@@ -480,11 +494,23 @@ mean of x mean of y
 88.83333 101.66667
 \end{verbatim}
 
-  De $p$ waarde, 0,003391, ligt duidelijk onder het significantieniveau (niet expliciet opgegeven, dus werd de standaardwaarde $\alpha = 0,05$ gebruikt.)
+  De teststatistiek $\overline{x}-\overline{y}=-12,833$ komt overeen met een $t$-waarde $t=-3,4456$.
+  De parameter $df=9,48$ wordt bepaald door \texttt{t.test()} op basis van
+  het aantal elementen in de reeksen $x$ en $y$.
+  De berekening hiervan is \textit{niet} triviaal.
+
+  De $p$-waarde, 0,003391, ligt duidelijk onder het significantieniveau (niet expliciet opgegeven, dus werd de standaardwaarde $\alpha = 0,05$ gebruikt.)
   
-  De teststatistiek $t = -3,4456$ ligt binnen het verwerpingsgebied $]-\infty; -6,044949]$.
+  \sout{De teststatistiek $t = -3,4456$ ligt binnen het verwerpingsgebied $]-\infty; -6,044949]$.}
   
   We mogen dus de nulhypothese verwerpen en besluiten dat volgens de resultaten van deze steekproef het medicijn inderdaad een significant effect heeft op de reactiesnelheid van patiënten.
+
+\textbf{Opmerking}: Vermits $\overline{x}-\overline{y}=-12,833$
+kunnen we met 95\% procent zekerheid kunnen dat het verschil van de \textit{\'echte} gemiddelden ($\mu_1-\mu_2$)
+van een grotere control- en interventiepopulatie tussen $-\infty$ en $-6.044949$ zal liggen.
+Zie paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
+en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef})
+over betrouwbaarheidsintervallen.
 \end{example}
 
 \begin{example}
@@ -507,6 +533,11 @@ mean of x mean of y
   
   We gaan door middel van een \emph{gepaarde $t$-test} na of auto's significant zuiniger rijden met benzine met additieven.
   
+  We kiezen $x$ voor benzine met \texttt{additieven} ($\overline{x}=25,1$ mijl per gallon), en we kiezen $y$ voor \texttt{gewone} bezine ($\overline{y}=23,1$ mijl per gallon).
+
+  De nulhypothese $H_0$ is dat je met beiden even veel mijl per gallon kunt rijden ($\mu_{x-y}=0$).
+  De alternatieve hypothese $H_1$ dat je verder kunt rijden op benzine met additieven ($\mu_{x-y}>0$).
+
   De optie \texttt{paired=TRUE} geeft aan dat het hier om een gepaarde $t$-toets gaat.
   
 \begin{lstlisting}
@@ -530,9 +561,15 @@ mean of the differences
                       2 
 \end{verbatim}
 
-  De $p$-waarde, 0,0007749, ligt onder het significantieniveau, dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto's inderdaad zuiniger met benzine met additieven.
-  
-  De teststatistiek $t = 4,4721$ ligt binnen het verwerpingsgebied $[1,180207; +\infty]$.
+  De teststatistiek $\overline{x-y}=2$. Dit komt overeen met een $t$-waarde $t=4,4721$.
+  De $p$-waarde, 0,0007749, ligt onder het significantieniveau ($\alpha=0,05$), dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto's inderdaad zuiniger met benzine met additieven.
+
+  \sout{De teststatistiek $t = 4,4721$ ligt binnen het verwerpingsgebied $[1,180207; +\infty]$.}
+
+  \textbf{Ter info}: Bij 95\% van de ``paren'' van deze gepaarde t-test,
+  zal het verschil $x-y$ tussen $1.180207$ en $+\infty$ liggen.
+  Dit is het betrouwbaarheidsinterval waarvan sprake in paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
+  en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef}).
 \end{example}
 
 % TODO: later evt. toevoegen
