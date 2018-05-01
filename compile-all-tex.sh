@@ -184,7 +184,7 @@ if [ $n_total -eq 0 ]; then
 else
     echo
     echo "= REPORT ="
-    [ $n_skipped -eq 0 ] || echo "  $n_skipped/$n_total files were skipped because TeX file was newer than PDF ==="
+    [ $n_skipped -eq 0 ] || echo "  $n_skipped/$n_total files were skipped because PDF was newer than TeX file ==="
     [ $n_succes -eq 0 ] || echo "  $n_succes/$n_total TeX files successfully compiled into PDF file ==="
     [ $n_failed -eq 0 ] || echo "  $n_failed/$n_total ERRORS: TeX files were NOT compiled successfully ==="
 fi
