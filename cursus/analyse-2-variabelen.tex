@@ -750,7 +750,7 @@ De technieken die we kunnen gebruiken (hetzij rekenkundige, hetzij voor visualis
 De databestanden voor deze oefeningen zijn te vinden op Github (in de directory \emph{oefeningen/data/hfst6\_2variabelen}).
 
 \begin{exercise}
-  \label{oef:Kruistabellen, Cramér's V en chi-kwadraat - handmatig} % $\chi^{2}$ - handmatig}
+  \label{ex:muziekwijn-analyse} % $\chi^{2}$ - handmatig}
 
   Marktonderzoek toont aan dat achtergrondmuziek in een supermarkt invloed kan hebben op het aankoopgedrag van de klanten. In een onderzoek werden drie methoden met elkaar vergeleken: geen muziek, Franse chansons en Italiaanse hits. Telkens werd het aantal verkochte flessen Franse, Italiaanse en andere wijnen geteld~\autocite{Ryan1998}.
   
@@ -767,6 +767,7 @@ De databestanden voor deze oefeningen zijn te vinden op Github (in de directory 
 \end{exercise}
 
 \begin{exercise}
+  \label{ex:muziekwijn-visualisatie}
 	Gebruik dezelfde data.
 		\begin{enumerate}
 		\item Stel de percentages verkochte wijnen voor in een staafdiagram met de  muziekconditie= Geen.
@@ -776,7 +777,7 @@ De databestanden voor deze oefeningen zijn te vinden op Github (in de directory 
 \end{exercise}
 
 \begin{exercise}
-	\label{oef:Kruistabellen, Cramér's V en chi-kwadraat met R } %$\chi^{2}$ met R}
+	\label{ex:aardbevingen} %$\chi^{2}$ met R}
 Lees het databestand ``Aardbevingen.csv'' in. 	
 		\begin{enumerate}
 		\item Maak een histogram en een boxplot van de variabele ``Magnitudes''.
@@ -786,11 +787,11 @@ Lees het databestand ``Aardbevingen.csv'' in.
 \end{exercise}
 
 \begin{exercise}
-	\label{oef:Lineaire regressie, correlatie en determinatiecoëfficiënt - handmatig}
+	\label{ex:test-examen}
 	In onderstaande tabel vindt men voor elke rij (= persoon) het resultaat van een test en zijn examenscore. Gevraagd:
 \begin{itemize}
 	\item Bepaal handmatig de regressierechte $\beta_{0} + \beta_{1} x$. 
-	\item Bepaal handmatig de correlatie- en determinatieco\"effici\"ent ($R^{2}, R$) 
+	\item Bepaal handmatig de correlatie- en determinatieco\"effici\"ent ($R, R^{2}$) 
 	\item Geef uitleg bij de gevonden statistieken.
 \end{itemize}
 
@@ -817,6 +818,7 @@ Lees het databestand ``Aardbevingen.csv'' in.
 \end{exercise}
 
 \begin{exercise}
+  \label{ex:scatter-correlatiecoeff}
 	Gegeven 6 scatterplots in volgende figuur en onderstaande correlatieco\"effici\"enten. Match de co\"effici\"enten met de scatterplots. Er is dus één scatterplot waarvan geen correlatie gegeven staat hieronder.
 \begin{itemize}
 	\item $r_{1}$ = 0.6
@@ -834,10 +836,10 @@ Lees het databestand ``Aardbevingen.csv'' in.
 \end{exercise}
 
 \begin{exercise}
-	\label{oef:Lineaire regressie, correlatie en determinatiecoëfficiënt met R}
+	\label{ex:cats}
 	Lees het databestand ``Cats.csv'' in. 
 		\begin{enumerate}
-		\item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (Bwt) en Gewicht hart (Hwt).
+		\item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (\texttt{Bwt}, afhankelijke variabele) en Gewicht hart (\texttt{Hwt}, onafhankelijke variabele).
 		\item Maak een spreidingsdiagram van beide variabelen.
 		\item Bereken en teken de regressielijn.
 		\item Bereken de correlatie- en de determinatiecoëfficiënt.
@@ -846,6 +848,7 @@ Lees het databestand ``Aardbevingen.csv'' in.
 \end{exercise}
 
 \begin{exercise}
+  \label{ex:cats-per-geslacht}
 	Gebruik dezelfde data als in vorige oefening.
 		\begin{enumerate}
 		\item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (Bwt) en Gewicht hart (Hwt) per geslacht.
@@ -857,6 +860,7 @@ Lees het databestand ``Aardbevingen.csv'' in.
 \end{exercise}
 
 \begin{exercise}
+  \label{ex:pizza}
 	Lees het databestand ``Pizza.csv'' in.
 		\begin{enumerate}
 		\item Voer een volledige lineaire regressieanalyse uit op de variabelen Rating en CostPerSlice. Trek hieruit de juiste conclusies en ga deze ook grafisch na.
@@ -865,3 +869,31 @@ Lees het databestand ``Aardbevingen.csv'' in.
 		\item Stel de kruistabel grafisch voor met een staafdiagram.  Voorzie een legende.
 	\end{enumerate}
 \end{exercise}
+
+\subsection{Antwoorden op geselecteerde oefeningen}
+\label{ssec:analyse-2-variabelen-oplossingen}
+
+\paragraph{Oefening~\ref{ex:muziekwijn-analyse}}
+
+$\chi^2 \approx 18,2792$, Cramér's $V \approx 0,1939$
+
+\paragraph{Oefening~\ref{ex:test-examen}}
+
+\begin{itemize}
+  \item $\beta_{0} \approx 0,6333$, $\beta_{1} \approx 0.9667$
+  \item $Cov \approx 6,444$, $R \approx 0,9352$, $R^2 \approx 0,8747$
+\end{itemize}
+
+\paragraph{Oefening \ref{ex:cats} en \ref{ex:cats-per-geslacht}}
+
+\begin{center}
+  \begin{tabular}{lrrrrr}
+  	\toprule
+    \textbf{Selectie} & \textbf{$\beta_{0}$} & \textbf{$\beta_{1}$} & \textbf{$Cov$} & \textbf{$R$} & \textbf{$R^2$} \\
+    \midrule
+  	Hele dataset & -0.3511 & 4.0318 & 0.9496 & 0.8041 & 0.6466 \\
+  	Female       &  2.9813 & 2.6364 & 0.1979 & 0.5320 & 0.2831 \\
+  	Male         & -1.1768 & 4.3098 & 0.9419 & 0.7930 & 0.6289 \\
+    \bottomrule
+  \end{tabular}
+\end{center}
