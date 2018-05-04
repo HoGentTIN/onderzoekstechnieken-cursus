@@ -1,0 +1,416 @@
+%%----------------------------------------------------------------------------
+%% Presentatie HoGent Bedrijf en Organisatie
+%%----------------------------------------------------------------------------
+%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
+
+\documentclass[usenames,dvipsnames]{beamer}
+
+%==============================================================================
+% Aanloop
+%==============================================================================
+
+%---------- Packages ----------------------------------------------------------
+\usepackage{etex}
+\usepackage{graphicx,multicol}
+\usepackage{comment,enumerate,hyperref}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{wasysym}
+\usepackage{tikz}
+\usepackage[dutch]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{eurosym}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{framed}
+\usepackage{wrapfig}
+\usepackage{pgf-pie}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{pgfplotstable}
+\usepackage{changepage}
+\usepackage{pst-plot,pst-func}
+
+%---------- Configuratie ------------------------------------------------------
+
+\usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
+\usetikzlibrary{pgfplots.statistics}
+\newif\ifprivate
+\privatetrue
+
+
+\usetheme{hogent}
+\setbeameroption{show notes}
+
+%---------- Commando-definities -----------------------------------------------
+
+\newcommand{\tabitem}{~~\llap{\textbullet}~~}
+\renewcommand{\arraystretch}{1.2}
+
+%---------- Info over de presentatie ------------------------------------------
+
+\title[Intro]{Onderzoekstechnieken\\Voorbereiding Bachelorproef}
+\author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
+\date{AJ 2017-2018}
+
+%==============================================================================
+% Inhoud presentatie
+%==============================================================================
+
+\begin{document}
+
+%---------- Front matter ------------------------------------------------------
+
+% Dia met het HoGent logo
+\HoGentLogo
+
+% Titeldia met faculteitslogo
+\titleframe
+
+%---------- Inhoud ------------------------------------------------------------
+
+\begin{frame}
+  \frametitle{What's on the menu today?}
+
+  \tableofcontents
+\end{frame}
+
+\begin{frame}
+  \frametitle{Meer info}
+  
+  \begin{itemize}
+    \item \textbf{Algemeen:} Elektronische cursus Onderzoeksvaardigheden (HoGent Bib)
+    
+    \url{https://bib.hogent.be/how-to/kritisch-denken-en-onderzoekscompetenties/}
+    
+    \item \textbf{Specifiek voor TIN}: De bachelorproef informatica: Een praktische gids:
+    
+    \url{https://github.com/HoGentTIN/bachproef-gids/releases}
+  \end{itemize}
+\end{frame}
+
+\section{De bachelorproef informatica}
+\sectionframe{}
+
+\begin{frame}{De bachelorproef informatica}
+  \framesubtitle{Doelstelling}
+  
+  \brightbox{Kunnen advies geven over toepassen nieuwe ict-technologieën in bedrijfscontext}
+  
+  \begin{itemize}
+    \item informatie verzamelen en kritisch beschouwen
+    \begin{itemize}
+      \item literatuur
+      \item belanghebbenden
+      \item experimenten
+    \end{itemize}
+    \item structureren en analyseren
+    \item proof-of-concept opzetten
+    \item rapporteren
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Bachelorproef vs stage}
+
+  \begin{multicols}{2}
+    \textbf{Stage}
+    
+    \begin{itemize}
+      \item Uitvoerend
+      \item Resultaat kan afgewerkt product zijn
+    \end{itemize}
+    
+    \columnbreak
+    
+    \textbf{Bachelorproef}
+    
+    \begin{itemize}
+      \item Onderzoekend
+      \item Resultaat is rapport, proof-of-concept, \textbf{geen} product
+    \end{itemize}
+  \end{multicols}
+
+Stage en bachelorproef mogen over zelfde onderwerp gaan, maar moeten gescheiden zijn en onafhankelijk van elkaar.
+
+\end{frame}
+
+\begin{frame}{De bachelorproef informatica}
+  \framesubtitle{Praktisch}
+  
+  \begin{itemize}
+    \item 3e modeltraject
+    \item 1e semester: onderwerp kiezen en uitwerken
+    \item 2e semester: realisatie
+    \item 4 dagen stage; 1 dag BP
+    \item indienen bij aanvang examenperiode
+    \item presentatie + verdediging in juni
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{De bachelorproef informatica}
+  \framesubtitle{Opvolging}
+  
+  \begin{itemize}
+    \item \textbf{Promotor:} \emph{proces}opvolging
+    \begin{itemize}
+      \item Lector van de opleiding
+      \item Voorzitter jury presentatie
+      \item Kent examencijfer toe
+    \end{itemize}
+    \item \textbf{Co-promotor:} \emph{inhoudelijke} opvolging
+    \begin{itemize}
+      \item Opdrachtgever
+      \item Vakexpert
+      \item Van buiten HoGent, (evt. een lector)
+      \item Geen familielid (tot 3e graad)
+    \end{itemize}
+  \end{itemize}
+
+Je dient zelf een co-promotor te zoeken!
+
+\end{frame}
+
+\section{Een onderwerp kiezen}
+\sectionframe{}
+
+\begin{frame}{Geschikte onderwerpen}
+
+  Bachelorproef = \emph{toegepast} onderzoek
+  
+  \begin{itemize}
+    \item Concreet probleem in bedrijfscontext
+    \item Wat is de beste oplossing binnen huidige state-of-the-art?
+  \end{itemize}
+
+  \brightbox{Start vanuit een concrete, \textcolor{HoGentAccent6}{reële bedrijfscasus}}
+\end{frame}
+
+\begin{frame}{ONgeschikte onderwerpen}
+
+\begin{itemize}
+  \item Onvoldoende technische diepgang (bv. enquête)
+  \item De toekomst van \ldots (niet speculeren!)
+  \item Algemene vergelijking van frameworks/producten/\ldots
+  \begin{itemize}
+    \item Afhankelijk van specifieke requirements
+    \item Koppel dit aan een reële bedrijfscasus
+  \end{itemize}
+  \item Te breed, vaag of vrijblijvend
+  \item Enkel literatuurstudie
+  \item Geen eigen bijdrage
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Op zoek naar een onderwerp}
+
+  \begin{itemize}
+    \item Via stagebedrijf/-mentor
+    \item (Beperkt) aanbod onderwerpen via Chamilo
+    \item Voorstel vanuit je eigen contacten in het werkveld
+    \item Eigen idee/voorstel
+  \end{itemize}
+  
+  \brightbox{Wacht niet te lang met het zoeken naar een onderwerp!}
+\end{frame}
+
+\begin{frame}{Zelf een onderwerp zoeken}
+  \framesubtitle{Kies een onderzoeksdomein}
+
+  \begin{itemize}
+    \item Keuzevak 3TI
+    \item In welke job wil je starten?
+    \item Met welke technologieën/platformen/\ldots wil je werken?
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Zelf een onderwerp zoeken}
+  \framesubtitle{Volg de actualiteit}
+
+  \begin{itemize}
+    \item Portaalsites (dzone, infoq, technet, \ldots)
+    \item Relevante conferenties/meetups
+    \item Lokale vakverenigingen (bv. OWASP Belgium)
+    \item Belangrijkste namen ``community'' volgen
+    
+    (bv. via blog, Twitter)
+    
+    \item Newsletters
+    \item \ldots
+  \end{itemize}
+
+  \brightbox{Start hier nu al mee!}
+\end{frame}
+
+\begin{frame}{Een onderzoeksvraag formuleren}
+  
+  \begin{itemize}
+    \item Wat zijn de actuele thema's in de ``community''?
+    \begin{itemize}
+      \item Onderwerpen op conferenties
+      \item Discussies op fora, Twitter, \ldots
+    \end{itemize}
+    \item Op een onderzoeksvraag is nu nog geen antwoord!
+    \item Zoek een co-promotor, vraag raad
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Vaak gestelde vraag}
+  
+  Is \ldots een goed onderwerp voor de bachelorproef?
+  
+  \begin{itemize}
+    \item De cloud
+    \item Blockchain
+    \item AI
+    \item Security
+    \item \ldots
+  \end{itemize}
+
+  \brightbox{Ja, vooropgesteld dat het onderwerp \textcolor{HoGentAccent6}{ICT-gerelateerd is}, \textcolor{HoGentAccent6}{technische diepgang heeft} en je een \textcolor{HoGentAccent6}{concrete onderzoeksvraag} hebt geformuleerd vanuit een \textcolor{HoGentAccent6}{reële bedrijfscasus}}
+\end{frame}
+
+\section{Het onderwerp uitschrijven}
+\sectionframe{}
+
+\begin{frame}{Het onderwerp uitschrijven}
+
+  \begin{itemize}
+    \item Aan de hand van sjabloon
+    
+    \url{https://github.com/HoGentTIN/bachproef-latex-sjabloon/tree/master/voorstel}
+    
+    \item Doel: zekerheid scheppen dat je voorstel \emph{S.M.A.R.T.} is
+    \begin{itemize}
+      \item Specifiek, concreet
+      \item Meetbare doelstellingen
+      \item Acceptabel voor doelgroep
+      \item Realistisch en haalbaar
+      \item Tijdgebonden
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Procedure}
+
+\begin{itemize}
+  \item Indienen op Chamilo (cursus Bachelorproef) vóór deadline (half december)
+  \item Feedback door één van de lectoren, dit wordt je promotor
+  \item Herwerk zo nodig voorstel
+  \item Aan de slag!
+\end{itemize}
+\end{frame}
+
+\section{Criteria voor beoordeling voorstel}
+\sectionframe{}
+
+\begin{frame}{Criteria voor beoordeling voorstel}
+
+De \textbf{titel} is \emph{concreet} en geeft een correct beeld van de onderzoeksdoelstelling
+
+\begin{itemize}
+  \item Niet enkel het onderzoeksdomein benoemen
+  \item Geen vraag
+  \item Geen ``Onderzoek naar''
+\end{itemize}
+
+% TODO: voorbeelden geven: goed/slecht
+
+%\textcolor{OrangeRed}{\XBox} De cloud
+%
+%\textcolor{ForestGreen}{\CheckedBox} Selectie van een Platform-as-a-Service oplossing voor een 
+
+\end{frame}
+
+\begin{frame}{Criteria voor beoordeling voorstel}
+
+Er is een \textbf{samenvatting} met alle gevraagde elementen:
+
+\begin{description}
+  \item[Context] Waarom is dit werk belangrijk?
+  \item[Nood] Waarom moet dit onderzocht worden?
+  \item[Taak] Wat ga je specifiek doen doen?
+  \item[Object] Wat staat in dit document geschreven?
+  \item[Resultaat] Welk concreet resultaat verwacht je van je onderzoek?
+  \item[Conclusie] Wat verwacht je van van de conclusies?
+  \item[Perspectief] Waarvoor zal het resultaat kunnen gebruikt worden? Wat is de meerwaarde van je werk?
+\end{description}
+
+\brightbox{Een samenvatting is geen inleiding!}
+
+\end{frame}
+
+\begin{frame}{Criteria voor beoordeling voorstel}
+
+Voorstel is \textbf{vernieuwend} en heeft een duidelijke \textbf{meerwaarde} voor een specifieke doelgroep uit het werkveld
+
+\begin{itemize}
+  \item Op een onderzoeksvraag is nu nog geen antwoord!
+  \item Eigen bijdrage moet duidelijk zijn!
+  \item Baken domein af naar specifieke doelgroep toe (bv. een bedrijf)
+  \item Geen ``algemeen'' onderwerp
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Criteria voor beoordeling voorstel}
+
+De methodologie is duidelijk verantwoord, onderzoekstechnieken zijn geschikt voor beantwoorden onderzoeksvraag
+
+\begin{itemize}
+  \item Concreet plan van aanpak!
+  \item Uit welke fasen bestaat jouw onderzoek?
+  \item Welk doel en resultaat heeft elke fase?
+  \item Wees specifiek! Niet: ``onderzoek doen naar\ldots''
+  \begin{itemize}
+    \item Literatuurstudie
+    \item Interview (bv. requirements verzamelen)
+    \item Experiment (bv. performantiemeting)
+    \item Vergelijkende studie
+    \item Risico-analyse (bv. in kader van security)
+    \item Proof-of-concept opzetten
+    \item \ldots
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Criteria voor beoordeling voorstel}
+
+Er wordt op een correcte manier verwezen naar vakliteratuur.
+
+\begin{itemize}
+  \item Voldoende referenties
+  \item Elke bewering
+  \item APA-stijl (volgens sjabloon)
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Criteria voor beoordeling voorstel}
+
+Er wordt een \textbf{zakelijke schrijfstijl} gehanteerd
+
+\begin{description}
+  \item[Zakelijk] geen bloemrijk, informeel taalgebruik, spreektaal
+  \item[Objectief] geen mening, enkel aantoonbare feiten
+  \item[Onpersoonlijk] \textbf{Geen ``ik''}/wij
+  \item[Precies] geen vage uitspraken, alles kwantificeren
+  \item[Correct] taalgebruik: grammatica, spelling
+\end{description}
+
+Zie \url{http://www.taalwinkel.nl/een-wetenschappelijke-schrijfstijl/}
+
+\end{frame}
+
+\section{Veel succes!}
+\sectionframe{}
+
+\end{document}
+
