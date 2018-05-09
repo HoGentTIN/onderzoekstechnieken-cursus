@@ -457,7 +457,7 @@ Daarom voegen we een extra constante toe om deze trap te overbruggen:
 \begin{definition}[Holt-voorspelling of dubbele exponentiële afvlakking]
 \begin{eqnarray}
 	X_{t} = \alpha x_{t} + (1-\alpha)(X_{t-1} + b_{t-1}) & 0 \leq \alpha \leq 1 \\
-	b_{t} = \gamma(X_{t}-X_{t-1}) + (1-\gamma)b_{t-1} & 0 \leq \gamma \leq 1 
+	b_{t} = \beta(X_{t}-X_{t-1}) + (1-\beta)b_{t-1} & 0 \leq \beta \leq 1 
 \label{eq:doubleSmoothing}
 \end{eqnarray}
 \end{definition}
@@ -481,13 +481,13 @@ Een voorspelling maken met dubbele exponentiële afvlakking gebeurt dan iets and
 of
 \[ F_{t+m} = X_{t} + m b_{t} \]
 
-Als we nu de tekening maken met enkelvoudige afvlakking ($\alpha = 0.977$) en dubbele afvlakking ($\alpha = 0.3623, \gamma = 1.0, X_{1} = x_{1} = 6.4$ en $b_{1} = \frac{1}{3}\left[ (x_{2} - x_{1}) + (x_{1} - x_{2}) + (x_{4} - x_{3}) \right] = 0.8$ vinden we volgende waarden in tabel \ref{tab:doubleSingle} en figuur \ref{fig:tijdreeks71}:
+Als we nu de tekening maken met enkelvoudige afvlakking ($\alpha = 0.977$) en dubbele afvlakking ($\alpha = 0.3623, \beta = 1.0, X_{1} = x_{1} = 6.4$ en $b_{1} = \frac{1}{3}\left[ (x_{2} - x_{1}) + (x_{1} - x_{2}) + (x_{4} - x_{3}) \right] = 0.8$ vinden we volgende waarden in tabel \ref{tab:doubleSingle} en figuur \ref{fig:tijdreeks71}:
 
 \begin{table}
   \centering
   \begin{tabular}{|llll|}
     \hline
-    Data & Enkelvoudige afvlakking $X_{t}$ & Double afvlakking $X_{t}$ & $F_{t}$ \\
+    Data & Enkelvoudige afvlakking $X_{t}$ & Dubbele afvlakking $X_{t}$ & $F_{t}$ \\
     6.4  & ~                      & 6.4              & ~                             \\
     5.6  & 6.4                    & 6.6              & 7.2                           \\
     7.8  & 5.6                    & 7.2              & 6.8                           \\
@@ -510,7 +510,7 @@ Als we nu de tekening maken met enkelvoudige afvlakking ($\alpha = 0.977$) en du
 	\label{fig:tijdreeks71}
 \end{figure}
 
-De manier om dit met R op te lossen is gelijkaardig als bij exponentiële afvlakking, alleen moet de parameter gamma $\gamma$ niet op NULL gezet worden. Het maken van de correlogram, de Ljung–Box test en het testen van de normaliteit van de errors gebeurt om dezelfde manier. 
+De manier om dit met R op te lossen is gelijkaardig als bij exponentiële afvlakking, alleen moet de parameter gamma $\beta$ niet op NULL gezet worden. Het maken van de correlogram, de Ljung–Box test en het testen van de normaliteit van de errors gebeurt om dezelfde manier. 
 
 \subsection{Driedubbele exponentiële afvlakking}
 
@@ -520,8 +520,8 @@ Dit soort tijdreeksen kan benaderd worden met de Holt-Winters methode, of driedu
 
 \begin{eqnarray}
   X_{t} = \alpha \frac{x_{t}}{c_{t-L}} + (1-\alpha) (X_{t-1} + b_{t-1}) & \textnormal{Smoothing}\\
-  b_{t} = \gamma (X_{t} - X_{t-1}) + (1-\gamma)b_{t-1} & \textnormal{Trend smoothing} \\
-  c_{t} = \beta \frac{x_{t}}{X_{t}} + (1-\beta)c_{t-L} & \textnormal{Seasonal smoothing} \\
+  b_{t} = \beta (X_{t} - X_{t-1}) + (1-\beta)b_{t-1} & \textnormal{Trend smoothing} \\
+  c_{t} = \gamma \frac{x_{t}}{X_{t}} + (1-\gamma)c_{t-L} & \textnormal{Seasonal smoothing} \\
   F_{t+m} = (X_{t} + mb_{t})c_{t-L+m \mod L}  & \textnormal{Voorspelling}
   \label{eq:HoltWinters}
 \end{eqnarray}

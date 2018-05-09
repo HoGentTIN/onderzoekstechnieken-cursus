@@ -356,13 +356,13 @@ Je kan ook de variantie ervan bepalen:
 \begin{frame}
   \frametitle{Waarom ``\emph{exponentieel}''?}
 
-  \begin{eqnarray*}
-    EMA(t) & = & \alpha x_{t-1} + (1-\alpha) EMA(t-1)                                           \\
-           & = & \alpha x_{t-1} + (1-\alpha)\left[\alpha x_{t-2} + (1-\alpha)EMA(t - 2)\right]  \\
-           & = & \alpha x_{t-1} + \alpha (1-\alpha)x_{t-2} + (1-\alpha)^{2} EMA(t - 2)          \\
-           &   & \text{of algemeen gesteld:} \\
-           & = & \alpha \sum_{i=1}^{t-2}(1-\alpha)^{i-1}x_{t-i} + (1-\alpha)^{t-2} EMA(2), t \geq 2
-  \end{eqnarray*}
+  \begin{align*}
+    EMA(t) &= \alpha x_{t-1} + (1-\alpha) EMA(t-1)                                           \\
+           &= \alpha x_{t-1} + (1-\alpha)\left[\alpha x_{t-2} + (1-\alpha)EMA(t - 2)\right]  \\
+           &= \alpha x_{t-1} + \alpha (1-\alpha)x_{t-2} + (1-\alpha)^{2} EMA(t - 2)          \\
+           &  \text{of algemeen gesteld:} \\
+           &= \alpha \sum_{i=1}^{t-2}(1-\alpha)^{i-1}x_{t-i} + (1-\alpha)^{t-2} EMA(2), t \geq 2
+  \end{align*}
 
   M.a.w.~oudere observaties krijgen een exponentieel kleiner gewicht.
 \end{frame}
@@ -417,13 +417,13 @@ Je kan ook de variantie ervan bepalen:
 
   We voeren een extra term in om de trend te modelleren. We noteren $s_t$ voor de afgevlakte waarde, en $b_t$ voor de schatting van de trend op tijdstip $t > 1$:
 
-\begin{eqnarray}
-	X_{t} = \alpha x_{t} + (1-\alpha)(X_{t-1} + b_{t-1}) & 0 \leq \alpha \leq 1 \\
-	b_{t} = \gamma(X_{t}-X_{t-1}) + (1-\gamma)b_{t-1} & 0 \leq \gamma \leq 1 
+\begin{align*}
+	X_{t} & = \alpha x_{t} + (1-\alpha)(X_{t-1} + b_{t-1}) & 0 \leq \alpha \leq 1                            \\
+	b_{t} & = \beta(X_{t}-X_{t-1}) + (1-\beta)b_{t-1}      & 0 \leq \beta \leq 1 
 \label{eq:doubleSmoothing}
-\end{eqnarray}
+\end{align*}
 
-  met $0 < \alpha < 1$ en $0 < \gamma < 1$
+  met $0 < \alpha < 1$ en $0 < \beta < 1$
 	
 	
 	\begin{itemize}
@@ -436,12 +436,12 @@ Je kan ook de variantie ervan bepalen:
   \frametitle{Dubbele exponentiële afvlakking}
   Er bestaan opnieuw verschillende alternatieven om de initiële waarden te kiezen:
 
-\begin{eqnarray}
-	X_{1} = x_{1} \\
-	b_{1} = x_{2} - x_{1} \\
-	b_{1} = \frac{1}{3}\left[ (x_{2} - x_{1}) + (x_{1} - x_{2}) + (x_{4} - x_{3}) \right]\\
-	b_{1} = \frac{x_{n} - x_{1}}{n-1} \\
-\end{eqnarray}
+\begin{align*}
+	X_{1} &= x_{1} \\
+	b_{1} &= x_{2} - x_{1} \\
+	b_{1} &= \frac{1}{3}\left[ (x_{2} - x_{1}) + (x_{1} - x_{2}) + (x_{4} - x_{3}) \right]\\
+	b_{1} &= \frac{x_{n} - x_{1}}{n-1}
+\end{align*}
 
 \end{frame}
 
@@ -481,12 +481,12 @@ Je kan ook de variantie ervan bepalen:
     \item $\gamma$: smoothing factor voor de seizoenale variatie
   \end{itemize}
 
-\begin{eqnarray*}
-	X_{t} = \alpha \frac{x_{t}}{c_{t-L}} + (1-\alpha) (X_{t-1} + b_{t-1}) & \textnormal{Smoothing}\\
-	b_{t} = \gamma (X_{t} - X_{t-1}) + (1-\gamma)b_{t-1} & \textnormal{Trend smoothing} \\
-	c_{t} = \beta \frac{x_{t}}{X_{t}} + (1-\beta)c_{t-L} & \textnormal{Seasonal smoothing} \\
+\begin{align*}
+	X_{t} &= \alpha \frac{x_{t}}{c_{t-L}} + (1-\alpha) (X_{t-1} + b_{t-1}) & \textnormal{Smoothing}\\
+	b_{t} &= \beta (X_{t} - X_{t-1}) + (1-\beta)b_{t-1} & \textnormal{Trend smoothing} \\
+	c_{t} &= \gamma \frac{x_{t}}{X_{t}} + (1-\gamma)c_{t-L} & \textnormal{Seasonal smoothing} \\
 \label{eq:HoltWinters}
-\end{eqnarray*}
+\end{align*}
 
 \end{frame}
 
