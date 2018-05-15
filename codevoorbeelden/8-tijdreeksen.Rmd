@@ -5,6 +5,15 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+Make sure to install the packages "TTR" and "forecast" 
+```{r}
+#install.packages("TTR")
+#install.packages("forecast")
+```
+
+Also, don't forget to load these libraries
+```{r}
 library(TTR)
 library(forecast)
 ```
