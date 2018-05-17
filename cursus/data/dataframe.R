@@ -5,7 +5,7 @@
                       second=b,
                       f=levels)
 > bubba
-first second f
+  first second f
 1     1      2 A
 2     2      4 B
 3     3      6 A
