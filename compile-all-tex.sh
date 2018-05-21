@@ -51,12 +51,12 @@ die() {
 search_files() {
     #echo search_files $1 #debug
     for i in $(grep --files-with-matches '^\\documentclass' $(find $1 -type f -name '*.tex') /dev/null); do
-        compile_file $i
+        process_file $i
     done
 }
 
-compile_file() {
-    #echo compile_file $1 #debug
+process_file() {
+    #echo process_file $1 #debug
     cd $(dirname $1)
     filebase=$(basename $1)
     filebase=${filebase%.tex}
@@ -78,68 +78,78 @@ compile_file() {
         echo "=== skipping $1"
         if [ $cleanup -eq 1 ]; then cleanup; fi
     else
-        echo "=== compiling $1"
-        # remove old tmp files from previous run
-        for i in $tmp_extensions; do rm -f ${filebase}.$i; done
-        exitcode=0
-        rm -f ${filebase}.pdf ${filebase}-withERRORS.pdf || exitcode=$?
-        # compile, only if we were able to remove the previous pdf
-        if [ $exitcode -eq 0 ]; then
-            $pdflatex_cmd ${filebase}.tex || exitcode=$?
+        if grep '^\\solution' ${filebase}.tex >/dev/null; then
+            sed 's/^\\solution.*/\\solutiontrue/' ${filebase}.tex >${filebase}-opl.tex
+            compile_file ${filebase}-opl
+            rm ${filebase}-opl.tex
         fi
-        # run biber, only if necessary
-        if [ $exitcode -eq 0 -a -f ${filebase}.bcf ]; then
-            if grep 'bcf:citekey' ${filebase}.bcf >/dev/null; then
-                echo "    running biber and recompiling"
-                $biber_cmd $filebase || exitcode=$?
-                # compile 2nd time, only if biber was successful
-                if [ $exitcode -eq 0 ]; then
-                    $pdflatex_cmd ${filebase}.tex || exitcode=$?
-                else
-                    echo "    if biber failed due to UTF-8 errors, it might help to run following command:"
-                    echo "    iconv -f WINDOWS-1252 -t UTF-8 biblio.bib >tmpfile; mv tmpfile biblio.bib"
-                fi
-            fi
-        elif [ $exitcode -eq 0 ]; then
-            # compile 2nd time, if necessary
-            changed=1
-            grep 'Package rerunfilecheck Info: File' -A1 ${filebase}.log | tr -d '\n' | grep -e 'has not changed' >/dev/null && changed=0
-            #TODO: add double check
-            #grep 'Package rerunfilecheck Warning: File' -A1 ${filebase}.log | tr -d '\n' | grep -e 'has changed' && changed=1
-            if [ $changed -eq 1 ]; then
-                echo "    compiling 2nd time"
-                $pdflatex_cmd ${filebase}.tex || exitcode=$?
-            fi
-        fi
-        if [ $exitcode -eq 0 ]; then
-            n_succes=$((n_succes + 1))
-            echo "    OK"
-            if [ $nocleanup -eq 0 ]; then cleanup; fi
-        else
-            n_failed=$((n_failed + 1))
-            # errors from pdflatex doesn't always end with a newline
-            # so, the 'echo' below will add a newline
-            echo 
-            # rename pdf if build failed
-            if [ -f ${filebase}.pdf ]; then
-                mv ${filebase}.pdf ${filebase}-withERRORS.pdf || tmp=0 #don't die on failure
-            fi
-            # cleanup if requested
-            if [ $cleanup -eq 1 ]; then cleanup; fi
-        fi
+        compile_file ${filebase}
     fi
     cd - >/dev/null
+}
+
+compile_file() {
+    filebase2=$1
+    echo "=== compiling $filebase2"
+    # remove old tmp files from previous run
+    for i in $tmp_extensions; do rm -f ${filebase2}.$i; done
+    exitcode=0
+    rm -f ${filebase2}.pdf ${filebase2}-withERRORS.pdf || exitcode=$?
+    # compile, only if we were able to remove the previous pdf
+    if [ $exitcode -eq 0 ]; then
+        $pdflatex_cmd ${filebase2}.tex || exitcode=$?
+    fi
+    # run biber, only if necessary
+    if [ $exitcode -eq 0 -a -f ${filebase2}.bcf ]; then
+        if grep 'bcf:citekey' ${filebase2}.bcf >/dev/null; then
+            echo "    running biber and recompiling"
+            $biber_cmd $filebase2 || exitcode=$?
+            # compile 2nd time, only if biber was successful
+            if [ $exitcode -eq 0 ]; then
+                $pdflatex_cmd ${filebase2}.tex || exitcode=$?
+            else
+                echo "    if biber failed due to UTF-8 errors, it might help to run following command:"
+                echo "    iconv -f WINDOWS-1252 -t UTF-8 biblio.bib >tmpfile; mv tmpfile biblio.bib"
+            fi
+        fi
+    elif [ $exitcode -eq 0 ]; then
+        # compile 2nd time, if necessary
+        changed=1
+        grep 'Package rerunfilecheck Info: File' -A1 ${filebase2}.log | tr -d '\n' | grep -e 'has not changed' >/dev/null && changed=0
+        #TODO: add double check
+        #grep 'Package rerunfilecheck Warning: File' -A1 ${filebase2}.log | tr -d '\n' | grep -e 'has changed' && changed=1
+        if [ $changed -eq 1 ]; then
+            echo "    compiling 2nd time"
+            $pdflatex_cmd ${filebase2}.tex || exitcode=$?
+        fi
+    fi
+    if [ $exitcode -eq 0 ]; then
+        n_succes=$((n_succes + 1))
+        echo "    OK"
+        if [ $nocleanup -eq 0 ]; then cleanup; fi
+    else
+        n_failed=$((n_failed + 1))
+        # errors from pdflatex doesn't always end with a newline
+        # so, the 'echo' below will add a newline
+        echo 
+        # rename pdf if build failed
+        if [ -f ${filebase2}.pdf ]; then
+            mv ${filebase2}.pdf ${filebase2}-withERRORS.pdf || tmp=0 #don't die on failure
+        fi
+        # cleanup if requested
+        if [ $cleanup -eq 1 ]; then cleanup; fi
+    fi
 }
 
 cleanup() {
     # if the TeX-file contains 'includes', there will be additional files listed in aux-file
     # they are removed one-by-one
-    if [ -f ${filebase}.aux ]; then
-        for i in $( grep '^\\\@input' ${filebase}.aux | tr '{' '}'|cut -d'}' -f2);
+    if [ -f ${filebase2}.aux ]; then
+        for i in $( grep '^\\\@input' ${filebase2}.aux | tr '{' '}'|cut -d'}' -f2);
             do rm -f $i;
         done
     fi
-    for i in $tmp_extensions; do rm -f ${filebase}.$i; done
+    for i in $tmp_extensions; do rm -f ${filebase2}.$i; done
 }
 
 ## main ##
@@ -170,7 +180,7 @@ while [ $# -gt 0 ]; do
     case $1 in
     -*) shift; continue;;
     esac
-    if [ -f $1 ]; then compile_file $1;
+    if [ -f $1 ]; then process_file $1;
     elif [ -d $1 ]; then search_files $1;
     else
         echo "=== skipping $1 (not a FILE or DIRECTORY) ==="
