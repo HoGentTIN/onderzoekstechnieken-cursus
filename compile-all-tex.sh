@@ -76,7 +76,7 @@ process_file() {
     if [ $force -eq 0 -a $needrebuild -eq 0 ]; then
         n_skipped=$((n_skipped + 1))
         echo "=== skipping $1"
-        if [ $cleanup -eq 1 ]; then cleanup; fi
+        if [ $cleanup -eq 1 ]; then cleanup $filebase; fi
     else
         if grep '^\\solution' ${filebase}.tex >/dev/null; then
             sed 's/^\\solution.*/\\solutiontrue/' ${filebase}.tex >${filebase}-opl.tex
@@ -126,7 +126,7 @@ compile_file() {
     if [ $exitcode -eq 0 ]; then
         n_succes=$((n_succes + 1))
         echo "    OK"
-        if [ $nocleanup -eq 0 ]; then cleanup; fi
+        if [ $nocleanup -eq 0 ]; then cleanup $filebase2; fi
     else
         n_failed=$((n_failed + 1))
         # errors from pdflatex doesn't always end with a newline
@@ -137,19 +137,19 @@ compile_file() {
             mv ${filebase2}.pdf ${filebase2}-withERRORS.pdf || tmp=0 #don't die on failure
         fi
         # cleanup if requested
-        if [ $cleanup -eq 1 ]; then cleanup; fi
+        if [ $cleanup -eq 1 ]; then cleanup $filebase2; fi
     fi
 }
 
 cleanup() {
     # if the TeX-file contains 'includes', there will be additional files listed in aux-file
     # they are removed one-by-one
-    if [ -f ${filebase2}.aux ]; then
-        for i in $( grep '^\\\@input' ${filebase2}.aux | tr '{' '}'|cut -d'}' -f2);
+    if [ -f ${1}.aux ]; then
+        for i in $( grep '^\\\@input' ${1}.aux | tr '{' '}'|cut -d'}' -f2);
             do rm -f $i;
         done
     fi
-    for i in $tmp_extensions; do rm -f ${filebase2}.$i; done
+    for i in $tmp_extensions; do rm -f ${1}.$i; done
 }
 
 ## main ##
