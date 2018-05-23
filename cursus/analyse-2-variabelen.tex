@@ -327,7 +327,7 @@ Zo'n verband kunnen we vinden aan de hand van de \index{Kleinste kwadraten metho
   \begin{eqnarray}
     \sum_{i}^{n} e_{i}^{2} & =& \sum_{i}^{n} (y_{i} - (\beta_{0} + \beta_{1}x_{i}))^{2}\\
     & = & \sum_{i}^{n} ((Y_{i} - \beta_{1} X_{i}) - (\beta_{0} - \overline{y} + \beta_{1}\overline{x}))^{2}\\
-    & = & \sum_{i}^{n}(Y_{i} - \beta_{1} X_{i})^2 - 2 \sum_{i}^{n}(Y_i - \beta_1 X_i)(\beta_0 - \overline{y})+ \beta_1\overline{x}) + (\beta_{0} - \overline{y} + \beta_{1}\overline{x}))^{2} \label{eq:stap1}\\
+    & = & \sum_{i}^{n}(Y_{i} - \beta_{1} X_{i})^2 - 2 \sum_{i}^{n}(Y_i - \beta_1 X_i)(\beta_0 - \overline{y}+ \beta_1\overline{x}) + \sum_{i}^{n}(\beta_{0} - \overline{y} + \beta_{1}\overline{x})^{2} \label{eq:stap1}\\
     & = & \sum_{i}^{n}(Y_{i} - \beta_{1} X_{i})^{2} + n(\beta_{0} - \overline{y} + \beta_{1} \overline{x})^{2} \label{eq:stap2}
   \end{eqnarray}
 	
