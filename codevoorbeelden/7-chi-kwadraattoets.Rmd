@@ -42,7 +42,7 @@ R has several functions for calculations related to the $\chi^2$ density functio
 - `qchisq(p, df)`: the inverse of `pchisq`, "find a number $x$ so that $P(\chi^2 < x) = p$"
 - `rchisq(n, df)`: generate $n$ random numbers for a $\chi^2$ distribution
 
-The parameter `df` denotes the degrees of freedom, and generally equals the sample size minus one: $n - 1$.
+The parameter `df` denotes the degrees of freedom. The value depends on the contingency table. In the case of a goodness of fit test (see below), `df` is the number of cells minus one. In the case of a chi-squared test for independence of categorical data, `df` is the product of the number of rows ($r$) minus one and the number of columns ($l$) minus one: $df = (r - 1) (l - 1)$.
 
 ## Goodness of fit test
 
@@ -250,11 +250,87 @@ text(x = chisq, y = 0.1, paste('chi^2 = ', round(chisq, digits=2)))
 
 ```
 
-## Chi-squared test for categorical data
+## Chi-squared test for independence of categorical data
 
 With this variant of the Chi-squared test, we can determine whether two categorical (i.e. qualitative) variables are associated.
 
-As an example, we take a study by Doll and Hill, who in 1951 conducted a survey among British general practicioners with the request for data about their age and whether they smoked or not. They then followed up on the respondents for years and recorded whether they died of lung cancer or not.
+The null hypothesis in this case is that the two variables are independent, i.e. all columns in the contingency table have similar distributions of frequencies. The alternative hypothesis is that there is an association between the two variables.
+
+### Example
+
+We'll take the `MASS::survey` dataset as an example and will try to determine if variables `Smoke` and `Exer` are associated.
+
+```{r}
+library(MASS)
+exer_smoke <- table(survey$Smoke, survey$Exer)
+plot(exer_smoke)
+exer_smoke_test <- chisq.test(exer_smoke)
+exer_smoke_test
+```
+
+Since the p-value is approximately 0.483, the null hypothesis cannot be rejected. So, there is no association between smoking habits and exercise. Or, smokers do not have significantly different exercise habits from non-smokers.
+
+Remark that the degrees of freedom is 6, i.e.:
+
+```{r}
+df_exer_smoke <- (nrow(exer_smoke) - 1) * (ncol(exer_smoke) - 1)
+df_exer_smoke
+```
+
+### Cochran's rule
+
+A chi-squared test only gives good results if you have enough observations in each category. A rule of thumb four what exactly is *enough* was formulated by Cochran, and applies to contingency tables larger than 2x2:
+
+* All expected values should be at least 1
+* At most 20% of the expected values should be below 5
+
+Let's check whether the previous case satisfies Cochran's rule.
+
+```{r}
+# Function that checks whether the specified contingency table x
+# satisfies Cochran's rule.
+cochrans_rule <- function(x) {
+  test <- chisq.test(x)
+  EXPECTED = test$expected
+  
+  # Rule 1. None of the expected values should be less than 1
+  EXP_LT_1 = table(EXPECTED < 1)
+  NUM_LT_1 = as.numeric(EXP_LT_1['TRUE'])
+  if(is.na(NUM_LT_1)) {
+    NUM_LT_1 = 0
+  }
+  SAT_LT_1 = NUM_LT_1 == 0
+  
+  # Rule 2. At most 20% of expected values should be less than 5
+  EXP_LT_5 = table(EXPECTED < 5)
+  PCT_LT_5 = as.numeric(EXP_LT_5['TRUE']) / sum(EXP_LT_5)
+  if(is.na(PCT_LT_5)) {
+    PCT_LT_5 = 0
+  }
+  SAT_LT_5 = PCT_LT_5 < .2
+  
+  # Return final result and intermediate steps
+  structure(list(
+    satisfied = SAT_LT_1 & SAT_LT_5,
+    
+    expected = EXPECTED,
+    
+    expected.lt.1 = EXP_LT_1,
+    satisfied.lt.1 = SAT_LT_1,
+    
+    expected.lt.5 = EXP_LT_5,
+    satisfied.lt.5 = SAT_LT_5
+  ))
+}
+
+cochrans_rule(exer_smoke)
+```
+
+So, Cochran's rule was NOT satisfied. Specifically, 4 out of 12 expected values are less than 5, or 33%.
+
+### Another example
+
+As another example, we take a study by Doll and Hill, who in 1951 conducted a survey among British general practicioners with the request for data about their age and whether they smoked or not. They then followed up on the respondents for years and recorded whether they died of lung cancer or not.
 
 The results of the survey are given in the following table:
 
