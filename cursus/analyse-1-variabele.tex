@@ -331,7 +331,7 @@ boxplot(android_cpu$Tijd,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
 	De boxplot wordt standaard verticaal getekend. Gebruik het commando \texttt{help(boxplot)} om uit te zoeken hoe we de tekening horizontaal krijgen. 
 \end{exercise}
 
-Als je goed geantwoord hebt op de volgende vragen merk je natuurlijk dat het weinig zin heeft de volledige dataset te analyseren, aangezien de dataset verdeeld is over verschillende categorie\"en. We willen dus wel deze statistieken weten, maar per categorie. We kunnen zus een boxplot maken voor elke categorie.
+Als je goed geantwoord hebt op de volgende vragen merk je natuurlijk dat het weinig zin heeft de volledige dataset te analyseren, aangezien de dataset verdeeld is over verschillende categorie\"en. We willen dus wel deze statistieken weten, maar per categorie. We kunnen dus een boxplot maken voor elke categorie.
 
 \begin{lstlisting}
 boxplot(android_cpu$Tijd~android_cpu$Datahoeveelheid,main='Spreiding van de CPU tijd t.o.v. datahoeveelheid',ylab='Tijd in ms');
