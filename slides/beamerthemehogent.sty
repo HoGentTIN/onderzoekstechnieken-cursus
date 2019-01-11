@@ -1,207 +1,130 @@
-%%============================================================================
-%% LaTeX Beamer Presentatiestijl voor HoGent Bedrijf en Organisatie
-%%============================================================================
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
+%==========================================================================
+% LaTeX Beamer Presentatiestijl voor HoGent - huisstijl 2018
+%==========================================================================
+% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\usepackage{mdframed}
+\ProvidesPackage{beamerthemehogent}
 
 \mode<presentation>
 
-%%============================================================================
-%% Kleuren HoGent huisstijl
-%%============================================================================
+%--------------------------------------------------------------------------
+% Nodige packages
+%--------------------------------------------------------------------------
 
-% Kleuren van de faculteiten
-\definecolor{HoGentFBO}{RGB}{0,147,208} % Bedrijf en Organisatie
-\definecolor{HoGentFMW}{RGB}{0,168,143} % Mens en Wetenschappen
-\definecolor{HoGentFNT}{RGB}{255,0,0}   % Natuur en Techniek
-\definecolor{HoGentSoA}{RGB}{0,0,0}     % School of Arts
+\RequirePackage{tikz}
+\usetikzlibrary{fadings,positioning}
+\RequirePackage[overlay, absolute]{textpos}
+\RequirePackage{fontspec}
 
-% Officiële accentkleuren
-\definecolor{HoGentAccent1}{RGB}{0,111,184}   % Donkerblauw
-\definecolor{HoGentAccent2}{RGB}{244,52,69}   % Rood
-\definecolor{HoGentAccent3}{RGB}{0,156,124}   % Groen
-\definecolor{HoGentAccent4}{RGB}{239,170,162} % Roze
-\definecolor{HoGentAccent5}{RGB}{150,150,150} % Grijs
-\definecolor{HoGentAccent6}{RGB}{255,218,0}   % Geel
+%--------------------------------------------------------------------------
+% Kleuren
+%--------------------------------------------------------------------------
+% Bron: https://hnet.hogent.be/themas/communicatie/huisstijl-logo-s-en-sjablonen/kleurgebruik/
 
-% Aliassen voor de accentkleuren
-\colorlet{HoGentBlue}{HoGentAccent1}
-\colorlet{HoGentRed}{HoGentAccent2}
-\colorlet{HoGentGreen}{HoGentAccent3}
-\colorlet{HoGentPink}{HoGentAccent4}
-\colorlet{HoGentGrey}{HoGentAccent5}
-\colorlet{HoGentYellow}{HoGentAccent6}
+% Kleurendefinities
 
-%%============================================================================
-%% Presentatiestijl: kleuren
-%%============================================================================
+\definecolor{hgdarkgreen}{RGB}{22,176,165}
+\definecolor{hgpink}{RGB}{241,157,160}
+\definecolor{hgochre}{RGB}{250,188,50}
+\definecolor{hgorange}{RGB}{239,135,103}
+\definecolor{hgpurple}{RGB}{187,144,189}
+\definecolor{hgblue}{RGB}{76,162,213}
+\definecolor{hglightgreen}{RGB}{165,202,114}
+\definecolor{hgbrown}{RGB}{216,176,131}
+\definecolor{hggrey}{RGB}{195,187,175}
+\definecolor{hgyellow}{RGB}{244,222,0}
 
-% Titels
-\setbeamercolor{structure}{fg=HoGentBlue}
-\setbeamercolor{title}{fg=HoGentBlue}
-\setbeamercolor{frametitle}{fg=HoGentBlue}
+%--------------------------------------------------------------------------
+% Lettertypes
+%--------------------------------------------------------------------------
 
-\setbeamercolor{part page}{fg=white,bg=HoGentBlue}
+\setsansfont{Montserrat}
+\setmonofont{Fira Code}
 
-% Kadertekst
-\setbeamercolor*{block title}{use=structure,bg=HoGentBlue,fg=white}
-\setbeamercolor*{block body}{use=structure,bg=HoGentFBO,fg=white}
+\setmathrm{Montserrat}
+\setmathsf{Montserrat}
+\setmathtt{Fira Code}
+\setboldmathrm{Montserrat ExtraBold}
 
-\setbeamercolor*{block title alerted}{use=structure,bg=HoGentBlue,fg=HoGentYellow}
-\setbeamercolor*{block body alerted}{use=structure,bg=HoGentFBO,fg=white}
+\setbeamerfont{title}{series=\bfseries, size=\Huge}
+\setbeamerfont{subtitle}{series=\bfseries, size=\large}
+\setbeamerfont{frametitle}{series=\bfseries, size=\Huge}
 
-%%============================================================================
-%% Presentatiestijl: lettertypes
-%%============================================================================
+%--------------------------------------------------------------------------
+% ``Outer'' templates
+%--------------------------------------------------------------------------
 
-\usefonttheme{professionalfonts}
-
-% "Gewone" tekst
-\setbeamerfont{normal text}{family={\fontfamily{phv}}}
-\setbeamerfont{footline}{size=\scriptsize,family={\fontfamily{phv}}}
-
-% Titels
-\setbeamerfont{subtitle}{size=\Large,series=\bfseries,family={\fontfamily{phv}}}
-\setbeamerfont{title}{size=\huge,series=\bfseries,family={\fontfamily{phv}}}
-\setbeamerfont{frametitle}{series=\bfseries,family={\fontfamily{phv}}}
-
-% Kadertekst
-\setbeamerfont{block title}{series=\bfseries,family={\fontfamily{phv}}}
-\setbeamerfont{block title alerted}{series=\bfseries,family={\fontfamily{phv}}}
-\setbeamerfont{block body}{family={\fontfamily{phv}}}
-\setbeamerfont{block body alerted}{family={\fontfamily{phv}}}
-
-%%============================================================================
-%% Presentatiestijl: "inner style"
-%%============================================================================
-%% Stijl van dingen "binnen" een frame: blokken, omgevingen, ...
-
-\useinnertheme{circles}
-
-%%============================================================================
-%% Presentatiestijl: "outer style"
-%%============================================================================
-%% Stijl van dingen "buiten" een frame: hoofding, voettekst, ...
-
-% "Navigatiesymbolen" onderaan rechts van de slide weglaten
-\setbeamertemplate{navigation symbols}{}
-
-%%----------------------------------------------------------------------------
-%% Voetlijn: HoGent woordmerk, korte titel, datum en paginanummer
-\setbeamertemplate{footline}{%
-  %\vskip 2pt \hskip 2pt \includegraphics[width=1.5cm]{img/HG-woordmerk}\hskip 1em \insertshorttitle % links
-  %\hfill
-  %\insertdate % midden
-  \hfill
-  \insertframenumber/\inserttotalframenumber \hspace*{2pt}} % rechts
-
-%%----------------------------------------------------------------------------
-%% Dia met HoGent logo
-\newcommand{\HoGentLogo}{%
-  {%
-    \setbeamertemplate{background canvas}{%
-      \color{black}\rule{\paperwidth}{\paperheight}%
-    }%
-    \begin{frame}[plain]%
-      \begin{center}%
-        \includegraphics[width=.3\textwidth]{img/HG-beeldmerk-inv}
-      \end{center}%
-    \end{frame}%
-  }
-}
-
-%%----------------------------------------------------------------------------
-%% Titeldia
 \setbeamertemplate{title page}{%
-  \vspace{-25mm}
-  \begin{beamercolorbox}[wd=\paperwidth,ht=.8\textheight]{block body}
-    \begin{center}
-      {\includegraphics[width=4.5cm]{img/FBO-NL-inv}}
-    \end{center}
-  \end{beamercolorbox}
-  \vspace{5mm}
-  {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
-
-  \vspace{5mm}
-
-  {\usebeamerfont{subtitle}\usebeamercolor[fg]{title}\insertauthor}
+  \begin{beamercolorbox}[wd=\paperwidth, ht=.8\textheight, leftskip=1cm]{title page header}
+    \usebeamerfont{title}\usebeamercolor{title}\inserttitle \\%
+    \usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle%
+    
+    \bigskip\bigskip\bigskip\bigskip
+    
+    \usebeamerfont{framesubtitle}\insertauthor%
+    
+    \insertdate
+  \end{beamercolorbox}%
 }
 
-\newcommand{\titleframe}{%
-  \begin{frame}[plain]
-    \titlepage
+% Met dit template kan je een afbeelding op de achtergrond toevoegen, uitgeknipt
+% in de vorm van een gekozen letter.
+% Voorbeeld gebruik:
+% \setbeamertemplate{background}[imgletter]{img/example.jpg}{E}
+%
+% Bronnen:
+% https://tex.stackexchange.com/questions/63146/negative-font-overlayed-with-a-photo
+% https://tex.stackexchange.com/questions/451312/positioning-of-text-in-tikzfadingfrompicture
+% Met dank aan TeX.SE-gebruikers marmot en samcarter voor hun hulp
+
+\defbeamertemplate{background}{imgletter}[2]{%
+  \begin{tikzfadingfrompicture}[name=letter#2]
+    \path[use as bounding box] (-15,-4) rectangle (6,12);
+    \node[text=transparent!0] {\fontspec[Scale=26]{Code Pro Black}#2};
+  \end{tikzfadingfrompicture}
+  
+  \begin{tikzpicture}[remember picture,overlay,anchor=north west]
+  \node[scope fading=letter#2,fit fading=false]
+  at (current page.north west) {\includegraphics[height=\textheight]{#1}};
+  \end{tikzpicture}
+}
+
+% Voeg een titeldia toe bij het begin van een nieuwe sectie
+\AtBeginSection[] % Do nothing for \section*
+{
+  \begin{frame}<beamer>
+
+    \begin{beamercolorbox}[wd=\paperwidth, ht=.5\textheight, leftskip=1cm]{title page header}
+      \usebeamerfont{title}\usebeamercolor{title}\insertsection%
+    \end{beamercolorbox}%
   \end{frame}
 }
 
+%--------------------------------------------------------------------------
+% ``Inner'' templates
+%--------------------------------------------------------------------------
 
-%%----------------------------------------------------------------------------
-%% Sectiekop. Gebruik dit als volgt:
-%%   \section{Titel deel}
-%%   \sectionframe{Ondertitel deel}
-\newcommand{\sectionframe}[1]{%
-  {
-    \setbeamertemplate{background canvas}{%
-      \color{HoGentBlue}\rule{\paperwidth}{\paperheight}
-    }
-    \begin{frame}[plain]
-      \fcolorbox{white}{HoGentBlue}{%
-        \begin{minipage}[c][.9\textheight][t]{\textwidth}
-          \usebeamercolor[fg]{part page}\usebeamerfont{title}\insertsection
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[default]
 
-          \vspace{5mm}
+% ``bullets'' op drie niveaus
+\setbeamertemplate{itemize item}{$\bullet$}  % opgevulde cirkel
+\setbeamertemplate{itemize subitem}{$\circ$} % lege cirkel
+\setbeamertemplate{itemize subsubitem}{--}   % streepje
 
-          \usebeamerfont{subtitle}#1
-        \end{minipage}
-      }
-    \end{frame}
-  }
-}
+%--------------------------------------------------------------------------
+% Commando's
+%--------------------------------------------------------------------------
 
-\newcommand{\sectionframelogo}[1]{%
-  \sectionframe{%
-    #1
-    \vfill
-    \includegraphics[width=3cm]{img/HG-woordmerk-inv}
-  }
-}
-
-
-%%----------------------------------------------------------------------------
-%% Afbeelding op schaal
-\newcommand{\scaledimg}[1]{%
+% Een gecentreerd en gekleurd kader met vette tekst in het wit. Standaard
+% achtergrondkleur is hgblue, maar dit kan ingesteld worden met een
+% optioneel argument. Voorbeelden:
+%  \alertbox{Let op!}
+%  \alertbox[hgpurple]{Let op!}
+\newcommand{\alertbox}[2][hgblue]{%
   \begin{center}
-    \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{#1}
+    \colorbox{#1}{\bfseries\textcolor{white}{#2}}
   \end{center}
 }
 
-\newcommand{\scaledimgvert}[2]{%
-  \begin{center}
-    \includegraphics[width=\textwidth,height=0.4\textheight,keepaspectratio]{#1}
-
-    \includegraphics[width=\textwidth,height=0.4\textheight,keepaspectratio]{#2}
-
-  \end{center}
-}
-\newcommand{\scaledimghor}[2]{%
-  \begin{center}
-    \includegraphics[width=.4\textwidth,height=0.4\textheight,keepaspectratio]{#1}
-    \includegraphics[width=.4\textwidth,height=0.4\textheight,keepaspectratio]{#2}
-
-  \end{center}
-}
-
-%%----------------------------------------------------------------------------
-%% Bright box
-%% Tekst in een gekleurd kader
-\newcommand{\brightbox}[1]{%
-  \setbeamercolor{alertbox}{bg=HoGentFBO,fg=white}
-  \begin{beamercolorbox}[sep=2pt,center]{alertbox}
-    \textbf{#1}
-  \end{beamercolorbox}
-}
-
-
-
-\mode
-<all>
+\mode<all>

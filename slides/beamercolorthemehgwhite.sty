@@ -1,0 +1,35 @@
+%==========================================================================
+% LaTeX Beamer Presentatiestijl voor HoGent - huisstijl 2018
+%==========================================================================
+%
+% Kleurenschema met witte achtergrond, zwarte tekst
+%
+% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
+
+\ProvidesPackage{beamercolorthemehgwhite}
+
+\mode<presentation>
+
+\setbeamercolor{palette primary}{fg=black}
+\setbeamercolor{palette secondary}{fg=black}
+\setbeamercolor{palette tertiary}{fg=black}
+\setbeamercolor{palette quaternary}{fg=black}
+
+\setbeamercolor{structure}{fg=black}
+
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{alerted text}{fg=hgorange}
+
+% Voettekst: paginanummer links, HOGENT logo rechts
+\setbeamertemplate{footline}{%
+  \begin{beamercolorbox}[wd=\paperwidth]{footline}
+    \usebeamercolor{page number in foot}
+    \usebeamerfont{page number in foot}
+    \hspace{1em}\insertframenumber/\inserttotalframenumber
+    \hfill
+    \includegraphics[width=1.5cm]{img/HOGENT_Logo_Pos_rgb.png}
+    \hspace*{.85cm}\vspace*{.8cm}
+  \end{beamercolorbox}
+}
+
+\mode<all>
