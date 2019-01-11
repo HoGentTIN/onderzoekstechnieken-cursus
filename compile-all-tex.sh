@@ -4,13 +4,7 @@ set -o errexit # exit immediately if a command exits with a non-zero status
 set -o nounset # do not allow to use an unset variable
 set -o pipefail # force exit code of a pipeline to non-zero, if one of commands fails with non-zero
 
-# define the commands and their options here, for maintainability
-if pdflatex --help|grep '\-quiet'>/dev/null; then
-    pdflatex_cmd="pdflatex -interaction=batchmode -quiet"
-else
-    # some versions of pdflatex (eg. on Mac) don't recognize the '-quiet' option
-    pdflatex_cmd="pdflatex -interaction=batchmode"
-fi
+compiler="pdflatex"
 biber_cmd="biber --quiet"
 
 # tmp_extensions: these files will be removed after a successful run
@@ -29,19 +23,24 @@ n_succes=0
 tmpname=${0}.tmp
 
 usage() {
-    echo "Usage: $0 [-f] [-c|-nc] FILE [FILE [FILE ...]]"
-    echo "   or: $0 [-f] [-c|-nc] [DIR [DIR [DIR ...]]]"
-    echo "Compile the specified TeX FILE(s) or compile *all* TeX files"
-    echo "in the specified DIR(s) and all the underlying subdirs (default value: .)"
-    echo "By default, the files are compiled only if the TeX file is newer than the PDF"
-    echo "By default, all temporary files are removed, but only after a successful build"
-    echo " -f, --force     : always process the files, also if the PDF file is newer"
-    echo " -c, --cleanup   : always remove tmp files, also if build failed or PDF newer"
-    echo " -nc, --nocleanup: never remove temporary files, even if build was successful"
-    echo " -h, --help      : show this help message"
-    #TODO echo " -b, --biber   : force to run biber (by default only if .bcf contains 'citekey')"
-    #TODO echo " -nb, --nobiber: don't run biber"
-    echo "Send questions, requests, issues, bugs, ... to wim.goedertier@hogent.be"
+cat << _EOF_
+
+Usage: $0 [-f] [-c|-nc] FILE [FILE [FILE ...]]
+   or: $0 [-f] [-c|-nc] [DIR [DIR [DIR ...]]]
+Compile the specified TeX FILE(s) or compile *all* TeX files
+in the specified DIR(s) and all the underlying subdirs (default value: .)
+By default, the files are compiled only if the TeX file is newer than the PDF
+By default, all temporary files are removed, but only after a successful build
+ -f, --force     : always process the files, also if the PDF file is newer
+ -c, --cleanup   : always remove tmp files, also if build failed or PDF newer
+ -nc, --nocleanup: never remove temporary files, even if build was successful
+ -h, --help      : show this help message
+ -x, --xelatex   : use xelatex as compiler instead of pdflatex
+Send questions, requests, issues, bugs, ... to wim.goedertier@hogent.be
+_EOF_
+
+#TODO -b, --biber   : force to run biber (by default only if .bcf contains 'citekey')
+#TODO -nb, --nobiber: don't run biber
 }
 
 die() {
@@ -128,7 +127,7 @@ compile_file() {
     rm -f ${outputname}.pdf ${outputname}-withERRORS.pdf || exitcode=$?
     # compile, only if we were able to remove the previous pdf
     if [ $exitcode -eq 0 ]; then
-        $pdflatex_cmd -jobname=$outputname $inputname || exitcode=$?
+        $compiler_cmd -jobname=$outputname $inputname || exitcode=$?
         compilecount=1
     fi
     # run biber, only if necessary
@@ -138,7 +137,7 @@ compile_file() {
             $biber_cmd $outputname || exitcode=$?
             # compile 2nd time, only if biber was successful
             if [ $exitcode -eq 0 ]; then
-                $pdflatex_cmd -jobname=$outputname $inputname || exitcode=$?
+                $compiler_cmd -jobname=$outputname $inputname || exitcode=$?
                 compilecount=2
             else
                 echo "    if biber failed due to UTF-8 errors, it might help to run following command:"
@@ -151,7 +150,7 @@ compile_file() {
         if grep 'Rerun to' ${outputname}.log >/dev/null; then
             compilecount=$((compilecount + 1))
             echo "    compiling again (pass ${compilecount})"
-            $pdflatex_cmd -jobname=$outputname $inputname || exitcode=$?
+            $compiler_cmd -jobname=$outputname $inputname || exitcode=$?
         else
             break
         fi
@@ -193,10 +192,20 @@ for i in "$@"; do
     -f|--force) force=1 ;;
     -c|--cleanup) cleanup=1 ;;
     -nc|--nocleanup) nocleanup=1 ;;
+    -x|--xelatex) compiler=xelatex ;;
     -*) die "Unexpected argument '$i'";;
     esac
 done
 
+# define the commands and their options here, for maintainability
+if [ "${compiler}" = 'xelatex' ]; then
+    compiler_cmd="xelatex -interaction=batchmode"
+elif pdflatex --help|grep '\-quiet'>/dev/null; then
+    compiler_cmd="pdflatex -interaction=batchmode -quiet"
+else
+    # some versions of pdflatex (eg. on Mac) don't recognize the '-quiet' option
+    compiler_cmd="pdflatex -interaction=batchmode"
+fi
 echo "=== type 'sh $0 --help' for more details"
 
 # get rid of all options in beginning of command line
