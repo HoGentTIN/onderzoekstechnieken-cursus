@@ -1,13 +1,18 @@
 %%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
+%% Onderzoekstechnieken: introductie
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
 %==============================================================================
+
+\usetheme{hogent}
+
+% Kies hieronder een achtergrondkleur
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+%\usecolortheme{hgblack} % zwarte achtergrond, witte tekst
 
 %---------- Packages ----------------------------------------------------------
 
@@ -16,19 +21,10 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
-
-%---------- Configuratie ------------------------------------------------------
-
-\usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
-
-\usetheme{hogent}
 
 %---------- Commando-definities -----------------------------------------------
 
@@ -36,9 +32,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken -- Intro}
+\title[OZT: Intro]{Onderzoekstechnieken}
+\subtitle{Introductie, praktisch}
 \author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -46,59 +43,74 @@
 
 \begin{document}
 
-%---------- Front matter ------------------------------------------------------
-
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
 %---------- Inhoud ------------------------------------------------------------
 
-% Dia voor sectiekop, voorbeeld met een afbeelding onderaan de pagina
-\section{1}
+\begin{frame}
+  \maketitle
+\end{frame}
 
-\sectionframelogo{Onderzoekstechnieken}
+\section{Onderzoekstechnieken}
 
 \begin{frame}
   \frametitle{Onderzoekstechnieken}
 
-  \scaledimg{img/intro-01.jpg}
+  \centering
+  \includegraphics[height=.8\textheight]{img/intro-01.jpg}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeelden van slecht onderzoek}
-
-  \scaledimgvert{img/intro-02.png}{img/intro-03.png}
+  \frametitle{Doel van deze cursus}
+  
+  \begin{itemize}
+    \item Inleiding data science/statistiek
+    \item Voorbereiding bachelorproef
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeelden van slecht onderzoek}
-
-  \scaledimg{img/intro-04.png}
+  \frametitle{Hoe het niet moet}
+  
+  \centering
+  \includegraphics[height=.8\textheight]{img/intro-02.png}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeelden van slecht onderzoek}
-
-  \scaledimg{img/intro-05.jpg}
+  \frametitle{Hoe het niet moet}
+  
+  \centering
+  \includegraphics[height=.8\textheight]{img/intro-03.png}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeelden van slecht onderzoek}
+  \frametitle{Hoe het niet moet}
 
-  \scaledimg{img/intro-10.jpg}
+  \centering
+  \includegraphics[height=.8\textheight]{img/intro-04.png}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Voorbeelden van slecht onderzoek}
-	{\tiny \textit{'Het overheidsbeslag is afgelopen jaar gedaald, maar niet zo spectaculair als een grafiek van de N-VA doet uitschijnen. Economieprofessor Tom Verbeke zag dat en wees N-VA met de vinger. 'Als een student dat soort truken toepast, zal hij zich serieus mogen verdedigen.'} }
-	\scaledimg{img/intro-nva.jpg}
+  \frametitle{Hoe het niet moet}
+
+  \centering
+  \includegraphics[height=.8\textheight]{img/intro-05.jpg}
 \end{frame}
 
-\section{2}
-\sectionframelogo{Praktisch}
+\begin{frame}
+  \frametitle{Hoe het niet moet}
+
+  \centering
+  \includegraphics[height=.8\textheight]{img/intro-10.jpg}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hoe het niet moet}
+  {\tiny \textit{'Het overheidsbeslag is afgelopen jaar gedaald, maar niet zo spectaculair als een grafiek van de N-VA doet uitschijnen. Economieprofessor Tom Verbeke zag dat en wees N-VA met de vinger. 'Als een student dat soort truken toepast, zal hij zich serieus mogen verdedigen.'} }
+  
+  \centering
+  \includegraphics[height=.7\textheight]{img/intro-nva.jpg}
+\end{frame}
+
+\section{Praktisch}
 
 \begin{frame}
   \frametitle{Overzicht leerstof}
@@ -125,17 +137,25 @@
     & \tabitem Steekproef\\
     & \tabitem Normale verdeling\\
 
-  \hline
-  \textbf{Toetsingsprocedure en} & \tabitem Toetsen van hypothesen \\
-  \textbf{Chi-kwadraattoets}     & \tabitem $z$-toets, $t$-toets\\
-                                 & \tabitem $\chi^{2}$-toets\\
+\end{tabular}
+\end{table}
+\end{frame}
+\begin{frame}
+\frametitle{Overzicht leerstof (vervolg)}
 
-  \hline
-  \multirow{3}{*}{\textbf{Tijdreeksen}} &
-      \tabitem Wiskundige modellen \\
+\begin{table}[h]
+  \begin{tabular}{l|l}
+
+    \textbf{Toetsingsprocedure en} & \tabitem Toetsen van hypothesen \\
+    \textbf{Chi-kwadraattoets}     & \tabitem $z$-toets, $t$-toets\\
+    & \tabitem $\chi^{2}$-toets\\
+    
+    \hline
+    \multirow{3}{*}{\textbf{Tijdreeksen}} &
+    \tabitem Wiskundige modellen \\
     & \tabitem Voortschrijdend gemiddelde\\
     & \tabitem Exponentiële afvlakking\\
-\end{tabular}
+  \end{tabular}
 \end{table}
 \end{frame}
 
@@ -155,7 +175,7 @@
       \end{itemize}
   \end{itemize}
 
-  \brightbox{Kom naar de les en \textcolor{HoGentAccent6}{neem nota's}}
+  \alertbox{Kom naar de les en \textcolor{hgyellow}{neem nota's}!}
 
   \begin{center}
     \includegraphics[height=3cm]{img/intro-06.jpg}
@@ -168,7 +188,7 @@
   
   Slagingspercentage in 1e zit: $\sim35\%$ (dag), $\sim10\%$ (TILE)
   
-  \vspace{18pt}
+  \vspace{8pt}
   
   Gebruik effectieve studiemethoden:
   
@@ -183,7 +203,7 @@
 
   Zie studiewijzer, \url{http://www.learningscientists.org/}
   
-  \brightbox{Werk tijdens het semester!}
+  \alertbox{Werk tijdens het semester!}
 \end{frame}
 
 \begin{frame}
@@ -263,10 +283,10 @@
 \begin{frame}
   \frametitle{NPE: Casus onderzoeksproces}
 
-  \brightbox{Invloed van studiemethode}
+  \alertbox{Kunnen goede studietechnieken invloed hebben op resultaat?}
 
   \begin{enumerate}
-    \item Lezen van een wetenschappelijke paper
+    \item Literatuuronderzoek
     \item Experimenten reproduceren
     \item Onderzoeksvraag bijsturen, afbakenen en vastleggen
     \item Uitvoeren van de tests op een gecontroleerde manier.

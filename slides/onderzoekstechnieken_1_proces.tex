@@ -1,27 +1,28 @@
 %%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
+%% Onderzoekstechnieken: het onderzoeksproces
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
 %==============================================================================
+
+\usetheme{hogent}
+
+% Kies hieronder een achtergrondkleur
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+%\usecolortheme{hgblack} % zwarte achtergrond, witte tekst
 
 %---------- Packages ----------------------------------------------------------
 
 \usepackage{graphicx,multicol}
 \usepackage{comment,enumerate,hyperref}
 \usepackage{amsmath,amsfonts,amssymb}
-\usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -30,17 +31,16 @@
 
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
 
-\usetheme{hogent}
-
 %---------- Commando-definities -----------------------------------------------
 
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Les 1. het onderzoeksproces}
+\title[OZT: onderzoeksproces]{Les 1. het onderzoeksproces}
+\subtitle{Onderzoekstechnieken}
 \author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -50,11 +50,9 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
+\begin{frame}
+  \maketitle
+\end{frame}
 
 %---------- Inhoud ------------------------------------------------------------
 
@@ -66,16 +64,25 @@
 
 \section{De wetenschappelijke methode}
 
-\sectionframelogo{\normalsize{\emph{No matter how many instances of white swans we may have observed, this does not justify the conclusion that all swans are white}\\---Karl Popper}}
+\begin{frame}[plain]
+  \bfseries\Large
+  No matter how many instances of white swans we may have observed, this does not justify the conclusion that all swans are white
+  
+  \bigskip
+  
+  ---Karl Popper
+\end{frame}
 
-\begin{frame}
-  \scaledimg{img/les1-01}
+\begin{frame}[plain]
+  \centering
+  \includegraphics[height=\textheight]{img/les1-01}
 \end{frame}
 
 \begin{frame}
   \frametitle{Hoe vergaren we kennis?}
 
-  \scaledimg{img/les1-02}
+  \centering
+  \includegraphics[height=.8\textheight]{img/les1-02}
 \end{frame}
 
 \begin{frame}[plain,c]
@@ -115,8 +122,9 @@
 
 \begin{frame}
   \frametitle{Kunnen varkens vliegen?}
- % Bedoeling is hier de klas in 3 te delen: ene groep moet aantonen dat varkens kunnen vliegen op autoritaire wijze (bv. Bij boer Mcdonald gaan en navraag), de tweede op deductieve wijze (varkens zijn deel van gewervelden, sommige gewervelden hebben vleugels en dus .. (maar dus met verkeerde conclusie) en de derde tracht dit op wetenschappelijke methode. Hier kan voor deductie ook ik kan in pyama, pyama kan in koffer, dus ik kan in koffer gebruikt worden. 
-  \scaledimg{img/les1-04}
+ % Bedoeling is hier de klas in 3 te delen: ene groep moet aantonen dat varkens kunnen vliegen op autoritaire wijze (bv. Bij boer Mcdonald gaan en navraag), de tweede op deductieve wijze (varkens zijn deel van gewervelden, sommige gewervelden hebben vleugels en dus .. (maar dus met verkeerde conclusie) en de derde tracht dit op wetenschappelijke methode. Hier kan voor deductie ook ik kan in pyama, pyama kan in koffer, dus ik kan in koffer gebruikt worden.
+  \centering
+  \includegraphics[height=.8\textheight]{img/les1-04}
 \end{frame}
 
 \begin{frame}
@@ -163,6 +171,7 @@
 
   \begin{columns}
   \column{\dimexpr\paperwidth}
+  
   \begin{center}
     \begin{tikzpicture}[
       auto,
@@ -179,34 +188,34 @@
 
 
       \node[fase] (1) {
-        1. Formuleren probleemstelling
+        \footnotesize{1. Formuleren probleemstelling}
         \nodepart{second}
-        \small{Wat is de onderzoeksvraag?}
+        \footnotesize{Wat is de onderzoeksvraag?}
       };
       \uncover<2->{\node[fase] (2) [below of=1] {
-        2. Exacte informatiebehoefte definiëren
+        \footnotesize{2. Exacte informatiebehoefte definiëren}
         \nodepart{second}
-        \small{Welke specifieke vragen moeten we stellen?}
+        \footnotesize{Wat moeten we precies meten?}
       };}
       \uncover<3->{\node[fase] (3) [below of=2] {
-        3. Uitvoeren onderzoek
+        \footnotesize{3. Uitvoeren onderzoek}
         \nodepart{second}
-        \small{Enquêtes, simulaties, \ldots}
+        \footnotesize{Enquêtes, simulaties, \ldots}
       };}
       \uncover<4->{\node[fase] (4) [right of=1, node distance=6cm] {
-        4. Verwerken gegevens
+        \footnotesize{4. Verwerken gegevens}
         \nodepart{second}
-        \small{Statistische software}
+        \footnotesize{Statistische software}
       };}
       \uncover<5->{\node[fase] (5) [below of=4] {
-        5. Analyseren gegevens
+        \footnotesize{5. Analyseren gegevens}
         \nodepart{second}
-        \small{Uitvoeren statistische methodes}
+        \footnotesize{Uitvoeren statistische methodes}
       };}
       \uncover<6->{\node[fase] (6) [below of=5] {
-        6. Conclusies schrijven
+        \footnotesize{6. Conclusies schrijven}
         \nodepart{second}
-        \small{Schrijven onderzoeksverslag}
+        \footnotesize{Schrijven onderzoeksverslag}
       };}
 
       \uncover<2->{\draw (1) -- (2);}
@@ -222,8 +231,6 @@
 
 \section{Basisconcepten in onderzoek}
 
-\sectionframelogo{}
-
 \begin{frame}
   \frametitle{Variabelen en waarden}
 
@@ -236,7 +243,8 @@
 
   \begin{columns}[c]
     \column{.6\textwidth}
-    \includegraphics[width=\textwidth]{img/les1-07}
+    \centering
+    \includegraphics[width=.7\textwidth]{img/les1-07}
 
     \column{.4\textwidth}
     \fbox{\parbox{3cm}{%
@@ -299,7 +307,7 @@
 \begin{frame}
   \frametitle{Verbanden tussen variabelen: voorbeeld}
 
-  Is er een verband tussen smaak en cola?
+  Is er een verband tussen soort cola en waardering van de smaak?
 
   \begin{columns}
     \column{0.99\textwidth}
@@ -319,11 +327,8 @@
     \only<2>{Marginale totalen}
 
     \column{.01\textwidth}
-    \vspace{4cm}
     \hspace*{-2cm}
-%    \begin{wrapfigure}{r}{.3\linewidth}
-      \includegraphics[width=2cm]{img/les1-09}
-%    \end{wrapfigure}
+    \includegraphics[width=2cm]{img/les1-09}
   \end{columns}
 \end{frame}
 

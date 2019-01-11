@@ -1,13 +1,18 @@
 %%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
+%% Onderzoekstechnieken: Analyse van 1 variabele
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
 %==============================================================================
+
+\usetheme{hogent}
+
+% Kies hieronder een achtergrondkleur
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+%\usecolortheme{hgblack} % zwarte achtergrond, witte tekst
 
 %---------- Packages ----------------------------------------------------------
 
@@ -16,12 +21,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -33,18 +35,16 @@
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
 \usetikzlibrary{pgfplots.statistics}
 
-\usetheme{hogent}
-
 %---------- Commando-definities -----------------------------------------------
 
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Les 2. Analyse op 1 variabele}
-\author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
-
+\title[OZT: 1 variabele]{Les 2. Analyse van één variabele}
+\subtitle{Onderzoekstechnieken}
+\author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -54,19 +54,17 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
+\begin{frame}
+\maketitle
+\end{frame}
 
 \begin{frame}
-  \frametitle{What's on the menu today?}
+\frametitle{What's on the menu today?}
 
-  \tableofcontents
+\tableofcontents
 \end{frame}
+
+%---------- Inhoud ------------------------------------------------------------
 
 \begin{frame}
   \frametitle{Stel, je wil een vriendengroep analyseren}
@@ -115,29 +113,39 @@
 
 \subsection{Centrummaten}
 
-\sectionframelogo{Centrummaten}
+\begin{frame}
+  \frametitle{Centrummaten}
+  
+  \Large Welke waarde is representatief voor de hele groep?
+\end{frame}
 
 \begin{frame}
   \frametitle{Gemiddelde (of \emph{mean}, \emph{average})}
 
-  \brightbox{Het \textcolor{HoGentAccent6}{gemiddelde} is de som van alle waarden gedeeld door het aantal waarden}
+  \alertbox{Het \textcolor{hgyellow}{gemiddelde} is de som van alle waarden gedeeld door het aantal waarden}
 
   \input{heroes}
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Gemiddelde (of \emph{mean}, \emph{average})}
+
+
   \vspace{.5cm}
   \begin{description}
-    \item[Vraag 1] Het gemiddelde van 15 cijfers is 12. Welk nummer moeten we aan de rij van cijfers toevoegen om een gemiddelde van 13 te komen?
-    \item[Vraag2] Wat gebeurt er als Kabouter Wesley (10cm) er bij komt?
+    \item[Vraag 1] Wat gebeurt er als Kabouter Wesley (10cm) er bij komt?
+    \item[Vraag 2] Het gemiddelde van 15 cijfers is 12. Welk nummer moeten we aan de rij van cijfers toevoegen om een gemiddelde van 13 te komen?
   \end{description}
 
-  \hfill \includegraphics[width=4cm]{img/les2-hero-6}
+  \centering \includegraphics[width=4cm]{img/les2-hero-6}
 
 \end{frame}
 
 \begin{frame}
   \frametitle{Mediaan (\emph{median})}
 
-  \brightbox{Om de \textcolor{HoGentAccent6}{mediaan} te vinden, sorteer de waarden en kies het middelste nummer}
+  \alertbox{Om de \textcolor{hgyellow}{mediaan} te vinden, sorteer de waarden en kies het middelste getal}
 
   \begin{itemize}
     \item Oneven aantal getallen: geen probleem
@@ -146,7 +154,10 @@
 
   \input{heroes}
 
-  \pause
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mediaan (\emph{median})}
 
   \begin{description}
     \item[Vraag 1] Wat gebeurt er nu als Kabouter Wesley er bij komt?
@@ -165,7 +176,7 @@
 \begin{frame}
   \frametitle{Modus (\emph{mode})}
 
-  \brightbox{De \textcolor{HoGentAccent6}{modus} is het vaakst voorkomende getal in een reeks getallen}
+  \alertbox{De \textcolor{hgyellow}{modus} is het vaakst voorkomende getal in een reeks getallen}
 
   Totaal aantal mensen gered door Superman de laatste 15 jaar:
 
@@ -186,19 +197,24 @@
       4 & 7 & 11 & 16 & 20 & 22 & 25 & 26 \\
       \hline
     \end{tabular}
-
     \includegraphics[width=.6cm]{img/les2-hero-2}
   \end{center}
 
 \end{frame}
 
 \subsection{Spreidingsmaten}
-\sectionframelogo{Spreidingsmaten}
+
+\begin{frame}
+  \frametitle{Spreidingsmaten}
+  
+  \Large Hoe groot zijn de onderlinge verschillen binnen de groep?
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Bereik (\emph{range})}
 
-  \brightbox{Het \textcolor{HoGentAccent6}{bereik} van een reeks getallen is de absolute waarde van het verschil tussen het grootste en kleinste getal in de reeks.}
+  \alertbox{Het \textcolor{hgyellow}{bereik} van een reeks getallen is de absolute waarde van het verschil tussen het grootste en kleinste getal in de reeks.}
 
   \input{heroes}
 
@@ -207,7 +223,7 @@
 \begin{frame}
   \frametitle{Kwartielen (\emph{quartiles})}
 
-  \brightbox{De \textcolor{HoGentAccent6}{kwartielen} van een gesorteerde reeks getallen zijn de waarden die de lijst in vier gelijke delen verdeelt. Elk deel vormt dus een kwart van de dataset. Men spreekt van een eerste, tweede en derde kwartiel, genoteerd als resp,~$Q_1$, $Q_2$, $Q_3$}
+  \alertbox{De \textcolor{hgyellow}{kwartielen} van een gesorteerde reeks getallen zijn de waarden die de lijst in vier gelijke delen verdeelt. Elk deel vormt dus een kwart van de dataset. Men spreekt van een eerste, tweede en derde kwartiel, genoteerd als resp,~$Q_1$, $Q_2$, $Q_3$}
 
   \vspace{1cm}
 
@@ -224,12 +240,17 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Variantie (\emph{variance}) en standaardafwijking (\emph{standard deviation})}
+  \frametitle{Variantie en standaardafwijking}
+  
+  Eng. \emph{variance}, resp. \emph{standard deviation}
+  
+  \bigskip
 
-  \brightbox{De \textcolor{HoGentAccent6}{variantie} is het gemiddelde gekwadrateerde verschil tussen de elementen van de dataset en zijn gemiddelde}
+  \alertbox{De \textcolor{hgyellow}{variantie} is het gemiddelde gekwadrateerde verschil tussen de elementen van de dataset en zijn gemiddelde}
 
-  \vspace{1em}
-  \brightbox{De \textcolor{HoGentAccent6}{standaardafwijking} is de vierkantswortel van de variantie}
+  \bigskip
+  
+  \alertbox{De \textcolor{hgyellow}{standaardafwijking} is de vierkantswortel van de variantie}
 
   \input{heroes}
 \end{frame}
@@ -248,11 +269,24 @@
 
 \begin{frame}[plain]
 
-  \scaledimg{img/les2-01}
+  \includegraphics[width=\textwidth]{img/les2-01}
 \end{frame}
 
-\section{Eenvoudige grafieken}
-\sectionframelogo{}
+\begin{frame}
+  \frametitle{Onthou dit!}
+  
+  \alertbox{Enkel een centrummaat opgeven is nooit voldoende!}
+  
+  \begin{itemize}
+    \item Wat is de spreiding?
+    \item Hoe is de data verdeeld? Normale verdeling?
+    \item Is de groep voldoende homogeen?
+  \end{itemize}
+\end{frame}
+
+\section{Grafieken}
+
+\subsection{Eenvoudige grafieken}
 
 \begin{frame}
   \frametitle{Cirkeldiagram (\emph{pie chart})}
@@ -261,7 +295,7 @@
   \includegraphics[width=.8cm]{img/les2-hero-3}
   Waarom herkent niemand Superman?
   \begin{tikzpicture}[scale=.5]
-    \pie[text=legend,color={HoGentAccent1,HoGentAccent2,HoGentAccent3}]{%
+    \pie[text=legend,color={hgblue,hgorange,hglightgreen}]{%
     3/Heeft herkend, 5/Twijfelt, 92/Lijdt aan prosopagnosia}
   \end{tikzpicture}
 
@@ -279,9 +313,14 @@
     \item Vergelijken op basis van hoek, terwijl lengte intuïtiever is
     \item Figuur onduidelijk bij veel categorieën
   \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cirkeldiagram}
 
   \begin{center}
-  \brightbox{Gebruik een cirkeldiagram zo weinig mogelijk!}
+  \alertbox{Vermijd het gebruik van cirkeldiagrammen!}
+  
   \includegraphics[width=.6\textwidth]{img/pie-chart.png}
   \end{center}
 
@@ -349,25 +388,26 @@ Voordelen:
 
 \begin{frame}
   \frametitle{Boxplot}
-
-  % Source: http://mirrors.ibiblio.org/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf
-  % p.430
-  \begin{tikzpicture}
-    \begin{axis}[x=3cm,xticklabels={},xmax=2.3]
+    \begin{columns}
+    \column{.5\textwidth}
+      % Source: http://mirrors.ibiblio.org/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf
+      % p.430
+      \begin{tikzpicture}[scale=.9]
+      \begin{axis}[x=3cm,xticklabels={},xmax=2.3]
       \addplot+[
-        boxplot prepared={
-          draw direction=y,
-          lower whisker=5,
-          lower quartile=7,
-          median=8.5,
-          upper quartile=9.5,
-          upper whisker=10,
-        },
+      boxplot prepared={
+        draw direction=y,
+        lower whisker=5,
+        lower quartile=7,
+        median=8.5,
+        upper quartile=9.5,
+        upper whisker=10,
+      },
       ]
       table[row sep=\\,y index=0] {
         data\\ 1\\ 3\\
       }
-      [right,color=HoGentAccent2]
+      [right,color=hgorange]
       node at
       (boxplot box cs: 1,.6)
       {uitschieter}
@@ -384,20 +424,19 @@ Voordelen:
       (boxplot box cs: \boxplotvalue{upper whisker},1)
       {max}
       ;
-    \end{axis}
-  \end{tikzpicture}
+      \end{axis}
+      \end{tikzpicture}
 
-  Voordeel: snelle manier om data te inspecteren en verschillende datasets te vergelijken
+    \column{.5\textwidth}
+        Voordeel: snelle manier om data te inspecteren en verschillende datasets te vergelijken
+  \end{columns}
 \end{frame}
 
-\section{Interpretatie van grafieken}
-\sectionframelogo{Valkuilen}
+\subsection{Interpretatie van grafieken}
 
 \begin{frame}
   \frametitle{Data-ambiguïteit}
-
-  = Vergeten aan te duiden wat de data betekent.
-  \vspace{1cm}
+  \framesubtitle{= Niet aanduiden wat de data betekent.}
 
   \begin{columns}
     \column{.5\textwidth}
@@ -415,11 +454,12 @@ Voordelen:
 
 \begin{frame}
   \frametitle{Data distortion}
+\framesubtitle{= Verkeerde conclusies laten trekken uit een grafische voorstelling}
 
-  = Verkeerde conclusies laten trekken uit een grafische voorstelling
+  \bigskip
 
   \begin{center}
-    \includegraphics[width=.7\textwidth]{img/les2-03}
+    \includegraphics[height=.8\textheight]{img/les2-03}
   \end{center}
 \end{frame}
 
@@ -440,20 +480,28 @@ Voordelen:
   \end{itemize}
 
   \centering
-  \includegraphics[width=.4\textwidth]{img/les2-04}
-  \includegraphics[width=.4\textwidth]{img/les2-05}
+  \includegraphics[width=.3\textwidth]{img/les2-04}
+  \includegraphics[width=.3\textwidth]{img/les2-05}
 
-  \includegraphics[width=.4\textwidth]{img/les2-06}
-  \includegraphics[width=.4\textwidth]{img/les2-07}
+  \includegraphics[width=.3\textwidth]{img/les2-06}
+  \includegraphics[width=.3\textwidth]{img/les2-07}
 \end{frame}
 
 \begin{frame}
   \frametitle{Anscombe's Quartet}
 
   \centering
-  \includegraphics[width=.8\textwidth]{img/anscombes_quartet}
+  \includegraphics[height=.6\textheight]{img/anscombes_quartet}
 
   Vier verschillende datasets met dezelfde statistische eigenschappen. Deze tonen het belang aan van data-visualisatie.
+\end{frame}
+
+\begin{frame}[plain]
+  \centering
+  
+  \includegraphics[height=.9\textheight]{img/1var-datasaurus-dozen.png}
+  
+  ``The datasaurus dozen'' (Bron: \url{https://www.autodeskresearch.com/publications/samestats})
 \end{frame}
 
 \end{document}
