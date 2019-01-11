@@ -121,10 +121,12 @@
 % optioneel argument. Voorbeelden:
 %  \alertbox{Let op!}
 %  \alertbox[hgpurple]{Let op!}
+
 \newcommand{\alertbox}[2][hgblue]{%
-  \begin{center}
-    \colorbox{#1}{\bfseries\textcolor{white}{#2}}
-  \end{center}
+  \setbeamercolor{alertbox}{bg=#1,fg=white}
+  \begin{beamercolorbox}[sep=2pt,center]{alertbox}
+    \textbf{#2}
+  \end{beamercolorbox}
 }
 
 \mode<all>
