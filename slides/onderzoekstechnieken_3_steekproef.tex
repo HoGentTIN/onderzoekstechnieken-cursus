@@ -1,13 +1,18 @@
 %%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
+%% Onderzoekstechnieken: Steekproefonderzoek
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
 %==============================================================================
+
+\usetheme{hogent}
+
+% Kies hieronder een achtergrondkleur
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+%\usecolortheme{hgblack} % zwarte achtergrond, witte tekst
 
 %---------- Packages ----------------------------------------------------------
 \usepackage{etex}
@@ -16,12 +21,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -43,7 +45,7 @@
   float=H,
   basicstyle=\tiny,       % the size of the fonts that are used for the code
   numbers=left,                   % where to put the line-numbers
-  numberstyle=\tiny\color{HoGentGrey},  % the style that is used for the line-numbers
+  numberstyle=\tiny\color{hggrey},  % the style that is used for the line-numbers
   stepnumber=1,                   % the step between two line-numbers. If it's 1, each line
   % will be numbered																
   numbersep=5pt,                  % how far the line-numbers are from the code
@@ -59,14 +61,13 @@
   breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
   title=\lstname,                 % show the filename of files included with \lstinputlisting;
   % also try caption instead of title
-  keywordstyle=\color{HoGentBlue}, % keyword style
-  commentstyle=\color{HoGentGrey}, % comment style
-  stringstyle=\color{HoGentRed},  % string literal style
+  keywordstyle=\color{hgblue}, % keyword style
+  commentstyle=\color{hggrey}, % comment style
+  stringstyle=\color{hgorange},  % string literal style
   escapeinside={\%*}{*)},         % if you want to add a comment within your code
   morekeywords={*,...}            % if you want to add more keywords to the set
 } 
 
-\usetheme{hogent}
 \setbeameroption{show notes}
 
 %---------- Commando-definities -----------------------------------------------
@@ -76,9 +77,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Les 3. Steekproefonderzoek}
+\title[OZT: steekproefonderzoek]{Les 3. Steekproefonderzoek}
+\subtitle{Onderzoekstechnieken}
 \author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -86,31 +88,36 @@
 
 \begin{document}
 
-%---------- Front matter ------------------------------------------------------
-
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
+\begin{frame}
+  \maketitle
+\end{frame}
 
 \begin{frame}
   \frametitle{What's on the menu today?}
-
+  
   \tableofcontents
 \end{frame}
 
-\section{Steekproefonderzoek}
-\sectionframelogo{USA Today has come out with a new survey. Apparently, three out of every four people make up 75\% of the population\\
+%---------- Inhoud ------------------------------------------------------------
 
-  --David Letterman
-}
+\section{Steekproefonderzoek}
+
+\begin{frame}
+  \large\bfseries
+  
+  USA Today has come out with a new survey. Apparently, three out of every four people make up 75\% of the population
+  
+  \bigskip
+  
+  ---David Letterman
+  
+\end{frame}
 
 \begin{frame}
   \frametitle{Steekproef en Populatie}
-  Herinner onze superhelden
+  Herinner je onze superhelden
+  
+  \centering
   \begin{tikzpicture}[xscale=4,yscale=2]
     \draw (0,2) -- (0,0);
     \foreach \num/\label in {0/0, 0.2/20, .4/40, .6/60, .8/80, 1/100, 1.2/120, 1.4/140, 1.6/160, 1.8/180, 2/200}{%
@@ -137,12 +144,12 @@
   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[plain]
   \frametitle{Steekproef en Populatie}
 
   \begin{figure}
     \centering
-    \includegraphics[width=1.00\textwidth]{img/les5-heroes.jpg}
+    \includegraphics[height=\textheight]{img/les5-heroes.jpg}
     \label{fig:les5-heroes}
   \end{figure}
 
@@ -150,16 +157,16 @@
 
 \begin{frame}
   \frametitle{Steekproef en Populatie}
-  \brightbox{ De verzameling van alle objecten of personen waar men in geïnteresseerd is voor het onderzoek noemt men de \textcolor{HoGentAccent6}{populatie}.}
+  \alertbox{ De verzameling van alle objecten of personen waar men in geïnteresseerd is voor het onderzoek noemt men de \textcolor{hgyellow}{populatie}.}
 
-  \brightbox{ Wanneer men een subgroep uit een populatie gaat onderzoeken, dan noemen we die groep een \textcolor{HoGentAccent6}{steekproef}.}
+  \alertbox{Wanneer men een subgroep uit een populatie gaat onderzoeken, dan noemen we die groep een \textcolor{hgyellow}{steekproef}.}
 
   \begin{center}
-    \begin{tikzpicture}
-      \fill[HoGentAccent4] (2,2) ellipse (4cm and 2 cm) ;
-      \fill[HoGentAccent2] (2,2) ellipse (2cm and 1cm) ;
+    \begin{tikzpicture}[scale=.55]
+      \fill[hgyellow] (2,2) ellipse (4cm and 2cm) ;
+      \fill[hgorange] (1.5,2) ellipse (2cm and 1cm) ;
       \node[draw=none,minimum size=1cm,inner sep=0pt] at (3,0.5) {populatie};
-      \node[draw=none,minimum size=1cm,inner sep=0pt] at (3,2) {steekproef};
+      \node[draw=none,minimum size=1cm,inner sep=0pt] at (2.5,2) {steekproef};
     \end{tikzpicture}
   \end{center}
 \end{frame}
@@ -168,13 +175,13 @@
   \frametitle{Methode om tot een steekproef te komen}
   \begin{center}
     \begin{tikzpicture}[
-        auto, thick, ->, >=stealth', shorten >=1pt, node distance=2cm,
-        fase/.style={ shape=rectangle, fill=HoGentFBO, text=white, draw}
+        auto, thick, ->, >=stealth', shorten >=1pt, node distance=1.5cm,
+        fase/.style={ shape=rectangle, fill=hgblue, text=white, draw}
       ]
 
     \node[fase] (1) { Definitie van populatie };
     \node[fase] (2) [below of=1] { Bepalen van steekproefkader };
-    \node[fase] (3) [below of=2] { Budget en tijd };
+    \node[fase] (3) [below of=2] { Keuze steekproefmethode (budget en tijd) };
 
     \draw (1) -- (2);
     \draw (2) -- (3);
@@ -197,7 +204,7 @@
       Totaal & 900 & 2700 & 1800 & 410 & 5810
     \end{tabular}
 
-    \vspace{1cm}
+    \vspace{.5cm}
 
     \pause
     \begin{tabular}{l|cccc|c}
@@ -224,12 +231,25 @@
   \end{description}
 
   \begin{center}
-    \includegraphics[width=.5\textwidth]{img/les4-aselect}
+    \includegraphics[height=.4\textheight]{img/les4-aselect}
   \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Mogelijke fouten}
+  
+  Metingen in een steekproef zullen typisch afwijken van de waarde in de hele populatie $\Rightarrow$ Fouten!
+  
+  \bigskip
+  
+  \begin{itemize}
+    \item Toevallig $\leftrightarrow$ Systematisch
+    \item Steekproeffout $\leftrightarrow$ Niet-steekproeffout
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Steekproeffouten}
 
   \begin{itemize}
     \item<+-> Toevallige steekproeffouten
@@ -242,6 +262,12 @@
         \item Straatenquête: enkel wie daar op dat moment loopt
         \item Vrijwillige enquête: enkel geïnteresseerden doen mee
       \end{itemize}
+  \end{itemize}
+ \end{frame}
+
+\begin{frame}
+\frametitle{Niet-steekproeffouten}
+  \begin{itemize}
     \item<+-> Toevallige niet-steekproeffouten
       \begin{itemize}
         \item Verkeerd aangekruiste antwoorden
@@ -255,7 +281,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Variantie/standaarddeviatie van een steekproef}
 
   \begin{center}
@@ -269,9 +295,6 @@
 
     \vfill
 
-% link below is broken
-%    Java applet: \url{http://www.uvm.edu/~dhowell/SeeingStatisticsApplets/N-1.html}
-%    \vfill
     R-script: \href{https://github.com/HoGentTIN/onderzoekstechnieken-cursus/blob/master/cursus/data/sample-variance.R}{cursus/data/sample-variance.R}
   \end{center}
 \end{frame}
@@ -279,20 +302,24 @@
 \begin{frame}
 \frametitle{Overzicht symbolen}
 
+
 {\tabulinesep=1.2mm
-\begin{tabu}{|r|c|c|}
-    \hline
-    & populatie & steekproef \\
-    \hline
-    aantal objecten & $N$ & $n$ \\
-    \hline
-    gemiddelde & $\mu$ & $\overline{x}$ \\
-    \hline
-    variantie & $\sigma^2 = \frac{\sum (\mu-x_i)^2}{N}$ & $s^2  = \frac{\sum (\overline{x}-x_i)^2}{n-1}$ \\
-    \hline
-    standaarddeviatie & $\sigma$ & $s$ \\
-    \hline
-\end{tabu}}
+  \begin{center}
+    \begin{tabu}{|r|c|c|}
+      \hline
+      & populatie & steekproef \\
+      \hline
+      aantal objecten & $N$ & $n$ \\
+      \hline
+      gemiddelde & $\mu$ & $\overline{x}$ \\
+      \hline
+      variantie & $\sigma^2 = \frac{\sum (\mu-x_i)^2}{N}$ & $s^2  = \frac{\sum (\overline{x}-x_i)^2}{n-1}$ \\
+      \hline
+      standaarddeviatie & $\sigma$ & $s$ \\
+      \hline
+    \end{tabu}
+  \end{center}
+}
 \end{frame}
 
 
@@ -301,16 +328,20 @@
 \begin{frame}
   \frametitle{Wat weten we nog van de kansrekening?}
 
-  \begin{itemize}
-    \item Uitkomstenruimte
-    \item Uitkomst
-    \item Gebeurtenis
-    \item Kansruimte
-  \end{itemize}
+  \begin{columns}
+    \column{.5\textwidth}
+    \begin{itemize}
+      \item Uitkomstenruimte
+      \item Uitkomst
+      \item Gebeurtenis
+      \item Kansruimte
+    \end{itemize}
 
-  \vfill
+    \column{.5\textwidth}
+    \centering
+    \includegraphics[width=.3\textwidth]{img/les04-dobbelsteen}
+  \end{columns}
 
-  \hfill \includegraphics[width=.2\textwidth]{img/les04-dobbelsteen}
 \end{frame}
 
 \begin{frame}
@@ -330,8 +361,9 @@
   \end{center}
 
   \onslide<2->{%
-  \begin{tikzpicture}
-    \begin{axis}[ybar,ytick=data, anchor=north, yscale=.5]
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[ybar,ytick=data, anchor=north, yscale=.5]
       \addplot
       coordinates {
         (1, 1/6)
@@ -340,8 +372,10 @@
         (4, 1/6)
         (5, 1/6)
         (6, 1/6)};
-    \end{axis}
-  \end{tikzpicture}}
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}}
+
 \end{frame}
 
 \begin{frame}
@@ -359,8 +393,9 @@
   \end{center}
 
   \onslide<2->{%
-  \begin{tikzpicture}
-    \begin{axis}[ybar,ytick=data, anchor=north, yscale=.5]
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[ybar,ytick=data, anchor=north, yscale=.5]
       \addplot
       coordinates {
         (2, 1/36)
@@ -375,9 +410,11 @@
         (11, 2/36)
         (12, 1/36)
       };
-
-    \end{axis}
-  \end{tikzpicture}}
+      
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+  }
 
 \end{frame}
 
@@ -389,8 +426,8 @@
   \frametitle{Continue kansverdeling}
 
   De reactiesnelheid $x$ van Superman (in milliseconden) kun je als volgt weergegeven:
-
-  \vspace{1cm}
+  
+  \bigskip
 
   \begin{tikzpicture}
 \begin{axis}[
@@ -414,8 +451,8 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{\textit{Standaard} normale verdeling en de $z$-score}
-\centering
+\frametitle{\textit{Standaard}normale verdeling}
+
 \begin{columns}[c]
 \column{.5\textwidth}
 normaalverdeling
@@ -437,7 +474,7 @@ $x \in X \sim Nor(\mu, \sigma)$
   axis on top,
   clip=false,
   ]
-  \addplot[very thick,smooth,draw=HoGentFBO]{gauss(0,1.4)};
+  \addplot[very thick,smooth,draw=hgblue]{gauss(0,1.4)};
   \draw [-](axis cs:0.4,0) -- (axis cs:0.4,0.274); %vertical line
   \node at (axis cs: 0.56,0.1) {$x$}; %label x
   \draw [latex-latex](axis cs:2.2,0.22) -- (axis cs:3.5,0.22);
@@ -461,7 +498,7 @@ $z \in Z \sim Nor(0, 1)$
   axis on top,
   clip=false,
   ]
-  \addplot[very thick,smooth,draw=HoGentFBO]{gauss(0,1)};
+  \addplot[very thick,smooth,draw=hgblue]{gauss(0,1)};
   \draw [-](axis cs:0.286,0) -- (axis cs:0.286,0.383); %vertical line
   \node at (axis cs: 0.42,0.12 ) {$z$}; %label z
   \end{axis}
@@ -536,7 +573,8 @@ Hoe groot is de kans dat\dots\\
 Wiskundige notatie:\\
 \hspace{1cm}$P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
 \vfill
-\begin{tikzpicture}
+\begin{center}
+  \begin{tikzpicture}
   \begin{axis}[
   domain=0:10,
   axis lines*=left,
@@ -551,22 +589,28 @@ Wiskundige notatie:\\
   clip=false,
   ]
   \addplot[fill=cyan!20, draw=black, domain=6:10] {gauss(5,1.5)} \closedcycle;
-  \addplot[very thick,smooth,draw=HoGentFBO]{gauss(5,1.5)};
+  \addplot[very thick,smooth,draw=hgblue]{gauss(5,1.5)};
   \draw [-latex](axis cs:7,0.05) -- (axis cs:8.5,0.1);
   \node at (axis cs: 10, 0.1) {$P(X>6)$};
   \draw [-](axis cs:6,-0.005) -- (axis cs:6,-0.040);
   \node at (axis cs: 6, -0.055) {$6$};
   \end{axis}
 \end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{Kansen berekenen}
-$P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
-\vfill
-\begin{enumerate}
-  \item (Oude) berekeningsmethode met z-score
-  \begin{itemize}
+  \frametitle{Kansen berekenen: $z$-tabel}
+  
+  $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
+  
+  \bigskip
+
+  (Oude) berekeningsmethode met z-tabel, vb.
+  
+  \url{http://sixsigmastudyguide.com/wp-content/uploads/2014/04/z-table.jpg}
+  
+  \begin{enumerate}
     \pause
     \item zet om naar $z$-score\\
     $z=\frac{6-5}{1,5}=0,667$ dus $P(X>6) = P(Z>0,667)$
@@ -576,17 +620,22 @@ $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
        \item of symmetrie-regel: $P(Z>0,667)=P(Z<-0,667)$
     \end{itemize}
     \item zoek op in $z$-tabel\\
-    \url{http://sixsigmastudyguide.com/wp-content/uploads/2014/04/z-table.jpg}
-  \end{itemize}
-\vfill
-  \item Rechtstreekse berekening met R (of rekenmachine)
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kansen berekenen: met R}
+  
+  $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
+
+  Rechtstreekse berekening met R (of rekenmachine)
+  
   \begin{itemize}
   \pause
   \item zet eerst om naar een \textbf{\textit{linker}}staartkans:\\
   met regel van 100\% kans: $P(X>6)=1-P(X<6)$
   \item bereken met R: $1-P(X<6)=$\texttt{1-pnorm(6,5,1.5)}
 \end{itemize}
-\end{enumerate}
 \end{frame}
 
 \begin{frame}
@@ -604,27 +653,31 @@ $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
 \begin{frame}
   \frametitle{Vraag 3: $P(X<3)$}
 
-  \begin{tikzpicture}
+\begin{center}
+    \begin{tikzpicture}
   \begin{axis}[no markers,domain=-4:4,axis lines*=left,yscale=.7,enlargelimits=false,clip=false]
-    \addplot[very thick,smooth,draw=HoGentFBO]{gauss(0, 1)};
+    \addplot[very thick,smooth,draw=hgblue]{gauss(0, 1)};
     \addplot[smooth,fill=black!20, draw=black, domain=-4:-4/3] {gauss(0,1)} \closedcycle;
 
     \node at (axis cs: -1.33, -.05) {\small -1.33};
   \end{axis}
   \end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Vraag 4: $P(2<X<6,5)$}
 
-  \begin{tikzpicture}
+\begin{center}
+    \begin{tikzpicture}
   \begin{axis}[no markers,domain=-4:4,axis lines*=left,yscale=.7,enlargelimits=false,clip=false]
-    \addplot[very thick,smooth,draw=HoGentFBO]{gauss(0, 1)};
+    \addplot[very thick,smooth,draw=hgblue]{gauss(0, 1)};
     \addplot[smooth,fill=black!20, draw=black, domain=-2:1] {gauss(0,1)} \closedcycle;
 
     \node at (axis cs: 1, -.05) {\small 1};
   \end{axis}
   \end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}
@@ -634,24 +687,24 @@ $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
 
   \vfill
 
-  \begin{tikzpicture}
+\begin{center}
+    \begin{tikzpicture}
   \begin{axis}[no markers,domain=-4:4,axis lines*=left,yscale=.7,enlargelimits=false,clip=false]
-    \addplot[very thick,smooth,draw=HoGentFBO]{gauss(0, 1)};
+    \addplot[very thick,smooth,draw=hgblue]{gauss(0, 1)};
     \addplot[smooth,fill=black!20, draw=black, domain=-4:.84] {gauss(0,1)} \closedcycle;
 
     \node at (axis cs: .84, -.05) {\small .84};
   \end{axis}
   \end{tikzpicture}
+\end{center}
 \end{frame}
 
 \section{De Centrale Limietstelling}
-\sectionframelogo{}
-
 
 \begin{frame}
   \frametitle{De centrale limietstelling}
 
-  \brightbox{Als de steekproefomvang voldoende groot is, dan kan de kansverdeling van het steekproefgemiddelde benaderd worden met een normale verdeling. Dit geldt ongeacht de vorm van de kansverdeling van de onderliggende populatie}
+  \alertbox{Als de steekproefomvang voldoende groot is, dan kan de kansverdeling van het steekproefgemiddelde benaderd worden met een normale verdeling. Dit geldt ongeacht de vorm van de kansverdeling van de onderliggende populatie}
 
   \vfill
 
@@ -670,43 +723,42 @@ $P( X > 6)$ = ?\hspace{1cm}met $X \sim Nor(\mu=5,\sigma=1,5)$
 
 \vfill
 Demo: \url{https://students.brown.edu/seeing-theory/probability-distributions/index.html}
-
 \end{frame}
 
 \begin{frame}
   \frametitle{De centrale limietstelling}
-  Beschouw een aselecte steekproef van $n$ waarnemingen die uit een populatie met een willekeurige distributie met verwachtingswaarde $\mu$ en standaardafwijking $\sigma$. Als $n$ groot genoeg is zal de kansverdeling van $\overline{x}$ een normale verdeling benaderen met verwachting $\mu_{\overline{x}} = \mu$ en standaardafwijking $\sigma_{\overline{x}} = \frac{\sigma}{\sqrt{n}}$.
+  Beschouw een aselecte steekproef van $n$ waarnemingen die uit een populatie met een willekeurige distributie met verwachtingswaarde $\mu$ en standaardafwijking $\sigma$. Als $n$ groot genoeg is zal de kansverdeling van $\overline{x}$ een normale verdeling benaderen met gemiddelde $\mu_{\overline{x}} = \mu$ en standaardafwijking $\sigma_{\overline{x}} = \frac{\sigma}{\sqrt{n}}$.
 
 \vspace{0.4cm}
   Hoe groter de steekproef is, des te beter zal de kansverdeling van $\overline{x}$ overeenkomen met een normaalverdeling.
 \end{frame}
 
-\section{Van steekproef naar population}
-\sectionframelogo{}
+\section{Van steekproef naar populatie}
 
 \begin{frame}
   \frametitle{Puntschatter}
-    \brightbox{Een \textcolor{HoGentYellow}{puntschatter} voor een populatieparameter is een regel of een formule die ons zegt hoe we uit de steekproef een getal moeten berekenen om de populatieparameter te schatten.}
+    \alertbox{Een \textcolor{hgyellow}{puntschatter} voor een populatieparameter is een regel of een formule die ons zegt hoe we uit de steekproef een getal moeten berekenen om de populatieparameter te schatten.}
 \end{frame}
 
 \subsection{Betrouwbaarheidsintervallen}
 \begin{frame}
   \frametitle{Betrouwbaarheidsinterval}
-  \brightbox{Een \textcolor{HoGentAccent6}{betrouwbaarheidsinterval} is een regel of een formule die ons zegt hoe we uit de steekproef een interval kunnen berekenen dat de waarde van de parameter met een zeker \textcolor{HoGentAccent6}{betrouwbaarheidsniveau} bevat.}
+  \alertbox{Een \textcolor{hgyellow}{betrouwbaarheidsinterval} is een regel of een formule die ons zegt hoe we uit de steekproef een interval kunnen berekenen dat de waarde van de parameter met een zeker \textcolor{hgyellow}{betrouwbaarheidsniveau} bevat.}
 \end{frame}
 
 \subsection{Betrouwbaarheidsinterval grote steekproef}
 
 
 \begin{frame}
-\frametitle{Betrouwbaarheidsinterval grote steekproef}
+\frametitle{Grote steekproef}
 
 Gegeven een steekproef met gemiddelde $\overline{x}$.\\
 We zoeken nu een interval $\left[ ~\overline{x}-b~,~\overline{x}+b~\right]$ waarvan we met een betrouwbaarheidsniveau $(1-\alpha)$ van bvb. 95\% kunnen zeggen dat $\mu$ erbinnen ligt.
 \vfill
 \[ P\left( \overline{x}-b < \mu < \overline{x}+b \right) = 1-\alpha = 0,95 \]
 \vfill
-\begin{tikzpicture}
+\begin{center}
+  \begin{tikzpicture}[scale=.8]
 \begin{axis}[
 domain=-3:3,
 axis lines*=left,
@@ -719,8 +771,8 @@ axis on top,
 clip=false,
 ]
 \addplot[fill=cyan!20, draw=black, domain=-1.96:1.96] {gauss(0,1)} \closedcycle;
-\addplot[very thick,smooth,draw=HoGentFBO]{gauss(0,1)};
-%\addplot[smooth,dashed,draw=HoGentFBO]{gauss(0.8,1)};
+\addplot[very thick,smooth,draw=hgblue]{gauss(0,1)};
+%\addplot[smooth,dashed,draw=hgblue]{gauss(0.8,1)};
 \node [text width=1.5cm,fill=cyan!20,align=center] at (axis cs: 0, 0.17) {95\%\\($1-\alpha$)};
 \draw [-latex](axis cs:2.15,0.02) -- (axis cs:2.4,0.07);
 \node [text width=1cm,fill=white,align=center] at (axis cs: 2.5,0.14) {2,5\%\\($\frac{\alpha}{2}$)};
@@ -730,19 +782,22 @@ clip=false,
 \node [align=center] at (axis cs: 0.6,-0.09) {$\mu$};
 \end{axis}
 \end{tikzpicture}
+\end{center}
 \end{frame}
 
 \begin{frame}
-\frametitle{Betrouwbaarheidsinterval grote steekproef}
-Dankzij de centrale limietstelling weten we dat
-\[ \overline{x} \in \overline{X} \sim Nor(\mu,\frac{\sigma}{\sqrt{n}}) \]
+\frametitle{Grote steekproef}
 
-\vfill
+Dankzij de centrale limietstelling weten we dat
+$\overline{x} \in \overline{X} \sim Nor(\mu,\frac{\sigma}{\sqrt{n}})$
+
 En omwille van de symmetrie weten we dat
 \[ P\left( \overline{x}-b < \mu < \overline{x}-b \right) = P\left( \mu-b < \overline{x} < \mu+b \right) \]
 
 \vfill
-\begin{tikzpicture}
+
+\begin{center}
+  \begin{tikzpicture}[scale=.8]
 
 \begin{axis}[
 domain=-3:3,
@@ -759,8 +814,8 @@ axis on top,
 clip=false,
 ]
 \addplot[fill=cyan!20, draw=black, domain=-1.36:2.56] {gauss(0.6,1)} \closedcycle;
-\addplot[very thick,smooth,draw=HoGentFBO]{gauss(0.6,1)};
-\addplot[smooth,dashed,draw=HoGentFBO]{gauss(0,1)};
+\addplot[very thick,smooth,draw=hgblue]{gauss(0.6,1)};
+\addplot[smooth,dashed,draw=hgblue]{gauss(0,1)};
 \node [text width=1.5cm,align=center] at (axis cs: 0.6, 0.17) {95\%\\($1-\alpha$)};
 \draw [-latex](axis cs:2.75,0.02) -- (axis cs:3.0,0.07);
 \node [text width=1cm,fill=white,align=center] at (axis cs: 3.1,0.14) {2,5\%\\($\frac{\alpha}{2}$)};
@@ -771,23 +826,28 @@ clip=false,
 \draw [latex-latex](axis cs:0.6,-0.07) -- node [fill=white] {$\frac{\sigma}{\sqrt{n}}$} (axis cs:1.6,-0.07);
 \end{axis}
 \end{tikzpicture}
+\end{center}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Betrouwbaarheidsinterval grote steekproef}
+\frametitle{Grote steekproef}
+
+\bigskip
 
 We bepalen nu de $z$-score voor $\overline{x}$:
-\[ z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} \]
+$z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}}$
 
-\vfill
 We zoeken (in een tabel of rekentoestel) de waarde $z_\frac{\alpha}{2}$ waarbij:
 \[ P\left(-z_{\frac{\alpha}{2}} < z < z_{\frac{\alpha}{2}}\right) = 1 - \alpha = 0.95 \]
 \[ P\left(z < z_{\frac{\alpha}{2}}\right) = 1 - \frac{\alpha}{2} = 0.975 \]
 \[ z_{\frac{\alpha}{2}} = \texttt{qnorm(0.975)} \approx 1.96 \]
 
 \vfill
-\begin{tikzpicture}
+
+
+\begin{center}
+  \begin{tikzpicture}[scale=.8]
 \begin{axis}[
 domain=-3:3,
 axis lines*=left,
@@ -803,7 +863,7 @@ axis on top,
 clip=false,
 ]
 \addplot[fill=cyan!20, draw=black, domain=-1.96:1.96] {gauss(0,1)} \closedcycle;
-\addplot[very thick,smooth,draw=HoGentFBO]{gauss(0,1)};
+\addplot[very thick,smooth,draw=hgblue]{gauss(0,1)};
 \node [text width=1.5cm,align=center] at (axis cs: 0, 0.15) {95\%\\($1-\alpha$)};
 \draw [-latex](axis cs:2.15,0.02) -- (axis cs:2.4,0.07);
 \node [text width=1cm,align=center] at (axis cs: 2.5,0.16) {2,5\%\\($\frac{\alpha}{2}$)};
@@ -812,11 +872,12 @@ clip=false,
 
 \end{axis}
 \end{tikzpicture}
+\end{center}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Betrouwbaarheidsinterval grote steekproef}
+\frametitle{Grote steekproef}
   
 We krijgen nu:
 \[ P\left(-1,96 < \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} < 1,96 \right) = 0,95 \]
@@ -832,10 +893,10 @@ We kunnen nu met 95\% zekerheid zeggen dat:
 
 \end{frame}
 
-\subsection{Betrouwbaarheidsinterval voor kleine steekproef}
+\subsection{Kleine steekproef}
 \begin{frame}
-  \frametitle{Student $t$-verdeling bij \textit{kleine} steekproef}
-  Bij een \textit{\textbf{kleine}} steekproef is de centrale limietstelling \textbf{niet} meer geldig.
+  \frametitle{Kleine steekproef}
+  Bij een \textit{\textbf{kleine}} steekproef $(n < 30)$ is de centrale limietstelling \textbf{niet} meer geldig.
   \vfill
   Er geldt wél:\\
   \vfill
@@ -849,24 +910,28 @@ verdeeld volgens een t-verdeling met ~$n-1$~ vrijheidsgraden\\
 \end{frame}
 
 \begin{frame}
-  \frametitle{Student $t$-verdeling bij \textit{kleine} steekproef}
-  \includegraphics[width=\linewidth]{img/les04-t-distrib}
+  \frametitle{De Student $t$-verdeling}
+  \bigskip
+  \centering
+  \includegraphics[height=.9\textheight]{img/les04-t-distrib}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Student $t$-verdeling in R}
+\begin{frame}
+  \frametitle{Student $t$-verdeling in R}
 
-Voor een $t$-verdeling met ~\texttt{df}~ vrijheidsgraden:\\
+Voor een $t$-verdeling met ~\texttt{df}~ vrijheidsgraden:
+
 \small (\texttt{df = degrees of freedom})
 \vfill
 \centering
 \begin{tabular}{ll}
-	\textbf{Functie} & \textbf{Betekenis}                                         \\ \hline
-	\verb|pt(x, df)| & Linkerstaartkans, $P(X<\mathtt{x})$                        \\
-	\verb|dt(x, df)| & Hoogte van de curve op punt \texttt{x}                     \\
-	\verb|qt(p, df)| & Onder welke grens zal \texttt{p}\% van de waarnemingen     \\
-	                 & liggen?                                                    \\
-	\verb|rt(n, df)| & Genereer \texttt{n} random getallen volgens deze verdeling
+	\textbf{Functie}   & \textbf{Betekenis}                                         \\
+	\hline
+	\texttt{pt(x, df)} & Linkerstaartkans, $P(X<\mathtt{x})$                        \\
+	\texttt{dt(x, df)} & Hoogte van de curve op punt \texttt{x}                     \\
+	\texttt{qt(p, df)} & Onder welke grens zal \texttt{p}\% van de waarnemingen     \\
+	                   & liggen?                                                    \\
+	\texttt{rt(n, df)} & Genereer \texttt{n} random getallen volgens deze verdeling
 \end{tabular}
 
 \end{frame}

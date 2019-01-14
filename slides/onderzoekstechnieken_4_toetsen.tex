@@ -1,13 +1,19 @@
 %%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
+%% Onderzoekstechnieken: Hypothesetoetsen
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
 %==============================================================================
+
+\usetheme{hogent}
+\setbeameroption{show notes}
+
+% Kies hieronder een achtergrondkleur
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+%\usecolortheme{hgblack} % zwarte achtergrond, witte tekst
 
 %---------- Packages ----------------------------------------------------------
 \usepackage{etex}
@@ -16,12 +22,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -38,10 +41,6 @@
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
 \usetikzlibrary{pgfplots.statistics}
 
-
-\usetheme{hogent}
-\setbeameroption{show notes}
-
 %---------- Commando-definities -----------------------------------------------
 
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
@@ -49,9 +48,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Toetsen van een hypothese}
+\title[OZT: hypothesetoetsen]{Les 4. Hypothesetoetsen}
+\subtitle{Onderzoekstechnieken}
 \author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -61,11 +61,9 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
+\begin{frame}
+\maketitle
+\end{frame}
 
 %---------- Inhoud ------------------------------------------------------------
 
@@ -80,7 +78,6 @@
 \end{frame}
 
 \section{Toetsen van hypothesen}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{De statistische test voor een hypothese}
@@ -88,6 +85,8 @@
   \begin{description}
     \item[Hypothese] Idee waarvan nog bewezen moet worden dat het juist is: uitspraak over numerieke waarde van een populatieparameter
     \item[Hypothesetest] controle van een uitspraak over de waarden van één of meerdere populatieparameters
+    \item[Nulhypothese ($H_0$)] Deze hypothese proberen we te ontkrachten door redenering in het ongerijmde
+    \item[Alternatieve hypothese ($H_1$, $H_a$)] Deze hypothese willen we aantonen
   \end{description}
 \end{frame}
 
@@ -95,8 +94,6 @@
   \frametitle{Elementen bij toetsingsprocedure}
 
   \begin{description}
-    \item[Nulhypothese ($H_0$)] Deze hypothese proberen we te ontkrachten door redenering in het ongerijmde
-    \item[Alternatieve hypothese ($H_1$, $H_a$)] Deze hypothese willen we aantonen
     \item[Toetsingsgrootheid] De variabele die berekend wordt uit de steekproef (ook: teststatistiek)
     \item[Aanvaardingsgebied] Het gebied van waarden die de nulhypothese \emph{ondersteunt}
     \item[Kritieke of Verwerpingsgebied] Het gebied van waarden die de nulhypothese \emph{verwerpt}
@@ -105,13 +102,12 @@
 \end{frame}
 
 \section{Werkwijze}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Werkwijze}
 
   \begin{enumerate}
-    \item Bepalen van de hypotheses ($H_0$ en $H_1$)
+    \item Bepalen van de hypothesen ($H_0$ en $H_1$)
     \item Vastlegen significantieniveau ($\alpha$)
     \item Toetsingsgrootheid berekenen
     \item Het kritieke gebied of de overschrijdingskans bepalen
@@ -119,10 +115,10 @@
   \end{enumerate}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Hypotheses over superhelden}
+\begin{frame}[plain]
+  \frametitle{hypothesen over superhelden}
 
-  \includegraphics[width=\textwidth]{img/les5-heroes}
+  \includegraphics[height=\textheight]{img/les5-heroes}
 \end{frame}
 
 \begin{frame}
@@ -131,14 +127,14 @@
   \begin{columns}
     \column{.5\textwidth}
     \centering
-    \includegraphics[width=4cm]{img/les5-gered1}
+    \includegraphics[width=3cm]{img/les5-gered1}
 
-    \includegraphics[width=4cm]{img/les5-gered2}
+    \includegraphics[width=3cm]{img/les5-gered2}
     \column{.5\textwidth}
     \centering
-    \includegraphics[width=4cm]{img/les5-gered3}
+    \includegraphics[width=3cm]{img/les5-gered3}
 
-    \includegraphics[width=4cm]{img/les5-gered4}
+    \includegraphics[width=3cm]{img/les5-gered4}
   \end{columns}
 
   \vfill
@@ -147,7 +143,7 @@
 \end{frame}
 
 \begin{frame}
-  Stel, in een periode van 30 dagen werden er gemiddelde $3,483$ mensen per dag gered ($\overline{x}=3,483$, $n=30$)
+  Stel, in een periode van 30 dagen werden er gemiddeld $3,483$ mensen per dag gered ($\overline{x}=3,483$, $n=30$)
   \vfill
   \begin{enumerate}
     \item Hypothese: $H_0: \mu = 3,3$; $H_1: \mu > 3,3$
@@ -161,23 +157,24 @@
 \begin{frame}
   \frametitle{Berekenen toetsingsgrootheid}
   
+  \bigskip
+  
   Uit centrale limietstelling volgt: $M \sim Nor(\mu = 3,3; \sigma = \frac{0,55}{\sqrt{30}}=0,1)$
 
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[scale=.8]
     \begin{axis}[domain=3.0:3.6, ymax=4.2, samples=100, enlargelimits=false ]
-      \addplot [very thick,smooth,draw=HoGentFBO] {gauss(3.3, 0.10041580220928045413)};
+      \addplot [very thick,smooth,draw=hgblue] {gauss(3.3, 0.10041580220928045413)};
       \node [coordinate, pin={$\overline{x}= 3.483$}] at (axis cs: 3.483, 0){};
     \end{axis}
   \end{tikzpicture}
 \end{frame}
 
 \section{Overschrijdingskans}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Overschrijdingskans}
-  \brightbox{De \textcolor{HoGentAccent6}{p-waarde} is de kans, indien de nulhypothese waar is, om een waarde te verkrijgen van de toetsingsgrootheid die minstens even extreem is als de geobserveerde waarde.}
+  \alertbox{De \textcolor{hgyellow}{p-waarde} is de kans, indien de nulhypothese waar is, om een waarde te verkrijgen voor de toetsingsgrootheid die minstens even extreem is als de geobserveerde waarde.}
 
   \begin{itemize}
     \item $p$-waarde $< \alpha \Rightarrow$ $H_{0}$ verwerpen: de gevonden waarde voor $\overline{x}$ is te extreem;
@@ -187,12 +184,14 @@
 
 \begin{frame}
   \frametitle{Overschrijdingskans}
+  
+  \bigskip
 
   \centering
-  \begin{tikzpicture}[scale=0.8]
+  \begin{tikzpicture}[scale=0.6]
     \begin{axis}[domain=-3.5:3.5, ymax=0.42, samples=100, enlargelimits=false, clip=false ]
       \addplot [smooth, fill=black!20, domain=1.822:3.5] {gauss(0,1)} \closedcycle;
-      \addplot [very thick,smooth,draw=HoGentFBO] {gauss(0, 1)};
+      \addplot [very thick,smooth,draw=hgblue] {gauss(0, 1)};
       \node  at (axis cs: 1.822, -.04){\small 1.822};
       \draw [-latex](axis cs:2.1,0.02) -- (axis cs:2.35,0.06);
       \node [text width=0.5cm] at (axis cs: 2.5, .095){$p= 0,0344$};
@@ -203,19 +202,19 @@
 \end{frame}
 
 \section{Kritieke gebied}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Kritieke gebied}
   
-  \brightbox{Het \textcolor{HoGentAccent6}{kritieke gebied} is de verzameling van alle waarden voor de toetsingsgrootheid waarbij de nulhypothese kan verworpen worden.}
+  \bigskip
+  
+  \alertbox{Het \textcolor{hgyellow}{kritieke gebied} is de verzameling van alle waarden voor de toetsingsgrootheid waarbij de nulhypothese kan verworpen worden.}
   
   We zoeken een grenswaarde $g$ waarvoor geldt:
   \[ P(M > g) = \alpha \]
 
   Bepaal $z_\alpha$ waarvoor geldt:
-  \[ P(Z > z_\alpha) = \alpha \]
-  \[ \Rightarrow g = \mu + z_\alpha . \frac{\sigma}{\sqrt{n}} \]
+  \[ P(Z > z_\alpha) = \alpha \Rightarrow g = \mu + z_\alpha . \frac{\sigma}{\sqrt{n}} \]
   
   \begin{itemize}
     \item Links van $g$: aanvaardingsgebied ($H_0$ niet verwerpen)
@@ -226,14 +225,14 @@
 
 
 \begin{frame}
-  \frametitle{Kritieke gebied normale verdeling}
+  \frametitle{Kritieke gebied}
 
   \centering
   \begin{tikzpicture}
     \begin{axis}[domain=-3.5:3.5, ymax=0.42, samples=100, enlargelimits=false, clip=false ]
       \draw [-](axis cs:1.645,-0.03) -- (axis cs:1.645,0.06);
       \addplot [smooth, fill=black!20, domain=1.645:3.5] {gauss(0,1)} \closedcycle;
-      \addplot [very thick,smooth,draw=HoGentFBO] {gauss(0, 1)};
+      \addplot [very thick,smooth,draw=hgblue] {gauss(0, 1)};
       \node [text width=0.8cm] at (axis cs: 1.645, -.06){$z_{\alpha}= 1.645$};
       \draw [-latex](axis cs:2.1,0.02) -- (axis cs:2.35,0.06);
       \node [text width=0.5cm] at (axis cs: 2.5, .095){$\alpha= 0.05$};
@@ -247,18 +246,28 @@ significantieniveau $\alpha = 0.05$ $\Rightarrow$ grenswaarde $z_{\alpha}$=1.645
 
 \begin{frame}
   \frametitle{Linkszijdig toetsen}
-    Wat zou je in de verg.  moeten veranderen opdat je de correcte kritieke waarde zou berekenen?
-    \pause
-    Antwoord:
- \[g = \mu - z \times \frac{\sigma}{\sqrt{n}} \]
-want
-\[ P(M < g) = P\left(Z < \frac{g - \mu}{\frac{\sigma}{\sqrt{n}}}\right) = 0.05 \]
-Wegens de symmetrieregel kunnen we zeggen
-\[ P\left(Z > - \left( \frac{g - \mu}{\frac{\sigma}{\sqrt{n}}} \right) \right) = 0.05 \]
-De z-waarde die ermee overeen komt is 1.645 dus hebben we
-\[ z = \frac{-g + \mu}{\frac{\sigma}{\sqrt{n}}} \]
-\[ \Leftrightarrow -g = \frac{\sigma}{\sqrt{n}} z - \mu \]
-\[ \Leftrightarrow g = \mu - z \frac{\sigma}{\sqrt{n}} \]
+  
+  Wat zou je in de verg.  moeten veranderen opdat je de correcte kritieke waarde zou berekenen?
+  \pause
+  Antwoord:
+  \[g = \mu \alert{-} z \times \frac{\sigma}{\sqrt{n}} \]
+  want
+  \[ P(M < g) = P\left(Z < \frac{g - \mu}{\frac{\sigma}{\sqrt{n}}}\right) = 0.05 \]
+  
+\end{frame}
+
+\begin{frame}
+\frametitle{Linkszijdig toetsen}
+  Wegens de symmetrieregel kunnen we zeggen
+  \[ P\left(Z > - \left( \frac{g - \mu}{\frac{\sigma}{\sqrt{n}}} \right) \right) = 0.05 \]
+  
+  De z-waarde die ermee overeen komt is 1.645 dus hebben we
+  
+  \begin{align*}
+    z = \frac{-g + \mu}{\frac{\sigma}{\sqrt{n}}} &\Leftrightarrow -g = \frac{\sigma}{\sqrt{n}} z - \mu \\
+    & \Leftrightarrow g = \mu - z \frac{\sigma}{\sqrt{n}}
+  \end{align*}
+  
 \end{frame}
 
 \begin{frame}
@@ -296,7 +305,6 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
 \end{frame}
 
 \section{Voorbeelden}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Voorbeeld 1}
@@ -307,50 +315,83 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
 
 \begin{frame}
   \frametitle{Voorbeeld 1}
-  \begin{block}{Bepalen van de hypotheses}
-    $H_{0} : \mu = 27$ en $H_{1}: \mu < 27$.
-  \end{block}
+  
+  \begin{description}
+    \item[1] Bepalen van de hypothesen
+    
+      $H_{0} : \mu = 27$ en $H_{1}: \mu < 27$.
+      
+    \item[2] Vastleggen significantieniveau
+    
+      $\alpha = 0.05$ en $n=50$
+      
+    \item[3] Toetsingsgrootheiden \& waarde: steekproefgemiddelde $\overline{x} = 25$
+    
 
-
-  \begin{block}{Vastleggen significantieniveau}
-  $\alpha = 0.05$ en $n=50$.
-  \end{block}
-
-
-  \begin{block}{Toetsingsgrootheiden \& waarde}
-  We kiezen hiervoor het steekproefgemiddelde $M$. Volgens de centrale limietstelling geldt:
-
-  \[ M \sim Nor(\mu = 27, \frac{\sigma}{\sqrt{n}}) \]
-  \[ z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{25-27}{\sqrt\frac{55}{50}} \approx -1.91\]
-  We vinden dus een overschrijdingskans van $0.0281$.
-  \end{block}
-  \end{frame}
+  \end{description}
+\end{frame}
 
 \begin{frame}
-    \begin{block}{Overschrijdingskans}
-    We vinden dus een overschrijdingskans van het gemiddelde van $0.02$ wat bij een significantieniveau van 0.05 erop duidt dat we $H_{0}$ mogen verwerpen.
-    \end{block}
+  \frametitle{Voorbeeld 1 (vervolg)}
 
-    \begin{block}{Bereken en teken kritiek gebied}
-    \[ g = \mu - z \times \frac{\sigma}{\sqrt{n}} \]
-    \[ g = 27 - 1.645 \times \sqrt{\frac{\sigma}{n}} \]
-    \[ g = 25.27470944 \]
-
-    We vinden dus dat $\overline{x} < g$ en dus kunnen we $H_{0}$ verwerpen.
-\end{block}
+  \begin{description}
+    \item[4a] Overschrijdingskans
+    
+    Volgens de centrale limietstelling geldt:
+    
+    \[ M \sim Nor(\mu = 27, \frac{\sigma}{\sqrt{n}}) \]
+    \[ z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{25-27}{\sqrt\frac{55}{50}} \approx -1.91\]
+    
+    We vinden dus een overschrijdingskans van het gemiddelde $0.0281$.
+    
+    
+    Bij een significantieniveau van 0.05 mogen we $H_{0}$ verwerpen.
+  \end{description}
 
 \end{frame}
 
 \begin{frame}
-    \centering
+  \frametitle{Voorbeeld 1 (vervolg)}
+
+  \begin{description}
+
+    \item[4b] Bereken en teken kritiek gebied
+    
+    \begin{align*}
+    g &= \mu - z \times \frac{\sigma}{\sqrt{n}} \\
+      &= 27 - 1.645 \times \sqrt{\frac{\sigma}{n}} \\
+      &= 25.27470944
+    \end{align*}
+
+    We vinden dus dat $\overline{x} < g$ en dus kunnen we $H_{0}$ verwerpen.
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeeld 1 (vervolg)}
+  
+  \bigskip
+  \centering
   \begin{tikzpicture}
     \begin{axis}[domain=24:30, samples=100, enlargelimits=false, clip=false ]
       \addplot [smooth, fill=cyan!20, domain=24:25.27] {gauss(27,1.048808848)} \closedcycle;
-      \addplot [very thick,smooth,draw=HoGentFBO] {gauss(27, 1.048808848)};
+      \addplot [very thick,smooth,draw=hgblue] {gauss(27, 1.048808848)};
       \node  at (axis cs: 25.27, -.04){\small 25.27};
     \end{axis}
   \end{tikzpicture}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeeld 1 (vervolg)}
+  
+  \begin{description}
+  
+    \item[5] Conclusie
+    
+    We besluiten op basis van de steekproef dat $\mu < 27$ met een significantieniveau van $0,05$
+  \end{description}
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Voorbeeld 2}
@@ -359,26 +400,36 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
 
 \begin{frame}
   \frametitle{Voorbeeld 2}
-  \begin{block}{Bepalen van de hypotheses}
-  $H_{0} : \mu = 25$ en $H_{1}: \mu \neq 25$.
-  \end{block}
+  
+  \begin{description}
+    \item[1] Bepalen van de hypothesen
+    
+      $H_{0} : \mu = 25$ en $H_{1}: \mu \neq 25$
+      
+    \item[2] Vastleggen significantieniveau
+    
+      $\alpha = 0.05$ en $n=64$.
+      
+    \item[3] Toetsingsgrootheden \& waarde: $\overline{x} = 23$
+  \end{description}
+  
+\end{frame}
 
-  \begin{block}{Vastleggen significantieniveau}
-  $\alpha = 0.05$ en $n=64$.
-  \end{block}
+\begin{frame}
+\frametitle{Voorbeeld 2 (vervolg)}
 
-  \begin{block}{Toetsingsgrootheden \& waarde}
+  \begin{description}
+    \item[4b] Bereken kritieke gebied
+    
     \[ g_{1} = \mu - z \times \frac{\sigma}{\sqrt{n}} = 23.28 \]
     \[ g_{2} = \mu + z \times \frac{\sigma}{\sqrt{n}} = 26.72 \]
-    \end{block}
-
-    \begin{block}{Bereken en teken kritiek gebied}
-      We vinden dat $\overline{x}$ in het kritieke gebied ligt (want $23 < 23.28$) dus mogen we $H_{0}$ verwerpen.
-  \end{block}
+    
+    We vinden dat $\overline{x}$ in het kritieke gebied ligt (want $23 < 23.28$) dus mogen we $H_{0}$ verwerpen.
+    \item[5] We kunnen op basis van deze steekproef besluiten dat de superhelden \textit{minder} dan \EUR{25} op zak hebben, met een significantieniveau van 5\%
+  \end{description}
 \end{frame}
 
 \section{De $t$-toets}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Veronderstellingen $z$-toets}
@@ -402,8 +453,9 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
   \[ g = \mu \pm t \times \frac{s}{\sqrt{n}} \]
   
   \begin{itemize}
-    \item $t$-waarde wordt afgeleid uit de Student-$t$ verdeling, hangt af van aantal \emph{vrijheidsgraden}, $n-1$
+    \item $t$-waarde wordt afgeleid uit de Student-$t$ verdeling, hangt af van aantal \textit{vrijheidsgraden}, $n-1$
     \item Op te zoeken in $t$-tabel of met R-functie \texttt{pt}
+    \item Procedure hypothesetoets is verder identiek aan $z$-toets
   \end{itemize}
   
 \end{frame}
@@ -420,8 +472,7 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeeld}
-  \framesubtitle{Onafhankelijke steekproeven}
+  \frametitle{Onafhankelijke steekproeven}
   
   In een klinisch onderzoek wil men nagaan of een nieuw medicijn als bijwerking een verminderde reactiesnelheid heeft.
   
@@ -441,8 +492,7 @@ De z-waarde die ermee overeen komt is 1.645 dus hebben we
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Voorbeeld}
-  \framesubtitle{Onafhankelijke steekproeven}
+  \frametitle{Onafhankelijke steekproeven}
 \begin{enumerate}
   \item Hypothese:
     \begin{itemize}
@@ -470,9 +520,8 @@ In R:
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Voorbeeld}
-  \framesubtitle{Onafhankelijke steekproeven}
-Resultaat in R:
+  \frametitle{Onafhankelijke steekproeven}
+
 {\footnotesize
 \begin{Verbatim}[commandchars=\\\{\}]
 Welch Two Sample t-test
@@ -490,12 +539,11 @@ mean of x mean of y
 \vfill
 $\overline{x}-\overline{y}=-12,833$ komt overeen met $t=-3,4456$\\
 $df=9,48$ wordt berekend door \texttt{t.test()} op basis van $x$ en $y$\\
-$p = 0,003391 < \alpha = 0,05$ dus $H_1$ aanvaard (significant verschil)
+$p = 0,003391 < \alpha = 0,05$ dus $H_0$ verworpen (significant verschil)
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeeld}
-  \framesubtitle{Gepaarde steekproef}
+  \frametitle{Gepaarde steekproef}
   
   In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben.
   
@@ -512,8 +560,7 @@ $p = 0,003391 < \alpha = 0,05$ dus $H_1$ aanvaard (significant verschil)
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Voorbeeld}
-  \framesubtitle{Gepaarde steekproef}
+  \frametitle{Gepaarde steekproef}
 \begin{enumerate}
     \item Hypothese:
     \begin{itemize}
@@ -541,9 +588,8 @@ In R:
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Voorbeeld}
-  \framesubtitle{Gepaarde steekproef}
-Resultaat in R:
+  \frametitle{Gepaarde steekproef}
+
 {\footnotesize
 \begin{Verbatim}[commandchars=\\\{\}]
 Paired t-test
@@ -559,12 +605,11 @@ mean of the differences
 \end{Verbatim}
 }
 \vfill
-$\overline{x-y}=2$ komt overeen met $t=4,4721$\\
-$p = 0,0007749 < \alpha = 0,05$ dus $H_1$ aanvaard (significant verschil)
+$\overline{x}-\overline{y}=2$ komt overeen met $t=4,4721$\\
+$p = 0,0007749 < \alpha = 0,05$ dus $H_0$ verworpen (significant verschil)
 \end{frame}
 
 \section{Fouten in hypothesetoetsen}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Fouten in hypothesetoetsen}
@@ -574,22 +619,98 @@ $p = 0,0007749 < \alpha = 0,05$ dus $H_1$ aanvaard (significant verschil)
     \resizebox{\textwidth}{!}{%
       \begin{tabular}{@{}l|cc@{}}
         \toprule
-        & \multicolumn{2}{c}{\textbf{Werkelijke stand van zaken}} \\
-        \textbf{Conclusies}          & \textbf{$H_{0}$ correct} & \textbf{$H_{1}$ correct}     \\
+        & \multicolumn{2}{c}{\textbf{Realiteit (onbekend)}} \\
+        \textbf{Conclusie toets}          & \textbf{$H_{0}$ correct} & \textbf{$H_{1}$ correct}     \\
         \midrule
         \textbf{$H_{0}$ geaccepteerd}& Juist                    & Fout van type II \\
         \textbf{$H_{0}$ verworpen}   & Fout van type I          & Juist            \\
         \bottomrule
       \end{tabular}
     }
-    \caption{Mogelijke fouten bij het trekken van conclusies uit statistische toetsen.}
     \label{tab:hypfouten}
   \end{table}
-\vfill
-P(type I error) = $\alpha$ (= significantie niveau)\\
-P(type II error) = $\beta$
-\vfill
-Het is \textbf{\textit{niet}} triviaal om $\beta$ te berekenen,
-maar we weten dat als $\alpha \searrow$, dan $\beta \nearrow$ 
+
+  P(type I error) = $\alpha$ (= significantieniveau)
+  
+  P(type II error) = $\beta$
+  
+  $\beta$ berekenen is \textbf{\textit{niet}} triviaal, maar als $\alpha \searrow$ dan $\beta \nearrow$ 
 \end{frame}
+
+\section{Effectgrootte}
+
+\begin{frame}
+  \frametitle{Effectgrootte}
+  
+  \alertbox{De \textcolor{hgyellow}{effectgrootte} is een metriek die uitdrukt hoe groot het verschil tussen twee groepen is}
+  
+  \begin{itemize}
+    \item Controlegroep vs. interventiegroep
+    \item Kan je gebruiken naast hypothesetoets
+    \item Vaak gebruikt in onderwijswetenschappen
+    \item Er zijn verschillende definities, hier: \textit{Cohen's $d$}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Cohen's $d$}
+
+\[ d = \frac{\overline{x_1} - \overline{x_2}}{s} \]
+
+met $\overline{x_1}$, $\overline{x_2}$ gemiddelde van de steekproeven
+
+en $s$ een gecombineerde standaardafwijking over beide groepen:
+
+\[ s = \sqrt{\frac{(n_1 - 1) s_1^2 + (n_2 - 1) s_2^2}{n_1 + n_2 -2}} \]
+
+met $n_1$, $n_2$ de steekproefgroottes, $s_1$, $s_2$ de standaardafwijking van beide groepen
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interpretatie Cohen's $d$}
+  
+  \begin{columns}
+    \column{.5\textwidth}
+    
+    \begin{center}
+      \begin{tabular}{ll}
+        \toprule
+        $|d|$  & \textbf{Effectgrootte} \\
+        \midrule
+        0,01 & zeer klein             \\
+        0,2  & klein                  \\
+        0,5  & matig                  \\
+        0,8  & groot                  \\
+        1,2  & zeer groot             \\
+        2,0  & enorm                  \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+  
+    \column{.5\textwidth}
+    
+    In onderwijswetenschappen (John Hattie):
+    
+    \begin{itemize}
+      \item 0,4 = kantelpunt voor gewenste effecten
+      \item effectgrootte $d = 1$: leerstof van 1j op 6m verwerken!
+    \end{itemize}
+  
+    Zie bvb. \url{http://www.evidencebasedteaching.org.au/hatties-2017-updated-list/}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Typisch opzet onderzoek in onderwijs}
+  
+  \begin{itemize}
+    \item Onderzoeksvraag: Is X een goede leerstrategie, m.a.w. heeft dit een positief effect op eindresultaten?
+    \item Controlegroep gebruikt ``normale'', ``klassieke'' techniek
+    \item In de interventiegroep wordt X toegepast
+    \item Achteraf volgt evaluatiemoment
+    \item Scores bepalen, $d$ berekenen
+  \end{itemize}
+\end{frame}
+
 \end{document}
