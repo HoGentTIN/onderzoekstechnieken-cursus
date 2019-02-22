@@ -1,4 +1,4 @@
-# Onderzoekstechnieken
+[#](#) Onderzoekstechnieken
 
 Cursusmateriaal Onderzoekstechnieken.
 
@@ -143,8 +143,8 @@ Indien er zich fouten voordoen bij de compilatie, kan je onderaan in het tabblad
 
 [JabRef](http://www.jabref.org/) is een GUI voor het bewerken van BibTeX-bestanden, een soort database van bronnen uit de wetenschappelijke of vakliteratuur voor een LaTeX-document.
 
-- Kies in het menu voor *File > Switch to BibLaTeX mode*. Dit maakt de bestandsindeling
 van de bibliografische databank compatibel met dat van de cursus en het aangeboden LaTeX-sjabloon voor de bachelorproef.
+- Kies in het menu voor *Options > Preferences > General* en kies onderaan voor de optie "Default bibliography mode" voor "biblatex". Dit maakt de bestandsindeling van de bibliografische databank compatibel met dat van de cursus en het aangeboden LaTeX-sjabloon voor de bachelorproef.
 - Kies in het *Preferences*-venster voor de categorie *File* en geef een directory op voor het bijhouden van PDFs van de gevonden bronnen onder *Main file directory*. Het is heel interessant om de gevonden artikels te downloaden en onder die directory bij te houden. Nog beter is om als naam van het bestand de BibTeX key te nemen (typisch naam van de eerste auteur + jaartal, bv. Knuth1998.pdf). Je kan het bestand dan makkelijk openen vanuit Jabref.
 
 ## Interessante artikels, ...
