@@ -1,4 +1,4 @@
-[#](#) Onderzoekstechnieken
+# Onderzoekstechnieken
 
 Cursusmateriaal Onderzoekstechnieken.
 
