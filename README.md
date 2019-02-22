@@ -64,9 +64,10 @@ Het is ook handig om een markdown editor te installeren (bvb. retext, ...)
 **Ubuntu/Debian.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
 
 ```
-sudo aptitude update
-sudo aptitude install texlive-latex-base texlive-latex-extra texlive-lang-european texlive-bibtex-extra biber
-sudo aptitude install git texstudio jabref r-base
+sudo apt update
+sudo apt install texlive-latex-base texlive-latex-extra texlive-lang-european texlive-bibtex-extra biber
+sudo apt install git texstudio jabref r-base
+cd ~/Downloads
 wget https://download1.rstudio.org/rstudio-1.1.419-amd64.deb
 sudo dpkg -i ./rstudio-1.1.419-amd64.deb
 ```
