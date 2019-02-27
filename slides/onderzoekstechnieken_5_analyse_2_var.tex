@@ -1,27 +1,20 @@
-%%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
-%%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
-
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
 %==============================================================================
 
 %---------- Packages ----------------------------------------------------------
+
 \usepackage{etex}
 \usepackage{graphicx,multicol}
 \usepackage{comment,enumerate,hyperref}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -36,8 +29,9 @@
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
 \usetikzlibrary{pgfplots.statistics}
 
-
 \usetheme{hogent}
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+
 \setbeameroption{show notes}
 
 %---------- Commando-definities -----------------------------------------------
@@ -47,9 +41,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Analyse 2 variabelen]{Onderzoekstechnieken\\Les 5. Analyse op 2 variabelen}
-\author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\title[OZT: Analyse 2 variabelen]{Les 5. Analyse van 2 variabelen}
+\subtitle{Onderzoekstechnieken}
+\author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -59,20 +54,15 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
-
 \begin{frame}
-  \frametitle{What's on the menu today?}
-
-  \tableofcontents
+\maketitle
 \end{frame}
 
+\begin{frame}
+\frametitle{What's on the menu today?}
+
+\tableofcontents
+\end{frame}
 
 
 %---------- Bivariate Analyse---------------------------------------------------
@@ -95,32 +85,30 @@
 
 \end{frame}
 
-\sectionframelogo{Bivariate Analyse : grafisch}
+\subsection{Bivariate Analyse: grafisch}
 
 \begin{frame}
-  \frametitle{Voorbeeldonderzoek: voorkeur studenten bij refterbezoek}
+  \frametitle{Voorbeeld}
+  \framesubtitle{Tevredenheidsonderzoek campusrestaurant}
 
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth] {img/students.jpg}
-    \label{fig:students}
-  \end{figure}
 
   \begin{itemize}
-    \item Wat is het aantal dagen per week dat men gebruikmaakt van het restaurant?
+    \item Hoe vaakt bezoekt men het restaurant?
     \item Is er een verschil in uitgaven tussen student en medewerker?
     \item Is er een verband tussen het aantal dagen dat men bezoekt en bedrag dat men wekelijks besteedt?
   \end{itemize}
 
   R Code: zie \texttt{cursus/data/catering\_hogeschool.R}
 
+  \centering
+  \includegraphics[height=.4\textheight]{img/students.jpg}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Wat is het aantal dagen per week dat men gebruikmaakt van het restaurant?}
+\begin{frame}{Hoe vaakt bezoekt men het restaurant?}
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \begin{table}[h]
+        \small
         \begin{tabular}{|l|l|}
           \hline
           { \textbf{Statistiek}} & \textbf{Waarde} \\ \hline
@@ -140,7 +128,7 @@
 
       \begin{figure}
         \centering
-        \includegraphics[width=1.00\textwidth]{img/2var-boxplot-aantalbezoeken}
+        \includegraphics[height=.8\textheight]{img/2var-boxplot-aantalbezoeken}
         \label{fig:boxplotStudenten}
       \end{figure}
 
@@ -148,14 +136,14 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Wat is het aantal dagen per week dat men gebruik maakt van het restaurant?}
+\begin{frame}{Hoe vaakt bezoekt men het restaurant?}
+  
   \begin{columns}
     
     \begin{column}{0.5\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[width=1.00\textwidth]{img/2var-barplot-aantalbezoeken}
+        \includegraphics[height=.8\textheight]{img/2var-barplot-aantalbezoeken}
         \label{fig:studentenbar}
       \end{figure}
     \end{column}
@@ -163,7 +151,7 @@
     \begin{column}{0.5\textwidth}
       \begin{figure}
         \centering
-        \includegraphics[width=1.00\textwidth]{img/2var-boxplot-aantalbezoeken}
+        \includegraphics[height=.8\textheight]{img/2var-boxplot-aantalbezoeken}
         \label{fig:boxplotStudenten2}
       \end{figure}
     \end{column}
@@ -171,8 +159,8 @@
   \end{columns}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Verschil in bedrag tussen student en medewerker?}
+\begin{frame}{Student vs werknemer}
+  
   \begin{itemize}
     \item \alert<1>{Enkelvoudig staafdiagram} (van gemiddelde per categorie)
     \item \alert<2>{Boxplot}
@@ -180,8 +168,8 @@
 
   \begin{figure}
     \centering
-    \only<1>{\includegraphics[width=0.5\textwidth]{img/2var-barplot-gemiddeld-bedrag}}
-    \only<2>{\includegraphics[width=0.7\textwidth]{img/2var-boxplot-klanttype-bedrag}}
+    \only<1>{\includegraphics[height=0.6\textheight]{img/2var-barplot-gemiddeld-bedrag}}
+    \only<2>{\includegraphics[height=0.6\textheight]{img/2var-boxplot-klanttype-bedrag}}
   \end{figure}
 
   \only<1>{\textbf{Let op!} Onvoldoende om significant verschil aan te tonen!}
@@ -189,6 +177,7 @@
 
 \begin{frame}
   \frametitle{Afhankelijke en onafhankelijke variabele}
+  
   \begin{columns}
     \begin{column}{0.3\textwidth}
 
@@ -261,7 +250,6 @@
 \end{frame}
 
 \section{Kruistabellen en Cramér's V}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Kruistabellen}
@@ -335,7 +323,9 @@
 
 \begin{frame}
   \frametitle{Cramér's V}
-  \brightbox{\textcolor{HoGentAccent6}{Cramér's V} is een maat die aanduidt hoe sterk de samenhang is tussen twee nominale variabelen. Dit getal ligt altijd tussen 0 en 1}
+  
+  \alertbox{Cramér's V is een maat die aanduidt hoe sterk de samenhang is tussen twee kwalitatieve variabelen. Dit getal ligt altijd tussen 0 en 1}
+  
   \begin{table}[h] \centering
     \begin{tabular}{@{}rr@{}} \toprule
       Waarde & Interpretatie \\
@@ -380,14 +370,13 @@
 \end{frame}
 
 \section{Grafieken voor kruistabellen}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Visuele voorstelling van kruistabelen}
   
   \begin{figure}
     \centering
-    \includegraphics[width=0.80\textwidth]{img/2var-xtab-plot-waardering}
+    \includegraphics[height=.9\textheight]{img/2var-xtab-plot-waardering}
   \end{figure}
   
 \end{frame}
@@ -398,7 +387,7 @@
 
   \begin{figure}
     \centering
-    \includegraphics[width=0.80\textwidth]{img/2var-staafgrafiek-geclusterd}
+    \includegraphics[height=.9\textheight]{img/2var-staafgrafiek-geclusterd}
   \end{figure}
 
 \end{frame}
@@ -409,17 +398,16 @@
   
   \begin{figure}
     \centering
-    \includegraphics[width=0.80\textwidth]{img/2var-rependiagram-waardering-mv}
+    \includegraphics[height=.9\textheight]{img/2var-rependiagram-waardering-mv}
   \end{figure}
 
 \end{frame}
 
 \section{Lineaire Regressie}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{Lineaire regressie}
-  \brightbox{Bij \textcolor{HoGentAccent6}{regressie} gaan we proberen een \textcolor{HoGentAccent6}{consistente} en \textcolor{HoGentAccent6}{systematische} koppeling tussen de variabelen te vinden.}
+  \alertbox{Bij \textcolor{hgyellow}{regressie} gaan we proberen een \textcolor{hgyellow}{consistente} en \textcolor{hgyellow}{systematische} koppeling tussen de variabelen te vinden.}
 
 
   \begin{enumerate}
@@ -446,7 +434,7 @@
         axis x line=middle,
         axis y line=middle,
         enlarge y limits=true,
-        width=\textwidth, height=8cm,     % size of the image
+        width=.9\textwidth, height=.9\textheight,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
         ylabel=$y$,
@@ -467,7 +455,7 @@
         axis x line=middle,
         axis y line=middle,
         enlarge y limits=true,
-        width=\textwidth, height=8cm,     % size of the image
+        width=.9\textwidth, height=.9\textheight,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
         ylabel=$y$,
@@ -510,7 +498,9 @@
 
 \begin{frame}
   \frametitle{Kleinste kwadratenmethode: voorbeeld}
-  \begin{table}[h] \centering
+  \begin{table}[h]
+    \centering
+    \small
     \begin{tabular}{@{}rr@{}} \toprule
       Eiwitgehalte\%& Gewichtstoename (gram)  \\
       \midrule
@@ -534,7 +524,7 @@
         axis x line=middle,
         axis y line=middle,
         enlarge y limits=true,
-        width=\textwidth, height=8cm,     % size of the image
+        width=.9\textwidth, height=.9\textheight,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
         ylabel=gewichtstoename (g),
@@ -549,7 +539,7 @@
 
 \begin{frame}
   \frametitle{Kleinste kwadratenmethode: voorbeeld}
-  \begin{table}[h] \centering
+  \begin{table}[h] \centering \small
     \begin{tabular}{@{}llllll@{}}
       \toprule
       $x$   & $y$     & $x-\overline{x}$    & $y - \overline{y}$        & $(x-\overline{x})(y - \overline{y})$       &  $(x-\overline{x})^{2}$    \\ \midrule
@@ -577,7 +567,7 @@
         axis x line=middle,
         axis y line=middle,
         enlarge y limits=true,
-        width=\textwidth, height=8cm,     % size of the image
+        width=.9\textwidth, height=.9\textheight,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
         ylabel=gewichtstoename (g),
@@ -592,13 +582,11 @@
 
 \section{Correlatieco\"effici\"ent en determinatieco\"effci\"ent}
 
-\sectionframelogo{}
-
 \begin{frame}
   \frametitle{Pearson correlatiecoëfficiënt en determinatiecoëfficiënt}
-  \brightbox{De \textcolor{HoGentAccent6}{Pearson correlatiecoëfficiënt} is een maat voor de sterkte van de lineaire samenhang tussen $x$ en $y$}
+  \alertbox{De \textcolor{hgyellow}{Pearson correlatiecoëfficiënt} is een maat voor de sterkte van de lineaire samenhang tussen $x$ en $y$}
 
-  \brightbox{De \textcolor{HoGentAccent6}{determinatiecoëfficiënt} verklaart het percentage van de variantie van de waargenomen waarden t.o.v. de regressierechte.}
+  \alertbox{De \textcolor{hgyellow}{determinatiecoëfficiënt} verklaart het percentage van de variantie van de waargenomen waarden t.o.v. de regressierechte.}
 \end{frame}
 
 \begin{frame}
@@ -611,7 +599,7 @@
         axis x line=middle,
         axis y line=middle,
         enlarge y limits=true,
-        width=\textwidth, height=8cm,     % size of the image
+        width=.9\textwidth, height=.9\textheight,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
         ylabel=gezinsgrootte moeder,
@@ -636,7 +624,7 @@
         axis x line=middle,
         axis y line=middle,
         enlarge y limits=true,
-        width=\textwidth, height=8cm,     % size of the image
+        width=.9\textwidth, height=.9\textheight,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
         ylabel=gezinsgrootte moeder,
@@ -645,10 +633,10 @@
       ]
       \draw (axis cs:3,0)--(axis cs:3,8);
       \draw (axis cs:0,4.3)--(axis cs:6,4.3);
-      \node[small dot, pin=120:{$III$}] at (axis cs:1.6,7) {};
-      \node[small dot, pin=120:{$I$}] at (axis cs:5.5,7) {};
-      \node[small dot, pin=120:{$II$}] at (axis cs:1.6,2) {};
-      \node[small dot, pin=120:{$IV$}] at (axis cs:5.5,2) {};
+      \node[small dot, pin=120:{$III$}] at (axis cs:1.9,6) {};
+      \node[small dot, pin=120:{$I$}] at (axis cs:4.5,6) {};
+      \node[small dot, pin=120:{$II$}] at (axis cs:1.9,2) {};
+      \node[small dot, pin=120:{$IV$}] at (axis cs:4.5,2) {};
       \addplot[only marks] table  {data/families.txt};
     \end{axis}
   \end{tikzpicture}
@@ -662,7 +650,7 @@
         axis x line=middle,
         axis y line=middle,
         enlarge y limits=true,
-        width=\textwidth, height=8cm,     % size of the image
+        width=.9\textwidth, height=.9\textheight,     % size of the image
         grid = major,
         grid style={dashed, gray!30},
         ylabel=gezinsgrootte moeder,
@@ -672,9 +660,9 @@
       \draw (axis cs:1942.625,0)--(axis cs:1942.625,6);
       \draw (axis cs:1930,3.4375)--(axis cs:1955,3.4375);
       \node[small dot, pin=120:{$III$}] at (axis cs:1935,5) {};
-      \node[small dot, pin=120:{$I$}] at (axis cs:1955,5) {};
+      \node[small dot, pin=120:{$I$}] at (axis cs:1950,5) {};
       \node[small dot, pin=120:{$II$}] at (axis cs:1935,2) {};
-      \node[small dot, pin=120:{$IV$}] at (axis cs:1955,2) {};
+      \node[small dot, pin=120:{$IV$}] at (axis cs:1950,2) {};
       \addplot[only marks] table  {data/families2.txt};
     \end{axis}
   \end{tikzpicture}
@@ -690,7 +678,7 @@
           axis x line=middle,
           axis y line=middle,
           enlarge y limits=true,
-          width=\textwidth, height=8cm,     % size of the image
+          width=.9\textwidth, height=.9\textheight,     % size of the image
           grid = major,
           grid style={dashed, gray!30},
           ylabel=gewichtstoename (g),
@@ -735,7 +723,7 @@
           axis x line=middle,
           axis y line=middle,
           enlarge y limits=true,
-          width=\textwidth, height=8cm,     % size of the image
+          width=.9\textwidth, height=.9\textheight,     % size of the image
           grid = major,
           grid style={dashed, gray!30},
           ylabel=gewichtstoename (g),
@@ -776,7 +764,7 @@
 
 \begin{frame}
   \frametitle{Correlatieco\"effici\"ent en determinatieco\"effci\"ent}
-  \begin{table}[h] \centering
+  \begin{table}[h] \centering \small
     \begin{tabular}{@{}|r|r|r|r|@{}} \toprule
       $R$ & $R^{2}$ & Verklaarde variantie &  Interpretatie \\
       \midrule
@@ -796,7 +784,7 @@
   \frametitle{Sterkte verband rendieren}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \begin{table}[h] \centering
+      \begin{table}[h] \centering \small
         \begin{tabular}{@{}rrr@{}} \toprule
           $(x-\overline{x})$ & $(y - \overline{y})$ & $(x-\overline{x})(y - \overline{y})$ \\
           \midrule
@@ -836,7 +824,7 @@
 
   \begin{figure}
     \centering
-    \includegraphics[width=0.90\textwidth]{img/les3-regressie.png}
+    \includegraphics[height=\textheight]{img/les3-regressie.png}
     \label{fig:les3-regressie}
   \end{figure}
 

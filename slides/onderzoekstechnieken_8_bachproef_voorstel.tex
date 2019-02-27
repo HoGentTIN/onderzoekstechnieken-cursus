@@ -1,9 +1,8 @@
 %%----------------------------------------------------------------------------
 %% Presentatie HoGent Bedrijf en Organisatie
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
-
-\documentclass[usenames,dvipsnames]{beamer}
+ 
+\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
 
 %==============================================================================
 % Aanloop
@@ -17,12 +16,9 @@
 \usepackage{wasysym}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -42,6 +38,7 @@
 
 
 \usetheme{hogent}
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
 \setbeameroption{show notes}
 
 %---------- Commando-definities -----------------------------------------------
@@ -51,9 +48,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Voorbereiding Bachelorproef}
-\author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\title[OZT: Voorbereiding Bachelorproef]{Voorbereiding Bachelorproef}
+\subtitle{Onderzoekstechnieken}
+\author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -63,18 +61,14 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
+\begin{frame}
+\maketitle
+\end{frame}
 
 \begin{frame}
-  \frametitle{What's on the menu today?}
+\frametitle{What's on the menu today?}
 
-  \tableofcontents
+\tableofcontents
 \end{frame}
 
 \begin{frame}
@@ -92,12 +86,10 @@
 \end{frame}
 
 \section{De bachelorproef informatica}
-\sectionframe{}
 
-\begin{frame}{De bachelorproef informatica}
-  \framesubtitle{Doelstelling}
+\begin{frame}{Doelstelling}
   
-  \brightbox{Kunnen advies geven over toepassen nieuwe ict-technologieën in bedrijfscontext}
+  \alertbox{Kunnen advies geven over toepassen nieuwe ict-technologieën in bedrijfscontext}
   
   \begin{itemize}
     \item informatie verzamelen en kritisch beschouwen
@@ -139,8 +131,7 @@ Stage en bachelorproef mogen over zelfde onderwerp gaan, maar moeten gescheiden 
 
 \end{frame}
 
-\begin{frame}{De bachelorproef informatica}
-  \framesubtitle{Praktisch}
+\begin{frame}{Praktisch}
   
   \begin{itemize}
     \item 3e modeltraject
@@ -154,8 +145,7 @@ Stage en bachelorproef mogen over zelfde onderwerp gaan, maar moeten gescheiden 
 Uitzonderingen: BP in 2e zit of 1e semester
 \end{frame}
 
-\begin{frame}{De bachelorproef informatica}
-  \framesubtitle{Opvolging}
+\begin{frame}{Opvolging}
   
   \begin{itemize}
     \item \textbf{Promotor:} \emph{proces}opvolging
@@ -178,7 +168,6 @@ Je dient zelf een co-promotor te zoeken!
 \end{frame}
 
 \section{Een onderwerp kiezen}
-\sectionframe{}
 
 \begin{frame}{Op zoek naar een onderwerp}
 
@@ -189,7 +178,7 @@ Je dient zelf een co-promotor te zoeken!
   \item Eigen idee/voorstel
 \end{itemize}
 
-\brightbox{Wacht niet te lang met het zoeken naar een onderwerp!}
+\alertbox{Wacht niet te lang met het zoeken naar een onderwerp!}
 \end{frame}
 
 \begin{frame}{Geschikte onderwerpen}
@@ -201,7 +190,7 @@ Je dient zelf een co-promotor te zoeken!
     \item Wat is de beste oplossing binnen huidige state-of-the-art?
   \end{itemize}
 
-  \brightbox{Start vanuit een concrete, \textcolor{HoGentAccent6}{reële bedrijfscasus}}
+  \alertbox{Start vanuit een concrete, \textcolor{hgyellow}{reële bedrijfscasus}}
 \end{frame}
 
 \begin{frame}{Ongeschikte onderwerpen}
@@ -247,7 +236,7 @@ Je dient zelf een co-promotor te zoeken!
     \item \ldots
   \end{itemize}
 
-  \brightbox{Start hier nu al mee!}
+  \alertbox{Start hier nu al mee!}
 \end{frame}
 
 \begin{frame}{Een onderzoeksvraag formuleren}
@@ -276,11 +265,10 @@ Je dient zelf een co-promotor te zoeken!
     \item \ldots
   \end{itemize}
 
-  \brightbox{Ja, vooropgesteld dat het onderwerp \textcolor{HoGentAccent6}{ICT-gerelateerd is}, \textcolor{HoGentAccent6}{technische diepgang heeft} en je een \textcolor{HoGentAccent6}{concrete onderzoeksvraag} hebt geformuleerd vanuit een \textcolor{HoGentAccent6}{reële bedrijfscasus}}
+  \alertbox{Ja, vooropgesteld dat het onderwerp \textcolor{hgyellow}{ICT-gerelateerd is}, \textcolor{hgyellow}{technische diepgang heeft} en je een \textcolor{hgyellow}{concrete onderzoeksvraag} hebt geformuleerd vanuit een \textcolor{hgyellow}{reële bedrijfscasus}}
 \end{frame}
 
 \section{Het onderwerp uitschrijven}
-\sectionframe{}
 
 \begin{frame}{Het onderwerp uitschrijven}
 
@@ -311,11 +299,10 @@ Je dient zelf een co-promotor te zoeken!
 \end{frame}
 
 \section{Criteria voor beoordeling voorstel}
-\sectionframe{}
 
 \begin{frame}{Criteria voor beoordeling voorstel}
 
-\brightbox{De \textbf{titel} is \emph{concreet} en geeft een correct beeld van de onderzoeksdoelstelling}
+\alertbox{De \textbf{titel} is \emph{concreet} en geeft een correct beeld van de onderzoeksdoelstelling}
 
 \begin{itemize}
   \item Niet enkel het onderzoeksdomein benoemen
@@ -334,8 +321,8 @@ Je dient zelf een co-promotor te zoeken!
 
 \begin{frame}{Criteria voor beoordeling voorstel}
 
-\brightbox{Er is een \textbf{samenvatting} met alle nodige elementen}
-
+\alertbox{Er is een \textbf{samenvatting} met alle nodige elementen}
+\small
 \begin{description}
   \item[Context] Waarom is dit werk belangrijk?
   \item[Nood] Waarom moet dit onderzocht worden?
@@ -346,13 +333,13 @@ Je dient zelf een co-promotor te zoeken!
   \item[Perspectief] Waarvoor zal het resultaat kunnen gebruikt worden? Wat is de meerwaarde van je werk?
 \end{description}
 
-\brightbox{Een samenvatting is geen inleiding!}
+\alertbox{Een samenvatting is geen inleiding!}
 
 \end{frame}
 
 \begin{frame}{Criteria voor beoordeling voorstel}
 
-\brightbox{Het voorstel is \textbf{vernieuwend} en heeft een duidelijke \textbf{meerwaarde} voor een specifieke doelgroep uit het werkveld}
+\alertbox{Het voorstel is \textbf{vernieuwend} en heeft een duidelijke \textbf{meerwaarde} voor een specifieke doelgroep uit het werkveld}
 
 \begin{itemize}
   \item Op een onderzoeksvraag is nu nog geen antwoord!
@@ -365,7 +352,7 @@ Je dient zelf een co-promotor te zoeken!
 
 \begin{frame}{Criteria voor beoordeling voorstel}
 
-\brightbox{De methodologie is duidelijk verantwoord, onderzoekstechnieken zijn geschikt voor beantwoorden onderzoeksvraag}
+\alertbox{De methodologie is duidelijk verantwoord, onderzoekstechnieken zijn geschikt voor beantwoorden onderzoeksvraag}
 
 \begin{itemize}
   \item Concreet plan van aanpak!
@@ -387,7 +374,7 @@ Je dient zelf een co-promotor te zoeken!
 
 \begin{frame}{Criteria voor beoordeling voorstel}
 
-\brightbox{Er wordt op een correcte manier verwezen naar vakliteratuur}
+\alertbox{Er wordt op een correcte manier verwezen naar vakliteratuur}
 
 \begin{itemize}
   \item Voldoende referenties
@@ -399,7 +386,7 @@ Je dient zelf een co-promotor te zoeken!
 
 \begin{frame}{Criteria voor beoordeling voorstel}
 
-\brightbox{Er wordt een \textbf{zakelijke schrijfstijl} gehanteerd}
+\alertbox{Er wordt een \textbf{zakelijke schrijfstijl} gehanteerd}
 
 \begin{description}
   \item[Zakelijk] geen bloemrijk, informeel taalgebruik, spreektaal
@@ -414,7 +401,6 @@ Zie \url{http://www.taalwinkel.nl/een-wetenschappelijke-schrijfstijl/}
 \end{frame}
 
 \section{Uitdagingen}
-\sectionframe{}
 
 \begin{frame}{Uitdagingen}
 
@@ -430,7 +416,6 @@ Zie \url{http://www.taalwinkel.nl/een-wetenschappelijke-schrijfstijl/}
 
 
 \section{Veel succes!}
-\sectionframe{}
 
 \end{document}
 

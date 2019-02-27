@@ -1,9 +1,4 @@
-%%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
-%%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
-
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
@@ -16,12 +11,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -37,8 +29,9 @@
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
 \usetikzlibrary{pgfplots.statistics}
 
-
 \usetheme{hogent}
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+
 \setbeameroption{show notes}
 
 %---------- Commando-definities -----------------------------------------------
@@ -46,11 +39,17 @@
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
 \renewcommand{\arraystretch}{1.2}
 
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
+
+
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\$\chi^{2}$ toets}
-\author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\title[OZT: chi-kwadraat]{Les 6. De $\chi^{2}$ toets.}
+\subtitle{Onderzoekstechnieken}
+\author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -60,25 +59,17 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
-
-\pgfmathdeclarefunction{gauss}{2}{%
-  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
-}
-
-
+\begin{frame}
+\maketitle
+\end{frame}
 
 \begin{frame}
-  \frametitle{What's on the menu today?}
+\frametitle{What's on the menu today?}
 
-  \tableofcontents
+\tableofcontents
 \end{frame}
+
+%---------- Inhoud ------------------------------------------------------------
 
 \begin{frame}
   \frametitle{Wat weten we nog van vorige les?}
@@ -91,27 +82,26 @@
   \end{itemize}
 \end{frame}
 
-\section{$\chi^{2}$ toets voor een variabele}
-\sectionframelogo{}
+\section{$\chi^{2}$ toets voor één variabele}
 
 \begin{frame}
   \frametitle{Goodness of fit test}
-  \brightbox{De \textcolor{HoGentAccent6}{goodness of fit test} kan gebruikt worden om na te gaan in welke mate de steekproef overeenstemt met een nulhypothese over de verdeling van de variabele.}
+  \alertbox{De \textcolor{hgyellow}{goodness of fit test} kan gebruikt worden om na te gaan in welke mate de steekproef overeenstemt met een nulhypothese over de verdeling van de variabele.}
 
   \begin{columns}
-    \begin{column} {0.5\textwidth}
+    \begin{column} {0.35\textwidth}
 
     \begin{figure}
       \centering
-        \includegraphics[width=0.8\textwidth]{img/les6-man.jpg}
+        \includegraphics[height=.6\textheight]{img/les6-man.jpg}
     \end{figure}
 
     \end{column}
-    \begin{column} {0.5\textwidth}
+    \begin{column} {0.65\textwidth}
 
     \begin{figure}
       \centering
-        \includegraphics[width=1.00\textwidth]{img/les5-heroes.jpg}
+        \includegraphics[width=.8\textwidth]{img/les5-heroes.jpg}
     \end{figure}
 
     \end{column}
@@ -121,7 +111,6 @@
 \begin{frame}
   \frametitle{Goodness of fit test}
    We willen  nagaan of de verdeling van onze steekproef bij $n = 400$ superhelden overeenstemt met de verdeling die je verwacht in de volledige populatie (de verzameling van alle mogelijke superhelden).
-
 
   \begin{itemize}
     \item We Vergelijken daartoe de aantallen in de steekproef met de aantallen die je zou verwachten als de steeproef exact representatief zou zijn naar de types van superhelden.
@@ -329,7 +318,7 @@ $r_i$                      & 4.74   & -0.89 & -0.93 & -1.07106 & 0.22 & 2.40 &  
 \subsection{Gestandaardiseerde residuen}
 \begin{frame}
   \frametitle{Gestandaardiseerde residuen}
-  \brightbox{De \textcolor{HoGentAccent6}{gestandaardiseerde residuen}  duiden aan welke klassen de grootste bijdrage leveren aan de waarde van de grootheid. }
+  \alertbox{De \textcolor{hgyellow}{gestandaardiseerde residuen} duiden aan welke klassen de grootste bijdrage leveren aan de waarde van de grootheid. }
   \[ r_{i} = \frac{O_{i} - n \pi_{i}}{\sqrt{n \pi_{i}(1-\pi_{i})}} \]
 
   \begin{itemize}
@@ -349,7 +338,6 @@ $r_i$                      & 4.74   & -0.89 & -0.93 & -1.07106 & 0.22 & 2.40 &  
 \end{frame}
 
 \section{$\chi^{2}$ toets voor twee variabelen}
-\sectionframelogo{}
 
 \begin{frame}
   \frametitle{$\chi^{2}$ toets voor twee variabelen}

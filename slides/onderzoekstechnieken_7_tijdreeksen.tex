@@ -1,9 +1,8 @@
 %%----------------------------------------------------------------------------
 %% Presentatie HoGent Bedrijf en Organisatie
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
@@ -16,12 +15,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -41,6 +37,7 @@
 
 
 \usetheme{hogent}
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
 \setbeameroption{show notes}
 
 %---------- Commando-definities -----------------------------------------------
@@ -50,9 +47,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Tijdreeksen}
-\author{Jens Buysse \and Wim {De Bruyn} \and Wim Goedertier \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\title[OZT: Tijdreeksen]{Tijdreeksen}
+\subtitle{Onderzoekstechnieken}
+\author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -62,18 +60,14 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
+\begin{frame}
+\maketitle
+\end{frame}
 
 \begin{frame}
-  \frametitle{What's on the menu today?}
+\frametitle{What's on the menu today?}
 
-  \tableofcontents
+\tableofcontents
 \end{frame}
 
 \section{Tijdreeksen en voorspellingen}
@@ -81,7 +75,7 @@
 \begin{frame}
   \frametitle{Tijdreeksen en voorspellingen}
 
-  \brightbox{Een tijdreeks is een opeenvolging van observaties van een variabele in functie van de tijd}
+  \alertbox{Een tijdreeks is een opeenvolging van observaties van een variabele in functie van de tijd}
 
   Een tijdreeks is een stochastisch proces. Voorbeelden:
 
@@ -255,7 +249,9 @@
 \begin{frame}
   \frametitle{Voortschrijdend gemiddelde}
 
-  \brightbox{Het eenvoudig voortschrijdend gemiddelde is een reeks \emph{gemiddelden} van de laatste $m$ observaties}
+  \alertbox{Het eenvoudig voortschrijdend gemiddelde is een reeks \emph{gemiddelden} van de laatste $m$ observaties}
+
+  \small
 
   \begin{itemize}
     \item Eng.: \emph{Simple Moving Average} (SMA)
@@ -282,6 +278,7 @@
 \end{frame}
 
 \note{%
+  \footnotesize
   Deze grafiek is de koers van de S\&P500 index (vergelijk met onze Bel-20) voor december 2011 tot eind 2012. In de grafiek worden de SMA's van de prijs bij sluitingstijd van de 50 en 200 laatste beursdagen gegeven (notatie: MA(50) en MA(200)). Wanneer de markt in een dalende trend zit (``\textbf{bear market}''), ligt de MA(200) boven MA(50) (zie linkse deel van de tekening).
 
   In februari 2012 ging MA(50) boven de MA(200), een verschijnsel dat ``\textbf{the golden cross}'' genoemd wordt. De stijging van de index was al enkele maanden eerder ingezet, maar de MA's reageren uiteraard trager.
