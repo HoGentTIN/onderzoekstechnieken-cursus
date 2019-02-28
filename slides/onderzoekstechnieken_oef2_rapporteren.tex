@@ -1,9 +1,8 @@
 %%----------------------------------------------------------------------------
 %% Presentatie HoGent Bedrijf en Organisatie
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
@@ -16,12 +15,9 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
 \usepackage[dutch]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage{multirow}
 \usepackage{eurosym}
 \usepackage{listings}
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
@@ -32,6 +28,7 @@
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows,calc}
 
 \usetheme{hogent}
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
 
 %---------- Commando-definities -----------------------------------------------
 
@@ -39,9 +36,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Oefeningles 2. Rapporteren over onderzoek}
+\title[OZT: rapporteren]{Oefeningles 2. Rapporteren over onderzoek.}
+\subtitle{Onderzoekstechnieken}
 \author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -51,47 +49,43 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
+\begin{frame}
+\maketitle
+\end{frame}
 
 \begin{frame}
-  \frametitle{What's on the menu today?}
+\frametitle{What's on the menu today?}
 
-  \tableofcontents
+\tableofcontents
 \end{frame}
 
 \section{Hoe rapporteren over onderzoek?}
 
 \subsection{Fasen in het schrijven}
 
-\sectionframe{
-\begin{center}
-\includegraphics[width=0.8\textwidth]{img/oef2-02.jpg}
-\end{center}
-}
+%\sectionframe{
+%\begin{center}
+%\includegraphics[width=0.8\textwidth]{img/oef2-02.jpg}
+%\end{center}
+%}
 
 \begin{frame}
   \frametitle{Fasen in het schrijven}
-
+  \centering
   \begin{tikzpicture}[
       auto,
       thick,
       ->,
       >=stealth',
       shorten >=1pt,
-      node distance=2.3cm,
-    fase/.style={ shape=rectangle, fill=HoGentFBO, draw}]
+      node distance=1.2cm,
+    fase/.style={ shape=rectangle, fill=hgblue, draw}]
 
     \node[fase] (1) {Planning};
-    \node[fase] (2) [right of=1] {Organisatie};
-    \node[fase] (3) [right of=2] {Kladversie};
-    \node[fase] (4) [right of=3] {Ontwerp};
-    \node[fase] (5) [right of=4] {Revisie};
+    \node[fase] (2) [below of=1] {Organisatie};
+    \node[fase] (3) [below of=2] {Kladversie};
+    \node[fase] (4) [below of=3] {Ontwerp};
+    \node[fase] (5) [below of=4] {Revisie};
 
     \draw (1) -- (2);
     \draw (2) -- (3);
@@ -160,11 +154,11 @@
 
   \centering
 
-  \textcolor{HoGentAccent2}{$\times$ De PS3 heeft 6 $\times$ SPE @3.2GHz}
+  \textcolor{hgorange}{$\times$ De PS3 heeft 6 $\times$ SPE @3.2GHz}
 
   vs.
 
-  \textcolor{HoGentAccent3}{$\checkmark$ De Playstation 3 heeft 6 \emph{Synergistic Processing Elements} met een snelheid van 3.2 GHz.}
+  \textcolor{hgdarkgreen}{$\checkmark$ De Playstation 3 heeft 6 \emph{Synergistic Processing Elements} met een snelheid van 3.2 GHz.}
 \end{frame}
 
 \begin{frame}
@@ -213,9 +207,9 @@
 \end{frame}
 
 \subsection{Structuur van een document}
-\sectionframe{\begin{center}
-\includegraphics[width=0.8\textwidth]{img/oef2-07.jpg}
-\end{center}}
+%\sectionframe{\begin{center}
+%\includegraphics[width=0.8\textwidth]{img/oef2-07.jpg}
+%\end{center}}
 
 \begin{frame}
   \frametitle{Organisatie: structuur tekst}
@@ -227,7 +221,7 @@
 
       \begin{tikzpicture}[auto,thick,->,>=stealth',
           shorten >=1pt, node distance=2.3cm,
-        fase/.style={shape=rectangle,inner sep=8pt,fill=HoGentAccent2,draw}]
+        fase/.style={shape=rectangle,inner sep=8pt,fill=hgorange,draw}]
 
         \node[fase] (1) {Hoe aangepakt};
         \node[fase] (2) [below of=1] {Resultaten};
@@ -244,7 +238,7 @@
 
       \begin{tikzpicture}[auto,thick,->,>=stealth',
           shorten >=1pt, node distance=2.3cm,
-        fase/.style={shape=rectangle,inner sep=8pt,fill=HoGentAccent3,draw}]
+        fase/.style={shape=rectangle,inner sep=8pt,fill=hgdarkgreen,draw}]
 
         \node[fase] (1) {Conclusies};
         \node[fase] (2) [below of=1] {Resultaten};
@@ -287,12 +281,12 @@
     \column{.5\textwidth}
     \centering
     \begin{tikzpicture}[auto,thick,
-      deel/.style={shape=rectangle,fill=HoGentAccent3,
+      deel/.style={shape=rectangle,fill=hgdarkgreen,
           minimum width={width("Corpus/body")+24pt},draw}
         ]
 
       \node[deel] (1) [minimum height=24pt] {Introductie};
-      \node[deel] (2) [below=6pt of 1,minimum height=56pt,fill=HoGentAccent1] {Corpus/body};
+      \node[deel] (2) [below=6pt of 1,minimum height=56pt,fill=hgblue] {Corpus/body};
       \node[deel] (3) [below=6pt of 2,minimum height=24pt] {Conclusies};
 
     \end{tikzpicture}
@@ -300,12 +294,12 @@
     \column{.5\textwidth}
     \centering
     \begin{tikzpicture}[auto,thick,
-        deel/.style={ shape=rectangle,fill=HoGentAccent3,
+        deel/.style={ shape=rectangle,fill=hgdarkgreen,
           minimum width={width("Corpus/body")+24pt},draw}]
 
       \node[deel] (1) [minimum height=24pt] {Voorwoord};
       \node[deel] (2) [below=6pt of 1,minimum height=24pt] {Samenvatting};
-      \node[deel] (3) [below=6pt of 2,minimum height=56pt,fill=HoGentAccent1] {Corpus/body};
+      \node[deel] (3) [below=6pt of 2,minimum height=56pt,fill=hgblue] {Corpus/body};
       \node[deel] (4) [below=6pt of 3,minimum height=24pt] {Conclusies};
 
     \end{tikzpicture}
@@ -324,25 +318,25 @@
     \column{.5\textwidth}
     \centering
     \begin{tikzpicture}[auto,thick,
-        deel/.style={ shape=rectangle,fill=HoGentAccent3,
+        deel/.style={ shape=rectangle,fill=hgdarkgreen,
           minimum width={width("Corpus/body")+24pt},draw}]
 
       \node[deel] (1) [minimum height=24pt] {Abstract};
       \node[deel] (2) [below=6pt of 1,minimum height=24pt] {Introductie};
-      \node[deel] (3) [below=6pt of 2,minimum height=56pt,fill=HoGentAccent1] {Corpus/body};
+      \node[deel] (3) [below=6pt of 2,minimum height=56pt,fill=hgblue] {Corpus/body};
       \node[deel] (4) [below=6pt of 3,minimum height=24pt] {Conclusies};
     \end{tikzpicture}
 
     \column{.5\textwidth}
     \centering
     \begin{tikzpicture}[auto,thick,
-        deel/.style={ shape=rectangle,fill=HoGentAccent3,
+        deel/.style={ shape=rectangle,fill=hgdarkgreen,
           minimum width={width("Corpus/body")+24pt},draw}]
 
       \node[deel] (1) [minimum height=24pt] {Voorwoord};
       \node[deel] (2) [below=6pt of 1,minimum height=24pt] {Samenvatting};
       \node[deel] (3) [below=6pt of 2,minimum height=24pt] {Introductie};
-      \node[deel] (4) [below=6pt of 3,minimum height=56pt,fill=HoGentAccent1] {Corpus/body};
+      \node[deel] (4) [below=6pt of 3,minimum height=56pt,fill=hgblue] {Corpus/body};
       \node[deel] (5) [below=6pt of 4,minimum height=24pt] {Conclusies};
     \end{tikzpicture}
 
@@ -373,7 +367,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeeld voorwoord/samenvatting (abstract)}
+  %\frametitle{Voorbeeld voorwoord/samenvatting (abstract)}
 
   \begin{center}
     \only<1>{Context}
@@ -396,9 +390,9 @@
 
 \subsection{Waarom een literatuurstudie?}
 
-\sectionframe{\begin{center}
-\includegraphics[width=0.8\textwidth]{img/oef2-01.png}
-\end{center}}
+%\sectionframe{\begin{center}
+%\includegraphics[width=0.8\textwidth]{img/oef2-01.png}
+%\end{center}}
 
 \begin{frame}
   \frametitle{Vaak voorkomende fouten}
@@ -430,7 +424,7 @@
 
   \vfill
 
-  \brightbox{\textcolor{HoGentAccent6}{Elke bewering} in een literatuurstudie moet je bewijzen a.h.v.~referenties}
+  \alertbox{\textcolor{hgyellow}{Elke bewering} in een literatuurstudie moet je bewijzen a.h.v.~referenties}
 \end{frame}
 
 \begin{frame}
@@ -455,7 +449,7 @@
 
   \pause
 
-  \brightbox{Gebruik \textcolor{HoGentAccent6}{referentie-software} om je referentielijst op te maken!}
+  \alertbox{Gebruik \textcolor{hgyellow}{referentie-software} om je referentielijst op te maken!}
 \end{frame}
 
 \begin{frame}
@@ -473,13 +467,13 @@
 
   \vfill
 
-  \brightbox{Referenties geven \textcolor{HoGentAccent6}{geloofwaardigheid} aan je literatuurstudie}
+  \alertbox{Referenties geven \textcolor{hgyellow}{geloofwaardigheid} aan je literatuurstudie}
 \end{frame}
 
 \subsection{Informatie opzoeken en bijhouden}
-\sectionframe{\begin{center}
-\includegraphics[width=0.8\textwidth]{img/oef2-02}
-\end{center}}
+%\sectionframe{\begin{center}
+%\includegraphics[width=0.8\textwidth]{img/oef2-02}
+%\end{center}}
 
 
 \begin{frame}
@@ -500,7 +494,7 @@
       \end{itemize}
   \end{description}
 
-  \brightbox{Enkel \textcolor{HoGentAccent6}{secundaire bronnen} zijn bruikbaar als referenties.}
+  \alertbox{Enkel \textcolor{hgyellow}{secundaire bronnen} zijn bruikbaar als referenties.}
 \end{frame}
 
 \begin{frame}
@@ -515,7 +509,7 @@
     \item Wikipedia (uiteraard\dots)
   \end{itemize}
 
-  \brightbox{Let op: tertiare bronnen, ihb.~Wikipedia, zijn zelf \textcolor{HoGentAccent6}{niet} aanvaardbaar als referentie}
+  \alertbox{Let op: tertiare bronnen, ihb.~Wikipedia, zijn zelf \textcolor{hgyellow}{niet} aanvaardbaar als referentie}
 
   \pause
 
@@ -530,10 +524,10 @@
   \frametitle{Tips}
 
   \begin{itemize}
-    \item<+-> Bezoek website BYB: \url{http://bib.hogent.be/} (``How to'')
+    \item<+-> Bezoek website BYB: \url{https://www.hogent.be/student/bibliotheken/how-to/}
       \begin{itemize}
-        \item Zoeken, Scripties/Taken, Databanken (\url{https://bib.hogent.be/zoeken/})
-        \item Cursus Informatievaardigheden (\url{https://bib.hogent.be/how-to/kritisch-denken-en-onderzoekscompetenties/})
+        \item Zoeken, Scripties/Taken, Databanken (\url{https://www.hogent.be/student/bibliotheken/})
+        \item Cursus Informatievaardigheden (\url{https://chamilo.hogent.be/index.php?application=Chamilo\%5CApplication\%5CWeblcms&go=CourseViewer&course=22068})
       \end{itemize}
     \item<+-> Apollox (\url{https://apollox.hogent.be/})
       \begin{itemize}

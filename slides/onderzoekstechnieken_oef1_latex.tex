@@ -1,9 +1,8 @@
 %%----------------------------------------------------------------------------
 %% Presentatie HoGent Bedrijf en Organisatie
 %%----------------------------------------------------------------------------
-%% Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
@@ -15,9 +14,6 @@
 \usepackage{comment,enumerate,hyperref}
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{tikz}
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage{csquotes}
 \usepackage[dutch]{babel}
 \usepackage{multirow}
@@ -35,6 +31,7 @@
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
 
 \usetheme{hogent}
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
 
 %---------- Commando-definities -----------------------------------------------
 
@@ -42,9 +39,10 @@
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[Intro]{Onderzoekstechnieken\\Oefeningles 1. \LaTeX{}}
+\title[OZT: LaTeX]{Oefeningenles 1. {\LaTeX}.}
+\subtitle{Onderzoekstechnieken}
 \author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
-\date{AJ 2017-2018}
+\date{AJ 2018-2019}
 
 %==============================================================================
 % Inhoud presentatie
@@ -54,18 +52,14 @@
 
 %---------- Front matter ------------------------------------------------------
 
-% Dia met het HoGent logo
-\HoGentLogo
-
-% Titeldia met faculteitslogo
-\titleframe
-
-%---------- Inhoud ------------------------------------------------------------
+\begin{frame}
+\maketitle
+\end{frame}
 
 \begin{frame}
-  \frametitle{What's on the menu today?}
+\frametitle{What's on the menu today?}
 
-  \tableofcontents
+\tableofcontents
 \end{frame}
 
 \section{Inleiding}
@@ -666,12 +660,17 @@ $\Rightarrow$
   \includegraphics[width=.7\textwidth]{img/oef1-07}
   \end{center}
 
+\end{frame}
+
+\begin{frame}
+\frametitle{Literatuurlijst}
+
   Langere teksten: namen, alfabetisch (e.g. report, book)
   \begin{center}
   \includegraphics[width=.7\textwidth]{img/oef1-08}
   \end{center}
 
-  \brightbox{HoGent gebruikt de ``APA''-stijl voor de opmaak van bibliografieën \url{https://bib.hogent.be/how-to/bronnen-vermelden/refereren-volgens-apa6th/}}
+  \alertbox{HoGent gebruikt de ``APA''-stijl voor de opmaak van bibliografieën \url{https://bib.hogent.be/how-to/bronnen-vermelden/refereren-volgens-apa6th/}}
 
 \end{frame}
 
@@ -689,7 +688,7 @@ $\Rightarrow$
     \end{semiverbatim}
     $x=-\frac{b \pm \sqrt{b^2 - 4ac}}{2a}$
     \item<+-> Honderden packages (RTFM, Google is your friend)
-    \item<+-> Presentaties met Beamer (baseer je bv. op het sjabloon op \url{https://bitbucket.org/bertvanvreckem/hogent-latex-sjablonen}
+    \item<+-> Presentaties met Beamer (baseer je bv. op het sjabloon op \url{https://github.com/HoGentTIN/presentatie-latex-sjabloon}
 
     \end{itemize}
   \item<+-> Hulp nodig? Na googlen, contacteer gerust \texttt{bert.vanvreckem@hogent.be}, \texttt{jens.buysse@hogent.be}
