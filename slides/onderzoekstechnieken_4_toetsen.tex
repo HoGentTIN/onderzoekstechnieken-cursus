@@ -9,7 +9,7 @@
 %==============================================================================
 
 \usetheme{hogent}
-\setbeameroption{show notes}
+%\setbeameroption{show notes}
 
 % Kies hieronder een achtergrondkleur
 \usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
@@ -80,11 +80,11 @@
 \section{Toetsen van hypothesen}
 
 \begin{frame}
-  \frametitle{De statistische test voor een hypothese}
+  \frametitle{De statistische toets voor een hypothese}
 
   \begin{description}
     \item[Hypothese] Idee waarvan nog bewezen moet worden dat het juist is: uitspraak over numerieke waarde van een populatieparameter
-    \item[Hypothesetest] controle van een uitspraak over de waarden van één of meerdere populatieparameters
+    \item[Hypothesetoets] controle van een uitspraak over de waarden van één of meerdere populatieparameters
     \item[Nulhypothese ($H_0$)] Deze hypothese proberen we te ontkrachten door redenering in het ongerijmde
     \item[Alternatieve hypothese ($H_1$, $H_a$)] Deze hypothese willen we aantonen
   \end{description}
@@ -95,9 +95,9 @@
 
   \begin{description}
     \item[Toetsingsgrootheid] De variabele die berekend wordt uit de steekproef (ook: teststatistiek)
-    \item[Aanvaardingsgebied] Het gebied van waarden die de nulhypothese \emph{ondersteunt}
-    \item[Kritieke of Verwerpingsgebied] Het gebied van waarden die de nulhypothese \emph{verwerpt}
-    \item[Significantieniveau] De maximale kans dat $H_0$ \emph{onterecht} verworpen wordt
+    \item[Aanvaardingsgebied] Het gebied van waarden die de nulhypothese \alert{ondersteunt}
+    \item[Kritieke of Verwerpingsgebied] Het gebied van waarden die de nulhypothese \alert{verwerpt}
+    \item[Significantieniveau] De kans dat $H_0$ \alert{onterecht} verworpen wordt
   \end{description}
 \end{frame}
 
@@ -228,7 +228,7 @@
   \frametitle{Kritieke gebied}
 
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[scale=.9]
     \begin{axis}[domain=-3.5:3.5, ymax=0.42, samples=100, enlargelimits=false, clip=false ]
       \draw [-](axis cs:1.645,-0.03) -- (axis cs:1.645,0.06);
       \addplot [smooth, fill=black!20, domain=1.645:3.5] {gauss(0,1)} \closedcycle;
@@ -529,7 +529,7 @@ Welch Two Sample t-test
 data:  controle and interventie
 t = -3.4456, df = 9.4797, p-value = 0.003391
 alternative hypothesis: true difference in means is less than 0
-\sout{95 percent confidence interval:}      {\tiny \textcolor{red}{OPGELET!} Dit heeeft niets te maken met}
+\sout{95 percent confidence interval:}      {\tiny \textcolor{red}{OPGELET!} Dit heeft niets te maken met}
 \sout{-Inf -6.044949}                       {\tiny   aanvaardingsgebied of kritiek gebied}
 sample estimates:
 mean of x mean of y 
@@ -597,7 +597,7 @@ Paired t-test
 data:  additieven and gewone
 t = 4.4721, df = 9, p-value = 0.0007749
 alternative hypothesis: true difference in means is greater than 0
-\sout{95 percent confidence interval:}      {\tiny \textcolor{red}{OPGELET!} Dit heeeft niets te maken met}
+\sout{95 percent confidence interval:}      {\tiny \textcolor{red}{OPGELET!} Dit heeft niets te maken met}
 \sout{1.180207      Inf}                    {\tiny   aanvaardingsgebied of kritiek gebied}
 sample estimates:
 mean of the differences 
