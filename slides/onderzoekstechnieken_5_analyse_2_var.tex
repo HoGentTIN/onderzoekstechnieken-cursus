@@ -32,7 +32,7 @@
 \usetheme{hogent}
 \usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
 
-\setbeameroption{show notes}
+%\setbeameroption{show notes}
 
 %---------- Commando-definities -----------------------------------------------
 
@@ -358,17 +358,6 @@
   \[ V = \sqrt{\frac{22.169}{100 . (2-1)}}  = 0.476\]
 \end{frame}
 
-\begin{frame}
-  \frametitle{Voorbeeld2: voorkeur automerk en geslacht}
-
-  \begin{figure}
-    \centering
-    \includegraphics[width=1.00\textwidth]{img/les3-spssCars.png}
-    \label{fig:les3-spssCars}
-  \end{figure}
-
-\end{frame}
-
 \section{Grafieken voor kruistabellen}
 
 \begin{frame}
@@ -539,7 +528,7 @@
 
 \begin{frame}
   \frametitle{Kleinste kwadratenmethode: voorbeeld}
-  \begin{table}[h] \centering \small
+  \begin{table}[h] \centering \footnotesize
     \begin{tabular}{@{}llllll@{}}
       \toprule
       $x$   & $y$     & $x-\overline{x}$    & $y - \overline{y}$        & $(x-\overline{x})(y - \overline{y})$       &  $(x-\overline{x})^{2}$    \\ \midrule
@@ -555,6 +544,16 @@
     \caption{Berekeningen die nodig zijn voor het toepassen van de kleinste kwadratenmethode.}
     \label{tab:rendieren2}
   \end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{Kleinste kwadratenmethode: formule}
+  De regressierechte heeft als vergelijking:
+  
+  \[ y = \beta_1 x + \beta_0 \]
+  
+  met:
+  
   \[ \beta_{1} = \frac{\sum_{i=1}^{n} (x_{i}-\overline{x})(y_{i} - \overline{y})}{\sum_{i=1}^{n} (x-\overline{x})^{2}} = \frac{10990}{2800} = 3.925 \]
   \[ \beta_{0} = \overline{y} - \beta_{1} \overline{x} = 307.7143 - 3.925 \times 30 = 189.96 \]
 \end{frame}
