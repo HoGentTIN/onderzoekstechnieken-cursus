@@ -1,0 +1,121 @@
+---
+title: "Effect size"
+author: "Bert Van Vreckem"
+date: "7 December 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+If we want to know whether two groups are significantly different, we can use a statistical test like the $t$-test. The result of a statistical test is generally either "true" or "false", depending on the $p$-value and the chosen significance level.
+
+*Effect size* is another metric to express the magnitude of the difference between two groups. Several definitions of effect size exist, but one of the most commonly used is *Cohen's $d$*.
+
+*Cohen's $d$* is in particular used in research in education to evaluate what factors influence learning outcomes for students. Factors include learning and teaching strategies, use of technology, classroom management, student and teacher attributes, etc.
+
+Research papers in this domain always report Cohen's $d$, which allows us to compare the results of different studies. For example, Hattie (2012) performed a massive meta-analysis that synthesises findings from 80,000 studies into what works best in education. As a rule of thumb, an influence with $d$ of at least 0.4 is considered to potentially accelerate student achievement. A value for $d$ of 1 means that students can acquire competencies in about half the time they normally would.
+
+# Cohen's $d$
+
+Cohen's $d$ is defined as the difference between the means of both groups, divided by a pooled standard deviation:
+
+```{r}
+# Pooled standard deviation for two samples x and y
+pooled_sd <- function(x, y) {
+  sd_x <- sd(x)
+  sd_y <- sd(y)
+  n_x <- length(x)
+  n_y <- length(y)
+  
+  sqrt( ((n_x - 1) * sd_x^2 + (n_y - 1) * sd_y^2)
+        / (n_x + n_y - 2))
+}
+
+# Effect size, Cohen's d
+cohens_d <- function(x, y) {
+  (mean(y) - mean(x)) / pooled_sd(x, y)
+}
+```
+
+We'll use Cohen's $d$ to measure the difference of between groups in two fictitious examples.
+
+# Example 1
+
+Researchers want to know whether "outlining and transforming" of course material can have a positive impact on student achievements. They set up an experiment with 80 students that are assigned at random to two groups of equal size. All students follow a number of classes on the same subject matter, without any prior knowledge.
+
+Students in Group A (the control group) the learning strategy they are used to. Students in Group B (the intervention group), however first follow a workshop on outlining and transforming and are asked to apply that learning strategy in the experiment. A couple of days after the class, all students get a test that assesses their knowledge of the subject matter.
+
+The results of the test are summarised in `effect-size-1.csv`. Column `method` denotes the group (A or B) and `score` the student's score on the test.
+
+```{r}
+scores <- read.csv('effect-size-1.csv')
+strategy_A <- scores$score[scores$method == 'A']
+strategy_B <- scores$score[scores$method == 'B']
+```
+
+Let's first visualise the results:
+
+```{r}
+# Boxplot
+boxplot(scores$score ~ scores$method, horizontal = TRUE)
+
+# Clustered bar chart (histogram)
+frequencies <- table(scores$score, scores$method)
+barplot(t(frequencies), beside = TRUE, legend = TRUE)
+```
+
+Performing a $t$-test yields the following result:
+
+```{r}
+t.test(strategy_B, strategy_A, alternative = 'greater')
+```
+
+For a significance level of $\alpha = 0.05$, the $p$-value of 0.03762 indicates a significant improvement.
+
+Finally, we calculate Cohen's $d$:
+
+```{r}
+cohens_d(strategy_A, strategy_B)
+```
+
+This value indicates a medium to large difference between the control group and the intervention group. Since it's larger than 0.4, we can conclude that outlining and transforming has the potential to considerably accelerate student achievement.
+
+# Example 2
+
+Researchers want to investigate whether giving the student control over their own learning process has a positive impact on their achievements. They set up a controlled experiment with 200 students divided into a control group (A) and an intervention group (B), like in the previous example. Again, some type of assessment is used to measure the difference between the two groups.
+
+The results are summarised in `effect-size-2.csv`. 
+
+```{r}
+scores2 <- read.csv('effect-size-2.csv')
+group_A <- scores2$score[scores2$group == 'A']
+group_B <- scores2$score[scores2$group == 'B']
+```
+
+
+```{r}
+# Boxplot
+boxplot(scores2$score ~ scores2$group, horizontal = TRUE)
+
+# Clustered bar chart (histogram)
+frequencies <- table(scores2$score, scores2$group)
+barplot(t(frequencies), beside = TRUE, legend = TRUE)
+```
+
+```{r}
+t.test(group_B, group_A, alternative = 'greater')
+```
+
+The resulting $p$ value does *not* indicate a statistically significant difference. Indeed, calculating Cohen's $d$ confirms this:
+
+```{r}
+cohens_d(group_A, group_B)
+```
+
+So, we can conclude that conclude that according to this study, giving students control over their own learning process has a negligable effect on student achievement.
+
+# References
+
+Hattie, J. (2012) *Visible Learning for Teachers.* Routledge.
