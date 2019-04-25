@@ -268,8 +268,23 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kruistabellen: percenteren}
-  Is er een verschil in waardering in het assortiment tussen mannen en vrouwen?
+  \frametitle{Chi-kwadraat ($\chi^2$) }
+  
+  \alertbox{Chi-kwadraat ($\chi^2$) is een metriek die aangeeft hoeverre de waarden in een kruistabel afwijken van de verwachte waarden als je veronderstelt dat er \textit{geen} verband is tussen twee variabelen.}
+  
+  \[ \chi^2 = \sum \frac{(o - e)^2}{e} \]
+  
+  \begin{itemize}
+    \item De som wordt berekend over alle cijfers in een kruistabel
+    \item $o$: geobserveerde waarde
+    \item $e$: verwachte waarde
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kruistabellen}
+  \framesubtitle{Percenteren}
+  
   \begin{adjustwidth}{-1.5em}{-1.5em}
     \begin{table}[h] \centering
       \begin{tabular}{@{}rrrrrrr@{}} \toprule
@@ -286,8 +301,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kruistabellen: verschil bepalen}
-  Is er een verschil in waardering in het assortiment tussen mannen en vrouwen?
+  \frametitle{Kruistabellen}
+  \framesubtitle{Verschil bepalen $(o - e)$}
+  
   \begin{adjustwidth}{-1.5em}{-1.5em}
     \begin{table}[h] \centering
       \begin{tabular}{@{}rrrrrrr@{}} \toprule
@@ -304,8 +320,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kruistabellen: kwadrateren en normeren}
-  Is er een verschil in waardering in het assortiment tussen mannen en vrouwen?
+  \frametitle{Kruistabellen}
+  \framesubtitle{Kwadrateren en normaliseren $\frac{(o-e)^2}{e}$}
+
   \begin{table}[h] \centering
     \begin{tabular}{@{}rrrrrrr@{}} \toprule
                   & Vrouw                   & Man                     & Totaal & Vrouw \% & Man\%   & Totaal  \\
@@ -326,6 +343,16 @@
   
   \alertbox{Cramér's V is een maat die aanduidt hoe sterk de samenhang is tussen twee kwalitatieve variabelen. Dit getal ligt altijd tussen 0 en 1}
   
+  \[ V = \sqrt{\frac{\chi^2}{n (k - 1)}} \]
+  
+  $n$: het aantal waarnemingen
+  
+  $k$: min(aantal rijen, aantal kolommen)
+\end{frame}
+
+\begin{frame}
+\frametitle{Interpretatie Cramér's V}
+
   \begin{table}[h] \centering
     \begin{tabular}{@{}rr@{}} \toprule
       Waarde & Interpretatie \\
@@ -342,7 +369,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeeld 2: voorkeur automerk en geslacht}
+  \frametitle{Voorbeeld 2}
+  \framesubtitle{Verband tussen geslacht en voorkeur automerk}
+  
   \begin{table}[h] \centering
     \begin{tabular}{@{}rrrrrr@{}} \toprule
       & Mercedes & BMW & Porsche& Alfa Romeo & Totaal \\
@@ -354,8 +383,7 @@
     \end{tabular}
   \end{table}
   Het lijkt alsof de automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen.
-  \[ \chi^{2} = 22.619 \]
-  \[ V = \sqrt{\frac{22.169}{100 . (2-1)}}  = 0.476\]
+  \[ \chi^{2} = 22.619, V = \sqrt{\frac{22.169}{100 . (2-1)}}  = 0.476\]
 \end{frame}
 
 \section{Grafieken voor kruistabellen}
@@ -458,7 +486,8 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kleinste kwadratenmethode: voorbeeld}
+  \frametitle{Kleinste kwadratenmethode}
+  \framesubtitle{Voorbeeld}
   \begin{columns}
     \begin{column}{0.5\textwidth}
 
@@ -486,7 +515,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kleinste kwadratenmethode: voorbeeld}
+  \frametitle{Kleinste kwadratenmethode}
+  \framesubtitle{Voorbeeld}
+  
   \begin{table}[h]
     \centering
     \small
@@ -506,7 +537,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kleinste kwadratenmethode: voorbeeld}
+  \frametitle{Kleinste kwadratenmethode}
+  \framesubtitle{Voorbeeld}
+  
   \centering
   \begin{tikzpicture}
     \begin{axis}[
@@ -527,7 +560,9 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kleinste kwadratenmethode: voorbeeld}
+  \frametitle{Kleinste kwadratenmethode}
+  \framesubtitle{Voorbeeld}
+  
   \begin{table}[h] \centering \footnotesize
     \begin{tabular}{@{}llllll@{}}
       \toprule
@@ -547,19 +582,25 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Kleinste kwadratenmethode: formule}
+  \frametitle{Kleinste kwadratenmethode}
+  \framesubtitle{Formule}
+  
   De regressierechte heeft als vergelijking:
   
-  \[ y = \beta_1 x + \beta_0 \]
+  \[ \hat{y} = \beta_1 x + \beta_0 \]
   
   met:
   
   \[ \beta_{1} = \frac{\sum_{i=1}^{n} (x_{i}-\overline{x})(y_{i} - \overline{y})}{\sum_{i=1}^{n} (x-\overline{x})^{2}} = \frac{10990}{2800} = 3.925 \]
   \[ \beta_{0} = \overline{y} - \beta_{1} \overline{x} = 307.7143 - 3.925 \times 30 = 189.96 \]
+  
+  Opm: $\hat{y}$ betekent ``een schatting voor $y$''
 \end{frame}
 
 \begin{frame}
-  \frametitle{Kleinste kwadratenmethode: voorbeeld}
+  \frametitle{Kleinste kwadratenmethode}
+  \framesubtitle{Voorbeeld}
+  
   \centering
   \begin{tikzpicture}
     \begin{axis}[
@@ -582,10 +623,17 @@
 \section{Correlatieco\"effici\"ent en determinatieco\"effci\"ent}
 
 \begin{frame}
-  \frametitle{Pearson correlatiecoëfficiënt en determinatiecoëfficiënt}
-  \alertbox{De \textcolor{hgyellow}{Pearson correlatiecoëfficiënt} is een maat voor de sterkte van de lineaire samenhang tussen $x$ en $y$}
-
-  \alertbox{De \textcolor{hgyellow}{determinatiecoëfficiënt} verklaart het percentage van de variantie van de waargenomen waarden t.o.v. de regressierechte.}
+  \frametitle{Covariantie}
+  
+  \alertbox{Covariantie is een maat die aangeeft of een verband tussen twee variabelen stijgend dan wel dalend is.}
+  
+  \[ \mathrm{Cov}(X, Y) = \frac{1}{n} \sum_{i = 1}^{n} (x_i - \overline{x}) (y_i - \overline{y}) \]
+  
+  $\mathrm{Cov} > 0$: stijgend
+  
+  $\mathrm{Cov} \approx 0$: geen verband
+  
+  $\mathrm{Cov} < 0$: dalend
 \end{frame}
 
 \begin{frame}
@@ -668,6 +716,40 @@
   We vinden $\overline{x} = 1942.625$ en $\overline{y} = 3.4375$.
 \end{frame}
 
+\begin{frame}
+\frametitle{Pearson correlatiecoëfficiënt}
+
+\alertbox{De \textcolor{hgyellow}{Pearson correlatiecoëfficiënt} $R$ is een maat voor de sterkte van de lineaire samenhang tussen $x$ en $y$}
+
+\begin{align}
+  R & = \frac{Cov(X, Y)}{\sigma_{x} \sigma_{y}} \\
+    & = \frac{\sum_{i = 1}^{n} (x_i - \overline{x}) (y_i - \overline{y})}
+             {\sqrt{\sum_{i = 1}^n (x_i - \overline{x})^2}
+              \sqrt{\sum_{i = 1}^n (y_i - \overline{y})^2}}
+\end{align}
+
+\[ R \in [-1, +1] \]
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpretatie correlateco\"effici\"ent}
+
+  \centering
+  \includegraphics[height=.8\textheight]{img/les3-regressie.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Determinatiecoëfficiënt}
+\alertbox{De \textcolor{hgyellow}{determinatiecoëfficiënt} $R^2$ verklaart het percentage van de variantie van de waargenomen waarden t.o.v. de regressierechte.}
+
+$R^2$: percentage variantie in waarnemingen verklaard door de regressierechte
+
+$1 - R^2$: percentage variantie waarnemingen \textit{niet} verklaard door de regressie
+
+\end{frame}
 
 \begin{frame}
   \frametitle{Determinatieco\"effici\"ent}
@@ -768,7 +850,7 @@
       $R$ & $R^{2}$ & Verklaarde variantie &  Interpretatie \\
       \midrule
       $< 0,3$       & $< 0,1$       & $< 10\%$    & zeer zwak \\
-      $0,3 - 0,5$   & $0,1 - 0,25r$ & $10 - 25\%$ & zwak \\
+      $0,3 - 0,5$   & $0,1 - 0,25$ & $10 - 25\%$ & zwak \\
       $0,5 - 0,7$   & $0,25 - 0,5$  & $25 - 50\%$ & matig\\
       $0,7 - 0,85$  & $0,5 - 0,75$  & $50 - 75\%$ & sterk\\
       $0,85 - 0,95$ & $0,75 - 0,9$  & $75 - 90\%$ & zeer sterk\\
@@ -818,16 +900,6 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Verband regressierechte en correlateco\"effici\"ent}
-
-  \begin{figure}
-    \centering
-    \includegraphics[height=\textheight]{img/les3-regressie.png}
-    \label{fig:les3-regressie}
-  \end{figure}
-
-\end{frame}
 
 %---------- Back matter -------------------------------------------------------
 
