@@ -222,14 +222,14 @@ correlation^2
 
 Wanneer je het verband tussen twee variabelen wil visualiseren, dan hangt het meest geschikte grafiektype af van het meetniveau van de variabelen. Deze vind je de tabel hieronder voor verschillende combinaties van meetniveaus van enerzijds de onafhankelijke en anderzijds de afhankelijke variabele.
 
-| Onafhankelijke | Afhankelijke | Grafiektype              |
-| :---           | :---         | :---                     |
-| Kwalitatief    | Kwalitatief  | mozaïekdiagram           |
-|                |              | geclusterde staafgrafiek |
-|                |              | rependiagram             |
-| Kwalitatief    | Kwantitatief | boxplot                  |
-|                |              | staafgrafiek gemiddelde  |
-| Kwantitatief   | Kwantitatief | spreidings/XY-grafiek    |
+| Onafhankelijke | Afhankelijke | Grafiektype                           |
+| :---           | :---         | :---                                  |
+| Kwalitatief    | Kwalitatief  | mozaïekdiagram                        |
+|                |              | geclusterde staafgrafiek              |
+|                |              | rependiagram                          |
+| Kwalitatief    | Kwantitatief | boxplot                               |
+|                |              | staafgrafiek gemiddelde + error bars  |
+| Kwantitatief   | Kwantitatief | spreidings/XY-grafiek                 |
 
 ### Kwalitatief - kwalitatief
 
