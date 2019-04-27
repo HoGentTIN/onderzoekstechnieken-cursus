@@ -56,27 +56,50 @@ search_files() {
         process_file $i
     done
 }
+has_questions_and_answers() {
+    # $1 is a filename (including the .tex-extension) to be checked
+    # return 0 (true) if it looks like it needs 2 versions (-vragen and -oploss)
+    # return 1 (false) if it looks like a common document
+    if grep '^\\solution' $1 >/dev/null; then return 0;
+    elif grep '\\printanswers' $1 >/dev/null; then return 0;
+    fi
+    return 1;
+}
+enable_answers() {
+    # $1 is a filename (including the .tex-extension) to be read (src)
+    # $2 is the file where the adapted tex-file is stored (dst)
+    sed 's/^\\solution.*/\\solutiontrue/;
+        s/^.*\\printanswers/\\printanswers/;
+        s/^.*\\framedsolutions/\\framedsolutions/' $1 >$2
+}
+disable_answers() {
+    # $1 is a filename (including the .tex-extension) to be read (src)
+    # $2 is the file where the adapted tex-file is stored (dst)
+    sed 's/^\\solution.*/\\solutionfalse/;
+        s/^.*\\printanswers/%\\printanswers/;
+        s/^.*\\framedsolutions/%\\framedsolutions/' $1 >$2
+}
 check_needrebuild() {
     # $1 is a filename (without extension) to be checked
     # return 0 (true) if rebuild is needed
     # return 1 (false) if rebuild is not needed
 
-    if grep '^\\solution' ${filebase}.tex >/dev/null; then
-        [ -s ${filebase}-vragen.pdf ] || return 0
-        [ ${filebase}-vragen.pdf -nt ${filebase}.tex ] || return 0
-        for tmpfile in $(grep '\\include{' ${filebase}.tex|cut -b10-|tr -d '}'); do
-            [ ${filebase}-vragen.pdf -nt ${tmpfile}.tex ] || return 0
+    if has_questions_and_answers ${1}.tex; then
+        [ -s ${1}-vragen.pdf ] || return 0
+        [ ${1}-vragen.pdf -nt ${1}.tex ] || return 0
+        for tmpfile in $(grep '\\include{' ${1}.tex|cut -b10-|tr -d '}'); do
+            [ ${1}-vragen.pdf -nt ${tmpfile}.tex ] || return 0
         done
-        [ -s ${filebase}-oploss.pdf ] || return 0
-        [ ${filebase}-oploss.pdf -nt ${filebase}.tex ] || return 0
-        for tmpfile in $(grep '\\include{' ${filebase}.tex|cut -b10-|tr -d '}'); do
-            [ ${filebase}-oploss.pdf -nt ${tmpfile}.tex ] || return 0
+        [ -s ${1}-oploss.pdf ] || return 0
+        [ ${1}-oploss.pdf -nt ${1}.tex ] || return 0
+        for tmpfile in $(grep '\\include{' ${1}.tex|cut -b10-|tr -d '}'); do
+            [ ${1}-oploss.pdf -nt ${tmpfile}.tex ] || return 0
         done
-    else
-        [ -s ${filebase}.pdf ] || return 0
-        [ ${filebase}.pdf -nt ${filebase}.tex ] || return 0
-        for tmpfile in $(grep '\\include{' ${filebase}.tex|cut -b10-|tr -d '}'); do
-            [ ${filebase}.pdf -nt ${tmpfile}.tex ] || return 0
+     else
+        [ -s ${1}.pdf ] || return 0
+        [ ${1}.pdf -nt ${1}.tex ] || return 0
+        for tmpfile in $(grep '\\include{' ${1}.tex|cut -b10-|tr -d '}'); do
+            [ ${1}.pdf -nt ${tmpfile}.tex ] || return 0
         done
     fi
     return 1
@@ -95,18 +118,21 @@ process_file() {
         n_skipped=$((n_skipped + 1))
         echo "=== skipping ${foldername}/${filebase}.tex"
         if [ $cleanup -eq 1 ]; then
-            if grep '^\\solution' ${filebase}.tex >/dev/null; then
+            if has_questions_and_answers ${filebase}.tex; then
+                rm -f ${filebase}.pdf #cleanup stuff from when has_questions_and_answers() was false
                 cleanup ${filebase}-vragen
                 cleanup ${filebase}-oploss
+                cleanup $filebase #cleanup stuff from when has_questions_and_answers() was false
             else
                 cleanup $filebase
             fi
         fi
     else
-        if grep '^\\solution' ${filebase}.tex >/dev/null; then
-            sed 's/^\\solution.*/\\solutionfalse/' ${filebase}.tex >$tmpname
+        if has_questions_and_answers ${filebase}.tex; then
+            rm -f ${filebase}.pdf #needed to cleanup stuff from when has_questions_and_answers() was false
+            disable_answers ${filebase}.tex $tmpname
             compile_file $foldername $tmpname ${filebase}-vragen
-            sed 's/^\\solution.*/\\solutiontrue/' ${filebase}.tex >$tmpname
+            enable_answers ${filebase}.tex $tmpname
             compile_file $foldername $tmpname ${filebase}-oploss
             rm $tmpname
         else
