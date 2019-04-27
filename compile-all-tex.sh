@@ -20,7 +20,7 @@ n_skipped=0
 n_failed=0
 n_succes=0
 
-tmpname=${0}.tmp
+tmpname=/tmp/$(basename $0).$$
 
 usage() {
 cat << _EOF_
