@@ -41,6 +41,8 @@ _EOF_
 
 #TODO -b, --biber   : force to run biber (by default only if .bcf contains 'citekey')
 #TODO -nb, --nobiber: don't run biber
+
+#TODO support DIRnames with spaces (which shouldn't be used on Linux)
 }
 
 die() {
@@ -60,8 +62,8 @@ has_questions_and_answers() {
     # $1 is a filename (including the .tex-extension) to be checked
     # return 0 (true) if it looks like it needs 2 versions (-vragen and -oploss)
     # return 1 (false) if it looks like a common document
-    if grep '^\\solution' $1 >/dev/null; then return 0;
-    elif grep '\\printanswers' $1 >/dev/null; then return 0;
+    if grep '^\\solution' "$1" >/dev/null; then return 0;
+    elif grep '\\printanswers' "$1" >/dev/null; then return 0;
     fi
     return 1;
 }
@@ -70,100 +72,100 @@ enable_answers() {
     # $2 is the file where the adapted tex-file is stored (dst)
     sed 's/^\\solution.*/\\solutiontrue/;
         s/^.*\\printanswers/\\printanswers/;
-        s/^.*\\framedsolutions/\\framedsolutions/' $1 >$2
+        s/^.*\\framedsolutions/\\framedsolutions/' "$1" >$2
 }
 disable_answers() {
     # $1 is a filename (including the .tex-extension) to be read (src)
     # $2 is the file where the adapted tex-file is stored (dst)
     sed 's/^\\solution.*/\\solutionfalse/;
         s/^.*\\printanswers/%\\printanswers/;
-        s/^.*\\framedsolutions/%\\framedsolutions/' $1 >$2
+        s/^.*\\framedsolutions/%\\framedsolutions/' "$1" >$2
 }
 check_needrebuild() {
     # $1 is a filename (without extension) to be checked
     # return 0 (true) if rebuild is needed
     # return 1 (false) if rebuild is not needed
 
-    if has_questions_and_answers ${1}.tex; then
-        [ -s ${1}-vragen.pdf ] || return 0
-        [ ${1}-vragen.pdf -nt ${1}.tex ] || return 0
-        for tmpfile in $(grep '\\include{' ${1}.tex|cut -b10-|tr -d '}'); do
-            [ ${1}-vragen.pdf -nt ${tmpfile}.tex ] || return 0
+    if has_questions_and_answers "${1}.tex"; then
+        [ -s "${1}-vragen.pdf" ] || return 0
+        [ "${1}-vragen.pdf" -nt "${1}.tex" ] || return 0
+        for tmpfile in $(grep '\\include{' "${1}.tex"|cut -b10-|tr -d '}'); do
+            [ "${1}-vragen.pdf" -nt "${tmpfile}.tex" ] || return 0
         done
-        [ -s ${1}-oploss.pdf ] || return 0
-        [ ${1}-oploss.pdf -nt ${1}.tex ] || return 0
-        for tmpfile in $(grep '\\include{' ${1}.tex|cut -b10-|tr -d '}'); do
-            [ ${1}-oploss.pdf -nt ${tmpfile}.tex ] || return 0
+        [ -s "${1}-oploss.pdf" ] || return 0
+        [ "${1}-oploss.pdf" -nt "${1}.tex" ] || return 0
+        for tmpfile in $(grep '\\include{' "${1}.tex"|cut -b10-|tr -d '}'); do
+            [ "${1}-oploss.pdf" -nt "${tmpfile}.tex" ] || return 0
         done
-     else
-        [ -s ${1}.pdf ] || return 0
-        [ ${1}.pdf -nt ${1}.tex ] || return 0
-        for tmpfile in $(grep '\\include{' ${1}.tex|cut -b10-|tr -d '}'); do
-            [ ${1}.pdf -nt ${tmpfile}.tex ] || return 0
+    else
+        [ -s "${1}.pdf" ] || return 0
+        [ "${1}.pdf" -nt "${1}.tex" ] || return 0
+        for tmpfile in $(grep '\\include{' "${1}.tex"|cut -b10-|tr -d '}'); do
+            [ "${1}.pdf" -nt "${tmpfile}.tex" ] || return 0
         done
     fi
     return 1
 }
 process_file() {
     #echo process_file $1 #debug
-    foldername=$(dirname $1)
+    foldername=$(dirname "$1")
     cd $foldername
-    filebase=$(basename $1)
+    filebase=$(basename "$1")
     filebase=${filebase%.tex}
 
-    if check_needrebuild $filebase; then needrebuild=1
+    if check_needrebuild "$filebase"; then needrebuild=1
     else needrebuild=0; fi
 
     if [ $force -eq 0 -a $needrebuild -eq 0 ]; then
         n_skipped=$((n_skipped + 1))
         echo "=== skipping ${foldername}/${filebase}.tex"
         if [ $cleanup -eq 1 ]; then
-            if has_questions_and_answers ${filebase}.tex; then
-                rm -f ${filebase}.pdf #cleanup stuff from when has_questions_and_answers() was false
-                cleanup ${filebase}-vragen
-                cleanup ${filebase}-oploss
-                cleanup $filebase #cleanup stuff from when has_questions_and_answers() was false
+            if has_questions_and_answers "${filebase}.tex"; then
+                rm -f "${filebase}.pdf" #cleanup stuff from when has_questions_and_answers() was false
+                cleanup "${filebase}-vragen"
+                cleanup "${filebase}-oploss"
+                cleanup "$filebase" #cleanup stuff from when has_questions_and_answers() was false
             else
-                cleanup $filebase
+                cleanup "$filebase"
             fi
         fi
     else
-        if has_questions_and_answers ${filebase}.tex; then
-            rm -f ${filebase}.pdf #needed to cleanup stuff from when has_questions_and_answers() was false
-            disable_answers ${filebase}.tex $tmpname
-            compile_file $foldername $tmpname ${filebase}-vragen
-            enable_answers ${filebase}.tex $tmpname
-            compile_file $foldername $tmpname ${filebase}-oploss
-            rm $tmpname
+        if has_questions_and_answers "${filebase}.tex"; then
+            rm -f "${filebase}.pdf" #cleanup stuff from when has_questions_and_answers() was false
+            disable_answers "${filebase}.tex" "$tmpname"
+            compile_file "$foldername" "$tmpname" "${filebase}-vragen"
+            enable_answers "${filebase}.tex" "$tmpname"
+            compile_file "$foldername" "$tmpname" "${filebase}-oploss"
+            rm "$tmpname"
         else
-            compile_file $foldername ${filebase}.tex ${filebase}
+            compile_file "$foldername" "${filebase}.tex" "${filebase}"
         fi
     fi
     cd - >/dev/null
 }
 
 compile_file() {
-    foldername=$1
-    inputname=$2
-    outputname=$3
+    foldername="$1"
+    inputname="$2"
+    outputname="$3"
     echo "=== creating ${foldername}/${outputname}.pdf"
     # remove old tmp files from previous run
     #eval rm -f ${outputname}.{$tmp_extensions}
     exitcode=0
-    rm -f ${outputname}.pdf ${outputname}-withERRORS.pdf || exitcode=$?
+    rm -f "${outputname}.pdf" "${outputname}-withERRORS.pdf" || exitcode=$?
     # compile, only if we were able to remove the previous pdf
     if [ $exitcode -eq 0 ]; then
-        $compiler_cmd -jobname=$outputname $inputname || exitcode=$?
+        $compiler_cmd -jobname="$outputname" "$inputname" || exitcode=$?
         compilecount=1
     fi
     # run biber, only if necessary
-    if [ $exitcode -eq 0 -a -f ${outputname}.bcf ]; then
-        if grep 'bcf:citekey' ${outputname}.bcf >/dev/null; then
+    if [ $exitcode -eq 0 -a -f "${outputname}.bcf" ]; then
+        if grep 'bcf:citekey' "${outputname}.bcf" >/dev/null; then
             echo "    running biber and recompiling (pass 2)"
-            $biber_cmd $outputname || exitcode=$?
+            $biber_cmd "$outputname" || exitcode=$?
             # compile 2nd time, only if biber was successful
             if [ $exitcode -eq 0 ]; then
-                $compiler_cmd -jobname=$outputname $inputname || exitcode=$?
+                $compiler_cmd -jobname="$outputname" "$inputname" || exitcode=$?
                 compilecount=2
             else
                 echo "    if biber failed due to UTF-8 errors, it might help to run following command:"
@@ -173,10 +175,10 @@ compile_file() {
     fi
     while [ $exitcode -eq 0 ]; do
         # check if need to rerun
-        if grep 'Rerun to' ${outputname}.log >/dev/null; then
+        if grep 'Rerun to' "${outputname}.log" >/dev/null; then
             compilecount=$((compilecount + 1))
             echo "    compiling again (pass ${compilecount})"
-            $compiler_cmd -jobname=$outputname $inputname || exitcode=$?
+            $compiler_cmd -jobname="$outputname" "$inputname" || exitcode=$?
         else
             break
         fi
@@ -184,30 +186,30 @@ compile_file() {
     if [ $exitcode -eq 0 ]; then
         n_succes=$((n_succes + 1))
         echo "    OK"
-        if [ $nocleanup -eq 0 ]; then cleanup $outputname; fi
+        if [ $nocleanup -eq 0 ]; then cleanup "$outputname"; fi
     else
         n_failed=$((n_failed + 1))
         # errors from pdflatex doesn't always end with a newline
         # so, the 'echo' below will add a newline
         echo " !! Build FAILED !!"
         # rename pdf if build failed
-        if [ -f ${outputname}.pdf ]; then
-            mv ${outputname}.pdf ${outputname}-withERRORS.pdf || tmp=0 #don't die on failure
+        if [ -f "${outputname}.pdf" ]; then
+            mv "${outputname}.pdf" "${outputname}-withERRORS.pdf" || tmp=0 #don't die on failure
         fi
         # cleanup if requested
-        if [ $cleanup -eq 1 ]; then cleanup $outputname; fi
+        if [ $cleanup -eq 1 ]; then cleanup "$outputname"; fi
     fi
 }
 
 cleanup() {
     # if the TeX-file contains 'includes', there will be additional files listed in aux-file
     # they are removed one-by-one
-    if [ -f ${1}.aux ]; then
-        for i in $( grep '^\\\@input' ${1}.aux | tr '{' '}'|cut -d'}' -f2);
-            do rm -f $i;
+    if [ -f "${1}.aux" ]; then
+        for i in $( grep '^\\\@input' "${1}.aux" | tr '{' '}'|cut -d'}' -f2); do
+            rm -f $i;
         done
     fi
-    eval rm -f ${1}.{$tmp_extensions}
+    eval rm -f \"${1}\".{$tmp_extensions}
 }
 
 ## main ##
@@ -247,20 +249,20 @@ if [ $# -eq 0 ]; then search_files .; fi
 
 while [ $# -gt 0 ]; do
     # get rid of options in between the arguments
-    case $1 in
+    case "$1" in
     -*) shift; continue;;
     esac
-    if [ -f $1 ]; then
+    if [ -f "$1" ]; then
         if echo $1 | grep '\.tex$' >/dev/null; then
-            if grep '^\\documentclass' $1 >/dev/null; then
-                process_file $1
+            if grep '^\\documentclass' "$1" >/dev/null; then
+                process_file "$1"
             else
                 echo "=== skipping $1 (\\documentclass is missing) ==="
             fi
         else
             echo "=== skipping $1 (not a .tex file) ==="
         fi
-    elif [ -d $1 ]; then search_files $1;
+    elif [ -d "$1" ]; then search_files "$1";
     else
         echo "=== skipping $1 (not a FILE or DIRECTORY) ==="
     fi
