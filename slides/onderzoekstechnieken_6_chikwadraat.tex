@@ -86,14 +86,14 @@
 
 \begin{frame}
   \frametitle{Goodness of fit test}
-  \alertbox{De \textcolor{hgyellow}{goodness of fit test} kan gebruikt worden om na te gaan in welke mate de steekproef overeenstemt met een nulhypothese over de verdeling van de variabele.}
+  \alertbox{Een \textcolor{hgyellow}{goodness of fit test} geeft aan in welke mate een steekproef overeenstemt met een nulhypothese over de verdeling van een kwalitatieve variabele.}
 
   \begin{columns}
     \begin{column} {0.35\textwidth}
 
     \begin{figure}
       \centering
-        \includegraphics[height=.6\textheight]{img/les6-man.jpg}
+        \includegraphics[height=.5\textheight]{img/les6-man.jpg}
     \end{figure}
 
     \end{column}
@@ -101,7 +101,7 @@
 
     \begin{figure}
       \centering
-        \includegraphics[width=.8\textwidth]{img/les5-heroes.jpg}
+        \includegraphics[height=.5\textheight]{img/les5-heroes.jpg}
     \end{figure}
 
     \end{column}
@@ -109,54 +109,70 @@
 \end{frame}
 
 \begin{frame}
+\frametitle{Goodness of fit test}
+\begin{columns}
+  \begin{column} {0.2 \textwidth}
+    
+    \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{img/les6-man.jpg}
+    \end{figure}
+    
+  \end{column}
+  
+  \begin{column} { 0.8 \textwidth}
+    \begin{table}[h]
+      \begin{tabular}{@{}lcc@{}}
+      	\toprule
+      	\textbf{Type}   & \textbf{\# steekproef} & \textbf{\# populatie} \\ \midrule
+      	Mutant          &          127           &         35\%          \\
+      	Mens            &           75           &         17\%          \\
+      	Alien           &           98           &         23\%          \\
+      	God             &           27           &          8\%          \\
+      	Demon           &           73           &         17\%          \\ \midrule
+      	\textbf{Totaal} &          400           &         100\%         \\
+      \end{tabular}
+    \end{table}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}
   \frametitle{Goodness of fit test}
-   We willen  nagaan of de verdeling van onze steekproef bij $n = 400$ superhelden overeenstemt met de verdeling die je verwacht in de volledige populatie (de verzameling van alle mogelijke superhelden).
+   Is de verdeling van de steekproef ($n = 400$) representatief voor de volledige populatie (alle superhelden)?
 
   \begin{itemize}
-    \item We Vergelijken daartoe de aantallen in de steekproef met de aantallen die je zou verwachten als de steeproef exact representatief zou zijn naar de types van superhelden.
-    \item Verschillen relatief groot $\Rightarrow$ dan komt de verdeling in de steekproef niet overeen
-    \item Verschillen relatief klein $\Rightarrow$ dan komt de verdeling in de steekproef overeen
+    \item Welke aantallen zou je \textit{verwachten} als de steekproef representatief is?
+    \item Hoe groot is de afwijking van de \textit{geobserveerde} aantallen?
+    \begin{itemize}
+      \item klein $\Rightarrow$ verdeling is representatief
+      \item groot $\Rightarrow$ verdeling is \textbf{niet} representatief
+    \end{itemize}
   \end{itemize}
 
   \pause
-  Zie je een overeenkomst bij kruistabellen en Cramer's V?
+  Zie je een overeenkomst met kruistabellen en Cramer's V?
 \end{frame}
 
 \begin{frame}
-  \frametitle{Goodness of fit test}
-  \begin{columns}
-    \begin{column} {0.2 \textwidth}
+\frametitle{Notatie}
 
-    \begin{figure}
-      \centering
-        \includegraphics[width=\textwidth]{img/les6-man.jpg}
-    \end{figure}
+In de volgende slides is:
 
-    \end{column}
-
-    \begin{column} { 0.8 \textwidth}
-    \begin{table}[h]
-\begin{tabular}{@{}lll@{}}
-\toprule
-\textbf{Type superheld} & \textbf{\# in steekproef} & \textbf{\# in populatie} \\ \midrule
-Mutant                  & 127                       & 35\%                     \\
-Mens                    & 75                        & 17\%                     \\
-Alien                   & 98                        & 23\%                     \\
-God                     & 27                        & 8\%                     \\
-Demon                   & 73                        & 17\%                      \\ \bottomrule
-\end{tabular}
-\end{table}
-    \end{column}
-  \end{columns}
+\begin{itemize}
+  \item $e$ de \textit{verwachte} frequentie voor een categorie
+  \item $\pi$ de verwachte \textit{relatieve frequentie} voor een categorie (percentage)
+  \item $o$ de \textit{geobserveerde} absolute frequentie
+  \item $n$ de steekproefgrootte (zoals steeds)
+  \item $i$ een index die een categorie in de frequentietabel aanduidt ($i \in \{1, \ldots, k\}$)
+\end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Goodness of fit test}
 \begin{itemize}
-  \item We willen kijken of de steekproef voor onze superhelden representatief is.
-  \item Als de steekproef exact representatief is $\Rightarrow$ in steekproef 35\% van de superhelden een mutant
-  \item Het verwachte aantal is dus gelijk aan $0.35 \times 400 = 140$.
-  \item De verwachte frequenties worden genoteerd met de letter $e$ (expected).
+  \item Exact representatief $\Rightarrow$ 35\% van de superhelden in de steekproef is een mutant
+  \item Het verwachte aantal is dus $e = 0.35 \times 400 = 140$.
 \end{itemize}
  Er geldt dus:
 
@@ -171,13 +187,13 @@ Als de verschillen $o - e$  relatief klein zijn kunnen ze toegerekend worden aan
 
 \[ \chi^{2} = \sum_{i=1}^{n} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
 
-We merken op:
+Besluit op basis van de waarde van $\chi^2$:
 \begin{itemize}
-  \item indien de verschillen klein zijn $\Rightarrow$ verdeling komt voldoende overeen
-  \item indien de verschillen groot $\Rightarrow$ verdeling niet representatief
+  \item klein $\Rightarrow$ verdeling representatief
+  \item groot $\Rightarrow$ verdeling \textbf{niet} representatief
 \end{itemize}
 
-$\chi^{2}$ meet de mate van strijgdigheid van de gegevens met de nullhypothese
+$\chi^{2}$ meet de mate van strijdigheid met de nulhypothese
 \end{frame}
 
 \begin{frame}
@@ -215,34 +231,81 @@ Demon                   & 73           & 17\%           & 68           & 5      
   \frametitle{Goodness of fit test}
 
   \begin{itemize}
-    \item De teststatistiek $\chi^{2}$ is verdeeld volgens de chi kwadraat verdeling.
+    \item De teststatistiek $\chi^{2}$ is verdeeld volgens de $\chi^2$ verdeling.
     \item Kritieke grenswaarde $g$ bij de $\chi^{2}$ verdeling: hierbij speel het aantal vrijheidsgraden een rol ($df$). Er geldt:
 
-\[ df = k -1 \]
+      \[ df = k -1 \]
 
-met $k$ het aantal categorie\"en.
-\item $df = 5-1 = 4$.
-\item De kritieke waarden voor een gegeven significantieniveau $\alpha$ en vrijheidsgraden $df$ is opnieuw gegeven in tabel.
+    \item De kritieke grenswaarde $g$ voor een gegeven significantieniveau $\alpha$ en vrijheidsgraden $df$ kan berekend worden met de R-functie `qchisq()`.
+    
+      \[ P(\chi^2 < g) = 1 - \alpha \]
   \end{itemize}
-In ons voorbeeld is $\chi^{2} = 3.47$ met grenswaarde $g = 9.49$ en besluiten we omdat $3.47 < 9.49$ dat de steekproef representatief is ($H_0$ wordt aanvaard).
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Goodness of fit test}
+  \framesubtitle{Berekening kritieke grenswaarde}
+
+  \begin{itemize}
+    \item Stel $\alpha = 0,05$ en $df = 5 - 1 = 4$
+    \item \verb|g <- qchisq(0.95, df = 4)|, dus $g = 9,49$
+    \item $\chi^{2} = 3,47 < g = 9,49$
+    \item Besluit: de steekproef is representatief ($H_0$ wordt aanvaard)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Goodness of fit test}
+\framesubtitle{Berekening overschrijdingskans}
+
+Je kan ook de overschrijdingskans berekenen:
+
+\[ p = P(X > \chi^2) = 1 - P(X < \chi^2) \]
+
+\begin{itemize}
+  \item \verb|p <- 1 - pchisq(3.47, df = 4)|, dus $p = 0,48$
+  \item $p = 0,48 < \alpha = 0,05$
+  \item Besluit: de steekproef is representatief ($H_0$ wordt aanvaard)
+\end{itemize}
 \end{frame}
 
 \subsection{Toetsingsprocedure goodness of fit test}
 
 \begin{frame}
-  \frametitle{Toetsingsprocedure goodness of fit test}
+  \frametitle{Goodness of fit test}
+  \framesubtitle{Toetsingsprocedure}
+  
   \begin{enumerate}
   \item \textbf{Bepalen hypotheses}
     \begin{itemize}
       \item $H_{0}$: steekproef is representatief naar populatie
       \item $H_{1}$: steekproef is niet representatief naar populatie
     \end{itemize}
-  \item \textbf{Bepalen $\alpha$ en $n$} : $\alpha = 0.05$ en $n = 400$.
-  \item \textbf{Toetsingsgrootheid en waarde ervan in steekproef}:
-  \[ \chi^{2} = \sum_{i=1}^{n} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
-  \item \textbf{Bereken en teken kritiek gebied}: de toets is altijd rechtszijdig. Is de toetsingsgrootheid kleiner dan kritieke grenswaarde verwerp $H_{0}$ niet, anders verwerp $H_{0}$ en aanvaard $H_{1}$.
+  \item \textbf{Bepalen $\alpha$ en $n$} : $\alpha = 0,05$ en $n = 400$.
 \end{enumerate}
 \end{frame}
+
+\begin{frame}
+\frametitle{Goodness of fit test}
+\framesubtitle{Toetsingsprocedure}
+
+\begin{enumerate}
+  \item \textbf{Toetsingsgrootheid berekenen}:
+  \[ \chi^{2} = \sum_{i=1}^{n} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
+  \item 
+  \begin{enumerate}
+    \item \textbf{Kritiek gebied}: Bereken $g$ zodat $P(\chi^2 < g) = 1 - \alpha$
+    \item \textbf{Overschrijdingskans}: Bereken $p = 1 - P(X < \chi^2)$
+  \end{enumerate}
+  
+\item Besluit (de toets is altijd rechtszijdig):
+  \begin{enumerate}
+    \item $\chi^2 < g \Rightarrow$ aanvaard $H_0$, anders verwerp $H_0$
+    \item $p > \alpha \Rightarrow$ aanvaard $H_0$, anders verwerp $H_0$
+  \end{enumerate}
+\end{enumerate}
+\end{frame}
+
 
 \subsection{Voorbeeld}
 
@@ -261,7 +324,7 @@ In ons voorbeeld is $\chi^{2} = 3.47$ met grenswaarde $g = 9.49$ en besluiten we
 \end{enumerate}
 Het onderzoek bevat 1022 gezinnen met 5 kinderen
 \begin{center}
-Zijn de waargenomen aantallen in de 6 klassen representatief voor een populatie waar de kans om een jongen te krijgen = kans om een meisje te krijgen = 0.5?
+Zijn de waargenomen aantallen in de 6 klassen representatief voor een populatie waar de kans om een jongen te krijgen = kans om een meisje te krijgen = 0,5?
 \end{center}
 \end{frame}
 
@@ -289,13 +352,13 @@ Algemeen geldt dus:
   \frametitle{Voorbeeld}
   \begin{table}[h]
 \begin{tabular}{@{}llllllll@{}}
-\toprule
-$i$                         & 0        & 1        & 2        & 3        & 4       & 5       &         \\ \midrule
-$o_i$                      & 58       & 149      & 305      & 303      & 162     & 45      & 1022    \\
-$\pi_i$                      & 0.03    & 0.15    & 0.31    & 0.31  & 0.15 & 0.031 & 1       \\
-$e_i$                      & 31.68   & 159.43  & 318.86  & 318.86  & 159.43 & 31.68  &         \\
-$\frac{(o-e)^{2}}{e}$ & 21.86 & 0.68259  & 0.60   & 0.78  & 0.041 & 5.59 & 29.57 \\
-$r_i$                      & 4.74   & -0.89 & -0.93 & -1.07106 & 0.22 & 2.40 &         \\ \bottomrule
+	\toprule
+	$i$                   & 0     & 1       & 2      & 3        & 4      & 5     & Tot.  \\ \midrule
+	$o_i$                 & 58    & 149     & 305    & 303      & 162    & 45    & 1022  \\
+	$\pi_i$               & 0.03  & 0.15    & 0.31   & 0.31     & 0.15   & 0.031 & 1     \\
+	$e_i$                 & 31.68 & 159.43  & 318.86 & 318.86   & 159.43 & 31.68 &       \\
+	$\frac{(o-e)^{2}}{e}$ & 21.86 & 0.68259 & 0.60   & 0.78     & 0.041  & 5.59  & 29.57 \\
+	$r_i$                 & 4.74  & -0.89   & -0.93  & -1.07106 & 0.22   & 2.40  &       \\ \bottomrule
 \end{tabular}
 \end{table}
 \end{frame}
@@ -319,7 +382,7 @@ $r_i$                      & 4.74   & -0.89 & -0.93 & -1.07106 & 0.22 & 2.40 &  
 \begin{frame}
   \frametitle{Gestandaardiseerde residuen}
   \alertbox{De \textcolor{hgyellow}{gestandaardiseerde residuen} duiden aan welke klassen de grootste bijdrage leveren aan de waarde van de grootheid. }
-  \[ r_{i} = \frac{O_{i} - n \pi_{i}}{\sqrt{n \pi_{i}(1-\pi_{i})}} \]
+  \[ r_{i} = \frac{o_{i} - n \pi_{i}}{\sqrt{n \pi_{i}(1-\pi_{i})}} \]
 
   \begin{itemize}
     \item Er geldt algemeen: waarden groter dan 2 of kleiner dan $-2$ zijn extreem.
