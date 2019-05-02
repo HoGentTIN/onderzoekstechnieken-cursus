@@ -22,6 +22,7 @@ plot(x, dchisq(x, degf[1]),
      col = colors[1],
      type = "l", lwd = 2,
      ylim = c(0, .5),
+     xlab = "chi-squared",
      ylab = "density",
      main = "Comparison of chi-squared distributions")
 
@@ -84,15 +85,15 @@ The *goodness of fit test* is suitable to answer this type of question. The proc
     a. In a $\chi^2$-test, the critical value is a number $g$ with property $P(\chi^2 > g) = \alpha$ (where $\alpha$ is our chosen significance level). *Left* of $g$ is the acceptance region, *right* of $g$ the critical region (see the plot below). This number can be calculated with:
 
         ```{r}
-        l <- length(types)
-        g <- qchisq(p = 1 - alpha, df = l - 1)
+        k <- length(types)
+        g <- qchisq(p = 1 - alpha, df = k - 1)
         g
         ```
     
     b. The $p$-value is given by:
     
         ```{r}
-        p <- 1 - pchisq(chisq, df = l - 1)
+        p <- 1 - pchisq(chisq, df = k - 1)
         p
         ```
  
@@ -117,13 +118,13 @@ The *goodness of fit test* is suitable to answer this type of question. The proc
 ```{r}
 # Plot the chi-squared density function
 x <- seq(0, 15, length = 100)
-dist <- dchisq(x, df = l - 1)
+dist <- dchisq(x, df = k - 1)
 plot (x, dist, type = 'l', xlab = '', ylab = '')
 
 # The acceptance region (where H_0 is accepted)
 i <- x <= g
 polygon(c(x[i],    g,                     g),
-        c(dist[i], dchisq(g, df = l - 1), 0),
+        c(dist[i], dchisq(g, df = k - 1), 0),
         col = 'lightgreen')
 text(x = 4, y = 0.05, 'Acceptance region (H0)')
 text(x = g, y = 0.01, paste('g = ', round(g, digits=2)))
@@ -201,10 +202,10 @@ The test procedure:
 4. Calculate $g$ or $p$
 
     ```{r}
-    l <- length(num_boys)
-    g <- qchisq(p = 1 - alpha, df = l - 1)
+    k <- length(num_boys)
+    g <- qchisq(p = 1 - alpha, df = k - 1)
     g
-    p <- 1 - pchisq(chisq, df = l - 1)
+    p <- 1 - pchisq(chisq, df = k - 1)
     p
     ```
     
@@ -232,13 +233,13 @@ The standardised residuals for the families with either only girls (~4.69) or on
 ```{r}
 # Plot the chi-squared density function
 x <- seq(0, 35, length = 100)
-dist <- dchisq(x, df = l - 1)
+dist <- dchisq(x, df = k - 1)
 plot (x, dist, type = 'l', xlab = '', ylab = '')
 
 # The acceptance region (where H_0 is accepted)
 i <- x <= g
 polygon(c(x[i],    g,                     g),
-        c(dist[i], dchisq(g, df = l - 1), 0),
+        c(dist[i], dchisq(g, df = k - 1), 0),
         col = 'lightgreen')
 abline(v = g)
 text(x = 4, y = 0.05, '(H0)')
