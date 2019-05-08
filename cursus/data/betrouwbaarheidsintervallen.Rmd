@@ -2,7 +2,9 @@
 title: "Betrouwbaarheid"
 author: "Brecht en Jens"
 date: "April 5, 2018"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 #Betrouwbaarheidsintervallen berekenen
@@ -51,7 +53,7 @@ betrouwjehet <- function(loops, grootte, popdata,alpha, popMU){
 We zoeken het percentage
 
 ``` {r resultaat}
-  loopVector <- seq(100,100000,100)
+  loopVector <- seq(100,10000,100)
   resultaatVector <- c()  
   for(i in 1:length(loopVector)){
     resultaatVector[i] <- betrouwjehet(i,64,narmdata,0.25, MU)
