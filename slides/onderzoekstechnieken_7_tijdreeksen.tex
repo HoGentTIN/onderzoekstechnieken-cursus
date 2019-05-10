@@ -216,7 +216,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Voorbeeld: Parameterschatting}
+  \frametitle{Voorbeeld: parameterschatting}
 
   \begin{itemize}
     \item We kiezen het constante model uit vergelijking~\ref{eq:tijdreeks-constante}
@@ -302,7 +302,7 @@
     \label{tab:error}
 \end{table}
 
-Een methode om de voorspelling te meten is het gemiddelde van de deviaties ($MAD$).
+Een methode om de voorspellingsfout te meten is het gemiddelde van de deviaties ($MAD$).
 
 \begin{equation}
   MAD = \frac{1}{n} \sum_{1}^{n} \left| e_{i} \right|
@@ -424,8 +424,8 @@ Je kan ook de variantie ervan bepalen:
 	
 	
 	\begin{itemize}
-		\item De $ b_{t-1}$ in de eerste vergelijking zorgt voor het volgen van de trend
-		\item $X_{t}-X_{t-1}$ is postief of negatief en zorgt ervoor dat de trend gegenereerd wordt
+		\item De $b_{t-1}$ in de eerste vergelijking zorgt voor het volgen van de trend
+		\item $X_{t}-X_{t-1}$ is positief of negatief, komt overeen met een stijgende/dalende trend
 	\end{itemize}
 \end{frame}
 
@@ -492,7 +492,7 @@ Je kan ook de variantie ervan bepalen:
 
   Voorspelling op tijdstip $t + m$:
 
-  \[ F_{t+m} = (X_{t} + mb_{t})c_{t-L+m}  \textnormal{Voorspelling}\]
+  \[ F_{t+m} = (X_{t} + mb_{t})c_{t-L+m} \]
 
   Voor een implementatie in Java, zie \url{https://github.com/bertvv/wintersmethod}
 \end{frame}
