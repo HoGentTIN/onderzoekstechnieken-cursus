@@ -617,10 +617,11 @@ We noemen $SS_{yy}$ de totale steekproefvariantie van de meetwaarden rond het st
 
 Er kan nu worden aangetoond dat bij enkelvoudige lineaire regressie deze fractie
 \[ \frac{SS_{yy} - SSE_{yy}}{SS_{yy}} = \frac{\textnormal{verklaarde variantie}}{\textnormal{totale steekproefvariantie}} \]
-gelijk is aan het kwadraat van de pearsoncorrelatieco\"effici\"ent.  (= het deel van de totale variantie dat verklaard wordt door de lineaire rechte).
+gelijk is aan het kwadraat van de Pearson correlatieco\"effici\"ent.  (= het deel van de totale variantie dat verklaard wordt door de lineaire rechte).
 
+Tabel~\ref{tab:interpretatie-correlatiecoefficient} geeft een overzicht hoe de waarden van $R$ en $R^2$ kunnen geïnterpreteerd worden, meer bepaald hoe sterk het verband tussen twee variabelen dan is.
 
-\begin{figure}[t]
+\begin{figure}
   \begin{tikzpicture}
     \begin{axis}[
         axis x line=middle,
@@ -663,7 +664,7 @@ gelijk is aan het kwadraat van de pearsoncorrelatieco\"effici\"ent.  (= het deel
 	\label{fig:rendierenFiguur2}
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}
   \begin{tikzpicture}
     \begin{axis}[
         axis x line=middle,
@@ -707,6 +708,21 @@ gelijk is aan het kwadraat van de pearsoncorrelatieco\"effici\"ent.  (= het deel
 	  \label{fig:rendierenFiguur3}
 \end{figure}
 
+\begin{table}[h] \centering \small
+  \begin{tabular}{@{}rrrl} \toprule
+    $|R|$ & $R^{2}$ & Verklaarde variantie &  Interpretatie \\
+    \midrule
+    $< 0,3$       & $< 0,1$       & $< 10\%$    & zeer zwak \\
+    $0,3 - 0,5$   & $0,1 - 0,25$ & $10 - 25\%$ & zwak \\
+    $0,5 - 0,7$   & $0,25 - 0,5$  & $25 - 50\%$ & matig\\
+    $0,7 - 0,85$  & $0,5 - 0,75$  & $50 - 75\%$ & sterk\\
+    $0,85 - 0,95$ & $0,75 - 0,9$  & $75 - 90\%$ & zeer sterk\\
+    $> 0,95$      & $> 0,9$       & $>90\%$     & uitzonderlijk(!)\\
+    \bottomrule
+  \end{tabular}
+  \caption[Interpretatie van $R$ en $R^2$.]{Interpretatie van $R$ en $R^2$.}
+  \label{tab:interpretatie-correlatiecoefficient}
+\end{table}
 
 \section{Conclusie}
 
