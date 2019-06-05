@@ -1,0 +1,58 @@
+%===============================================================================
+% hogent-titlepage-image.sty
+%===============================================================================
+%
+% LaTeX package voor het genereren van een voorpagina voor een rapport, verslag,
+% of ander lang document. Deze variant heeft als achtergrond een afbeelding,
+% dat moet meegegeven worden als argument. De afbeelding wordt over heel de
+% paginabreedte uitgerokken, dus zorg er voor dat de gekozen afbeelding een
+% voldoende hoge resolutie heeft (min. 2480x3508 pixels bij 300 dpi).
+%
+% Deze package definieert een commando \inserttitlepage met een optioneel
+% argument, de tekstkleur (standaard wit) en een verplicht argument (pad naar
+% de in te voegen afbeelding). Voorbeelden:
+%
+% \inserttitlepage{img/background.png}         % Witte tekst
+% \inserttitlepage[black]{img/background.png}  % Zwarte tekst
+%
+% Auteur: Bert Van Vreckem <bert.vanvreckem@hogent.be>
+% Licentie:
+%   CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%===============================================================================
+
+\ProvidesClass{hogent-titlepage-image}[2019/06/04 Titelpagina verslag HOGENT met afbeelding als achtergrond]
+\NeedsTeXFormat{LaTeX2e}
+
+\RequirePackage{titling}
+\RequirePackage{xcolor}
+\RequirePackage{afterpage}
+\RequirePackage{textpos}
+
+%-------------------------------------------------------------------------------
+% Code voor het invoegen van een titelpagina
+%-------------------------------------------------------------------------------
+
+% Gebruik: \inserttitlepage[achtergrondkleur]{afbeelding.png}
+\newcommand{\inserttitlepage}[2][white]{%
+  \begin{titlepage}
+    % Achtergrond invoegen
+    \begin{textblock*}{\paperwidth}(-3cm,-3.5cm)%
+      \noindent\includegraphics*[width=\paperwidth]{#2}
+    \end{textblock*} 
+
+    \begingroup
+    \vspace*{8cm}
+    \sffamily\bfseries
+    \fontsize{35pt}{12pt}\selectfont
+    \textcolor{#1}{\@title}\\[1cm]
+    \fontsize{20pt}{12pt}\selectfont
+    \textcolor{#1}{\@author}\\[1cm]
+    \fontsize{18pt}{12pt}\selectfont
+    \textcolor{#1}{\@date}
+    \vfill
+    \endgroup
+  \end{titlepage}
+}
+
+\endinput
