@@ -1,43 +1,139 @@
-\chapter{Analyse op 1 variabele}
+\chapter{Analyse van één variabele}
 \label{ch:analyse1var}
 
-%% TODO: volgorde van centrum-/ spreidingsmaten eens bekijken en overzichtelijker maken.
+Wanneer onderzoekers een aantal metingen uitgevoerd hebben in een steekproef voor een bepaalde populatie, dan willen we weten welke eigenschappen deze groep als geheel heeft. Het is onpraktisch om alle metingen apart te beschouwen of op te sommen. Om inzichten te krijgen in de verzamelde data, hebben we technieken nodig om deze te visualiseren en samen te vatten. Het geheel van deze technieken wordt \emph{beschrijvende statistiek} genoemd.
 
 \begin{definition}[Beschrijvende statistiek]
   Met beschrijvende statistiek \index{beschrijvende statistiek} bedoelen we een verzameling van technieken om data synthetisch voor te stellen en samen te vatten.
 \end{definition}
 
-\section{Voorbeeld met superhelden}
+In dit hoofdstuk gaan we variabelen afzonderlijk beschouwen. In Hoofdstuk \ref{ch:analyse2var} zullen we ook zoeken naar verbanden tussen twee variabelen onderling.
+
+\section{Centrum- en spreidingsmaten}
+
+Stel je voor dat een groep onderzoekers een studie wil voeren over het verschijnsel superhelden. Vragen die men kan stellen zijn:
+
+\begin{itemize}
+  \item Hoe groot zijn superhelden doorgaans?
+  \item Hoeveel wegen ze?
+  \item Hoe succesvol zijn ze in het veilig maken van hun woonomgeving?
+  \item Hoeveel mensen redden ze?
+  \item enz.
+\end{itemize}
+
+Om de resultaten van metingen samen te vatten, zijn er verschillende methoden en die hangen af van het meetniveau van de betreffende variabele. Enerzijds gaan we op zoek naar een waarde die representatief is voor de hele groep, een \index{centrummaat}\emph{centrummaat}, en anderzijds naar een waarde die aangeeft hoe groot de onderlinge verschillen zijn binnen de groep, een \index{spreidingsmaat}\emph{spreidingsmaat}. Een centrummaat en de bijhorende spreidingsmaat worden vaak als samenvatting gebruikt voor een reeks metingen.
+
+Tabel~\ref{tab:centrum-spreidingsmaten} geeft een overzicht van geschikte centrum- en spreidingsmaten per meetniveau. Deze worden verderop in dit hoofdstuk gedefinieerd.
+
 \begin{table}
   \centering
-  \begin{tabular}{|c|c|c|c|c|}
-    \hline
-    $x_{1}$ & $x_{2}$ & $x_{3}$ & $x_{4}$&  $x_{5}$ \\
-    \hline
-    141 & 198 & 143 & 201 & 184 \\
-    \hline
+  \begin{tabular}{lll}
+  \toprule
+ 	\textbf{Meetniveau} & \textbf{Centrummaten} & \textbf{Spreidingsmaten}      \\
+  \midrule
+ 	Kwalitatief         & Modus                 & ---                           \\
+  \midrule
+ 	Kwantitatief        & Gemiddelde            & Variantie, standaardafwijking \\
+	                    & Mediaan               & Bereik, interkwartielafstand  \\
+  \bottomrule
   \end{tabular}
-  \caption{Voorbeeldtabel superhelden vanuit slides}
-  \label{tab:helden}
+  \caption[Geschikte centrum- en spreidingsmaten voor elk meetniveau.]{Geschikte centrum- en spreidingsmaten voor elk meetniveau. De centrummaat en bijhorende spreidingsmaat worden vaak gebruikt als samenvatting voor de resultaten van de groep als geheel.}
+  \label{tab:centrum-spreidingsmaten}
 \end{table}
 
-\section{Gemiddelde}
+\section{Kwalitatieve variabelen}
+
+Bij kwalitatieve variabelen is de waarde niet noodzakelijk een getal. De variabele `gender' heeft als waarden onder andere \emph{man} en \emph{vrouw}. Hiermee is het moeilijk te rekenen. Daarom zijn de mogelijkheden om de waarden samenvatten beperkt. Als centrummaat definiëren we de \emph{modus}, maar een bijhorende spreidingsmaat is er niet echt. Om de spreiding over de verschillende voorkomende waarden te tonen, kan je eventueel wel gebruik maken van een frequentietabel die voor elke waarde aangeeft hoe vaak die voorkomt in de dataset.
+
+\subsection{Modus}
+
+\begin{definition}[Modus]
+  De \index{modus} modus (Eng. \index{mode}\emph{mode})is de waarde die het meest voorkomt in een verzameling metingen.
+\end{definition}
+
+\begin{itemize}
+  \item Er kunnen twee modi zijn: in dit geval spreken we van een \index{bimodaal}\emph{bimodale} variabele;
+  \item Er kunnen ook meerdere modi zijn: dit noemen we \index{multimodaal} \emph{multimodaal}.
+  \item De modus niet veel zin bij een kwantitatieve variabele, waar elke meting typisch uniek is. Soms is het in dat geval nuttig om ze te groeperen in categorieën (zie Voorbeeld~\ref{ex:modale-klasse}).
+\end{itemize}
+
+\begin{example}
+  \label{ex:modale-klasse}
+  De onderzoekers hebben bijgehouden hoeveel mensen Batman elk jaar gered heeft. Hieronder zijn de cijfers voor de laatste negen jaar, onderverdeeld in 4 categorieën.
+  
+  \begin{itemize}
+    \item $[0-9]$ mensen : 4, 7
+    \item $[10-19]$ mensen: 11, 16
+    \item $[20-29]$ mensen : 20, 22, 25, 26
+    \item $[30-39]$ mensen: 33
+  \end{itemize}
+
+  Categorie $[20-29]$ komt het meest voor. Dit is de modale klasse. Batman redt dus doorgaans tussen 20 en 29 mensen per jaar.
+\end{example}
+
+\section{Kwantitatieve variabelen}
+
+Bij kwantitatieve variabelen is er meer keuze qua centrum- en spreidingsmaten. Voor dit soort variabelen kan je gebruik maken van:
+
+\begin{itemize}
+  \item gemiddelde en standaardafwijking;
+  \item mediaan en interkwartielafstand.
+\end{itemize}
+
+Stel dat de onderzoekers een aantal metingen uitgevoerd hebben van de lengte van superhelden. Je vindt de resultaten in Figuur~\ref{gfx:helden}.
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[xscale=4,yscale=2]
+  \draw (0,2) -- (0,0);
+  \foreach \num/\label in {0/0, 0.2/20, .4/40, .6/60, .8/80, 1/100, 1.2/120, 1.4/140, 1.6/160, 1.8/180, 2/200}{%
+    \draw (0, \num) -- (2.5, \num);
+    \draw[shift={(0, \num)}] (1pt,0pt) -- (-1pt,0pt) node[left] {\scriptsize \label};
+  }
+  
+  \node[anchor=north] (hero1) at (0.3,1.5)
+  {\includegraphics[height=2.9cm]{les2-hero-1}};
+  \node[anchor=north] (hero2) at (0.8,2.05)
+  {\includegraphics[height=4cm]{les2-hero-2}};
+  \node[anchor=north] (hero3) at (1.3,1.575)
+  {\includegraphics[height=3.1cm]{les2-hero-3}};
+  \node[anchor=north] (hero4) at (1.8,2.1)
+  {\includegraphics[height=4.1cm]{les2-hero-4}};
+  \node[anchor=north] (hero5) at (2.3,1.95)
+  {\includegraphics[height=3.8cm]{les2-hero-5}};
+  
+  \node (size1) at (0.3, 1.5) {\scriptsize 141 cm};
+  \node (size2) at (0.8, 2.1) {\scriptsize 198 cm};
+  \node (size3) at (1.3, 1.51) {\scriptsize 143 cm};
+  \node (size4) at (1.8, 2.15) {\scriptsize 201 cm};
+  \node (size5) at (2.3, 1.95) {\scriptsize 184 cm};
+  \end{tikzpicture}
+  \caption{De lengte van enkele superhelden.}
+  \label{fig:helden}
+\end{figure}
+
+\subsection{Gemiddelde}
 \label{sec:gemiddelde}
 
 \begin{definition}[Gemiddelde]
-  \index{Gemiddelde} Het gemiddelde (symbool $\mu$) van een set waarden is de som van al deze waarden gedeeld door het aantal waarden. De formule staat beschreven in \ref{eq:Mean}.
+  \index{Gemiddelde} Het rekenkundig gemiddelde (symbool $\overline{x}$, Eng. \index{mean}\emph{mean}, \index{average}\emph{average}) van een verzameling waarden is de som van al deze waarden gedeeld door het aantal waarden.
   \begin{equation}
-    \mu = \frac{1}{n} \times \sum_{i=1}^{n} x_{i}
+    \overline{x} = \frac{1}{n} \sum_{i=1}^{n} x_{i}
     \label{eq:Mean}
   \end{equation}
 
   Waarbij:
   \begin{itemize}
-    \item $x_{i}$ de waarden zijn vanuit tabel \ref{tab:helden}.
-    \item $n$ het aantal waarden is. In het voorbeeld van de superhelden zou dit 5 zijn, want we hebben 5 lengtes van superhelden.
+    \item $x_{i}$ de verschillende waarden zijn (in het voorbeeld van Figuur~\ref{fig:helden} zijn dit 141, 198, 143, enz.)
+    \item $n$ het aantal waarden is (in het voorbeeld is $n = 5$).
   \end{itemize}
 \end{definition}
 
+\begin{remark}[!!]
+  Merk op dat we met het symbool $\overline{x}$ specifiek het gemiddelde van een \emph{steekproef} aanduiden. Het gemiddelde van een \emph{populatie} wordt aangeduid met de Griekse letter mu, $\mu$.
+  
+  Zie Appendix~\ref{app:notatie} voor een overzicht van de gebruikte symbolen en notaties in deze cursus.
+\end{remark}
 
 \begin{exercise}
   Wat is de gemiddelde lengte van de superhelden?
@@ -48,208 +144,240 @@
   we aan de rij van cijfers toevoegen om een gemiddelde van 13 te bekomen?
 \end{exercise}
 
-Het rekenkundig gemiddelde is gevoelig aan outliers: een extreme waarde kan het rekenkundig gemiddelde zwaar be\"invloeden.
-
-\section{Mediaan}
-
-\begin{definition}[Mediaan]
-  Indien we alle cijfers sorteren van klein naar groot, is de \index{Mediaan} mediaan het middelste cijfer, of het gemiddelde van de twee middelste cijfers indien het aantal cijfers even is.
-\end{definition}
-
-De mediaan is niet gevoelig aan outliers.
-
-\section{Modus}
-\begin{definition}[Modus]
-  De \index{Modus} modus is het cijfer dat het meest voorkomt in een set van cijfers.
-\end{definition}
-
-\begin{itemize}
-  \item Heeft niet veel zin als alle cijfers even veel voorkomen. (Zoals bij onze superhelden). Misschien is het nuttig om ze dan te groeperen.
-  \item Er kunnen twee modi zijn: dit noemen we \index{Bimodaal} bimodaal;
-  \item Er kunnen meerdere modi zijn: dit noemen we \index{Multimodaal} multimodaal.
-\end{itemize}
-
-\begin{example}
-  Het groeperen kunnen we tonen bijvoorbeeld bij het aantal mensen gered door Batman de laatste acht jaar.
-  \begin{itemize}
-    \item $[0-9]$ mensen : 4, 7
-    \item $[10-19]$ mensen: 11, 16
-    \item $[20-29]$ mensen : 20, 22, 25, 26
-    \item $[30-39]$ mensen: 33
-  \end{itemize}
-  Dus categorie $[20-29]$ komt het meest voor. We kunnen dus bv. kiezen om 25 als modus te gebruiken. Zo'n klasse noemen we dan een modale klasse.
-\end{example}
-
-\section{Range / Bereik}
-\begin{definition}[Bereik]
-  Het \index{Range} \index{Bereik} bereik in een set van getallen is de absolute waarde van het verschil tussen het laagste en grootste getal.
-\end{definition}
-
-\section{Kwartielen \& kwartielafstand}
-\begin{definition}[Kwartielen \& Kwartielafstand]
-  De \index{Kwartiel} kwartielen zijn de waarden die een gesorteerde lijst van nummers in 4 gelijke delen deelt. Elk deel vormt dus een kwart van de dataset. Men spreekt van een eerste, tweede en derde kwartiel ($Q_{1}$, $Q_{2}$, $Q_{3}$).
-\end{definition}
-
-Dus:
-\begin{itemize}
-  \item eerste kwartiel $Q_{1}$ is de getalswaarde die de laagste 25 \% van de reeks afscheidt.
-  \item tweede kwartiel $Q_{2}$ is de getalwaarde die de laagste 50\% van de reeks afscheidt.
-  \item derde kwartiel $Q_{3}$ is de getalwaarde die de laagste 75\% van de reeks afscheidt.
-\end{itemize}
-
-\begin{definition}
-  \index{Kwartielafstand} Kwartielafstand is het verschil tussen $Q_{3}$ en $Q_{1}$ ( dus $Q_{3} - Q_{1}$).
-\end{definition}
-
-Methode om te berekenen (volgens \textcite{Moore2002}) (met $n$ oneven aantal getallen):
-\begin{itemize}
-  \item $Q_{1}$ komt overeen met cijfer $\frac{n+1}{4}$
-  \item $Q_{3}$ komt overeen met cijfer $\frac{3n+3}{4}$
-\end{itemize}
-
-Methode om te berekenen (met $n$ even aantal getallen):
-\begin{itemize}
-  \item $Q_{1}$ komt overeen met cijfer $\frac{n+2}{4}$
-  \item $Q_{3}$ komt overeen met cijfer $\frac{3n+2}{4}$
-\end{itemize}
-
 \begin{exercise}
-  Met welke voorgaande statistiek komt $Q_{2}$ overeen?
+  Men zegt dat het rekenkundig gemiddelde gevoelig is aan uitschieters: een extreme waarde kan het rekenkundig gemiddelde zwaar beïnvloeden. 
+  
+  Stel je voor dat Kabouter Wesley (10 cm) toegevoegd wordt aan het team superhelden. Wat wordt dan de gemiddelde lengte?
 \end{exercise}
 
-\section{Variantie en standaardafwijking}
+\subsection{Variantie en standaardafwijking}
 \label{sec:varEnSD}
+
+De spreidingsmaat die typisch geassocieerd wordt met het gemiddelde is de standaardafwijking. Voordat we die definiëren, geven we eerst die van de \emph{variantie}.
+
 \begin{definition}[Variantie]
-  De \index{Variantie} variantie (symbool $\sigma^{2}$ - lees sigma kwadraat) is het gemiddelde van de kwadraten van de verschillen tussen de waarde van de dataset en het gemiddelde.
+  De \index{variantie} variantie van een steekproef (symbool $s^{2}$, Eng. \index{variance}\emph{sample variance}) is de som van de gekwadrateerde verschillen tussen de waarde van de dataset en het gemiddelde, gedeeld door het aantal waarden min één:
   \begin{equation}
-    \sigma^{2} = \frac{1}{n} \times \sum_{i=1}^{n} \left( \mu - x_i \right)^{2}
-    \label{eq:variantie}
+  s^{2} = \frac{1}{n-1} \sum_{i=1}^{n} \left(\overline{x} - x_i \right)^{2}
+  \label{eq:variantie}
   \end{equation}
 \end{definition}
-
 
 \begin{example}
   De variantie bij de lengtes van onze superhelden wordt als volgt berekend:
-
-  \begin{equation}
-    \begin{aligned}
-      \sigma^{2} &=  \frac{(173.4-141)^{2} + (173.4 - 198 )^{2} + (173.4 - 143)^{2} + (173.4- 201)^{2} + (173.4  -184 )^{2}}{5} \\
-      &=  \frac{(-32.4)^{2}+	(24.6)^{2}	+ (-30.4)^{2}+	(27.6)^{2}	+ (10.6)^{2}}{5}\\
-      &= \frac{1049.76 + 	605.16	 + 924.16	 + 761.76 + 	112.36}{5}\\
-      &= \frac{3453.2}{5} = 690.64
-    \end{aligned}
-  \end{equation}
+  
+  \begin{align*}
+  s^{2} &=  \frac{(173,4 - 141)^{2} + (173,4 - 198 )^{2} + (173,4 - 143)^{2} + (173,4 - 201)^{2} + (173,4 - 184 )^{2}}{4} \\
+  &=  \frac{(-32,4)^{2} + (24,6)^{2} + (-30,4)^{2} + (27,6)^{2} + (10,6)^{2}}{4}\\
+  &= \frac{1049,76 + 605,16 + 924,16 + 761,76 + 112,36}{4}\\
+  &= \frac{3453,2}{4} = 863,3
+  \end{align*}
 \end{example}
 
+Bij de berekening van de steekproefvariantie wordt er gedeeld door $n-1$ en niet door $n$. Waarom? Aangezien de som van de afwijkingen $x_{i} - \overline{x}$ steeds 0 oplevert (zie hieronder in vergelijking \ref{eq:sumGemid}), kan de laatste afwijking gevonden worden uit de eerste $n-1$ afwijkingen. We berekenen dus niet het gemiddelde van $n$ getallen zonder verwantschap. Slecht $n-1$ van de gekwadrateerde afwijkingen kunnen vrij bewegen, daarom berekenen we het gemiddelde door het totaal te delen door $n-1$. Het getal $n-1$ noemt men het aantal \index{vrijheidsgraden}\emph{vrijheidsgraden} van de variantie.
+
+\begin{equation}
+ \sum_{i}^{n}(x_{i} - \overline{x}) = \sum_{i}^{n}x_{i} - \sum_{i}^{n}\overline{x} = \sum_{i}^{n}x_{i} - n \left(\frac{1}{n}\sum_{i}^{n} x_{i}\right)
+\label{eq:sumGemid}
+\end{equation}
+
 \begin{definition}[Standaardafwijking]
-  De \index{Standaardafwijking} standaardafwijking wordt dan gedefinieerd als de vierkantswortel van de variantie.
+  De \index{standaardafwijking} standaardafwijking (Eng. \index{standard deviation}\emph{standard deviation}) wordt dan gedefinieerd als de vierkantswortel van de variantie.
   \begin{equation}
-    \sigma = \sqrt{\sigma^{2}}
-    \label{eq:stdev}
+  s = \sqrt{s^{2}} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} \left(\overline{x} - x_i \right)^{2}}
+  \label{eq:stdev}
   \end{equation}
 \end{definition}
 
+\begin{remark}[!!]
+  Ook hier hebben we specifiek de variantie en standaardafwijking van een \emph{steekproef} gedefinieerd. De standaardafwijking van een \emph{populatie} wordt aangeduid met de Griekse letter sigma, $\sigma$.
+\end{remark}
 
-Dit geeft ons dus inzicht in wat normaal is en wat abnormaal is: een kleine standaardafwijking wijst erop dat de waarden dicht bij de centrummaat ($\mu$) liggen, terwijl een grote standaardafwijking duidt dat de waarden verspreid liggen over een groot bereik van waarden. In sommige gevallen wil men een grote standaardafwijking, in andere gevallen niet zoals hieronder beschreven.
+Dit geeft ons dus inzicht in wat normaal is en wat abnormaal is: een kleine standaardafwijking wijst erop dat de waarden dicht bij de centrummaat ($\overline{x}$) liggen, terwijl een grote standaardafwijking aangeeft dat de waarden verder verspreid liggen. In sommige gevallen wil men een grote standaardafwijking, in andere gevallen niet zoals hieronder beschreven.
 
 \begin{example}
   Bij het vervaardigen van een schroevendraaier is de grootte van de kop belangrijk voor het goed functioneren van de schroevendraaier. Als we dus van 100 verschillende schroevendraaiers de kopgrootte meten, is het beter dat die grootte redelijk constant is en wensen we dus een kleine standaardafwijking.
 \end{example}
 
 \begin{example}
-  Bij het onderzoek naar onze superhelden, wensen we te weten hoeveel ze ongeveer verdienen in hun normale job. We hebben een aantal rijke superhelden (bv. Batman) en een aantal minder rijke superhelden (bv. Spiderman). De spreiding op hun inkomen is dus groot, maar dat is niet per definitie slecht.
+  Bij het onderzoek naar onze superhelden, wensen we te weten hoeveel ze ongeveer verdienen in hun normale job. We hebben een aantal rijke superhelden (bv. Batman) en een aantal minder rijke superhelden (bv. Spiderman). De spreiding op hun inkomen is dus groot, maar dat is niet per definitie een probleem.
 \end{example}
 
+Een aangename eigenschap van de standaardafwijking is dat het uitgedrukt kan worden in dezelfde metriek als de gemeten data. Bij ons voorbeeld van de superhelden, wil dat zeggen dat de standaardafwijking (ongeveer) 29,38 cm is.
 
-Een aangename eigenschap van de standaardafwijking is dat het uitgedrukt kan worden in dezelfde metriek als de gemeten data. Bij ons voorbeeld van de superhelden, wil dat zeggen dat de standaardafwijking 26.28 cm is.
+Zoals het gemiddelde zijn de variantie en de standaarddeviatie gevoelig aan uitschieters. De variantie is eigenlijk gevoeliger dan het gemiddelde. Inderdaad, voor een uitschieter is de afstand tot het gemiddelde kleiner dan het kwadraat van deze afstand. % TODO: Wat wordt hiermee bedoeld?
 
-Zoals het gemiddelde is de variantie en de standaarddeviatie gevoelig aan outliers (uitschieters). De variantie is eigenlijk gevoeliger dan het gemiddelde. Inderdaad, voor een outlier is de afstand tot het gemiddelde kleiner dan het kwadraat van deze afstand.
+% TODO: Waarom n-1 in de noemer?
 
-\section[Centrum- en spreidingsmaten toepassen]{Toepassing spreidingsmaten en maten centraliteit op verschillende soorten variabelen}
+\subsection{Mediaan}
+
+De mediaan is een alternatieve centrummaat die als voordeel ten opzichte van het gemiddelde heeft dat die een stuk minder gevoelig is voor uitschieters.
+
+\begin{definition}[Mediaan]
+  Indien we alle metingen sorteren van klein naar groot, is de \index{mediaan} mediaan (Eng. \index{median}\emph{median}) het middelste cijfer. Als het aantal cijfers even is, neemt men het gemiddelde van de twee middelste cijfers.
+\end{definition}
+
+\begin{exercise}
+  Wat is de mediaan van de lengtes van de superhelden?
+\end{exercise}
+
+\begin{exercise}
+  Wat wordt de mediaan als Kabouter Wesley er bij komt? Is de impact groter of kleiner dan bij het gemiddelde?
+\end{exercise}
+
+\subsection{Bereik}
+
+\begin{definition}[Bereik]
+  Het \index{bereik}bereik (Eng. \index{range}\emph{range}) van een variabele is de absolute waarde van het verschil tussen de grootste en kleinste waarde.
+  \begin{equation}
+    | max_i(x_i) - min_i(x_i) |
+  \end{equation}
+\end{definition}
+
+Het bereik van een variabele is vaak niet zo interessant als spreidingsmaat omdat ze zeer gevoelig is voor uitschieters.
+
+\subsection{Kwartielen \& kwartielafstand}
+
+De interkwartielafstand is een betere spreidingsmaat die veel minder gevoelig is voor uitschieters. Om te begrijpen hoe ze werkt, moeten we eerst het begrip \emph{kwartielen} definiëren.
+
+\begin{definition}[Kwartielen]
+  De \index{kwartiel} kwartielen zijn de waarden die een gesorteerde lijst van waarden in 4 gelijke delen deelt. Elk deel vormt dus een kwart van de dataset. Men spreekt van een eerste, tweede en derde kwartiel ($Q_{1}$, $Q_{2}$, $Q_{3}$).
+\end{definition}
+
+Dus:
+
+\begin{itemize}
+  \item het eerste kwartiel $Q_{1}$ is de waarde die de laagste 25 \% van de reeks afscheidt.
+  \item het tweede kwartiel $Q_{2}$ is de waarde die de laagste 50\% van de reeks afscheidt.
+  \item het derde kwartiel $Q_{3}$ is de waarde die de laagste 75\% van de reeks afscheidt.
+\end{itemize}
+
+Om te bepalen welke waarden in een gesorteerde rij precies de kwartielen zijn, ga je als volgt te werk (volgens \textcite{Moore2002}):
+
+Als $n$ oneven is:
+
+\begin{itemize}
+  \item $Q_{1}$ is het $\frac{n+1}{4}$e getal
+  \item $Q_{3}$ is het $\frac{3n+3}{4}$e getal
+\end{itemize}
+
+Als $n$ even is:
+
+\begin{itemize}
+  \item $Q_{1}$ is het $\frac{n+2}{4}$e getal
+  \item $Q_{3}$ is het $\frac{3n+2}{4}$e getal
+\end{itemize}
+
+\begin{exercise}
+  Met welke hiervoor gedefinieerde statistiek komt $Q_{2}$ overeen?
+\end{exercise}
+
+\begin{definition}[Interkwartielafstand]
+  De \index{interkwartielafstand}interkwartielafstand (Eng. \index{interquartile range}InterQuartile Range, $IQR$) is het verschil tussen het derde en eerste kwartiel.
+  
+  \begin{equation}
+    IQR = Q_3 - Q_1
+  \end{equation}
+\end{definition}
+
+De definitie van kwartielen kan worden veralgemeend naar \index{deciel}\emph{decielen} (waarden die de dataset in tien gelijke delen verdelen) en \index{percentiel}\emph{percentielen} (honderd gelijke delen). Het 65e percentiel, bijvoorbeeld is dan het getal in de gesorteerde rij waarvoor geldt dat 65\% van de waarden \emph{kleiner} is dan dat getal.
+
+\section{Visualisatie van één variabele}
+
+Ook bij het visualiseren van één variabele hangt het meest geschikte grafiektype af van het meetniveau. In Tabel~\ref{tab:grafiektypes-1-variabele} vind je een overzicht.
 
 \begin{table}
   \centering
-  \begin{tabular}{|l|l|l|l|l|}
-    \hline
-    \textbf{Analyse} & \textbf{Nominaal} & \textbf{Ordinaal} & \textbf{Interval} of \textbf{Ratio} \\
-    \hline
-    \textbf{Centrum} & Modus & Mediaan & Gemiddelde \\
-    & Modale klasse & Modus & Mediaan \\
-    & & Modale klasse & Modale klasse \\
-    \hline
-    \textbf{Spreiding} & & Range & Range \\
-    & & Interkwartielafstand & Interkwartielafstand \\
-    & & & Standaarddeviatie \\
-    \hline
+  \begin{tabular}{ll}
+  	\toprule
+  	\textbf{Meetniveau} & \textbf{Grafiektype}          \\
+  	\midrule
+  	Kwalitatief         & Staafdiagram van frequenties  \\
+  	\midrule
+  	Kwantitatief        & Boxplot, histogram, dichtheid \\
+  	\bottomrule
   \end{tabular}
-  \caption{Meetniveaus en mogelijkheden op variabelen}
-  \label{tab:Meetniveaus}
+  \caption{Geschikte grafiektypes per meetniveau voor het visualiseren van één variabele.}
+  \label{tab:grafiektypes-1-variabele}
 \end{table}
 
-\section{Grafieken}
+\subsection{Staafdiagram}
+
+Bij het visualiseren van een kwalitatieve variabele wordt eerst een frequentietabel opgesteld van alle voorkomende waarden.
+
+\begin{definition}[Frequentietabel]
+  Een \index{frequentietabel}\emph{frequentietabel} is tabel waarin opgesomd staat hoeveel keer een waarde voorkomt in de volledige dataset (= frequentie). Meestal zijn de tabellen verticaal georiënteerd.
+\end{definition}
+
+Om de grafiek te tekenen worden de verschillende waarden opgesomd onder de X-as en voor elke waarde wordt een staaf getekend waarvan de hoogte bepaald wordt door het aantal keer dat de overeenkomstige waarde voorkomt.
+
+% TODO: Voorbeeld staafdiagram toevoegen
 
 \subsection{Boxplot}
 
-De \index{Boxplot} boxplot wordt gevormd door een rechthoek begrensd door de kwartielwaarden (25\% en 75\%). In deze rechthoek wordt ook de mediaan getekend. De stelen, die aan de rechthoek zitten, bevatten de rest van de waarnemingen op de uitschieters en extremen na.
+De \index{boxplot}\emph{boxplot} wordt gevormd door een rechthoek begrensd door de kwartielwaarden (25\% en 75\%). In deze rechthoek wordt ook de mediaan getekend. De stelen, die aan de rechthoek zitten, bevatten de rest van de waarnemingen, op de uitschieters en extremen na.
 
 \begin{itemize}
-  \item Een \index{Uitschieter} uitschieter is een waarde die meer dan 1.5 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt. Wordt aangeduid met een cirkeltje.
-  \item Een \index{Extremum} extremum is een waarde die meer dan 3 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt. Wordt aangeduid met een sterretje.
+  \item Een \index{uitschieter}\textit{uitschieter} is een waarde die meer dan 1,5 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt en wordt aangeduid met een cirkeltje.
+  \item Een \index{extremum}\textit{extremum} is een waarde die meer dan 3 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt en wordt in een boxplot aangeduid met een sterretje.
 \end{itemize}
 
-\section{R}
-Zodra u een vector (of een lijst met nummers) in het geheugen hebt, zijn de meeste basiswerkingen beschikbaar. De meeste basiswerkzaamheden werken op een hele vector en kunnen gebruikt worden om snel een groot aantal berekeningen uit te voeren met een enkele opdracht. Indien je een operatie uitvoert op meerdere vectoren, is het vaak nodig dat de vectoren allemaal hetzelfde aantal elementen bevatten.
+Een boxplot wordt horizontaal of verticaal georiënteerd, op basis van wat het duidelijkst is.
 
-Hieronder zie je een set van eenvoudige operaties die je met vectoren kan doen. Let op dat de operaties allemaal op een element per element basis uitgevoerd worden. 
-\lstinputlisting{data/operaties.R}
+% TODO: Voorbeeld boxplot toevoegen
 
-De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, het  minimum, het maximum, de variantie en  de standaardafwijking van een reeks getallen te verkrijgen.
+\subsection{Histogram}
 
-\lstinputlisting{data/basics.R}
+Een \index{histogram}\emph{histogram} is een soort staafdiagram, maar dan aangepast naar kwantitatieve variabelen. Het bereik van de variabele wordt onderverdeeld in een door de onderzoeker gekozen aantal, typisch even grote, intervallen. Voor elk interval wordt er geteld hoeveel waarden er binnen vallen en op basis daarvan wordt de hoogte van de staven bepaald.
+
+% TODO: Voorbeeld histogram toevoegen
+
+\subsection{Dichtheidsgrafiek}
+
+% TODO: uitleg en voorbeeld toevoegen
 
 \section{Oefeningen}
 
 \subsection{Centrum- en spreidingsmaten}
 
-\begin{definition}
-	Een frequentietabel is tabel waarin opgesomd staat hoeveel keer een waarde voorkomt in de volledige dataset (= frequentie). Meestal zijn de tabellen verticaal georiënteerd.
-\end{definition}
+
 
 \begin{exercise}
   \label{ex:mean-stdev-freq}
-  De formules voor gemiddelde $\mu$ en variantie $\sigma^2$ staan beschreven in secties \ref{sec:gemiddelde} en \ref{sec:varEnSD}, resp. Hoe moeten deze formules aangepast worden om $\mu$ en $\sigma^2$ te berekenen wanneer we te maken hebben met een frequentietabel? Doe dit voor de data in tabel \ref{tab:pinfreq}.
+  De formules voor steekproefgemiddelde $\overline{x}$ en -variantie $s^2$ staan beschreven in secties \ref{sec:gemiddelde} en \ref{sec:varEnSD}, resp. Hoe moeten we deze formules aanpassen worden om $\overline{x}$ en $s^2$ te berekenen wanneer we te maken hebben met een frequentietabel? Doe dit voor de data in tabel \ref{tab:pinfreq}.
 \end{exercise}
 
 \begin{table}
   \centering
-  
-  \begin{tabular}{@{}ll@{}}
-    \toprule
-    Pinnen $x$ & Frequentie $f_{x}$ \\ \midrule
-    0          & 2                  \\
-    1          & 1                  \\
-    2          & 2                  \\
-    3          & 0                  \\
-    4          & 2                  \\
-    5          & 4                  \\
-    6          & 9                  \\
-    7          & 11                 \\
-    8          & 13                 \\
-    9          & 8                  \\
-    10         & 8
+  \begin{tabular}{cc}
+  	\toprule
+  	Pinnen $x$ & Frequentie $f_{x}$ \\
+  	\midrule
+  	    0      &         2          \\
+  	    1      &         1          \\
+  	    2      &         2          \\
+  	    3      &         0          \\
+  	    4      &         2          \\
+  	    5      &         4          \\
+  	    6      &         9          \\
+  	    7      &         11         \\
+  	    8      &         13         \\
+  	    9      &         8          \\
+  	    10     &         8          \\
+  	\bottomrule
   \end{tabular}
-  \caption{Tijdens het spelen van een kegelspel is bijgehouden hoeveel pinnen telkens omver gegooid werden. Voor elke mogelijke score $x$ is bijgehouden hoeveel keer }
+  \caption{Tijdens het spelen van een kegelspel is bijgehouden hoeveel pinnen telkens omver gegooid werden. Voor elke mogelijke score $x$ is bijgehouden hoeveel keer.}
   \label{tab:pinfreq}
 \end{table}
 
 \begin{exercise}
   \label{ex:variance-formula}
-  In de formule voor de variantie wordt het verschil tussen de meetpunten en het gemiddelde gekwadrateerd. Waarom? Zouden we geen eenvoudiger formule kunnen bedenken die een even goede maatstaf is voor de spreiding van een dataset? Hieronder vind je drie voorstellen (de derde is de ``echte'' formule).
+  In de formule voor de steekproefvariantie wordt het verschil tussen de meetpunten en het gemiddelde gekwadrateerd. Waarom? Zouden we geen eenvoudiger formule kunnen bedenken die een even goede maatstaf is voor de spreiding van een dataset? Hieronder vind je drie voorstellen (de derde is de ``echte'' formule).
 
   \begin{align}
-    \sigma^{2}_{1} &= \frac{1}{n} \sum_{i=1}^{n} (\mu - x) \\
-    \sigma^{2}_{2} &= \frac{1}{n} \sum_{i=1}^{n} \left| \mu - x\right| \\
-    \sigma^{2}_{3} &= \frac{1}{n} \sum_{i=1}^{n} (\mu - x)^{2}
+    s^{2}_{1} &= \frac{1}{n-1} \sum_{i=1}^{n} (\overline{x} - x) \\
+    s^{2}_{2} &= \frac{1}{n-1} \sum_{i=1}^{n} \left| \overline{x} - x\right| \\
+    s^{2}_{3} &= \frac{1}{n-1} \sum_{i=1}^{n} (\overline{x} - x)^{2}
   \end{align}
 
   Pas elke formule toe op de twee datasets hieronder. Door het resultaat te vergelijken zou je moeten kunnen besluiten of de formules geschikt zijn als een spreidingsmaat.
@@ -262,19 +390,18 @@ De volgende commando's kunnen worden gebruikt om het gemiddelde,de kwartielen, h
 \end{exercise}
 
 \begin{exercise}
-Zoek eens zelfstandig op wat de variatieco\"effici\"ent is. Hoe
-wordt die gedefinieerd voor een volledige populatie en wat zou
-je ermee kunnen doen?
+Zoek eens zelfstandig op wat de variatieco\"effici\"ent voor een steekproef is. Hoe wordt die gedefinieerd voor een volledige populatie en wat zou je ermee kunnen doen?
 \end{exercise}
 
 \begin{exercise}
   \label{ex:ais}
-Beschouw de volgende subsets uit het data frame \texttt{ais} (uit de library DAAG):
-\begin{enumerate}
-\item Ontleed de gegevens voor de roeiers.
-\item Ontleed de gegevens voor de roeiers, de netballers en de tennissers.
-\item Ontleed de gegevens voor de vrouwelijke basketballers en roeiers.
-\end{enumerate}
+  Beschouw de volgende deelverzameling uit het data frame \texttt{ais} (uit de library DAAG). Bereken voor elk de geschikte centrum- en spreidingsmaten van de variabelen \texttt{sex} en \texttt{ht}.
+  
+  \begin{enumerate}
+    \item de roeiers.
+    \item de roeiers, de netballers en de tennissers samen.
+    \item de vrouwelijke basketballers en roeiers.
+  \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
@@ -308,7 +435,13 @@ We hebben nu de data ingeladen. We kunnen eens kijken wat de gemiddelde tijd, de
 	Als je de vorige metrieken berekend hebt, wat kan je daar dan over zeggen. Kan je zinnige conclusies trekken uit de vorige resultaten. Zo ja vermeld ze, zo nee beschrijf waarom je dat denkt.
 \end{exercise}
 
+% TODO: Oefening over percentielen toevoegen, bv. gebaseerd op 95th percentile bandwith metering
+% https://www.semaphore.com/95th-percentile-bandwidth-metering-explained-and-analyzed/
+% http://aboutcolocation.info/95th-percentile-monitoring-explained/
+
 \subsection{Grafieken in R}
+
+% TODO: verwijderen uit de cursus, verplaatsen naar labos
 
 Een histogram is een eenvoudige plot. het toont de frequenties van de data die in een bepaald bereik voorkomen. 
 
@@ -364,11 +497,11 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
 \end{lstlisting}
 
 \begin{exercise}
-	Wat concludeer je uit de vorige grafiek?
+  Wat concludeer je uit de vorige grafiek?
 \end{exercise}
 
 \begin{exercise}
-	Ga nu zelf na welke boxplots er interessant zijn om te maken, en kijken of jouw resultaten overeen met die van \textcite{Akin2016}. Welke conclusies trek je?
+  Ga nu zelf na welke boxplots er interessant zijn om te maken, en kijken of jouw resultaten overeen met die van \textcite{Akin2016}. Welke conclusies trek je?
 \end{exercise}
 
 
@@ -383,8 +516,6 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
 \end{itemize}
 
 \paragraph{Oefening \ref{ex:ais}}
-
-De opgave van deze oefening is zeer algemeen gesteld. Onder ``ontleed de gegevens'' wordt concreet bedoeld alle technieken voor de analyse van een variabele uit te proberen op de dataset. We geven hier een voorbeeld van de resultaten voor enerzijds kwantitatieve en anderzijds kwalitatieve variabelen.
 
 Tabel \ref{tab:opl-ais-ht} geeft een overzicht met de belangrijkste centrum- en spreidingsmaten voor de variabele \texttt{ht} (height, lengte) over de gevraagde groepen.
 
