@@ -36,8 +36,9 @@
 
 \RequirePackage{booktabs}   % Mooier opgemaakte tabellen
 \RequirePackage{multirow}   % Cellen in tabellen samenvoegen
-\usepackage{subcaption}
 \RequirePackage{rotating}   % Tabellen en figuren roteren
+\RequirePackage[margin=20pt,font=small,labelfont=bf,textfont=it]{caption}
+\RequirePackage{subcaption}
 
 \RequirePackage{listings}   % Broncode mooi opmaken
 
@@ -45,7 +46,7 @@
 \graphicspath{{img/}}       % Map met in te voegen afbeeldingen
 \RequirePackage{tikz}       % Grafische taal voor maken van afbeeldingen
 
-\usepackage[toc]{appendix}  % Appendixes
+\RequirePackage[toc]{appendix}  % Appendixes
 
 %-------------------------------------------------------------------------------
 % Lettertypes, bestandscodering
