@@ -34,7 +34,7 @@ Algemeen gezien bestaat een toetsingsprocedure uit 4 elementen:
 
 Een alternatief voor de laatste stap is het berekenen van de \emph{overschrijdingskans} (zie verder).
 
-De beslissing om de nulhypothese $H_{0}$ te verwerpen of te aanvaarden is gebaseerd op informatie uit een steekproef, getrokken uit de populatie waarover de hypothese is geformuleerd. De steekproefwaarden worden gebruikt om 1 enkele waarde van een teststatistiek te berekenen die de beslissing zal bepalen. Daartoe worden alle waarden die de teststatistiek kan aannemen, verdeeld in twee gebieden, \begin{inparaenum}[(i)] \item het aanvaardingsgebied en \item het verwerpingsgebied\end{inparaenum}. Indien de waarde van de teststatistiek ligt in het verwerpingsgebied, dan wordt de nulhypothese verworpen en de alternatieve hypothese aanvaard. Indien de waarde van de teststatistiek in het aanvaardingsgebied valt dan wordt de nulhypothese aanvaard.
+De beslissing om de nulhypothese $H_{0}$ te verwerpen of te aanvaarden is gebaseerd op informatie uit een steekproef, getrokken uit de populatie waarover de hypothese is geformuleerd. De steekproefwaarden worden gebruikt om 1 enkele waarde van een teststatistiek te berekenen die de beslissing zal bepalen. Daartoe worden alle waarden die de teststatistiek kan aannemen, verdeeld in twee gebieden, enerzijds het aanvaardingsgebied en anderzijds het verwerpingsgebied. Indien de waarde van de teststatistiek ligt in het verwerpingsgebied, dan wordt de nulhypothese verworpen en de alternatieve hypothese aanvaard. Indien de waarde van de teststatistiek in het aanvaardingsgebied valt dan wordt de nulhypothese aanvaard.
 
 \section{Toetsingsprocedure voor de \texorpdfstring{$z$}{z}-toets}
 \label{sec:toetsingsprocedure-z-toets}
@@ -47,12 +47,10 @@ In de eerste toetsingsprocedure die we in deze cursus uitwerken, gaan we een uit
   \item De waarde van de toetsingsgrootheid in de steekproef wordt berekend. De uitkomst is bepalend voor de beslissing of we de nulhypothese $H_{0}$ kunnen verwerpen of niet. We weten dankzij de centrale limietstelling dat de kansverdeling van het steekproefgemiddelde $M \sim Nor( \mu, \frac{\sigma}{\sqrt{n}})$.
   \item Het kritieke gebied bepalen, of meer bepaald de grens tussen het aanvaardings- en het verwerpingsgebied. We zoeken een grenswaarde\index{kritieke grenswaarde} $g$ zodat:
   
-  \begin{equation}
-  \begin{split}
-  P(M > g) = \alpha & \Leftrightarrow P\left(Z> z=\frac{g-\mu}{\sigma/\sqrt{n}}\right) = \alpha & (normalisatie)\\
-  & \Leftrightarrow P\left(Z < z = \frac{g-\mu}{\sigma/\sqrt{n}}\right) = 1-\alpha & (100\%-regel)
-  \end{split}
-  \end{equation}
+  \begin{align}
+  P(M > g) = \alpha & \Leftrightarrow P\left(Z> z=\frac{g-\mu}{\sigma/\sqrt{n}}\right) = \alpha & \mathrm{(normalisatie)}\\
+  & \Leftrightarrow P\left(Z < z = \frac{g-\mu}{\sigma/\sqrt{n}}\right) = 1-\alpha & \mathrm{(100\%-regel)}
+  \end{align}
   
   De $z$-waarde hangt af van het gekozen significantieniveau en kan worden opgezocht in een $z$-tabel of berekend worden met de R-functie \texttt{qnorm(1-alpha)}. Daaruit kunnen we dan $g$ afleiden:
   
@@ -510,10 +508,9 @@ over betrouwbaarheidsintervallen.
 \end{example}
 
 \begin{example}
-  In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto's werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto's opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten. De resultaten worden gegeven in Tabel~\ref{tab:benzineverbruik-additieven}.
+  In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto's werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto's opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten. De resultaten worden gegeven in de tabel hieronder.
   
-  \begin{table}
-    \centering
+  \begin{center}
     \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
       \hline 
       Auto & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ 
@@ -523,9 +520,9 @@ over betrouwbaarheidsintervallen.
       Additieven & 19 & 22 & 24 & 24 & 25 & 25 & 25 & 26 & 28 & 32 \\ 
       \hline 
     \end{tabular} 
-  \caption{Verbruik in mijl per gallon met 2 soorten benzine.}
-  \label{tab:benzineverbruik-additieven}
-  \end{table}
+%  \caption{Verbruik in mijl per gallon met 2 soorten benzine.}
+%  \label{tab:benzineverbruik-additieven}
+  \end{center}
   
   We gaan door middel van een \emph{gepaarde $t$-test} na of auto's significant zuiniger rijden met benzine met additieven.
   
@@ -647,7 +644,7 @@ In vele gevallen is het maken van een fout van type I erger dan een van type II.
   
   Nu gaan we uitzoeken of het op het eerste zicht beste persistentietype ook \emph{significant} beter is dan de concurrentie.
   
-  Concreet: ga aan de hand van een toets voor twee steekproeven voor elke datahoeveelheid na of het gemiddelde van het best scorende persistentietype \emph{significant lager} is dan het gemiddelde van \begin{inparaenum}[(i)] \item het \emph{tweede} beste en \item het slechtst scorende type \end{inparaenum}.
+  Concreet: ga aan de hand van een toets voor twee steekproeven voor elke datahoeveelheid na of het gemiddelde van het best scorende persistentietype \emph{significant lager} is dan het gemiddelde van enerzijds het \emph{tweede} beste en anderzijds het slechtst scorende type.
   
   Kunnen we de conclusie aanhouden dat voor een gegeven datahoeveelheid één persistentietype het beste is, d.w.z.~significant beter is dan gelijk welk ander persistentietype?
 \end{exercise}

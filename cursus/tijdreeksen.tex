@@ -37,10 +37,12 @@ kwantitatief te modelleren
 Tijdreeksen modelleren is een statistisch probleem: we gaan ervan uit dat de observaties variëren volgens een bepaalde kansdichtheidsfunctie in functie van de tijd. Vaak gaan we ervan uit dat de observaties in een tijdreeks gecorreleerd zijn en dus niet uit een willekeurige steekproef komen. 
 
 Er zijn verschillende types modellen in gebruik voor het analyseren van tijdreeksen. Deze modellen hebben met elkaar gemeen dat ze in principe niet alleen de ontwikkeling in een geobserveerde tijdreeks kunnen beschrijven, maar dat we ze ook kunnen gebruiken om
-\begin{inparaenum}[(i)]
+
+\begin{itemize}
 	\item verklaringen te vinden voor die ontwikkeling en
 	\item om de toekomstige waarden van de tijdreeks te voorspellen.
-\end{inparaenum}
+\end{itemize}
+
 Hun geschiktheid voor het verwezenlijken van deze doelstellingen loopt echter sterk uiteen. In dit hoofdstuk beperken we ons tot het gebruik van tijdreeksen met een geschiedenis om tijdsafhankelijke modellen te bepalen. Een voorbeeld van een tijdreeks is bijvoorbeeld de leeftijd van de opeenvolgende koningen van Engeland startend van Willem De Veroveraar \autocite{Hipel1994}.
 
 \begin{lstlisting}
@@ -52,7 +54,7 @@ grid(lty=2,lwd=1,col='black')
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/tijdreeksen/tijdreekskings.png}
+	\includegraphics[width=\textwidth]{tijdreeksen/tijdreekskings.png}
 	\caption{De tijdreeks die de leeftijden van de koningen voorstelt.}
 	\label{fig:tijdreeks11}
 \end{figure}
@@ -173,7 +175,7 @@ legend(x= 'topright',legend = c("Data","Average 10.75"), lty = c(1,1), lwd = c(2
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.00\textwidth]{images/tijdreeksen/tijdreeks20.png}
+		\includegraphics[width=1.00\textwidth]{tijdreeksen/tijdreeks20.png}
 	\caption{Tijdreeks met constant gemiddelde $10.75$}
 	\label{fig:tijdreeks21}
 \end{figure}
@@ -193,7 +195,7 @@ lines(sma5, col='purple', type = 'b')
 
 \begin{figure}
 \centering
-	\includegraphics[width=1.00\textwidth]{images/tijdreeksen/tijdreekssma.png}
+	\includegraphics[width=1.00\textwidth]{tijdreeksen/tijdreekssma.png}
 	\caption{Tijdreeks met voortschrijdend gemiddelde $m = 10$ en $m=5$}. 
 \label{fig:tijdreeks31}
 \end{figure}
@@ -447,7 +449,7 @@ Enkelvoudige afvlakking wordt gebruikt wanneer er geen trend zichtbaar is. Wanne
 
 \begin{figure}
   \centering
-  \includegraphics[width=1.00\textwidth]{images/tijdreeksen/tijdreeks61.jpg}
+  \includegraphics[width=1.00\textwidth]{tijdreeksen/tijdreeks61.jpg}
   \caption{Exponentiële afvlakking bij een trend}
   \label{fig:tijdreeks61}
 \end{figure}
@@ -505,7 +507,7 @@ Als we nu de tekening maken met enkelvoudige afvlakking ($\alpha = 0.977$) en du
 
 \begin{figure}
 	\centering
-		\includegraphics[width=1.00\textwidth]{images/tijdreeksen/tijdreeks71.jpg}
+		\includegraphics[width=1.00\textwidth]{tijdreeksen/tijdreeks71.jpg}
 	\caption{Enkelvoudige en dubbele afvlakking}
 	\label{fig:tijdreeks71}
 \end{figure}
