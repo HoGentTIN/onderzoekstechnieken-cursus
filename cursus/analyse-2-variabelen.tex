@@ -218,7 +218,7 @@ Voor het bepalen van de nodige waarden binnen de $\chi^2$-verdeling (bv. rechter
 \subsection{Onafhankelijkheidstoets}
 \label{ssec:onafhankelijkheidstoets}
 
-Een onafhankelijkheidstoets\index{onafhankelijkheidstoets} gaat na of er een verband bestaat tussen twee kwalitatieve variabelen aan de hand van de $\chi^2$-statistiek. Deze toets wordt ook de $\chi^2$-toets voor associatie genoemd, of de $\chi^2$-kruistabeltoets.
+Een onafhankelijkheidstoets\index{onafhankelijkheidstoets} gaat na of er een verband bestaat tussen twee kwalitatieve variabelen aan de hand van de $\chi^2$-statistiek. Deze toets wordt ook de $\chi^2$-toets\index{$\chi^2$-toets!}\index{toets!$\chi^2$-} voor associatie genoemd, of de $\chi^2$-kruistabeltoets, en is ontwikkeld door de Engelse wiskundige en statisticus Karl Pearson\index{Pearson!Karl}.
 
 \subsubsection{Toetsingsprocedure}
 
@@ -764,6 +764,7 @@ De gemiddelde gerapporteerde effectgrootte ligt rond $d = 0,4$. De aanbeveling v
 \label{sec:regressie}
 
 Bij \index{Regressie} regressie gaan we proberen een consistente en systematische koppeling tussen de variabelen te vinden. Dat betekent concreet: ``als we de waarde van de onafhankelijke variabele kennen, kunnen we dan ook de waarde van de afhankelijke variabele voorspellen?'' We kennen twee soorten verbanden:
+
 \begin{description}
   \item [Monotoon:] een monotoon verband is een verband waarbij de onderzoeker de algemene richting van de samenhang tussen de twee variabelen kan aanduiden, hetzij stijgend, hetzij dalend. De richting van het verband verandert nooit.
   \item [Niet-monotoon:] bij een niet-monotoon verband wordt de aanwezigheid (of afwezigheid) van de ene variabele systematisch gerelateerd aan de aanwezigheid (of afwezigheid) van een andere variabele. De richting van het verband kan echter niet aangeduid worden.
@@ -972,7 +973,8 @@ Voorbeeld~\ref{vb:rendieren} uitgewerkt in R (met plot van de regressierechte):
 \label{sec:correlatie}
 
 \subsubsection{Pearsons product-momentcorrelatiecoëfficiënt}
-We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdrukken.
+
+We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdrukken. Ook deze zijn---net als de $\chi^2$-toets---ontwikkeld door Karl Pearson\index{Pearson!Karl}.
 
 \begin{definition}[Pearsons product-momentcorrelatiecoëfficiënt]
    Pearsons product momentcorrelatiecoëfficiënt\index{Pearsons product-momentcorrelatiecoëfficiënt} $R$ (of kortweg correlatiecoëfficiënt\index{correlatiecoëfficiënt}) is een maat voor de sterkte van de lineaire samenhang tussen X en Y. De waarde kan vari\"eren van -1 tot 1.
@@ -987,6 +989,7 @@ We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdr
 \end{definition}
 
 \subsubsection{Determinatieco\"effici\"ent}
+
 \begin{definition}
   De \index{Determinatieco\"effici\"ent}determinatieco\"effici\"ent ($R^{2}$) is het kwadraat van de correlatieco\"effici\"ent en verklaart het percentage van de variantie van de waargenomen waarden t.o.v. de regressierechte.
 
