@@ -1,9 +1,15 @@
-\chapter{Steekproefonderzoek}
-\label{ch:steekproefonderzoek}
+\chapter{De centrale limietstelling en betrouwbaarheidsintervallen}
+\label{ch:centrale-limietstelling}
 
-% TODO: Aangezien het begrip steekproef nu al eerder in de cursus geïntroduceerd wordt, zou de inhoud van dit hoofdstuk moeten ondergebracht worden in andere stukken...
+In dit hoofdstuk wordt de Centrale Limietstelling geïntroduceerd (zie Sectie~\ref{sec:centrale-limietstelling}). Dit is voor het vakgebied van de statistiek een enorm belangrijk resultaat omdat de gehele theorie van statistische toetsen (zie Hoofdstuk~\ref{ch:toetsingsprocedures}) hierop gebaseerd is. De Centrale Limietstelling laat toe om metingen op basis van een steekproef onder bepaalde voorwaarden te veralgemenen naar de populatie als geheel.
+
+We bespreken eveneens het concept van puntschatters en betrouwbaarheidsintervallen. Een puntschatter is een getal dat berekend wordt uit de steekproef, waarmee men een schatting wil maken van een eigenschap van de populatie. Het steekproefgemiddelde $\overline{x}$ is bijvoorbeeld een puntschatter voor het populatiegemiddelde $\mu$. Een betrouwbaarheidsinterval drukt uit tussen welke grenzen men vermoed dat een bepaalde waarde zich bevindt, en hoe zeker men hiervan is. Een 95\%-betrouwbaarheidsinterval voor het populatiegemiddelde, bijvoorbeeld, is een interval dat opnieuw berekend is aan de hand van de steekproef, waarvan we--onder duidelijke voorwaarden--met 95\% zekerheid kunnen zeggen dat het populatiegemiddelde er in zal liggen.
+
+Voordat we deze begrippen kunnen introduceren, is het nodig eerst enkele begrippen uit de kansrekening te herhalen (zie Sectie~\ref{sec:kansverdeling-steekproef}) en de normale verdeling  (zie Sectie~\ref{sec:normale-verdeling}) te bespreken.
 
 \section{Kansverdeling van een steekproef}
+\label{sec:kansverdeling-steekproef}
+
 \subsection{Stochastisch experiment}
 Een random (of stochastisch) experiment heeft volgende elementen nodig:
 
@@ -105,6 +111,7 @@ Continue kansverdelingen zijn verdelingen waarbij hetgeen we meten niet alleen e
 De twee regels voor kansverdelingen hierboven blijven gewoon geldig. Als zo'n kromme een goede kansverdeling is, dan moet de totale oppervlakte ervan 1 zijn, en dan kun je de kans op een gewicht dat bijvoorbeeld tussen de 60 en 70 kg ligt uitrekenen door de oppervlakte hiernaast te bepalen (merk op dat het uiteindelijk niet belangrijk is of die $60$ en $70$ zelf ook nog tot het interval behoren, die hebben toch kans nul!).
 
 \section{De normale verdeling}
+\label{sec:normale-verdeling}
 
 \begin{figure}[t]
 \centering
@@ -280,21 +287,6 @@ Er zijn verschillende methoden die kunnen gebruikt worden om na te gaan of een s
 \end{figure}
 
 \lstinputlisting{data/qqplot.R}
-
-%\subsection[Chi-kwadraatverdeling]{$\chi^{2}$ verdeling}
-
-% TODO:  Deze sectie hoort hier niet (meer) thuis. Weglaten en controleren of de inhoud nog in het relevante hoofdstuk staat
-
-%Laat $X_{1}, X_{2}, \dots X_{v}$ onafhankelijk standaardnormale variabelen zijn ($\sim N(0,1)$). De $\chi^{2}$ (chi-kwadraat) variabele wordt als volgt gedefinieerd:
-%\[ \chi^{2}_{v} = X_{1}^{2} + X_{2}^{2} + \dots + X_{v}^{2} \]
-%
-%Het getal $v$ noemt men het aantal vrijheidsgraden van de variabele. $\chi^{2}$ is een continue toevalsveranderlijke, die positief is omdat ze de som is van kwadraten. Haar dichtheidsfunctie is de volgende:
-%
-%\[ f_{n}(x) = \frac{1}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})} x^{\frac{n}{2} -1} e^{\frac{x}{2}} \]
-%
-%De verwachtingswaarde (= gemiddelde) is $v$ en zijn variantie is $2v$. Zijn modus voor $v \geq 2$ is $v-2$.
-%
-%De $\chi^{2}$ variabele komt niet in de natuur voor. Geen verschijnsel kan erdoor gemodelleerd worden. maar deze variabele zal zeer belangrijk zijn in het vervolg van de cursus.
 
 \section{Centrale limietstelling}
 \label{sec:centrale-limietstelling}
