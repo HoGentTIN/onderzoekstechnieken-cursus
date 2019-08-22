@@ -192,6 +192,29 @@ De procedure om de $\chi^2$ van een kruistabel te berekenen gaat als volgt:
 
 Nu zegt deze waarde $\chi^2 \approx 3,8105$ op zich nog \emph{steeds} niet zo veel. Onder welke voorwaarden zeggen we dat er al dan niet een verband is tussen beide variabelen? En hoe sterk is dat verband dan? Een en ander zal ook afhangen van de grootte van de tabel en het totaal aantal observaties. In een kruistabel met meer rijen/kolommen, zal je een grotere $\chi^2$ moeten hebben om te besluiten dat er een verband is.
 
+\subsection[Chi-kwadraatverdeling]{$\chi^{2}$ verdeling}
+\label{ssec:chi-kwadraatverdeling}
+
+In Sectie~\ref{ssec:onafhankelijkheidstoets} wordt de $\chi^2$-toets gedefinieerd. Deze toets maakt bij het bepalen van de overschrijdingskans of kritieke grenswaarde gebruik van de zgn.~$\chi^2$-verdeling. Deze stochastische verdeling komt niet in de natuur voor en geen verschijnsel kan erdoor gemodelleerd worden. In \emph{deze} context is ze echter \emph{wel} zeer nuttig.
+
+Laat $X_{1}, X_{2}, \dots X_{v}$ onafhankelijk standaardnormale variabelen zijn ($\sim N(0,1)$). De $\chi^{2}$ (chi-kwadraat) variabele wordt als volgt gedefinieerd:
+
+\[ \chi^{2}_{v} = X_{1}^{2} + X_{2}^{2} + \dots + X_{v}^{2} \]
+
+Het getal $v$ noemt men het aantal vrijheidsgraden van de variabele. $\chi^{2}$ is een continue toevalsveranderlijke, die positief is omdat ze de som is van kwadraten. Haar dichtheidsfunctie is de volgende:
+
+\[ f_{n}(x) = \frac{1}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})} x^{\frac{n}{2} -1} e^{\frac{x}{2}} \]
+
+De verwachtingswaarde (= gemiddelde) is $v$ en zijn variantie is $2v$. Zijn modus voor $v \geq 2$ is $v-2$.
+
+Voor het bepalen van de nodige waarden binnen de $\chi^2$-verdeling (bv. rechterstaartkans, kritieke grenswaarde), kunnen we gebruik maken van hetzij een tabel\footnote{Bijvoorbeeld \url{https://people.richland.edu/james/lecture/m170/tbl-chi.html}}, hetzij statistische software zoals R.
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{chi-squared-distribution}
+  \caption{Dichtheidsfunctie van de $\chi^2$-verdeling voor verschillende vrijheidsgraden $df$.}
+  \label{fig:chi-squared-distribution}
+\end{figure}
+
 \subsection{Onafhankelijkheidstoets}
 \label{ssec:onafhankelijkheidstoets}
 
@@ -214,7 +237,7 @@ De toetsingsprocedure verloopt als volgt:
   \item \textbf{Bereken de waarde van de toetsingsgrootheid in de steekproef}
   \[ \chi^{2} = \sum_{i} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
   
-  \item de waarde van $\chi^2$ is gedistribueerd volgens de zgn.~$chi^2$-verdeling (zie Figuur~\ref{fig:chi-squared-distribution}). Deze verdeling heeft als bijkomende parameter het aantal vrijheidsgraden $df$. Voor een kruistabeltoets is $df = (r - 1) \times (k - 1)$ met $r$ het aantal rijen en $k$ het aantal kolommen.
+  \item de waarde van $\chi^2$ is gedistribueerd volgens de $\chi^2$-verdeling (zie Sectie~\ref{ssec:chi-kwadraatverdeling}). Deze stochastische verdeling heeft als bijkomende parameter het aantal vrijheidsgraden $df$. Voor een kruistabeltoets is $df = (r - 1) \times (k - 1)$ met $r$ het aantal rijen en $k$ het aantal kolommen.
   
   Aan de hand van deze verdeling kunnen we op twee equivalente manieren een besluit trekken:
   
@@ -225,8 +248,6 @@ De toetsingsprocedure verloopt als volgt:
 
   \item Tenslotte formuleren we de conclusie en beantwoorden we de onderzoeksvraag.
 \end{enumerate}
-
-Voor het bepalen van de nodige waarden binnen de $\chi^2$-verdeling (bv. rechterstaartkans, kritieke grenswaarde), kunnen we gebruik maken van hetzij een tabel\footnote{Bijvoorbeeld \url{https://people.richland.edu/james/lecture/m170/tbl-chi.html}}, hetzij statistische software zoals R.
 
 Toegepast op het voorbeeld van hierboven:
 
@@ -252,11 +273,6 @@ Toegepast op het voorbeeld van hierboven:
   \item We kunnen dus besluiten dat er op basis van deze steekproef geen reden is om aan te nemen dat er een verband is tussen gender en waardering. Anders gezegd, er zijn geen significante verschillen tussen de waarderingen bij enerzijds vrouwen en anderzijds mannen.
 \end{enumerate}
 
-\begin{figure}
-  \includegraphics[width=\textwidth]{chi-squared-distribution}
-  \caption{Dichtheidsfunctie van de $\chi^2$-verdeling voor verschillende vrijheidsgraden $df$.}
-  \label{fig:chi-squared-distribution}
-\end{figure}
 
 We geven nog een ander voorbeeld van de onafhankelijkheidstoets aan de hand van een studie door \textcite{Doll1954} over de relatie tussen roken en longkanker. Doll en Hill schreven in 1951 alle Britse huisartsen aan met het verzoek om gegevens over hun leeftijd en rookgedrag. Vervolgens hielden ze jarenlang de overlijdensberichten en de doodsoorzaak bij en herhaalden hun periodiek. De eerste uitkomsten, na circa vier jaar, zijn in tabel~\ref{tab:dollhill} samengevat. Uit de tabel kan makkelijk geconcludeerd worden dat er geen relatie is tussen roken en longkanker. In (ruim) vier jaar is slechts $(84 / 24354) * 100 = 0,35\%$ van de Britse artsen aan longkanker overleden en dat met slechts $(83 / 21261) * 100 = 0,39\%$ van de rokers onder hen. Dit is weinig, maar het is wel veel meer dan hetzelfde cijfer voor de niet-rokers $(1 / 3093) * 100 = 0,032\%$.
 
@@ -286,8 +302,8 @@ We zien in de tabel dat er wel een erg groot verschil is tussen de geobserveerde
   \end{itemize}
   \item \textbf{Bepalen $\alpha$ en $n$:} $\alpha = 0,05$ en $n = 24354$.
   \item \textbf{Toetsingsgrootheid en waarde ervan in steekproef}:
-  \[ \chi^{2} = \sum_{i=1}^{k \times r} \frac{(o_{i} - e_{i})^{2}}{E_{i}} = 10,35 \]
-  \item \textbf{Bereken en teken kritiek gebied}: kritieke grens is 3,8415 en aantal vrijheidsgraden $df = (r-1)(k-1)$ Onze toetsingsgrootheid ligt dus in het kritieke gebied dus verwerpen we $H_{0}$.
+  \[ \chi^{2} = \sum_{i=1}^{k \times r} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \approx 10,071 \]
+  \item \textbf{Bereken en teken kritiek gebied}: Het aantal vrijheidsgraden is $df = (r-1)(k-1) = 1$, dus voor het gegeven significantieniveau is de kritieke grens 3,8415. Onze toetsingsgrootheid ligt in het kritieke gebied dus verwerpen we $H_{0}$.
 \end{enumerate}
 
 We moeten derhalve $H_{0}$, dat er geen relatie is tussen beide variabelen, verwerpen ten gunste van $H_{1}$ dat er wel een relatie is tussen beide variabelen: rokers sterven vaker aan longkanker dan niet-rokers.
@@ -1369,6 +1385,114 @@ Lees het databestand ``Aardbevingen.csv'' in.
 	\end{enumerate}
 \end{exercise}
 
+\begin{exercise}
+  \label{ex:chisq-survey}
+  Voor deze oefening maken we gebruik van de dataset \texttt{survey} die is meegeleverd met R. De dataset is samengesteld uit een bevraging onder studenten. Om deze te laden, doe het volgende:
+  
+  \begin{lstlisting}
+  library(MASS)
+  View(survey)  # Toont de "survey" dataset
+  ?survey       # Help-pagina voor deze dataset met uitleg over de inhoud
+  \end{lstlisting}
+  
+  Als je een foutboodschap krijgt bij het laden van de bibliotheek (eerste regel), betekent dit dat de package \texttt{MASS} nog niet geïnstalleerd is. Dit kan je alsnog doen via Tools > Install Packages en het invullen van de package-naam in het tekstveld.
+  
+  We willen de relatie onderzoeken tussen enkele discrete (nominale of ordinale) variabelen in deze dataset. Voor elke hieronder opgesomde paren, volg deze stappen:
+  
+  \begin{enumerate}[label=(\alph*)]
+    \item Denk eerst eens na welke uitkomt je precies verwacht voor de opgegeven combinatie van variabelen.
+    \item Stel een frequentietabel op voor de twee variabelen. De (vermoedelijk) onafhankelijke variabele komt eerst.
+    \item Plot een grafiek van de data, bv.~geclusterde staafgrafiek, gestapelde staafgrafiek van relatieve frequenties, of een ``mozaïekgrafiek'' (eenvoudig met \texttt{plot(table(data\$col1, data\$col2))}).
+    \item Als je de grafiek bekijkt, verwacht je dan een eerder hoge of eerder lage waarde voor de $\chi^2$-statistiek? Waarom?
+    \item Bereken de $\chi^2$-statistiek en de kritieke grenswaarde $g$ (voor significantieniveau $\alpha = 0.05$)
+    \item Bereken de $p$-waarde
+    \item Moeten we de nulhypothese aanvaarden of verwerpen? Wat betekent dat concreet voor de relatie tussen de twee variabelen?
+  \end{enumerate}
+  
+  Hieronder zijn de te onderzoeken variabelen opgesomd. De vermoedelijke onafhankelijke variabele komt telkens eerst.
+  
+  \begin{enumerate}
+    \item \texttt{Exer} (sporten) en \texttt{Smoke} (rookgedrag)
+    \item \texttt{W.Hnd} (de hand waarmee je schrijft) en \texttt{Fold} (de hand die bovenaan komt als je de armen kruist)
+    \item \texttt{Sex} (gender) en \texttt{Smoke}
+    \item \texttt{Sex} en \texttt{W.Hnd}
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  \label{ex:chisq-aids2}
+  Laad de dataset \texttt{Aids2} uit package \texttt{MASS} (zie Oefening~\ref{ex:chisq-survey}) die informatie bevat over 2843 patiënten die vóór 1991 in Australië met AIDS besmet werden. Deze dataset werd in detail besproken door~\textcite{Ripley2007}. Onderzoek of er een relatie is tussen de variabele geslacht (\texttt{Sex}) en de manier van besmetting (\texttt{T.categ}).
+  
+  \begin{enumerate}
+    \item Ga op de gebruikelijke manier te werk: visualiseren van de data, $\chi^2$, $g$ en $p$-waarde berekenen ($\alpha = 0,05$), en tenslotte een conclusie formuleren.
+    \item Bepaal de gestandaardiseerde residuën om te bepalen welke categorieën extreme waarden bevatten.
+  \end{enumerate}
+  
+\end{exercise}
+
+\begin{exercise}
+  \label{ex:chisq-digimeter}
+  
+  Elk jaar voert Imec (voorheen iMinds) een studie uit over het gebruik van digitale technologieën in Vlaanderen, de Digimeter~\autocite{Vanhaelewyn2016}. In deze oefening zullen we nagaan of de steekproef van de Digimeter 2016 ($n = 2164$) representatief is voor de bevolking wat betreft de leeftijdscategorieën van de deelnemers.
+  
+  In Tabel~\ref{tab:digimeter2016} worden de relatieve frequencies van de deelnemers weergegeven. De absolute frequenties voor de verschillende leeftijdscategorieën van de Vlaamse bevolking worden samengevat in Tabel~\ref{tab:leeftijd-vlaanderen}. Deze gegevens zijn ook te vinden in bijgevoegd CSV-bestand \texttt{oefeningen/data/bestat-vl-ages.csv}.
+  
+  \begin{enumerate}
+    \item De tabel met leeftijdsgegevens van de Vlaamse bevolking als geheel heeft meer categorieën dan deze gebruikt in de Digimeter. Maak een samenvatting zodat je dezelfde categorieën overhoudt dan deze van de Digimeter. Tip: dit gaat misschien makkelijker in een rekenblad dan in R.
+    \item Om de goodness-of-fit test te kunnen toepassen hebben we de absolute frequenties nodig van de geobserveerde waarden in de steekproef. Bereken deze.
+    \item Bereken ook de verwachte percentages ($\pi_{i}$) voor de populatie als geheel.
+    \item Voer de goodness-of-fit test uit over de verdeling van leeftijdscategorieën in de steekproef van de Digimeter. Is de steekproef in dit opzicht inderdaad representatief voor de Vlaamse bevolking?
+  \end{enumerate}
+\end{exercise}
+
+\begin{table}
+  \caption{Frequenties van de leeftijd van deelnemers aan de iMec Digimeter 2016 en de Vlaamse bevolking.}
+  \label{tab:frequenties-leeftijden}
+  \centering
+  \begin{tabular}{cc}
+    \textbf{Leeftijdsgroep} & \textbf{Percentage} \\ \midrule
+    15-19 & 6,6\% \\
+    20-29 & 14,2\% \\
+    30-39 & 15,0\% \\
+    40-49 & 16,3\% \\
+    50-59 & 17,3\% \\
+    60-64 & 7,3\% \\
+    64+   & 23,2\% \\
+  \end{tabular}
+  \subcaption{Percentage van deelnemers aan de Digimeter 2016 van iMec ($n = 2164$), opgedeeld per leeftijdscategorie. \autocite{Vanhaelewyn2016}}
+  \label{tab:digimeter2016}
+  
+  \centering
+  \begin{tabular}{cc}
+    \textbf{Leeftijdsgroep} & \textbf{Aantal} \\ \midrule
+    –5            &     352017      \\
+    5-9           &     330320      \\
+    10-14          &     341303      \\
+    15-19          &     366648      \\
+    20-24          &     375469      \\
+    25-29          &     387131      \\
+    30-34          &     401285      \\
+    35-39          &     409587      \\
+    40-44          &     458485      \\
+    45-49          &     493720      \\
+    50-54          &     463668      \\
+    55-59          &     413315      \\
+    60-64          &     379301      \\
+    65-69          &     299152      \\
+    70-74          &     279789      \\
+    75-79          &     249260      \\
+    80-84          &     182352      \\
+    85-89          &     104449      \\
+    90-94          &      29888      \\
+    95-99          &      7678       \\
+    100+           &       923
+  \end{tabular}
+  \subcaption{Absolute frequentie van de Vlaamse bevolking per leeftijdscategorie. Bron: BelStat (\url{https://bestat.economie.fgov.be/bestat/}, C01.1: Bevolking volgens verblijfplaats (provincie), geslacht, positie in het huishouden (C), burgerlijke staat en leeftijd (B)).}
+  \label{tab:leeftijd-vlaanderen}
+  
+  
+\end{table}
+
 \subsection{Antwoorden op geselecteerde oefeningen}
 \label{ssec:analyse-2-variabelen-oplossingen}
 
@@ -1396,3 +1520,17 @@ $\chi^2 \approx 18,2792$, Cramér's $V \approx 0,1939$
     \bottomrule
   \end{tabular}
 \end{center}
+
+
+\paragraph{Oefening~\ref{ex:chisq-survey}}
+
+\begin{enumerate}
+  \item \texttt{Exer}/\texttt{Smoke}: $\chi^2 = 5.4885$, $g = 12.59159$, $p = 0.4828422$
+  \item \texttt{W.Hnd}/\texttt{Fold}: $\chi^2 = 1.581399$, $g = 5.9915$, $p = 0.454$
+  \item \texttt{Sex}/\texttt{Smoke}: $\chi^2 = 3.554$, $g = 7.8147$, $p = 0.314$
+  \item \texttt{Sex}/\texttt{W.Hnd}: $\chi^2 = 0.236$, $g = 3.8415$, $p = 0.627$
+\end{enumerate}
+
+\paragraph{Oefening~\ref{ex:chisq-aids2}} $\chi^2 = 1083.372914$, $g = 14.067140$, $p \approx 1.157 \times 10^{-229}$
+
+\paragraph{Oefening~\ref{ex:chisq-digimeter}} $\chi^2 \approx 6.6997$ ($df = 6$), $g \approx 12.5916$, $p \approx 0.3495$
