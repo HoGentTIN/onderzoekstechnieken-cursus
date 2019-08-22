@@ -1,7 +1,7 @@
-\chapter{Analyse op 2 variabelen}
+\chapter{Analyse van 2 variabelen}
 \label{ch:analyse2var}
 
-In de vorige hoofdstukken hebben we telkens één variabele tegelijkertijd onderzocht. Vaak hebben onderzoeksvragen echter te maken met \emph{verbanden} (en dan vooral oorzakelijke) tussen variabelen. In dit hoofstuk gaan we hier verder op in.
+In de vorige hoofdstukken hebben we telkens één variabele tegelijkertijd onderzocht. In dit hoofdstuk bestuderen we \emph{verbanden}\index{verband} (ook: \emph{samenhang}\index{samenhang} of \emph{associatie}\index{associatie}) tussen variabelen. We spreken van een verband tussen twee variabelen wanneer de waarde van de ene variabele op een systematische manier verandert ten opzichte van de waarde van de andere. Anders gezegd, wanneer we tot op zekere hoogte een voorspelling kunnen doen over de waarde van een variabele aan de hand van de waarde van een andere.
 
 Wanneer we een verband beschrijven tussen variabelen, onderscheiden we:
 
@@ -10,10 +10,10 @@ Wanneer we een verband beschrijven tussen variabelen, onderscheiden we:
   \item De \emph{onafhankelijke variabele}\index{variabele!onafhankelijke}, op basis van dewelke we de voorspelling doen.
 \end{itemize}
 
-Als de onafhankelijke variabele op een bepaalde manier verandert, verwachten we dat de waarde van de afhankelijke variabele op een voorspelbare manier mee verandert.
+Dus als de onafhankelijke variabele op een bepaalde manier verandert, verwachten we dat de waarde van de afhankelijke variabele op een voorspelbare manier mee verandert.
 
 \begin{example}
-  Een voorbeeld waarbij verbanden kunnen gevonden tussen variabelen vind je bijvoorbeeld bij Ant Colony Optimization (ACO). Dit is een techniek die gebruikt wordt in verschillende computationele problemen. Men baseert zich hier op hoe mieren voedsel zoeken en  vinden en dat communiceren aan de groep. Mieren verspreiden feromonen als ze op pad gaan op zoek naar eten. Hoe langer het pad, hoe minder feromonen het pad zal bevatten, hoe korter het pad, hoe groter de kans dat er een grote concentratie aan feromonen te vinden is. Mieren worden aangetrokken door deze feromonen en zullen dus proberen de meest bewandelde paden te gebruiken om naar een bepaalde voedselbron te gaan. Nu kan je onderzoeken of de tijd voor het vinden van een pad, afhangt van een aantal variabelen:
+  Een voorbeeld waarbij verbanden kunnen gevonden tussen variabelen vind je bij Ant Colony Optimization (ACO). Dit is een techniek die gebruikt wordt in verschillende computationele problemen. Men baseert zich hier op hoe mieren voedsel zoeken en  vinden en dat communiceren aan de groep. Mieren verspreiden feromonen als ze op pad gaan op zoek naar eten. Hoe langer het pad, hoe minder feromonen het pad zal bevatten, hoe korter het pad, hoe groter de kans dat er een grote concentratie aan feromonen te vinden is. Mieren worden aangetrokken door deze feromonen en zullen dus proberen de meest bewandelde paden te gebruiken om naar een bepaalde voedselbron te gaan. Nu kan je onderzoeken of de tijd voor het vinden van een pad, afhangt van een aantal variabelen:
 
   \begin{itemize}
     \item De mate waarin feromonen verspreid worden
@@ -23,194 +23,472 @@ Als de onafhankelijke variabele op een bepaalde manier verandert, verwachten we 
   \end{itemize}
 \end{example}
 
-Om een vergelijking te maken kunnen we ofwel de bekende statistieken zoals gemiddelde e.a. berekenen en analyseren, ofwel grafische voorstellingen maken van deze statistieken.
+Voor het onderzoeken of er een verband bestaat tussen twee variabelen bestaan er verschillende analyse- en visualisatietechnieken die afhangen van het meetniveau. Tabel~\ref{tab:analyse2var} geeft een overzicht van geschikte analysetechnieken die in deze cursus besproken worden en Tabel~\ref{tab:visualisatie2var} van geschikte grafiektypes.
 
-Welke soort van grafieken we kunnen gebruiken hangt af van het meetniveau:
-@
-\begin{itemize}
-  \item Interval of ratio:
+Merk trouwens op dat er nog veel meer analysetechnieken bestaan die niet in deze cursus besproken worden! Hier vind je enkel een topje van de ijsberg\ldots Als je in je latere carrière nood hebt aan statistische technieken (en de auteurs van deze cursus zijn optimistisch dat dit ook effectief ooit eens zal gebeuren), kijk je best na of er betere technieken bestaan voor het beantwoorden van jouw specifieke onderzoeksvraag.
 
-    \begin{itemize}
-      \item Staafdiagram van de gemiddelden
-      \item Boxplot per groep
-    \end{itemize}
-  \item Ordinaal of nominaal
+\begin{table}
+  \begin{tabular}{llll}
+    \toprule
+    \textbf{Onafhankelijke} & \textbf{Afhankelijke} & \textbf{Toets}                & \textbf{Metriek}      \\
+    \midrule
+    Kwalitatief             & Kwalitatief           & $\chi^2$-toets                & Cramér's $V$          \\
+    Kwalitatief             & Kwantitatief          & $t$-toets voor 2 steekproeven & Cohen's $d$           \\
+    Kwantitatief            & Kwantitatief          & ---                           & Regressie, correlatie \\
+    \bottomrule
+  \end{tabular}
+  \caption{Overzicht van analysetechnieken voor het verband tussen twee variabelen. De tabel geeft telkens enerzijds geschikte statistische toetsen en anderzijds metrieken die de mate van het verband uitdrukken.}
+  \label{tab:analyse2var}
+\end{table}
 
-    \begin{itemize}
-      \item Kruistabel
-      \item Geclusterd staafdiagram
-      \item Rependiagram
-    \end{itemize}
-\end{itemize}
+\begin{table}
+  \begin{tabular}{lll}
+  	\toprule
+  	\textbf{Onafhankelijke} & \textbf{Afhankelijke} & \textbf{Grafiektype}                                  \\
+  	\midrule
+  	Kwalitatief             & Kwalitatief           & Mozaïekdiagram, rependiagram, geclusterd staafdiagram \\
+  	Kwalitatief             & Kwantitatief          & Boxplot, staafdiagram met error bars                  \\
+  	Kwantitatief            & Kwantitatief          & Spreidingsdiagram, regressierechte                    \\
+  	\bottomrule
+  \end{tabular}
+  \caption{Overzicht van visualisatietechnieken voor het verband tussen twee variabelen.}
+  \label{tab:visualisatie2var}
+\end{table}
 
-Bij de vraag of er samenhang is tussen twee variabelen kunnen we volgende grafieken/statistieken gebruiken:
+\section{Kwalitatief--kwalitatief}
+\label{sec:kwalitatief-kwalitatief}
 
-\begin{itemize}
-  \item Nominaal x Nominaal:
+In deze sectie bekijken we methoden om na te gaan of er een verband bestaat tussen twee kwalitatieve variabelen. Al deze methoden zijn gebaseerd op een samenvattende tabel van frequenties van de twee variabelen, de kruistabel (zie Sectie~\ref{ssec:kruistabellen}). Daaruit wordt een statistiek berekent die uitdrukt hoe groot de verschillen zijn tussen de twee variabelen, de zogenaamde ``Chi-kwadraat'', notatie $\chi^2$\footnote{Chi, $\chi$ is een letter uit het Griekse alfabet.} (zie Sectie~\ref{ssec:chi-kwadraat}). Met de $\chi^2$-toets (zie Sectie~\ref{ssec:onafhankelijkheidstoets} en~\ref{ssec:aanpassingstoets}) kan je nagaan of de waarde van $\chi^2$ al dan niet aangeeft of er een verband bestaat tussen twee variabelen. Er bestaat ook een metriek, Cramér's $V$ (zie Sectie~\ref{ssec:cramers-v}), die de waarde van $\chi^2$ herleidt tot een getal tussen 0 en 1 waaruit de sterkte van het verband valt af te leiden.
 
-    \begin{itemize}
-      \item Kruistabel met Cramér's V
-    \end{itemize}
-  \item Ordinaal x Ordinaal
-    \begin{itemize}
-      \item Geclusterd staafdiagram
-      \item Rependiagram
-    \end{itemize}
-  \item Ratio x Ratio
-
-    \begin{itemize}
-      \item Spreidingsdiagram
-      \item Regressie en correlatie met correlatiecoëfficiënt.
-    \end{itemize}
-\end{itemize}
-
-\section{Kruistabellen en Cramér's V}
+\subsection{Kruistabellen}
+\label{ssec:kruistabellen}
 
 \begin{definition}[Kruistabel]
-  In een kruistabel\index{kruistabel} (zie bv.~Figuur~\ref{tab:kruistabel0}) worden de frequenties van twee variabelen samengevat.
+  In een kruistabel\index{kruistabel} (Eng.: \emph{contingency table} of \emph{cross table}; zie bv.~Figuur~\ref{tab:kruistabel0}) worden de frequenties van twee variabelen samengevat.
   
   Elke cel van de laatste kolom bevat de som van de overeenkomstige rij en elke cel van de laatste rij bevat de som van de overeenkomstige kolom. Dit worden de \emph{marginale totalen}\index{totaal!marginaal}\index{marginaal totaal} genoemd.
 \end{definition}
 
-In R kan je een kruistabel (Eng.: \emph{contingency table} of \emph{cross table}) opstellen met de functie \texttt{table}. Een voorbeeld i.v.m.~de oefening over Android persistentietypes (zie Oefening~\ref{oef:casus-akin2016-1var}):
-
-\begin{lstlisting}
-> table(Datahoeveelheid, PeristentieType)
-        PersistentieType
-DataHoeveelheid GreenDAO Realm Sharedpreferences SQLLite
-Large                 30    30                 0      30
-Medium                30    30                 0      30
-Small                 30    30                30      30
-\end{lstlisting}
-
 \begin{table} \centering
   \begin{tabular}{@{}rrrr}
     \toprule
-                & Vrouw & Man & Totaal \\ \midrule
+                & Vrouw & Man & Totaal \\
+    \midrule
            Goed &     9 &   8 &     17 \\
       Voldoende &     8 &  10 &     18 \\
     Onvoldoende &     5 &   5 &     10 \\
          Slecht &     0 &   4 &      4 \\
-         Totaal &    22 &  27 &     49 \\ \bottomrule
+         Totaal &    22 &  27 &     49 \\
+    \bottomrule
   \end{tabular}
   \caption{Een kruistabel voor de waardering door mannen en vrouwen van een bepaald assortiment producten.}
   \label{tab:kruistabel0}
 \end{table}
 
-In een gewone kruistabel kunnen we geen directe conclusies trekken, aangezien het analyseren of er samenhang bestaat tussen variabelen niet goed gaat op basis van de celfrequenties. Niet alle metingen zijn even groot! Daarom moeten we percenteren. Nog even snel de regel van percenteren:
+Hoe kunnen we nu zien in een kruistabel of er een verband bestaat tussen twee variabelen? Bekijk de kruistabel in Tabel~\ref{tab:kruistabel0}. Die geeft de resultaten weer van een bevraging waar 49 mensen (22 vrouwen en 27 mannen) gevraagd werd om een waardering te geven (goed, voldoende, onvoldoende of slecht). Als er een verband bestaat tussen de twee variabelen, gender (onafhankelijk) en waardering (afhankelijk), dan moeten we zien dat vrouwen en mannen fundamenteel andere waarderingen gegeven hebben. Omgekeerd, als zowel bij de vrouwen als bij de mannen de verhoudingen tussen de verschillende waarderingen (ongeveer) gelijk zijn, dan is er \emph{geen} verband.
+
+In een gewone kruistabel kunnen we geen directe conclusies trekken, aangezien het analyseren of er samenhang bestaat tussen variabelen niet goed gaat op basis van de absolute frequenties. Er zijn immers meer mannen dan vrouwen in de bevraging! Daarom moeten we percenteren, d.w.z.~binnen elke kolom het percentage berekenen hoe vaak elke beoordeling \emph{naar verhouding} voorkomt. De som van alle percentages in een kolom moet dan gelijk zijn aan 100\%. Nog even snel de regel van percenteren:
 
 \begin{itemize}
-  \item Om te weten hoeveel percent $x$ is van $y$, deel je $x$ door $y$ en vermenigvuldig je met 100: $perc = 100 \times \frac{x}{y}$.
-  \item Om te weten hoeveel $x$ \% is van $y$ : $ \frac{x \times y}{100}$
+  \item Om te weten hoeveel procent $x$ is van $y$, deel je $x$ door $y$ en vermenigvuldig je met 100: $p = \frac{x}{y} \times 100$. Bijvoorbeeld: hoeveel procent is 15 van 20? $\frac{15}{20} \times 100 = 75$, dus 75\%.
+  \item Om te weten hoeveel $x\%$ is van $y$: $\frac{x \times y}{100}$. Hoeveel is 60\% van 30? $\frac{60 \times 30}{100} = 18$.
 \end{itemize}
 
-\begin{example}
-  \label{vb:kruistabel}
-  In Tabel~\ref{tab:kruistabel0} vinden we de data waar er gekeken wordt naar het verschil in waardering van een assortiment tussen mannen en vrouwen. We percenteren per geslacht en vinden bijvoorbeeld dat 41\% van de vrouwen een waardering goed heeft (zie Tabel~\ref{tab:kruistabel1}). Nu kunnen we ons de vraag stellen of de waarderingskeuze afhangt van het geslacht van de persoon.
-\end{example}
-
-In ons voorbeeld kunnen we besluiten dat 30\% van de mannen tevreden is en 15\% van de mannen ontevreden. Maar hoe goed is die samenhang tussen de verschillende variabelen (geslacht en tevredenheid)? Dat kunnen we bepalen aan de hand van Cramér's V. Voordat we die definitie kunnen geven, moeten we echter eerst de waarde $\chi^2$ introduceren.
+In Tabel~\ref{tab:kruistabel1} vind je per geslacht de percentages dat elke waardering is voorgekomen in de steekproef. We zien dan bijvoorbeeld dat 41\% van de vrouwen een waardering goed heeft gegeven (want 9 is ongeveer 41\% van 22), tegen dat 30\% van de mannen.
 
 \begin{table} \centering
-  \begin{tabular}{@{}rrrrrrr@{}} \toprule
-    & Vrouw & Man & Totaal & Vrouw \% & Man\%   & Totaal  \\ \midrule
-    Goed        & 9     & 8   & 17     & 41\%  & 30\% & 35\% \\
-    Voldoende   & 8     & 10  & 18     & 36\%  & 37\%    & 37\% \\
-    Onvoldoende & 5     & 5   & 10     & 23\%  & 18\% & 20\% \\
-    Slecht      & 0     & 4   & 4      & 0\%      & 15\% & 8\%  \\
-    Totaal      & 22    & 27  & 49     & 100\%    & 100\%   & 100\%   \\
-    \bottomrule
+  \begin{tabular}{@{}rrrrrrr@{}}
+  	\toprule
+  	            & Vrouw & Man & Totaal & Vrouw \% & Man\% & Totaal \\
+  	\midrule
+  	       Goed &     9 &   8 &     17 &     41\% &  30\% &   35\% \\
+  	  Voldoende &     8 &  10 &     18 &     36\% &  37\% &   37\% \\
+  	Onvoldoende &     5 &   5 &     10 &     23\% &  18\% &   20\% \\
+  	     Slecht &     0 &   4 &      4 &      0\% &  15\% &    8\% \\
+  	     Totaal &    22 &  27 &     49 &    100\% & 100\% &  100\% \\
+  	\bottomrule
   \end{tabular}
   \caption{De kruistabel waarbij we de waarden gepercenteerd hebben.}
   \label{tab:kruistabel1}
 \end{table}
 
-\section{\texorpdfstring{$\chi^{2}$}{chi-kwadraat} test voor associatie}
-\index{$\chi^{2}$waarde}
+Nu kunnen we ons de vraag stellen of de waarderingskeuze afhangt van het gender van de respondent. Er zijn verschillen tussen beide kolommen, dus je kan een vermoeden hebben dat dit inderdaad het geval is. Hoe kleiner de verschillen, hoe minder verband er is tussen beide variabelen, hoe groter de verschillen, hoe groter de samenhang.
 
-De $\chi^{2}$ (\emph{chi-kwadraat}) waarde is een grootheid die gebruikt wordt om te bepalen of er een significant verband bestaat tussen twee variabelen. Meer hierover volgt later in Hoofdstuk~\ref{ch:chikwadraat}. De berekening ervan leggen we alvast hier uit.
+\subsection{\texorpdfstring{$\chi^{2}$}{chi-kwadraat}}
+\label{ssec:chi-kwadraat}
+
+Uit de vorige sectie kunnen we besluiten dat we nood hebben aan een maat die uitdrukt hoe groot het verschil is tussen de verhoudingen in beide kolommen. Een manier om dit uit te drukken wordt de \emph{chi-kwadraat}-statistiek (notatie $\chi^{2}$) genoemd. $\chi^2$ is gelijk aan 0 als er geen verschil is tussen de verhoudingen in de kolommen van een kruistabel, en als er dus ook volstrekt geen samenhang tussen de variabelen is. Als er wel een verschil is, dan is $\chi^2$ een positief getal. Hoe groter de waarde, hoe groter ook de onderlinge verschillen tussen de kolommen en hoe groter dus ook de samenhang.
+
+De procedure om de $\chi^2$ van een kruistabel te berekenen gaat als volgt:
 
 \begin{enumerate}
-  \item Stel de kruistabel op samen met marginale totalen (zie tabel \ref{tab:kruistabel1}).
-  \item Stel voor elke cel een schatter op voor de theoretische kans om in die cel te geraken. Deze schatter kan je bereken als volgt: (kans op in de rij van deze cel te komen) $\times$ (kans om in de kolom van de cel te komen). In het voorbeeld is dit dus voor cel$_{1,2}$:
+  \item Stel eerst de kruistabel op samen met marginale totalen (zie tabel \ref{tab:kruistabel0}).
+  \item Vervolgens berekenen we voor elke cel de zogenaamde \emph{verwachte frequentie} (notatie $e$ van \emph{expected}). Dat is de absolute frequentie die je in deze cel zou \emph{verwachten} als je veronderstelt dat er helemaal geen samenhang is tussen de variabelen. Deze kan je bereken als volgt:
   
-  \[P[rij_{1}] \times P[kolom_{2}] = \frac{17}{49} \times \frac{27}{49} = 0.191170346 \]
-  Algemeen kan je dus stellen dat de verwachte theoretische waarde $e$ als volgt kan berekend worden:
-
   \begin{equation}
-    e = (\frac{rijtotaal}{n} \times \frac{kolomtotaal}{n}) \times n = \frac{rijtotaal \times kolomtotaal}{n}
+  e = \frac{rijtotaal \times kolomtotaal}{n}
   \end{equation}
-
-  Met:
-
+  
+  met:
+  
   \begin{itemize}
-    \item $e$ verwachte waarde bij onafhankelijkheid
     \item $rijtotaal$ totaal van de rij van de betreffende cel
     \item $kolomtotaal$ totaal van de kolom van de betreffende cel
+    \item $n$ het aantal observaties
   \end{itemize}
-
-  Voor cel$_{1,2}$ is dit dus 9.36.
   
-  \item Dan bereken je het verschil tussen geobserveerde (notatie $a$) en verwachte frequentie ($e$). (Zie tabel \ref{tab:kruistabel2})
+  Voor cel$_{1,2}$ (het verwachte aantal mannen dat waardering ``goed'' gegeven heeft) is dit dus $\frac{17 \times 27}{49} \approx 9.37\%$.
   
-  \item De laatste stap houdt in dat we een berekening gaan maken voor de maat van afwijking voor elke cel. Opnieuw gaan we hier een kwadraat nemen om het teken kwijt te spelen. We gaan ook de afwijking delen door de verwachte theoretische waarde om hen relatief even belangrijk te maken. Bijvoorbeeld: een afwijking van 5 op een verwachte frequentie van 20 is groter dan bv. een afwijking op een verwachte waarde van 200. Dit geeft dan volgende berekening (zie Tabel~\ref{tab:kruistabel3}):
+  \item Dan bereken je het verschil tussen geobserveerde (notatie $o$, \emph{observed}) en verwachte frequentie ($e$). (Zie tabel~\ref{tab:kruistabel2}).
+  
+  \begin{table} \centering
+    \begin{tabular}{@{}rrrrrrr@{}}
+    	\toprule
+    	            &                       Vrouw &                          Man & Totaal & Vrouw \% &   Man\% &  Totaal \\
+    	\midrule
+    	       Goed &  $9 -\textcolor{red}{7.63}$ &  $8 - \textcolor{red}{9.36}$ &   $17$ &   $41$\% &  $30$\% &  $35$\% \\
+    	  Voldoende & $8 - \textcolor{red}{8.08}$ & $10 - \textcolor{red}{9.91}$ &   $18$ &   $36$\% &  $37$\% &  $37$\% \\
+    	Onvoldoende & $5 - \textcolor{red}{4.48}$ &  $5 - \textcolor{red}{5.51}$ &   $10$ &   $23$\% &  $18$\% &  $20$\% \\
+    	     Slecht & $0 - \textcolor{red}{1.79}$ &  $4 - \textcolor{red}{2.20}$ &    $4$ &    $0$\% &  $15$\% &   $8$\% \\
+    	     Totaal &                        $22$ &                         $27$ &   $49$ &  $100$\% & $100$\% & $100$\% \\
+    	\bottomrule
+    \end{tabular}
+    \caption{De kruistabel waarbij we de verwachte frequentie $e$ (aangeduid in het rood) bepaald hebben voor elke cel en die aftrekken van de geobserveerde frequentie $o$.}
+    \label{tab:kruistabel2}
+  \end{table}
+  
+  \item De laatste stap houdt in dat we een berekening gaan maken voor de maat van afwijking voor elke cel. Net zoals bij het berekenen van de variantie van een steekproef (zie Sectie~\ref{sec:varEnSD}) kwadrateren we het verschil zodat het resultaat altijd positief is en zodat grotere afwijkingen zwaarder door zullen wegen in het resultaat.
+  
+  We gaan ook de afwijking delen door de verwachte frequentie om hen relatief even belangrijk te maken. Bijvoorbeeld: een afwijking van 5 op een verwachte frequentie van 20 is groter dan bv. een afwijking op een verwachte frequentie van 200. Dit geeft dan voor elke cel van de kruistabel de volgende berekening (zie Tabel~\ref{tab:kruistabel3}):
   
   \begin{equation}
-    \frac{(a-e)^{2}}{e}
+  \frac{(o - e)^{2}}{e}
   \end{equation}
   
-  \item Deze gekwadrateerde deviaties gaan we dan optellen en vormt de $\chi^{2}$ \footnote{Let op dat er afgerond wordt.}
+  \begin{table} \centering
+    \begin{tabular}{@{}rrrrrrr@{}}
+    	\toprule
+    	            &                    Vrouw &                      Man & Totaal & Vrouw \% &   Man\% &  Totaal \\
+    	\midrule
+    	       Goed & $\textcolor{blue}{0.24}$ & $\textcolor{blue}{0.20}$ &   $17$ &   $41$\% &  $30$\% &  $35$\% \\
+    	  Voldoende & $\textcolor{blue}{0.00}$ & $\textcolor{blue}{0.00}$ &   $18$ &   $36$\% &  $37$\% &  $37$\% \\
+    	Onvoldoende & $\textcolor{blue}{0.06}$ & $\textcolor{blue}{0.05}$ &   $10$ &   $23$\% &  $18$\% &  $20$\% \\
+    	     Slecht & $\textcolor{blue}{1.80}$ & $\textcolor{blue}{1.46}$ &    $4$ &    $0$\% &  $15$\% &   $8$\% \\
+    	     Totaal &                     $22$ &                     $27$ &   $49$ &  $100$\% & $100$\% & $100$\% \\
+    	\bottomrule
+    \end{tabular}
+    \caption{De kruistabel waarbij we het verschil gekwadrateerd hebben en gedeeld door de verwachte frequentie, $\frac{(o - e)^2}{e}$ (in het blauw). Merk op dat deze waarden afgerond zijn tot twee cijfers na de komma, en we hier dus een deel van de precisie kwijt spelen.}
+    \label{tab:kruistabel3}
+  \end{table}
+  
+  \item Alle resultaten gaan we tenslotte optellen om zo de $\chi^{2}$ te bekomen:
   
   \begin{equation}
-    \chi^{2} = \sum \frac{(a-e)^{2}}{e}
+  \chi^{2} = \sum \frac{(o - e)^{2}}{e}
   \end{equation}
+  
+  In het voorbeeld is $\chi^2 \approx 3,8105$.
 \end{enumerate}
 
-\begin{table} \centering
-  \begin{tabular}{@{}rrrrrrr@{}} \toprule
-    & Vrouw & Man & Totaal & Vrouw \% & Man\%   & Totaal  \\ \midrule
-    Goed        & $9 -\textcolor{red}{7.63}$     & $8 - \textcolor{red}{9.36}$   & $17$     & $41$\%  & $30$\% & $35$\% \\
-    Voldoende   & $8 - \textcolor{red}{8.08}$   & $10 - \textcolor{red}{9.91}$  & $18$     & $36$\%  & $37$\%    & $37$\% \\
-    Onvoldoende & $5 - \textcolor{red}{4.48}$    & $5 - \textcolor{red}{5.51}$  & $10$     & $23$\%  & $18$\% & $20$\% \\
-    Slecht      & $0 - \textcolor{red}{1.79}$    & $4 - \textcolor{red}{2.20}$  & $4$      & $0$\%      & $15$\% & $8$\%  \\
-    Totaal      & $22$    & $27$  & $49$     & $100$\%    & $100$\%   & $100$\%   \\
-    \bottomrule
-  \end{tabular}
-  \caption{De kruistabel waarbij we de schatter $e$  (hetgeen we verwachten bij geen samenhang) bepaald hebben voor elke cel en die aftrekken van de geobserveerde waarde.}
-  \label{tab:kruistabel2}
+Nu zegt deze waarde $\chi^2 \approx 3,8105$ op zich nog \emph{steeds} niet zo veel. Onder welke voorwaarden zeggen we dat er al dan niet een verband is tussen beide variabelen? En hoe sterk is dat verband dan? Een en ander zal ook afhangen van de grootte van de tabel en het totaal aantal observaties. In een kruistabel met meer rijen/kolommen, zal je een grotere $\chi^2$ moeten hebben om te besluiten dat er een verband is.
+
+\subsection{Onafhankelijkheidstoets}
+\label{ssec:onafhankelijkheidstoets}
+
+Een onafhankelijkheidstoets\index{onafhankelijkheidstoets} gaat na of er een verband bestaat tussen twee kwalitatieve variabelen aan de hand van de $\chi^2$-statistiek. Deze toets wordt ook de $\chi^2$-toets voor associatie genoemd, of de $\chi^2$-kruistabeltoets.
+
+\subsubsection{Toetsingsprocedure}
+
+De toetsingsprocedure verloopt als volgt:
+
+\begin{enumerate}
+  \item \textbf{Bepalen hypotheses}
+  Als nulhypothese stellen we dat er geen verband is tussen de onafhankelijke en de afhankelijke variabele (en verwachten we dus een kleine $\chi^2$). Als alternatieve hypothese stellen we dat er \emph{wel} een verband is (en dat $\chi^2$ dus groot is).
+  \begin{itemize}
+    \item $H_{0}$: er is geen verband tussen de variabelen (of: de variabelen zijn onafhankelijk)
+    \item $H_{1}$: er is een verband tussen de variabelen
+  \end{itemize}
+
+  \item \textbf{Bepalen significantieniveau $\alpha$}
+  
+  \item \textbf{Bereken de waarde van de toetsingsgrootheid in de steekproef}
+  \[ \chi^{2} = \sum_{i} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
+  
+  \item de waarde van $\chi^2$ is gedistribueerd volgens de zgn.~$chi^2$-verdeling (zie Figuur~\ref{fig:chi-squared-distribution}). Deze verdeling heeft als bijkomende parameter het aantal vrijheidsgraden $df$. Voor een kruistabeltoets is $df = (r - 1) \times (k - 1)$ met $r$ het aantal rijen en $k$ het aantal kolommen.
+  
+  Aan de hand van deze verdeling kunnen we op twee equivalente manieren een besluit trekken:
+  
+  \begin{enumerate}
+    \item \textbf{Bereken en teken kritiek gebied}. De kritieke grenswaarde $g$ is het getal waarvoor geldt dat $P(\chi^2 > g) = \alpha$. Deze toets is altijd rechtszijdig. Als $\chi^2 < g$, dan zitten we in het \emph{aanvaardingsgebied}, waar we de nulhypothese niet kunnen verwerpen. Als $\chi^2 < g$, dan zitten we in het \emph{verwerpingsgebied} en zullen we de nulhypothese verwerpen.
+    \item \textbf{Bereken de overschrijdingskans $p$}. Dit is de rechterstaartkans voor de bekomen $\chi^2$-statistiek in de steekproef, afhankelijk van het aantal vrijheidsgraden. De interpretatie van de $p$-waarde is ``Als we zouden veronderstellen dat er \emph{geen} verband is tussen de twee variabelen, wat is dan de kans dat ik een waarde voor $\chi^2$ tegenkom in een steekproef die minstens zo groot is als de daarnet berekende?'' Als $p > \alpha$ (en dus de kans relatief groot is dat we deze $ \chi^2$-waarde tegenkomen), dan aanvaarden we de nulhypothese, als $p < \alpha$, dan verwerpen we deze.
+  \end{enumerate}
+
+  \item Tenslotte formuleren we de conclusie en beantwoorden we de onderzoeksvraag.
+\end{enumerate}
+
+Voor het bepalen van de nodige waarden binnen de $\chi^2$-verdeling (bv. rechterstaartkans, kritieke grenswaarde), kunnen we gebruik maken van hetzij een tabel\footnote{Bijvoorbeeld \url{https://people.richland.edu/james/lecture/m170/tbl-chi.html}}, hetzij statistische software zoals R.
+
+Toegepast op het voorbeeld van hierboven:
+
+\begin{enumerate}
+  \item \textbf{Bepalen hypotheses:}
+  \begin{itemize}
+    \item $H_0$ Er is geen verband tussen gender en waardering
+    \item $H_1$ Er is een verband tussen gender een waardering
+  \end{itemize}
+  \item \textbf{Bepalen significantieniveau:} $\alpha = 0,05$
+  
+  \item \textbf{Bereken de waarde van de toetsingsgrootheid in de steekproef}
+  
+  $\chi^2 \approx 3,8105$ (zie Sectie~\ref{ssec:chi-kwadraat})
+  
+  \item Bepaal het aantal vrijheidsgraden $df = (r - 1) \times (k - 1) = (4 - 1) \times (2 - 1) = 3$.
+  
+  \begin{enumerate}
+    \item \textbf{Bepaal de kritieke grenswaarde:} $g \approx 7,815$. In dit geval is $\chi^2 < g$, dus we zitten in het aanvaardingsgebied. We kunnen $H_0$ dus niet verwerpen.
+    \item \textbf{Bereken de overschrijdingskans:} $p \approx 0,2827$. Er is dus een kans van ongeveer 28\% dat we deze $\chi^2$-waarde tegenkomen. Dat is vrij groot, zeker al groter dan $\alpha$. Bijgevolg kunnen we $H_0$ niet verwerpen.
+  \end{enumerate}
+
+  \item We kunnen dus besluiten dat er op basis van deze steekproef geen reden is om aan te nemen dat er een verband is tussen gender en waardering. Anders gezegd, er zijn geen significante verschillen tussen de waarderingen bij enerzijds vrouwen en anderzijds mannen.
+\end{enumerate}
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{chi-squared-distribution}
+  \caption{Dichtheidsfunctie van de $\chi^2$-verdeling voor verschillende vrijheidsgraden $df$.}
+  \label{fig:chi-squared-distribution}
+\end{figure}
+
+We geven nog een ander voorbeeld van de onafhankelijkheidstoets aan de hand van een studie door \textcite{Doll1954} over de relatie tussen roken en longkanker. Doll en Hill schreven in 1951 alle Britse huisartsen aan met het verzoek om gegevens over hun leeftijd en rookgedrag. Vervolgens hielden ze jarenlang de overlijdensberichten en de doodsoorzaak bij en herhaalden hun periodiek. De eerste uitkomsten, na circa vier jaar, zijn in tabel~\ref{tab:dollhill} samengevat. Uit de tabel kan makkelijk geconcludeerd worden dat er geen relatie is tussen roken en longkanker. In (ruim) vier jaar is slechts $(84 / 24354) * 100 = 0,35\%$ van de Britse artsen aan longkanker overleden en dat met slechts $(83 / 21261) * 100 = 0,39\%$ van de rokers onder hen. Dit is weinig, maar het is wel veel meer dan hetzelfde cijfer voor de niet-rokers $(1 / 3093) * 100 = 0,032\%$.
+
+\begin{table}
+  \begin{center}
+    \begin{tabular}{@{}lllll@{}}
+    	\toprule
+    	               & \textbf{Longkanker} & \textbf{Niet} & \textbf{Wel} & \textbf{Totaal} \\
+    	\midrule
+    	\textbf{Roker} & \textbf{Wel}        & 21178         & 83           & 21261           \\
+    	               & \textbf{Niet}       & 3092          & 1            & 3093            \\
+    	               & \textbf{Totaal}     & 24270         & 84           & 24354           \\
+    	\bottomrule
+    \end{tabular}
+  \end{center}
+  \caption{Resultaten van het onderzoek van~\textcite{Doll1954}}
+  \label{tab:dollhill}
 \end{table}
 
-\begin{table} \centering
-  \begin{tabular}{@{}rrrrrrr@{}} \toprule
-    & Vrouw                   & Man                     & Totaal & Vrouw \% & Man\%   & Totaal  \\ \midrule
-    Goed        & $\textcolor{blue}{0.2}$ & $\textcolor{blue}{0.2}$ & $17$   & $41$\%   & $30$\%  & $35$\% \\
-    Voldoende   & $\textcolor{blue}{0}$   & $\textcolor{blue}{0}$   & $18$   & $36$\%   & $37$\%  & $37$\% \\
-    Onvoldoende & $\textcolor{blue}{0.1}$ & $\textcolor{blue}{0}$   & $10$   & $23$\%   & $18$\%  & $20$\% \\
-    Slecht      & $\textcolor{blue}{1.8}$ & $\textcolor{blue}{1.5}$ & $4$    & $0$\%    & $15$\%  & $8$\%  \\
-    Totaal      & $22$                    & $27$                    & $49$   & $100$\%  & $100$\% & $100$\%   \\
-    \bottomrule
+We zien in de tabel dat er wel een erg groot verschil is tussen de geobserveerde aantallen rokers die overlijden aan longkanker en de verwachte frequenties in deze cel. Hetzelfde geldt voor het geringe aantal huisartsen dat niet rookt, maar wel aan longkanker overleden is. Deze observatie maakt ons wel wantrouwig of de eerdere tentatieve conclusie wel juist is. We kunnen afrekenen met deze onzekerheid door de toetsingsgrootheid $\chi^{2}$ uit te rekenen. Dat doen we op de vertrouwde manier:
+
+\begin{enumerate}
+  \item \textbf{Bepalen hypotheses}
+  \begin{itemize}
+    \item $H_{0}$: er is geen verband tussen roken en sterven aan longkanker
+    \item $H_{1}$: er is geen verband tussen roken en sterven aan longkanker
+  \end{itemize}
+  \item \textbf{Bepalen $\alpha$ en $n$:} $\alpha = 0,05$ en $n = 24354$.
+  \item \textbf{Toetsingsgrootheid en waarde ervan in steekproef}:
+  \[ \chi^{2} = \sum_{i=1}^{k \times r} \frac{(o_{i} - e_{i})^{2}}{E_{i}} = 10,35 \]
+  \item \textbf{Bereken en teken kritiek gebied}: kritieke grens is 3,8415 en aantal vrijheidsgraden $df = (r-1)(k-1)$ Onze toetsingsgrootheid ligt dus in het kritieke gebied dus verwerpen we $H_{0}$.
+\end{enumerate}
+
+We moeten derhalve $H_{0}$, dat er geen relatie is tussen beide variabelen, verwerpen ten gunste van $H_{1}$ dat er wel een relatie is tussen beide variabelen: rokers sterven vaker aan longkanker dan niet-rokers.
+
+Maar, is dit nu een bewijs dat zoals zo vaak verondersteld wordt dat roken longkanker \emph{veroorzaakt}? Nee, dat is het absoluut niet. Een paar alternatieve verklaringen: niet alle rokers krijgen longkanker, de rokers zijn ouder dan de niet-rokers, de rokers wonen veelal in de grote steden met meer vervuilde lucht dan de niet-rokers die veelal op het platte land wonen, ook zou er nog een speciale genetische dispositie kunnen zijn, die zowel van invloed is op de verslaving aan tabak, als op de kans om longkanker te krijgen. Voor een causale interpretatie van de gegevens (let wel, het betreft hier immers geen experiment), moeten we op zijn minst de beschikking hebben over een theorie die de relatie tussen roken en longkanker expliciteert.
+
+\begin{remark}[!!]
+  \textbf{Correlation is not causation.} Of anders gezegd, een verband tussen twee variabelen impliceert niet dat er ook een \emph{oorzakelijk} verband is. Dit is een erg vaak voorkomende fout die gemaakt wordt wanneer journalisten een artikel schrijven over resultaten van wetenschappelijk onderzoek. Wees hier dus alert voor wanneer je dergelijke artikels leest!
+\end{remark}
+
+\subsubsection{De regel van Cochran}
+
+Bij het berekenen van de $\chi^2$-waarde is het belangrijk dat er voor elke cel in de kruistabel voldoende observaties beschikbaar zijn. Als de steekproef te klein is, zullen de resultaten van de berekening onbetrouwbaar worden.
+
+De statisticus \textcite{Cochran1954}\index{Cochran!William G.} heeft hierover een aantal aanbevelingen geformuleerd die we in deze cursus de Regel van Cochran\index{Cochran!regel van} zullen noemen.
+
+Om de $\chi^2$ toets te mogen toepassen moeten specifiek de volgende voorwaarden vervuld zijn:
+
+\begin{enumerate}
+  \item Voor alle categorie\"en moet gelden dat de verwachte frequentie $e$ groter is dan 1.
+  \item In ten hoogste 20 \% van de categorie\"en mag de verwachte frequentie $e$ kleiner dan 5 zijn.
+\end{enumerate}
+
+\subsection{Aanpassingstoets}
+\label{ssec:aanpassingstoets}
+
+De $\chi^2$-toets kan ook worden toegepast wanneer je wil nagaan of een bepaalde discrete verdeling (bv. de frequenties van een enkele kwalitatieve variabele) al dan niet overeenkomen met een gekende verdeling. Deze variant noemen we de \emph{aanpassingstoets}\index{aanpassingstoets} of in het Engels de \emph{goodness-of-fit test}\index{goodness-of-fit test}. Deze toets wordt vaak toegepast om na te gaan of de verdeling van een bepaalde kwalitatieve variabele in een steekproef representatief is voor de populatie, in de veronderstelling dat je weet welke frequenties er in de populatie als geheel voorkomen.
+
+Stel, in het onderzoek naar onze superhelden is een steekproef genomen van $n = 400$ observaties. De onderzoekers willen weten of de voorkomende types van superhelden in de steekproef overeenkomen met die in de populatie, m.a.w.~of de steekproef representatief is. Tabel~\ref{tab:frequenties-types-superhelden} geeft een overzicht van de geobserveerde frequenties in de steekproef en de verwachte frequenties in de populatie.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}lcc@{}}
+  	\toprule
+  	\textbf{Type}   & \textbf{frq steekproef ($o$)} & \textbf{frq populatie ($\pi$)} \\
+  	\midrule
+  	Mutant          &              127              &              35\%              \\
+  	Mens            &              75               &              17\%              \\
+  	Alien           &              98               &              23\%              \\
+  	God             &              27               &              8\%               \\
+  	Demon           &              73               &              17\%              \\
+  	\midrule
+  	\textbf{Totaal} &              400              &             100\%
   \end{tabular}
-  \caption{De kruistabel waarbij we het verschil gekwadrateerd en genormeerd hebben.}
-  \label{tab:kruistabel3}
+  \caption{Absolute frequenties van de types superhelden in de steekproef ($o$) en verwachte relatieve frequenties ($\pi$) in de populatie als geheel.}
+  \label{tab:frequenties-types-superhelden}
 \end{table}
 
-Met deze statistiek kunnen de waarde Cramér's V\index{Cramér's V} berekenen:
+We willen de frequenties in de steekproef vergelijken met de aantallen die je zou verwachten als de steekproef exact representatief zou zijn naar de types van superhelden. Als deze verschillen relatief groot zijn dan komt de verdeling in de steekproef \emph{niet} overeen met de verdeling in de populaties en zullen we moeten concluderen dat de steekproef niet representatief is. Om te oordelen of deze verschillen relatief groot zijn voeren we een $\chi^{2}$toets uit.
+
+Als de steekproef exact representatief is, dan zouden we verwachten dat in de steekproef 35\% van de superhelden een mutant is. Het verwachte aantal of de verwachte frequentie voor deze categorie is dus gelijk aan $0,35 \times 400 = 140$. Er geldt dus:
+
+\[ e = n \times \pi \]
+
+met $e$ de verwachte absolute frequentie in de steekproef, $n$ de steekproefgrootte en $\pi$ de verwachte relatieve frequentie voor de hele populatie. Als de verschillen tussen de geobserveerde en verwachte frequenties $(o - e)$ relatief klein zijn kunnen ze toegerekend worden aan toevallige steekproeffouten. We kunnen opnieuw $\chi^2$ gebruiken om deze verschillen samen te vatten en te interpreteren:
+
+\[ \chi^{2} = \sum_i \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
+
+We merken op:
+
+\begin{itemize}
+  \item indien de verschillen klein zijn $\Rightarrow$ verdeling is representatief
+  \item indien de verschillen groot $\Rightarrow$ verdeling niet representatief
+\end{itemize}
+
+We bepalen nu een kritieke grenswaarde $g$ die een $\chi^{2}$ verdeling heeft. Hierbij speel het aantal vrijheidsgraden ($df$) een rol. Voor deze toets geldt:
+
+\[ df = k - 1 \]
+
+met $k$ het aantal categorie\"en. In ons voorbeeld hebben we $df = 5-1 = 4$. Om de kritieke grenswaarde te bepalen, kan je gebruik maken van een tabel voor de $\chi^2$-verdeling. Voor een gegeven significantieniveau $\alpha$ en vrijheidsgraad $df$ kan je in zo'n tabel de grenswaarde aflezen.
+
+In ons voorbeeld is $\chi^{2} = 3,47$ met grenswaarde $g = 9,49$. Omdat de gevonden toetsingsgrootheid $\chi^2 = 3,47 < g = 9,49$, mogen we besluiten dat de steekproef representatief is.
+
+\subsubsection{Toetsingsprocedure}
+
+We volgen de stappen van een statistische toetsingsprocedure:
+
+\begin{enumerate}
+  \item \textbf{Bepalen hypotheses}
+  Als nulhypothese formuleren we dat de steekproef representatief is, meer bepaald dat verdeling in de steekproef gelijk is aan de verdeling over de populatie. Als alternatieve hypothese formuleren we dat de verdelingen verschillend zijn.
+  \begin{itemize}
+    \item $H_{0}$: steekproef is representatief voor de populatie
+    \item $H_{1}$: steekproef is niet representatief voor de populatie
+  \end{itemize}
+  \item \textbf{Bepalen $\alpha$ en $n$}
+  \item \textbf{Waarde van de toetsingsgrootheid in de steekproef}:
+  \[ \chi^{2} = \sum_{i=1}^{n} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
+  \item Bepaal het aantal vrijheidsgraden $df = k - 1$ met $k$ het aantal categorieën
+  \begin{enumerate}
+    \item \textbf{Bereken en teken kritiek gebied}: de toets is altijd rechtszijdig. Is de toetsingsgrootheid kleiner dan kritieke grenswaarde $\chi^2 < g$, verwerp $H_{0}$ niet. Als $\chi^2 > g$, verwerp $H_{0}$ en aanvaard $H_{1}$.
+    \item \textbf{Bereken de overschrijdingskans $p$}. Als $p > \alpha$, dan aanvaarden we de nulhypothese, als $p < \alpha$, dan verwerpen we deze.
+  \end{enumerate}
+  \item Formuleer tenslotte het antwoord op de onderzoeksvraag.
+\end{enumerate}
+
+\subsubsection{Gestandaardiseerde residuen}
+
+We bespreken nog een ander voorbeeld. Beschouw alle gezinnen met precies 5 kinderen in een bepaalde gemeenschap. Wat betreft het aantal jongens/meisjes in zo'n gezin zijn er 6 mogelijkheden:
+
+\begin{enumerate}
+  \item 5 jongens
+  \item 4 jongens, 1 meisje
+  \item 3 jongens, 2 meisjes
+  \item 2 jongens, 3 meisjes
+  \item 1 jongen, 4 meisjes
+  \item 5 meisjes
+\end{enumerate}
+
+Stel dat er een onderzoek gebeurd is waar 1022 gezinnen met 5 kinderen hebben aan deelgenomen. In Tabel~\ref{tab:5-kinderen} worden de frequenties gegeven van het aantal jongens in elk gezin. Zijn de waargenomen aantallen in de 6 klassen representatief voor een populatie waar de kans om een jongen te krijgen gelijk is aan de kans om een meisje te krijgen, nl.~0,5?
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}cccccccc@{}}
+    \toprule
+    i       & 0  & 1   & 2   & 3   & 4   & 5  &  \\
+    \midrule
+    $o_{i}$ & 58 & 149 & 305 & 303 & 162 & 45 &  \\
+    \bottomrule
+  \end{tabular}
+  \caption{Frequenties $o_i$ van het aantal jongens $i$ in gezinnen met vijf kinderen uit een onderzoek met $n = 1022$ gezinnen.}
+  \label{tab:5-kinderen}
+\end{table}
+
+Indien de veronderstelling waar is wordt de kans $\pi_{i}$ om $i$ jongens te krijgen bepaald door een binominaalverdeling met parameters $n=5$ en $p=0,5$.
+
+Dit kan je eenvoudig nagaan aan de hand van voorbeeld. De kans om 2 jongens te krijgen met 5 kinderen is gelijk aan :
+
+\[ (0,5)^{2} \times (1-0,5)^{5-2} \times \binom{5}{2} \]
+
+Algemeen geldt dus:
+
+\[ \pi_{i} = \binom{5}{i}\times 0,5^{i} \times 0,5^{5-i} = \frac{5!}{i!(5-i)!}\times 0,5^{5} \]
+
+Met deze $\pi_{i}$ kunnen we dus de verwachte frequentie $e$ bepalen en de stappen volgen zoals hierboven beschreven. Tabel~\ref{tab:5-kinderen-berekeningen} geeft een overzicht van de nodige berekeningen.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}lrrrrrrr@{}}
+  	\toprule
+  	$i$                   &     0 &      1 &      2 &      3 &      4 &     5 &  Tot. \\
+  	\midrule
+  	$o_i$                 &    58 &    149 &    305 &    303 &    162 &    45 &  1022 \\
+  	$\pi_i$               &  0,03 &   0,15 &   0,31 &   0,31 &   0,15 & 0,031 &     1 \\
+  	$e_i$                 & 31,68 & 159,43 & 318,86 & 318,86 & 159,43 & 31,68 &       \\
+  	$\frac{(o-e)^{2}}{e}$ & 21,86 &   0,68 &   0,60 &   0,78 &   0,04 &  5,59 & 29,57 \\
+  	$r_i$                 &  4,74 &  -0,89 &  -0,93 & -1,071 &   0,22 &  2,40 &       \\
+  	\bottomrule
+  \end{tabular}
+  \caption{Berekeningen voor de casus van gezinnen met 5 kinderen. $i$ is het aantal jongens in het gezin, $o_i$ de geobserveerde aantallen gezinnen in de steekproef met $i$ jongens. $\pi_i$ is de verwachte kans dat in een gezin van 5 kinderen $i$ jongens voorkomen en $e_i$ de verwachte frequentie. Daaronder wordt nog de berekening van $\chi^2$ getoond en tenslotte de gestandaardiseerde residuën $r_i$.}
+  \label{tab:5-kinderen-berekeningen}
+\end{table}
+
+\begin{enumerate}
+  \item \textbf{Bepalen hypotheses}
+  
+  \begin{itemize}
+    \item $H_{0}$: de steekproef is representatief voor de populatie
+    \item $H_{1}$: de steekproef is niet representatief voor de populatie
+  \end{itemize}
+  \item \textbf{Bepalen $\alpha$ en $n$} : $\alpha = 0,01$ en $n = 1022$.
+  \item \textbf{Toetsingsgrootheid en waarde ervan in steekproef}:
+  \[ \chi^{2} = \sum_{i=1}^{n} \frac{(o_{i} - e_{i})^{2}}{e_{i}} = 29,5766 \]
+  \item \textbf{Bereken en teken kritiek gebied}:  kritieke grens is 15,0863. Onze toetsingsgrootheid ligt dus in het kritieke gebied dus verwerpen we $H_{0}$. 
+\end{enumerate}
+
+We vinden dus dat de steekproef \emph{niet} representatief is voor een populatie waar geldt dat de kans op een jongen even groot is als de kans op een meisje.
+
+Nu kunnen we ons de vraag stellen of \emph{elke} klasse afwijkt van de verwachte frequentie, of slechts één of enkele. Welke klassen zijn er onder- of oververtegenwoordigd in de steekproef? Om dit te bepalen, gebruiken we de zgn.~\emph{gestandaardiseerde residuen}\index{residuen!gestandaardiseerde} die aanduiden welke klassen de grootste bijdrage leveren aan de waarde van $\chi^2$. 
+
+\[ r_{i} = \frac{O_{i} - n \pi_{i}}{\sqrt{n \pi_{i}(1-\pi_{i})}} \]
+
+%\begin{exercise}
+%  Hoe komen we hier aan de noemer? Waar komt dit mee overeen? Hoe bepaal je de variantie van een binomiale verdeling?
+%  
+%  Antwoord: $n \times \pi (1-\pi)$
+%\end{exercise}
+
+De waarde voor $r_i$ is 0 als $o = e$. Negatieve waarden wijzen er op dat deze klasse ondervertegenwoordigd is in de steekproef, positieve dat ze oververtegenwoordigd is. Er geldt algemeen dat waarden groter dan 2 of kleiner dan $-2$ extreem zijn. We kunnen dus uit Tabel~\ref{tab:5-kinderen-berekeningen} besluiten dat het aantal gezinnen met enkel jongens ($r_5 = 2,4$) of enkel meisjes ($r_0 = 4,74$) groter mag worden genoemd dan verwacht.
+
+\subsection{Cramér's V}
+\label{ssec:cramers-v}
+
+Uit de grootte van de $\chi^2$-statistiek is het niet meteen mogelijk om af te leiden of er een verband tussen beide variabelen bestaat. Dit hangt af van de grootte van de kruistabel, meer bepaald het aantal rijen en kolommen.
+
+De Zweedse wiskundige en statisticus Harald Cramér\index{Cramér!Harald} heeft een metriek ontwikkeld die de $\chi^2$ voor gelijk welke kruistabel herleidt tot een waarde tussen 0 en 1, Cramér's V\index{Cramér's V}:
 
 \begin{definition}[Cramér's V]
   \begin{equation}
-    V = \sqrt{\frac{\chi^{2}}{n(k-1)}}
-    \label{eq:Craemer}
+  V = \sqrt{\frac{\chi^{2}}{n (k-1)}}
+  \label{eq:Cramer}
   \end{equation}
   met
   \begin{itemize}
     \item $\chi^{2}$ de berekende chi-kwadraatwaarde.
-    \item $n$ het aantal waarnemingen.
+    \item $n$ het aantal waarnemingen (steekproefgrootte).
     \item $k$ = de kleinste waarde van het aantal kolommen of het aantal rijen van de tabel.
   \end{itemize}
-
+  
 \end{definition}
 
-Cramér's V is de $\chi^{2}$, gecorrigeerd voor steekproefomvang en het aantal categorieën in de variabelen. Het resultaat is altijd een getal tussen 0 en 1. Tabel~\ref{tab:interpretatie-cramers-v} geeft aan hoe je het resultaat kan interpreteren.
+Cramér's V is de $\chi^{2}$, gecorrigeerd voor steekproefomvang en het aantal categorieën in de variabelen. Tabel~\ref{tab:interpretatie-cramers-v} geeft aan hoe je het resultaat kan interpreteren.
 
 \begin{table}
   \centering
@@ -226,33 +504,247 @@ Cramér's V is de $\chi^{2}$, gecorrigeerd voor steekproefomvang en het aantal c
   \label{tab:interpretatie-cramers-v}
 \end{table}
 
-Voor ons voorbeeld waarbij gekeken wordt naar de samenhang tussen geslacht en waardering van het assortiment vinden we een $\chi^{2}= 3.811$ en dus een Cramér's V van $0.279$ (want $n = 49$ en $k = 2$), wat duidt op redelijk sterke samenhang tussen de variabelen. Met andere woorden, de resultaten van de bevraging geven aan dat er een verschil is in de waardering die vrouwen en mannen geven over het assortiment.
+Voor onze eerdere casus waar werd onderzocht of er een verband was tussen gender en waardering vonden we een $\chi^{2} \approx 3,811$. Cramér's V is dan $\sqrt{\frac{3,811}{49 (2 - 1)}} \approx 0,279$. Dit duidt op redelijk sterke samenhang tussen de variabelen. Met andere woorden, de resultaten van de bevraging geven aan dat er een verschil is in de waardering die vrouwen en mannen geven over het assortiment.
 
-Hieronder vind je de uitwerking van Voorbeeld~\ref{vb:kruistabel} in R.
-
-\lstinputlisting{data/kruistabellen.R}
+Dit resultaat is opmerkelijk omdat we via de $\chi^2$-toets geen significant verband gevonden hebben tussen beide variabelen. Het is bekend dat Cramér's V de neiging heeft om de mate van associatie te overschatten. Het is dus mogelijk dat dat ook in dit geval gebeurd is.
 
 \begin{example}
-  In Tabel~\ref{tab:autovoorkeur} worden de voorkeuren van vrouwen en mannen voor de gegeven automerken opgesomd. We zien dat nog steeds dertig van de honderd respondenten een voorkeur hebben voor de Mercedes, maar dat tweederde van deze dertig vrouwen zijn. We zouden  ook kunnen zeggen dat de helft van de vrouwen een voorkeur heeft voor de Mercedes. Evenzo blijkt dat een derde van de mannen een voorkeur heeft voor een Alfa Romeo, tegenover geen van de vrouwen. Het lijkt alsof de onderscheiden automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen. Om dit te staven bepalen we $\chi^{2}$ en Cramér's V. Probeer dit zelf, hetzij in R, hetzij met een rekenblad (Excel, Numbers, LibreOffice Calc)! We vinden:
-  \[ \chi^{2} = 22.619 \]
-  \[ V = \sqrt{\frac{22.169}{100 . (2-1)}}  = 0.476\]
-
+  In Tabel~\ref{tab:autovoorkeur} worden de voorkeuren van vrouwen en mannen voor de gegeven automerken opgesomd. We zien dat nog steeds dertig van de honderd respondenten een voorkeur hebben voor de Mercedes, maar dat twee derde van deze dertig vrouwen zijn. We zouden  ook kunnen zeggen dat de helft van de vrouwen een voorkeur heeft voor de Mercedes. Evenzo blijkt dat een derde van de mannen een voorkeur heeft voor een Alfa Romeo, tegenover geen van de vrouwen. Het lijkt alsof de onderscheiden automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen. Om dit te staven bepalen we $\chi^{2}$ en Cramér's V. Probeer dit zelf, hetzij in R, hetzij met een rekenblad (Excel, Numbers, LibreOffice Calc)! We vinden:
+  \[ \chi^{2} = 22,619 \]
+  \[ V = \sqrt{\frac{22,169}{100 \times (2-1)}}  = 0,476\]
+  
   We vinden dus tussen een redelijk sterke tot sterke samenhang.
 \end{example}
 
 \begin{table} \centering
   \begin{tabular}{@{}rrrrrr@{}}
   	\toprule
-  	        & Mercedes &  BMW & Porsche & Alfa Romeo & Totaal \\ \midrule
+  	        & Mercedes &  BMW & Porsche & Alfa Romeo & Totaal \\
+  	\midrule
   	 Mannen &     $10$ & $10$ &    $20$ &       $20$ &   $60$ \\
   	Vrouwen &     $20$ &  $5$ &    $15$ &        $0$ &   $40$ \\
-  	 Totaal &     $30$ & $15$ &    $35$ &       $20$ &  $100$ \\ \bottomrule
+  	 Totaal &     $30$ & $15$ &    $35$ &       $20$ &  $100$ \\
+  	\bottomrule
   \end{tabular}
   \caption{Tabel die uitdrukt hoeveel vrouwen en hoeveel mannen een voorkeur voor een bepaald automerk hebben.}
   \label{tab:autovoorkeur}
 \end{table}
 
-\section{Regressie}
+\subsection{Visualisatietechnieken}
+\label{ssec:kwal-kwal-visualisatie}
+
+% TODO: Visualisatietechnieken
+%   Mozaïekdiagram
+%   Rependiagram
+%   Geclusterd staafdiagram
+
+\section{Kwalitatief--kwantitatief}
+
+In deze sectie bekijken we methoden om na te gaan of er een verband bestaat tussen enerzijds een kwalitatieve variabele (onafhankelijk) en anderzijds een kwantitatieve variabele (afhankelijk). Een onderzoek naar genderongelijkheid bij verloning in de ict-sector is hier een goed voorbeeld van. De onafhankelijke variabele \emph{gender} is nominaal (mogelijke waarden bijvoorbeeld M/V/X), de afhankelijke variabele \emph{netto maandloon} is een ratio-variabele.
+
+De benadering die men typisch gebruikt is om het gemiddelde en/of standaardafwijking van de afhankelijke variabele tussen de verschillende groepen ontstaan uit de onafhankelijke met elkaar te vergelijken. Als de verschillen klein zijn, dan kunnen ze worden toegeschreven aan toevallige steekproeffouten en besluiten we dat er geen verband is. Als de verschillen groot zijn, dan besluiten we dat er \emph{wel} een verband is. Vaak is het bijvoorbeeld nog altijd zo dat mannen significant meer verdienen dan vrouwen voor een gelijkaardige job!
+
+In deze cursus bespreken we de $t$-toets voor 2 steekproeven om te bepalen of er een verschil is tussen twee groepen (zie Sectie~\ref{sec:t-toets-twee-steekproeven}. Er bestaan statistische toetsen om een groter aantal groepen tegelijk te beschouwen (bijvoorbeeld de ANOVA-toets), maar die vallen buiten het bestek van deze cursus.
+
+Net zoals Cramér's V bij kwalitatieve variabelen bestaan er ook in dit geval metrieken de aangeven hoe sterk het verband is tussen kwalitatieve en kwantitatieve variabelen. In deze context worden die worden vaak onder de noemer \emph{effectgrootte} genoemd. In deze cursus zien we één definitie van effectgrootte, nl.~Cohen's $d$ (zie Sectie~\ref{ssec:cohens-d}. Opnieuw, er bestaan meerdere vormen van effectgrootte, ook geschikt voor variabelen met andere meetniveaus, maar deze vallen ook buiten het bestek van deze cursus.
+
+\subsection{De \texorpdfstring{$t$}{t}-toets voor twee steekproeven}
+\label{ssec:t-toets-twee-steekproeven}
+
+De $t$-toets die geïntroduceerd werd in Sectie~\ref{sec:t-toets} kan ook gebruikt worden om twee steekproeven met elkaar te vergelijken. Je kan er dan mee nagaan of het steekproefgemiddelde van beide steekproeven \emph{significant} verschillend is.
+
+Men maakt onderscheid tussen twee gevallen:
+
+\begin{itemize}
+  \item Beide steekproeven zijn onafhankelijk, zijn afzonderlijk genomen. Een voorbeeld is een onderzoek naar een medische behandelingsmethode waar een contolegroep de behandeling \emph{niet} krijgt en een testgroep de behandeling wel krijgt.
+  \item De steekproeven zijn afhankelijk, of gepaard. Een voorbeeld is twee metingen uitvoeren op hetzelfde lid van de populatie, zoals de koorts nemen voor en na het innemen van een medicijn om het effect ervan te meten.
+\end{itemize}
+
+In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van een toets met twee steekproeven. We geven hieronder twee voorbeelden, één voor elk geval.
+
+\begin{example}
+  In een klinisch onderzoek wil men nagaan of een nieuw medicijn als bijwerking een vertraagde (dus hogere) reactiesnelheid heeft~\autocite{Lindquist}.
+  
+  Zes deelnemers kregen een medicijn toegekend (interventiegroep) en zes anderen een placebo (controlegroep). Vervolgens werd hun reactietijd op een stimulus gemeten (in ms). We willen nagaan of er significante verschillen zijn tussen de interventie- en controlegroep.
+  
+  \textbf{Opmerking}: De interventiegroep en de controle groep zijn hier toevallig even groot (elk 6 proefpersonen).
+  Dit is niet noodzakelijk. Bij een onafhankelijke (niet-gepaarde) steekproeven
+  mogen de 2 groepen een verschillende grootte hebben.
+  
+  \begin{itemize}
+    \item Controlegroep: 91, 87, 99, 77, 88, 91 ~~~~~~~~~~~~($\overline{x}=88,83$)
+    \item Interventiegroep: 101, 110, 103, 93, 99, 104 ~~($\overline{y}=101,67$)
+  \end{itemize}
+  
+  We noteren $\mu_1$ voor het gemiddelde van de niet behandelde populatie (controlegroep) en $\mu_2$ voor het populatiegemiddelde van de patiënten die het medicijn nemen (interventiegroep).
+  
+  De hypothesen worden formeel als volgt genoteerd:
+  
+  $H_0: \mu_1 - \mu_2 = 0$ en $H_1: \mu_1 - \mu_2 < 0$
+  
+  Als teststatistiek (steekproefgrootheid) gebruiken we $\overline{x}-\overline{y}$, met $\overline{x}$ en $\overline{y}$ schattingen voor de \textit{\'echte} waarden $\mu_1$ en $\mu_2$ .
+  
+  Het gaat hier dus over een linkszijdige test, wat weergegeven wordt door de optie \texttt{alternative = "less"}. In de nulhypothese veronderstellen we dat het verschil tussen de populatiegemiddelden 0 is, wat met de optie \texttt{mu = 0} wordt aangeduid. Merk op dat dit de standaardwaarde is voor deze parameter en dus in principe niet moet worden opgegeven.
+  
+  \begin{lstlisting}
+  controle <-  c(91, 87, 99, 77, 88, 91)
+  interventie <- c(101, 110, 103, 93, 99, 104)
+  t.test(controle, interventie, alternative="less", mu=0)
+  \end{lstlisting}
+  
+  Het resultaat van de toets:
+  
+  \begin{verbatim}
+  t.test(controle, interventie, alternative="less")
+  
+  Welch Two Sample t-test
+  
+  data:  controle and interventie
+  t = -3.4456, df = 9.4797, p-value = 0.003391
+  alternative hypothesis: true difference in means is less than 0
+  95 percent confidence interval:
+  -Inf -6.044949
+  sample estimates:
+  mean of x mean of y 
+  88.83333 101.66667
+  \end{verbatim}
+  
+  De teststatistiek $\overline{x}-\overline{y}=-12,833$ komt overeen met een $t$-waarde $t=-3,4456$.
+  De parameter $df=9,48$ wordt bepaald door \texttt{t.test()} op basis van
+  het aantal elementen in de reeksen $x$ en $y$.
+  De berekening hiervan is \textit{niet} triviaal.
+  
+  De $p$-waarde, 0,003391, ligt duidelijk onder het significantieniveau (niet expliciet opgegeven, dus werd de standaardwaarde $\alpha = 0,05$ gebruikt.)
+  
+  We mogen dus de nulhypothese verwerpen en besluiten dat volgens de resultaten van deze steekproef het medicijn inderdaad een significant effect heeft op de reactiesnelheid van patiënten.
+  
+  \textbf{Opmerking}: Vermits $\overline{x}-\overline{y}=-12,833$
+  kunnen we met 95\% procent zekerheid zeggen dat het verschil van de \textit{\'echte} gemiddelden ($\mu_1-\mu_2$)
+  van een grotere control- en interventiepopulatie tussen $-\infty$ en $-6.044949$ zal liggen.
+  Zie paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
+  en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef})
+  over betrouwbaarheidsintervallen.
+\end{example}
+
+\begin{example}
+  In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto's werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto's opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten. De resultaten worden gegeven in de tabel hieronder.
+  
+  \begin{center}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
+      \hline 
+      Auto & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ 
+      \hline 
+      Gewone benzine & 16 & 20 & 21 & 22 & 23 & 22 & 27 & 25 & 27 & 28 \\ 
+      \hline 
+      Additieven & 19 & 22 & 24 & 24 & 25 & 25 & 25 & 26 & 28 & 32 \\ 
+      \hline 
+    \end{tabular} 
+    %  \caption{Verbruik in mijl per gallon met 2 soorten benzine.}
+    %  \label{tab:benzineverbruik-additieven}
+  \end{center}
+  
+  We gaan door middel van een \emph{gepaarde $t$-test} na of auto's significant zuiniger rijden met benzine met additieven.
+  
+  We kiezen $x$ voor benzine met \texttt{additieven} ($\overline{x}=25,1$ mijl per gallon), en we kiezen $y$ voor \texttt{gewone} bezine ($\overline{y}=23,1$ mijl per gallon).
+  
+  De nulhypothese $H_0$ is dat je met beiden even veel mijl per gallon kunt rijden ($\mu_{x-y}=0$).
+  De alternatieve hypothese $H_1$ dat je verder kunt rijden op benzine met additieven ($\mu_{x-y}>0$).
+  
+  De optie \texttt{paired=TRUE} geeft aan dat het hier om een gepaarde $t$-toets gaat.
+  
+  \begin{lstlisting}
+  gewone    <- c(16, 20, 21, 22, 23, 22, 27, 25, 27, 28)
+  additieven <-c(19, 22, 24, 24, 25, 25, 26, 26, 28, 32)
+  t.test(additieven, gewone, alternative="greater", paired=TRUE)
+  \end{lstlisting}
+  
+  Resultaat:
+  
+  \begin{verbatim}
+  Paired t-test
+  
+  data:  additieven and gewone
+  t = 4.4721, df = 9, p-value = 0.0007749
+  alternative hypothesis: true difference in means is greater than 0
+  95 percent confidence interval:
+  1.180207      Inf
+  sample estimates:
+  mean of the differences 
+  2 
+  \end{verbatim}
+  
+  De teststatistiek $\overline{x-y}=2$. Dit komt overeen met een $t$-waarde $t=4,4721$.
+  De $p$-waarde, 0,0007749, ligt onder het significantieniveau ($\alpha=0,05$), dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto's inderdaad zuiniger met benzine met additieven.
+  
+  \textbf{Ter info}: Bij 95\% van de ``paren'' van een grotere populatie auto's,
+  zal het verschil $x-y$ tussen $1.180207$ en $+\infty$ liggen.
+  Dit is het betrouwbaarheidsinterval waarvan sprake in paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
+  en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef}).
+\end{example}
+
+\subsection{Effectgrootte - Cohen's \texorpdfstring{$d$}{d}}
+\label{ssec:cohens-d}
+
+Met de term \emph{effectgrootte}\index{effectgrootte} bedoelt men een metriek die de impact (of effect) van een gebeurtenis weergeeft. Bij de meeste varianten geeft een grote absolute waarde ook een groter effect aan, een waarde van 0 het ontbreken van een effect.
+
+In deze sectie introduceren we Cohen's $d$\index{Cohen's $d$}, ontwikkeld door de Amerikaanse psycholoog en statisticus Jacob Cohen\index{Cohen, Jacob}. Deze metriek wordt in het bijzonder vaak gebruikt in publicaties over onderzoek naar effecten op leerresultaten in het onderwijs. Een onderzoek in deze context wordt vaak als volgt opgezet:
+
+De onderzoekers wensen het effect te weten van een bepaalde interventie op het leren van studenten/leerlingen. Ze willen bijvoorbeeld een nieuwe lesvorm uitproberen en bepalen of die geschikt is. Er worden testpersonen geselecteerd die typisch aselect verdeeld worden over twee groepen: een controlegroep die een afgebakend stuk leerstof te verwerken krijgt op een ``klassieke'' manier en een interventiegroep die dezelfde leerstof volgens die nieuwe lesvorm krijgt voorgeschoteld. Na afloop van de lessen volgt er dan een toets om te bepalen in hoeverre de studenten van beide groepen de leerstof verworven hebben. We verwachten dan dat de studenten uit de interventiegroep een significant beter resultaat behalen dan de controlegroep. In de wetenschappelijke publicaties die resulteren uit dit soort onderzoek wordt steevast de effectgrootte gepubliceerd.
+
+John \textcite{Hattie2012}\index{Hattie, John} verzamelt al decennia lang publicaties over onderzoek in onderwijs en houdt een lijst bij van effectgroottes van allerlei dingen die impact hebben op studieresultaten bij studenten. Dat gaat niet alleen over lesmethodes, maar ook leerstrategieën van studenten, demografische factoren (gender, sociale status, enz.), school- en klasmanagement, enz. In zijn meta-analyse hebben de meeste bestudeerde factoren een positief effect op de leerresultaten, wat misschien wel een gevolg kan zijn van \emph{publication bias}. 
+
+De gemiddelde gerapporteerde effectgrootte ligt rond $d = 0,4$. De aanbeveling van Hattie is dan ook dat scholen die een positief effect op leerresultaten van studenten willen bekomen, best eerst kijken naar de factoren die resulteren in een effectgrootte van minstens 0,4. Als vuistregel kan je stellen dat een interventie met $d = 1$ als gevolg heeft dat de leerstof die normaal op één jaar gezien wordt, op de helft van de tijd kan verwerkt worden. Tabel~\ref{table:effectgrootte} geeft een overzicht van de interpretatie van verschillende waarden voor Cohen's $d$.
+
+\begin{definition}[Cohen's $d$]
+  is gefefinieerd als het verschil tussen twee gemiddelden gedeeld door een standaardafwijking voor de steekproef, meer bepaald:
+  \begin{equation}
+  d = \frac{\overline{x}_1 - \overline{x}_2}{s}
+  \end{equation}
+  
+  met $\overline{x}_1$ en $\overline{x}_2$ de gemiddelden van beide groepen en $s$ een gecombineerde standaardafwijking voor twee onafhankelijke steekproeven:
+  
+  \begin{equation}
+  s = \sqrt{\frac{(n_1 - 1) s_1^2 + (n_2 - 1) s_2^2}{n_1 + n_2 - 2}}
+  \end{equation}
+  
+  met $s_1^2$ en $s_2^2$ de steekproefvariantie van beide groepen en $n_1$ en $n_2$ het aantal observaties in elke groep.
+\end{definition}
+
+\begin{table}
+  \centering
+  \begin{tabular}{rl}
+    \toprule
+    \textbf{$|d|$} & \textbf{Effect} \\
+    \midrule
+    0,01 & Zeer klein \\
+    0,20 & Klein \\
+    0,50 & Middelmatig \\
+    0,80 & Groot \\
+    1,20 & Zeer groot \\
+    2,00 & Reusachtig \\
+    \bottomrule
+  \end{tabular}
+  \caption{Interpretatie van de absolute waarde van Cohen's $d$. Merk op dat $d$ ook kleiner dan 0 kan zijn, wat wijst een negatief effect van de interventie.}
+  \label{table:effectgrootte}
+\end{table}
+
+\subsection{Visualisatietechnieken}
+\label{ssec:kwal-kwant-visualisatie}
+
+\subsubsection{Boxplot}
+
+% TODO   Boxplot
+
+\subsubsection{Staafdiagram met error bars}
+
+% TODO  Staafdiagram met error bars
+
+\section{Kwantitatief--kwantitatief}
+
+% TODO: inleiding
+% TODO: Spreidingsdiagram
+
+\subsection{Regressie}
 \label{sec:regressie}
 
 Bij \index{Regressie} regressie gaan we proberen een consistente en systematische koppeling tussen de variabelen te vinden. Dat betekent concreet: ``als we de waarde van de onafhankelijke variabele kennen, kunnen we dan ook de waarde van de afhankelijke variabele voorspellen?'' We kennen twee soorten verbanden:
@@ -460,18 +952,10 @@ Voorbeeld~\ref{vb:rendieren} uitgewerkt in R (met plot van de regressierechte):
 
 \lstinputlisting{data/regressie.R}
 
-% TODO: Klopt dit??? Dit lijkt Van een ander voorbeeld te komen,
-% de waarden komen niet overeen met cov(x, y) in R.
-%We vinden verdere statistieken:
-%\begin{itemize}
-%  \item Pearson-correlatieco\"effici\"ent $R = 0.725$. Duidt op een sterke lineaire samenhang. Zie Sectie~\ref{sec:correlatie}.
-%  \item Determinatieco\"effici\"ent $R^{2}=0.526$. Duidt aan dat 52\% van de variantie in de bestedingen kan verklaard worden door de variantie in het aantal dagen dat iemand het restaurant bezoekt.
-%\end{itemize}
-
-\section{Correlatie}
+\subsection{Correlatie}
 \label{sec:correlatie}
 
-\subsection{Pearsons product-momentcorrelatiecoëfficiënt}
+\subsubsection{Pearsons product-momentcorrelatiecoëfficiënt}
 We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdrukken.
 
 \begin{definition}[Pearsons product-momentcorrelatiecoëfficiënt]
@@ -486,7 +970,7 @@ We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdr
   Hoe dichter de correlatiecoëfficiënt bij 1 of -1, hoe beter de kwaliteit van het lineair model.
 \end{definition}
 
-\subsection{Determinatieco\"effici\"ent}
+\subsubsection{Determinatieco\"effici\"ent}
 \begin{definition}
   De \index{Determinatieco\"effici\"ent}determinatieco\"effici\"ent ($R^{2}$) is het kwadraat van de correlatieco\"effici\"ent en verklaart het percentage van de variantie van de waargenomen waarden t.o.v. de regressierechte.
 
@@ -546,7 +1030,6 @@ We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdr
   \label{fig:kwadranten}%
 \end{figure}
 
-
 \subsubsection{Bepaling van $R$ en $R^{2}$}
 \label{sec:determinatiecoef}
 Beschouw het voorbeeld in figuur \ref{fig:moederVerband}:  de grootte van een gezin vs. de grootte gezin moeder. We zien duidelijk dat er een linear verband is. Indien we de gemiddelde berekenen en de figuur in 4 kwadranten (kwadrant $I$, $II$, $III$, $IV$) volgens de gemiddelden verdelen krijgen we de figuur in \ref{fig:kwadranten}.  Dan kunnen we volgende situaties bekijken.
@@ -590,7 +1073,8 @@ Om opnieuw te normaliseren (een variatie in X is niet per se van dezelfde groott
 
 De correlatieco\"effici\"ent is onafhankelijk van de meeteenheid terwijl de covariantie afhankelijk is van de meeteenheid.
 
-\subsubsection{$R^{2}$ interpretatie}
+\subsubsection{Interpretatie van $R^{2}$}
+
 Als we aannemen dat $x$ niet bijdraagt aan de voorspelling van $y$ dan is de beste voorspelling voor een waarde van $y$ het steekproefgemiddelde $\overline{y}$, dat in figuur \ref{fig:rendierenFiguur3} als een horizontale lijn wordt weergegeven. De verticale lijnstukken zijn de afwijkingen van de waargenomen punten $y$ van deze voorspelling (het steekproefgemiddelde). De som van de kwadraten van deze afwijkingen is:
 
 \[ SS_{yy} = \sum(y_{i} - \overline{y})^{2} \]

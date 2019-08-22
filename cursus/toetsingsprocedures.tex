@@ -325,7 +325,9 @@ De eerste drie voorwaarden maken dat de centrale limietstelling kan toegepast wo
 
 Soms zijn deze veronderstellingen niet geldig en mogen we dan ook de $z$-toets \emph{niet} gebruiken! In deze gevallen kunnen we wel gebruik maken van de Student-$t$ verdeling. In de $t$-toets\index{$t$-toets}\index{toets!$t$-} wordt er wel van uit gegaan dat de onderzochte variabele normaal verdeeld is.
 
-De formule voor de kritieke grenswaarde wordt dan aangepast als:
+De Student-$t$ verdeling dankt zijn naam aan statisticus William Sealy Gosset\index{Gosset, William Sealy}. Hij werkte in de Guinness-brouwerij en gebruikte statistische methoden om de kwaliteit van het bier te garanderen. Zijn werkgever beschouwde dit als een bedrijfsgeheim en stond Gosset niet toe om te publiceren onder zijn eigen naam. Daarom gebruikte hij het pseudoniem Student\index{Student}.
+
+De formule voor de kritieke grenswaarde bij de $t$-toets aangepast naar:
 
 \begin{equation}
 g = \mu \pm t \times \frac{s}{\sqrt{n}}
@@ -429,143 +431,6 @@ en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betro
 over betrouwbaarheidsintervallen.
 \end{example}
 
-\section{De \texorpdfstring{$t$}{t}-toets voor twee steekproeven}
-\label{sec:t-toets-twee-steekproeven}
-
-De $t$-toets kan ook gebruikt worden om twee steekproeven met elkaar te vergelijken. Je kan er dan mee nagaan of het steekproefgemiddelde van beide steekproeven \emph{significant} verschillend is.
-
-Men maakt onderscheid tussen twee gevallen:
-
-\begin{itemize}
-  \item Beide steekproeven zijn onafhankelijk, zijn afzonderlijk genomen. Een voorbeeld is een onderzoek naar een medische behandelingsmethode waar een contolegroep de behandeling \emph{niet} krijgt en een testgroep de behandeling wel krijgt.
-  \item De steekproeven zijn afhankelijk, of gepaard. Een voorbeeld is twee metingen uitvoeren op hetzelfde lid van de populatie, zoals de koorts nemen voor en na het innemen van een medicijn om het effect ervan te meten.
-\end{itemize}
-
-In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van een toets met twee steekproeven. We geven hieronder twee voorbeelden, één voor elk geval.
-
-\begin{example}
-  In een klinisch onderzoek wil men nagaan of een nieuw medicijn als bijwerking een vertraagde (dus hogere) reactiesnelheid heeft~\autocite{Lindquist}.
-  
-  Zes deelnemers kregen een medicijn toegekend (interventiegroep) en zes anderen een placebo (controlegroep). Vervolgens werd hun reactietijd op een stimulus gemeten (in ms). We willen nagaan of er significante verschillen zijn tussen de interventie- en controlegroep.
-  
-  \textbf{Opmerking}: De interventiegroep en de controle groep zijn hier toevallig even groot (elk 6 proefpersonen).
-  Dit is niet noodzakelijk. Bij een onafhankelijke (niet-gepaarde) steekproeven
-  mogen de 2 groepen een verschillende grootte hebben.
-
-  \begin{itemize}
-    \item Controlegroep: 91, 87, 99, 77, 88, 91 ~~~~~~~~~~~~($\overline{x}=88,83$)
-    \item Interventiegroep: 101, 110, 103, 93, 99, 104 ~~($\overline{y}=101,67$)
-  \end{itemize}
-  
-  We noteren $\mu_1$ voor het gemiddelde van de niet behandelde populatie (controlegroep) en $\mu_2$ voor het populatiegemiddelde van de patiënten die het medicijn nemen (interventiegroep).
-  
-  De hypothesen worden formeel als volgt genoteerd:
-  
-  $H_0: \mu_1 - \mu_2 = 0$ en $H_1: \mu_1 - \mu_2 < 0$
-  
-  Als teststatistiek (steekproefgrootheid) gebruiken we $\overline{x}-\overline{y}$, met $\overline{x}$ en $\overline{y}$ schattingen voor de \textit{\'echte} waarden $\mu_1$ en $\mu_2$ .
-
-  Het gaat hier dus over een linkszijdige test, wat weergegeven wordt door de optie \texttt{alternative = "less"}. In de nulhypothese veronderstellen we dat het verschil tussen de populatiegemiddelden 0 is, wat met de optie \texttt{mu = 0} wordt aangeduid. Merk op dat dit de standaardwaarde is voor deze parameter en dus in principe niet moet worden opgegeven.
-  
-\begin{lstlisting}
-controle <-  c(91, 87, 99, 77, 88, 91)
-interventie <- c(101, 110, 103, 93, 99, 104)
-t.test(controle, interventie, alternative="less", mu=0)
-\end{lstlisting}
-
-  Het resultaat van de toets:
-  
-\begin{verbatim}
-t.test(controle, interventie, alternative="less")
-
-Welch Two Sample t-test
-
-data:  controle and interventie
-t = -3.4456, df = 9.4797, p-value = 0.003391
-alternative hypothesis: true difference in means is less than 0
-95 percent confidence interval:
--Inf -6.044949
-sample estimates:
-mean of x mean of y 
-88.83333 101.66667
-\end{verbatim}
-
-  De teststatistiek $\overline{x}-\overline{y}=-12,833$ komt overeen met een $t$-waarde $t=-3,4456$.
-  De parameter $df=9,48$ wordt bepaald door \texttt{t.test()} op basis van
-  het aantal elementen in de reeksen $x$ en $y$.
-  De berekening hiervan is \textit{niet} triviaal.
-
-  De $p$-waarde, 0,003391, ligt duidelijk onder het significantieniveau (niet expliciet opgegeven, dus werd de standaardwaarde $\alpha = 0,05$ gebruikt.)
-  
-  We mogen dus de nulhypothese verwerpen en besluiten dat volgens de resultaten van deze steekproef het medicijn inderdaad een significant effect heeft op de reactiesnelheid van patiënten.
-
-\textbf{Opmerking}: Vermits $\overline{x}-\overline{y}=-12,833$
-kunnen we met 95\% procent zekerheid zeggen dat het verschil van de \textit{\'echte} gemiddelden ($\mu_1-\mu_2$)
-van een grotere control- en interventiepopulatie tussen $-\infty$ en $-6.044949$ zal liggen.
-Zie paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
-en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef})
-over betrouwbaarheidsintervallen.
-\end{example}
-
-\begin{example}
-  In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto's werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto's opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten. De resultaten worden gegeven in de tabel hieronder.
-  
-  \begin{center}
-    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
-      \hline 
-      Auto & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ 
-      \hline 
-      Gewone benzine & 16 & 20 & 21 & 22 & 23 & 22 & 27 & 25 & 27 & 28 \\ 
-      \hline 
-      Additieven & 19 & 22 & 24 & 24 & 25 & 25 & 25 & 26 & 28 & 32 \\ 
-      \hline 
-    \end{tabular} 
-%  \caption{Verbruik in mijl per gallon met 2 soorten benzine.}
-%  \label{tab:benzineverbruik-additieven}
-  \end{center}
-  
-  We gaan door middel van een \emph{gepaarde $t$-test} na of auto's significant zuiniger rijden met benzine met additieven.
-  
-  We kiezen $x$ voor benzine met \texttt{additieven} ($\overline{x}=25,1$ mijl per gallon), en we kiezen $y$ voor \texttt{gewone} bezine ($\overline{y}=23,1$ mijl per gallon).
-
-  De nulhypothese $H_0$ is dat je met beiden even veel mijl per gallon kunt rijden ($\mu_{x-y}=0$).
-  De alternatieve hypothese $H_1$ dat je verder kunt rijden op benzine met additieven ($\mu_{x-y}>0$).
-
-  De optie \texttt{paired=TRUE} geeft aan dat het hier om een gepaarde $t$-toets gaat.
-  
-\begin{lstlisting}
-gewone    <- c(16, 20, 21, 22, 23, 22, 27, 25, 27, 28)
-additieven <-c(19, 22, 24, 24, 25, 25, 26, 26, 28, 32)
-t.test(additieven, gewone, alternative="greater", paired=TRUE)
-\end{lstlisting}
-
-  Resultaat:
-  
-\begin{verbatim}
- Paired t-test
-
-data:  additieven and gewone
-t = 4.4721, df = 9, p-value = 0.0007749
-alternative hypothesis: true difference in means is greater than 0
-95 percent confidence interval:
- 1.180207      Inf
-sample estimates:
-mean of the differences 
-                      2 
-\end{verbatim}
-
-  De teststatistiek $\overline{x-y}=2$. Dit komt overeen met een $t$-waarde $t=4,4721$.
-  De $p$-waarde, 0,0007749, ligt onder het significantieniveau ($\alpha=0,05$), dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto's inderdaad zuiniger met benzine met additieven.
-
-  \textbf{Ter info}: Bij 95\% van de ``paren'' van een grotere populatie auto's,
-  zal het verschil $x-y$ tussen $1.180207$ en $+\infty$ liggen.
-  Dit is het betrouwbaarheidsinterval waarvan sprake in paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
-  en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef}).
-\end{example}
-
-% TODO: later evt. toevoegen
-% - ANOVA, variantie-analyse
-% - Kolmogorov-Smirnov test
 
 \section{Fouten in hypothesetoetsen}
 
