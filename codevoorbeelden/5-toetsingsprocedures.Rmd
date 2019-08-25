@@ -68,28 +68,33 @@ Merk op dat beide methoden, de overschrijdingskans en de kritieke grenswaarde eq
 Hieronder volgt een plot van deze casus.
 
 ```{r}
-# grenzen van de plot (x-waarden)
+# x-waarden
 x <- seq(m0-4*s/sqrt(n), m0+4*s/sqrt(n), length=200)
-# y-waarden (volgen de Gauss-curve)
+# Waarden van x links van g (aanvaardingsgebied)
+i <- x <= g
+# Dichtheid normale verdeling
 dist <- dnorm(x, m0, s/sqrt(n))
-plot (x, dist, type = 'l', xlab = '', ylab = '')
 
-# Toon het gevonden steekproefgemiddelde ahv rode vertikale lijn
-abline(v=sm, col='red')
-text(sm, 2, sm)
-
-# Het aanvaardingsgebied plotten
-i <- x <= g                    # Waarden van x links van g
-polygon(                       # Plot deze waarden op de grafiek
-  c(x[i],    g,                       g),
-  c(dist[i], dnorm(g, m0, s/sqrt(n)), 0),
-  col = 'lightgreen')
-text(g,.5,signif(g, digits=4)) # Toon grenswaarde
-
-text(m0, 0.1, m0)              # Hypothetisch populatiegemiddelde
-abline(v=m0)                   # Trek daar een vertikale lijn
-
-text(m0, 1.5, 'aanvaardingsgebied (H0)')
+# Grafiek:
+ggplot() +
+  # Gauss-curve
+  geom_line(aes(x, dist)) +
+  # Teken aanvaardingsgebied in groen
+  geom_polygon(aes(x = c(x[i],    g,                       g),
+                   y = c(dist[i], dnorm(g, m0, s/sqrt(n)), 0)),
+               fill = 'lightgreen',
+               colour = 'black') +
+  # Toon de kritieke grenswaarde
+  geom_text(label = round(g, 3), aes(x = g, y = .5)) +
+  geom_text(label = "Aanvaardingsgebied", aes(x = m0, y = .75)) +
+  geom_text(label = "Verwerpingsgebied", aes(x = 3.6, y = .75)) +
+  # Toon het hypothetisch populatiegemiddelde
+  geom_vline(xintercept = m0) +
+  geom_text(label = m0, aes(x = m0+.02, y = 2)) +
+  # Toon het steekproefgemiddelde
+  geom_vline(xintercept = sm, colour = 'red') +
+  geom_text(label = sm, aes(x = sm+.04, y = 3), colour = 'red') +
+  theme(axis.title = element_blank())
 ```
 
 ### De linkszijdige $z$-toets
@@ -145,24 +150,28 @@ De plot van dit geval.
 x <- seq(m0-4*s/sqrt(n), m0+4*s/sqrt(n), length=200)
 # y-waarden (volgen de Gauss-curve)
 dist <- dnorm(x, m0, s/sqrt(n))
-plot (x, dist, type = 'l', xlab = '', ylab = '')
+# Waarden van x rechts van g
+i <- x >= g
 
-# Toon het gevonden steekproefgemiddelde ahv rode vertikale lijn
-abline(v=sm, col='red')
-text(sm, 2, sm)
-
-# Het aanvaardingsgebied plotten
-i <- x >= g                    # Waarden van x rechts van g
-polygon(                       # Plot deze waarden op de grafiek
-  c(x[i],    g),
-  c(dist[i], 0),
-  col = 'lightgreen')
-text(g,.5,signif(g, digits=4)) # Toon grenswaarde
-
-text(m0, 0.1, m0)              # Hypothetisch populatiegemiddelde
-abline(v=m0)                   # Trek daar een vertikale lijn
-
-text(m0, 1.5, 'aanvaardingsgebied (H0)')
+ggplot() +
+  # Gauss-curve
+  geom_line(aes(x, dist)) +
+  # Teken aanvaardingsgebied in groen
+  geom_polygon(aes(c(x[i],    g),
+                   c(dist[i], 0)),
+               fill = 'lightgreen',
+               colour = 'black') +
+  # Toon de kritieke grenswaarde
+  geom_text(label = round(g, 3), aes(x = g, y = .5)) +
+  geom_text(label = "Aanvaardingsgebied", aes(x = m0, y = .75)) +
+  geom_text(label = "Verwerpingsgebied", aes(x = 3, y = .75)) +
+  # Toon het hypothetisch populatiegemiddelde
+  geom_vline(xintercept = m0) +
+  geom_text(label = m0, aes(x = m0+.02, y = 2)) +
+  # Toon het steekproefgemiddelde
+  geom_vline(xintercept = sm, colour = 'red') +
+  geom_text(label = sm, aes(x = sm+.04, y = 3), colour = 'red') +
+  theme(axis.title = element_blank())
 ```
 
 ### De tweezijdige $z$-toets
@@ -218,10 +227,41 @@ De plot van deze situatie ziet er zo uit:
 x <- seq(m0-4*s/sqrt(n), m0+4*s/sqrt(n), length=200)
 # y-waarden (volgen de Gauss-curve)
 dist <- dnorm(x, m0, s/sqrt(n))
+# Waarden van x tussen g1 en g2
+i <- g1 <= x & x <= g2
+# kansdichtheid op g1 en g2
+dg1 <- dnorm(g1, m0, s/sqrt(n))
+dg2 <- dnorm(g2, m0, s/sqrt(n))
+
+# Grafiek:
+ggplot() +
+  # Gauss-curve
+  geom_line(aes(x, dist)) +
+  # Teken aanvaardingsgebied in groen
+  geom_polygon(aes(c(g1, g1,  x[i],    g2,  g2),
+                   c(0,  dg1, dist[i], dg2, 0)),
+               fill = 'lightgreen',
+               colour = 'black') +
+  # Toon de kritieke grenswaarden
+  geom_text(label = round(g1, 3), aes(x = g1, y = .3)) +
+  geom_text(label = round(g2, 3), aes(x = g2, y = .3)) +
+  
+  geom_text(label = "Aanvaardingsgebied", aes(x = m0, y = .75)) +
+  geom_text(label = "Verwerpingsgebied", aes(x = 3, y = .75)) +
+  geom_text(label = "Verwerpingsgebied", aes(x = 3.6, y = .75)) +
+  
+  # Toon het hypothetisch populatiegemiddelde
+  geom_vline(xintercept = m0) +
+  geom_text(label = m0, aes(x = m0+.02, y = 2)) +
+  # Toon het steekproefgemiddelde
+  geom_vline(xintercept = sm, colour = 'red') +
+  geom_text(label = sm, aes(x = sm+.04, y = 3), colour = 'red') +
+  theme(axis.title = element_blank())
+
+
 plot (x, dist, type = 'l', xlab = '', ylab = '')
 
 # Het aanvaardingsgebied plotten
-i <- g1 <= x & x <= g2          # Waarden van x tussen g1 en g2
 dg1 <- dnorm(g1, m0, s/sqrt(n)) # kansdichtheid op g1 en g2
 dg2 <- dnorm(g2, m0, s/sqrt(n))
 polygon(                        # Plot deze waarden op de grafiek
@@ -302,31 +342,31 @@ De plot voor deze situatie:
 x <- seq(m0-4*ss/sqrt(n), m0+4*ss/sqrt(n), length=200)
 # y-waarden (volgen de Gauss-curve van de t-verdeling)
 dist <- dt((x-m0)/(ss/sqrt(n)), df = n-1) * ss/sqrt(n)
-plot (x, dist, type = 'l', xlab = '', ylab = '')
-
-# Het aanvaardingsgebied plotten
 # Waarden van x links van g
-i <- x < g                    
+i <- x < g   
 # waarde dichtheidsfunctie voor g
 dg <- dt((g-m0)/(ss/sqrt(n)),df=n-1) * ss/sqrt(n)
-# Plot deze waarden op de grafiek
-polygon(
-  c(x[i],    g, g),
-  c(dist[i], dg, 0),
-  col = 'lightgreen')
-text(m0, 0.02, 'aanvaardingsgebied (H0)')
 
-# Trek een vertikale lijn bij het hypothetische populatiegemiddelde
-text(m0, 0.01, m0)
-abline(v=m0)
-
-# Toon de kritieke grenswaarde
-text(g+.025,.005,signif(g, digits=4))
-
-# Toon het gevonden steekproefgemiddelde ahv rode vertikale lijn
-abline(v=sm, col='red')
-text(sm-.025, .04, sm, col = 'red')
-
+# Grafiek:
+ggplot() +
+  # Gauss-curve
+  geom_line(aes(x, dist)) +
+  # Teken aanvaardingsgebied in groen
+  geom_polygon(aes(x = c(x[i],    g, g),
+                   y = c(dist[i], dg, 0)),
+               fill = 'lightgreen',
+               colour = 'black') +
+  # Toon de kritieke grenswaarde
+  geom_text(label = round(g, 3), aes(x = g, y = .005)) +
+  geom_text(label = "Aanvaardingsgebied", aes(x = m0, y = .0075)) +
+  geom_text(label = "Verwerpingsgebied", aes(x = 3.7, y = .0075)) +
+  # Toon het hypothetisch populatiegemiddelde
+  geom_vline(xintercept = m0) +
+  geom_text(label = m0, aes(x = m0+.02, y = .02)) +
+  # Toon het steekproefgemiddelde
+  geom_vline(xintercept = sm, colour = 'red') +
+  geom_text(label = sm, aes(x = sm+.04, y = .03), colour = 'red') +
+  theme(axis.title = element_blank())
 ```
 
 Met andere woorden, ook al krijgen we gelijkaardige resultaten in onze steekproef, kunnen we niet hetzelfde besluit trekken. Omdat onze steekproef te klein is, is er grotere onzekerheid of de waarde van het steekproefgemiddelde extreem genoeg is om de nulhypothese te verwerpen.
