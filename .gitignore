@@ -135,3 +135,4 @@ sympy-plots-for-*.tex/
 
 # jabref
 *.bib.bak
+.Rproj.user
