@@ -14,7 +14,7 @@ library(tidyverse)
 Na deze tutorial:
 
 - kan je voor elk meetniveau geschikte centrum- en spreidingsmaten benoemen
-- ken je de formules voor gemiddelde, variantie en standaardafwijking
+- ken je de formules voor gemiddelde, variantie en standaardafwijking van een steekproef
 - weet je hoe je de mediaan, kwartielen en percentielen berekent
 - kan je in R voor een bepaalde variabele de geschikte centrum- en spreidingsmaten berekenen
 
@@ -40,7 +40,7 @@ table(starwars$gender)
 
 De modus voor de variabele `starwars$gender` is dus `male`.
 
-Als er veel verschillende waarden wijn, dan is het aflezen van de modus iets moeilijker. Dan kan je de tabel eventueel sorteren:
+Als er veel verschillende waarden zijn, dan is het aflezen van de modus iets moeilijker. Dan kan je de tabel eventueel sorteren:
 
 ```{r}
 homeworlds <- table(starwars$homeworld)
@@ -57,43 +57,45 @@ Voor quantitatieve variabelen, wordt als centrummaten vaak het *gemiddelde* gebr
 
 ### Rekenkundig gemiddelde
 
-Het **rekenkundig gemiddelde**  $\mu$ (de Griekse letter mu), is een centrummaat die gedefinieerd is als de som van alle getallen in een verzameling $X = {x_1, ..., x_n}$, gedeeld door het aantal getallen:
+Het **rekenkundig gemiddelde** van een steekproef, $\overline{x}$, is een centrummaat die gedefinieerd is als de som van alle waarden $X = {x_1, ..., x_n}$, gedeeld door het aantal getallen:
 
-$\mu = \frac{1}{n} \sum_{i = 1}^{n} x_i$
+$\overline{x} = \frac{1}{n} \sum_{i = 1}^{n} x_i$
 
 Een voorbeeld:
 
 ```{r}
 x <- c(6, 13,  2,  2, 20, 17, 1, 16, 19,  8, 12, 16, 13, 13,  1,  5, 10,  5, 10, 12)
-mu <- sum(x) / length(x)   # Formule toepassen
-mean(x)                    # Functie mean() gebruiken
+sample_mean <- sum(x) / length(x)   # Formule toepassen
+sample_mean
+mean(x)                             # Functie mean() gebruiken
 ```
 
 ### Variantie en standaardafwijking
 
-De **variantie** $\sigma^2$ (de Griekse letter sigma), is een spreidingsmaat die gedefinieerd is als:
+De **variantie** van een steekproef, $s^2$, is een spreidingsmaat die gedefinieerd is als:
 
-$\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n}(x_i - \mu)^2$
+$s^2 = \frac{1}{n-1} \sum_{i = 1}^{n}(x_i - \mu)^2$
 
 In R:
 
 ```{r}
-sigma_kwadraat <- sum((x - mu)^2) / length(x)
+sample_variance <- sum((x - sample_mean)^2) / (length(x) - 1)
+sample_variance
+var(x)
 ```
 
-De **standaardafwijking** $\sigma$ is de vierkantswortel van de variantie: $\sigma = \sqrt{\sigma^2}$
+De **standaardafwijking** van een steekproef, $s$ is de vierkantswortel van de variantie: $s = \sqrt{s^2}$
 
 ```{r}
-sqrt(sigma_kwadraat)
+sqrt(sample_variance)
+sd(x)
 ```
-
-**Opmerking:** In R bestaat er een functie voor het berekenen van de standaardafwijking, `sd()`, maar die is een beetje anders gedefinieerd. We zullen deze later in de cursus introduceren.
 
 ### Oefening
 
 Bereken zelf het *gemiddelde* en *standaardafwijking* van de variabele `starwars$height`. In de eerste lijn zijn de ontbrekende waarden in de tabel al uitgefilterd. Als je dit niet doet, zal de berekening niet lukken en krijg je NA als resultaat. De functie `mean()` kan ook ontbrekende waarden wegfilteren met de optie `na.rm = TRUE`, bv. `mean(starwars$height, na.rm = TRUE)`.
 
-Ter controle: het gemiddelde is (afgerond) 174.3580, de standaardafwijking 34.5551.
+Ter controle: het gemiddelde is (afgerond) 174.3580, de standaardafwijking 34.7704.
 
 ```{r oef-mean-sd-height, exercise = TRUE}
 lengtes <- na.omit(starwars$height)
@@ -111,7 +113,7 @@ standaardafwijking <- sqrt(sum((lengtes - gemiddelde)^2) / length(lengtes))
 
 ### Oefening 2
 
-Doe hetzelfde voor de variabele `starwars$mass`. Filter eerst de lege waarden er uit! Ter controle: het gemiddelde is (afgerond) 97.3119, de standaardafwijking 168.0149.
+Doe hetzelfde voor de variabele `starwars$mass`. Filter eerst de lege waarden er uit! Ter controle: het gemiddelde is (afgerond) 97.3119, de standaardafwijking 169.4572.
 
 ```{r oef-mean-sd-mass, exercise = TRUE}
 massas <- 
