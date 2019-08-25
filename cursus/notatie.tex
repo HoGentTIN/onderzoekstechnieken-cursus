@@ -5,22 +5,67 @@
   \centering
   \begin{tabular}{p{.25\textwidth}p{.75\textwidth}}
   	\toprule
-  	\textbf{Notatie}                                        & \textbf{Betekenis}                                                                                                                     \\ \midrule
-  	$X = \left\{x_1, x_2, \ldots, x_n \right\}$             & Een stochastische variabele $X$ met $n$ waarnemingen $x_i$ (voor $i: 1 \ldots n$)                                                      \\
+  	\textbf{Notatie}                                        & \textbf{Betekenis}                                                                                                                     \\
+  	\midrule
+  	$\widehat{a}, \widehat{b}, \ldots$                      & Het ``hoedje'' geeft aan dat het gaat om een schatter.                                                                                 \\
+  	$M \sim Nor(\mu_{\overline{x}}, \sigma_{\overline{x}})$ & De kansverdeling van het steekproefgemiddelde (cfr.~de centrale limietstelling, Sectie~\ref{sec:centrale-limietstelling})              \\
   	$N$                                                     & De populatieomvang                                                                                                                     \\
   	$n$                                                     & De steekproefgrootte                                                                                                                   \\
-  	$\mu$ (mu)                                              & Het gemiddelde (ook: verwachtingswaarde) over heel de \emph{populatie}.                                                                \\
-  	$\overline{x}$                                          & Het gemiddelde over de \emph{steekproef}                                                                                               \\
-  	$\sigma$ (sigma)                                        & De standaardafwijking over heel de populatie                                                                                           \\
-  	$\sigma^2$ (sigma)                                      & De variantie over heel de populatie                                                                                                    \\
+  	$R$                                                     & Pearson's product-momentcorrelatiecoëfficiënt (kort: correlatiecoëfficiënt). In de literatuur soms ook $\rho$.                         \\
+  	$R^2$                                                   & Determinatiecoëfficiënt. In de literatuur soms ook $\rho^2$.                                                                           \\
   	$s$                                                     & De standaardafwijking van de steekproef                                                                                                \\
   	$s^2$                                                   & De variantie van de steekproef                                                                                                         \\
+  	$t \in \mathbb{N}$                                      & Een tijdstip                                                                                                                           \\
+  	$X = \left\{x_1, x_2, \ldots, x_n \right\}$             & Een stochastische variabele $X$ met $n$ waarnemingen $x_i$ (voor $i: 1 \ldots n$)                                                      \\
   	$X \sim Nor(\mu, \sigma)$                               & De variabele $X$ is \emph{normaal verdeeld} met gemiddelde $\mu$ en standaardafwijking $\sigma$                                        \\
+  	$\overline{x}$                                          & Het gemiddelde over de \emph{steekproef}                                                                                               \\
   	$Z \sim Nor(0, 1)$                                      & $Z$ is een variabele met een kansverdeling die de \emph{standaardnormaalverdeling} volgt, dus met gemiddelde 0 en standaardafwijking 1 \\
-  	$M \sim Nor(\mu_{\overline{x}}, \sigma_{\overline{x}})$ & De kansverdeling van het steekproefgemiddelde (cfr.~de centrale limietstelling, Sectie~\ref{sec:centrale-limietstelling})              \\
+  	$\alpha$ (alfa)                                         & Een significantieniveau (voor een statistische toets)                                                                                  \\
+  	$1 - \alpha$                                            & Een betrouwbaarheidsniveau (voor een betrouwbaarheidsinterval)                                                                         \\
+  	$\epsilon$                                              & Storing in een tijdreeks (typisch een klein getal)                                                                                     \\
+  	$\mu$ (mu)                                              & Het gemiddelde (ook: verwachtingswaarde) over heel de \emph{populatie}.                                                                \\
   	$\mu_{\overline{x}}$                                    & De verwachtingswaarde bij de kansverdeling van het steekproefgemiddelde                                                                \\
+  	$\sigma$ (sigma)                                        & De standaardafwijking over heel de populatie                                                                                           \\
+  	$\sigma^2$                                              & De variantie over heel de populatie                                                                                                    \\
   	$\sigma_{\overline{x}}$                                 & De standaardafwijking bij de kansverdeling van het steekproefgemiddelde                                                                \\
-  	$\alpha$                                                & Een significantieniveau (voor een statistische toets)                                                                               \\
-  	$1 - \alpha$                                            & Een betrouwbaarheidsniveau (voor een betrouwbaarheidsinterval)                                                                               \\ \bottomrule
+  	\bottomrule
   \end{tabular}
+  \caption[Overzicht gebruikte symbolen.]{\textbf{Overzicht gebruikte symbolen.} De symbolen zijn alfabetisch gesorteerd, met eerst het latijnse en daarna het Griekse alfabet (zie Tabel~\ref{tab:griekse-alfabet}).}
+  \label{tab:notatie}
+\end{table}
+
+\begin{table}
+  \centering
+  \begin{tabular}{lll}
+  	\toprule
+  	\textbf{Grieks}              & \textbf{Naam} & \textbf{Klank, uitspraak}   \\
+  	\midrule
+  	$A, \alpha$                  & alfa          & a                           \\
+  	$B, \beta$                   & bèta          & b                           \\
+  	$\Gamma, \gamma$             & gamma         & g                           \\
+  	$\Delta, \delta$             & delta         & d                           \\
+  	$E, \epsilon$                & epsilon       & e                           \\
+  	$Z, \zeta$                   & zèta          & dz                          \\
+  	$H, \eta$                    & èta           & ei                          \\
+  	$\Theta, \theta$             & thèta         & th                          \\
+  	$I, \iota$                   & iota          & i                           \\
+  	$K, \kappa$                  & kappa         & k                           \\
+  	$\Lambda, \lambda$           & lambda        & l                           \\
+  	$M, \mu$                     & mu            & m                           \\
+  	$N, \nu$                     & nu            & n                           \\
+  	$\Xi, \xi$                   & xi            & ks                          \\
+  	$O, o$                       & omikron       & o (kort)                    \\
+  	$\Pi, \pi$                   & pi            & p                           \\
+  	$P, \rho$                    & rho           & r                           \\
+  	$\Sigma, \sigma (\varsigma)$ & sigma         & s                           \\
+  	$T, \tau$                    & tau           & t                           \\
+  	$\Upsilon, \upsilon$         & upsilon       & u                           \\
+  	$\Phi, \phi (\varphi)$       & phi           & f                           \\
+  	$X, \chi$                    & chi           & ch (zoals in \emph{chemie}) \\
+  	$\Psi, \psi$                 & psi           & ps                          \\
+  	$\Omega, \omega$             & omega         & o (lang)                    \\
+  	\bottomrule
+  \end{tabular}
+  \caption[Het Griekse alfabet]{\textbf{Het Griekse alfabet.} In wiskundige en statistische teksten worden vaak Griekse letters gebruikt. Ter info vind je hier een overzicht van het Griekse alfabet. Telkens is de hoofd- en kleine letter gegeven. Soms staat tussen haakjes een variant van de letter die soms ook voorkomt.}
+  \label{tab:griekse-alfabet}
 \end{table}
