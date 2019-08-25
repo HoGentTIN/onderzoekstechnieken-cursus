@@ -1,0 +1,401 @@
+---
+title: "Centrum- en spreidingsmaten"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+```
+
+## Leerdoelen
+
+Na deze tutorial:
+
+- kan je voor elk meetniveau geschikte centrum- en spreidingsmaten benoemen
+- ken je de formules voor gemiddelde, variantie en standaardafwijking
+- weet je hoe je de mediaan, kwartielen en percentielen berekent
+- kan je in R voor een bepaalde variabele de geschikte centrum- en spreidingsmaten berekenen
+
+## Centrum- en spreidingsmaten
+
+> Een **centrummaat** is een getal dat "centraal" gelegen is in een verzameling getallen. Op die manier kan het beschouwd worden als een waarde die de verzameling als geheel vertegenwoordigt.
+
+> Een **spreidingsmaat** is een getal dat uitdrukt in hoeverre een verzameling getallen onderling verschilt. Hoe groter de waarde, hoe verder uit elkaar de getallen verspreid liggen.
+
+Er bestaan verschillende centrum- en spreidingsmaten, en elk is geschikt voor variabelen van een specifiek meetniveau.
+
+## Modus
+
+Bij kwalitatieve variabelen, vooral niet-numerieke gegevens, kan je niet meteen van centrum- en spreidingsmaten spreken zoals eerder gedefinieerd. Het is wel mogelijk om een waarde te definiëren die representatief is voor de variabele:
+
+> De **modus** is de vaakst voorkomende waarde in een kwalitatieve variabele.
+
+In R is er niet meteen een functie voor het berekenen van de modus, maar je kan de modus wel makkelijk aflezen uit een frequentietabel. Bijvoorbeeld:
+
+```{r}
+table(starwars$gender)
+```
+
+De modus voor de variabele `starwars$gender` is dus `male`.
+
+Als er veel verschillende waarden wijn, dan is het aflezen van de modus iets moeilijker. Dan kan je de tabel eventueel sorteren:
+
+```{r}
+homeworlds <- table(starwars$homeworld)
+homeworlds[order(homeworlds, decreasing = TRUE)]
+```
+
+Naboo is hier dus de modus.
+
+Als een variabele 2 verschillende waarden heeft die evenveel voorkomen, spreekt men van een *bimodale* variabele. Als er meerdere zijn van een *multimodale* variabele. 
+
+## Gemiddelde en standaardafwijking
+
+Voor quantitatieve variabelen, wordt als centrummaten vaak het *gemiddelde* gebruikt en als spreidingsmaat de *standaardafwijking*. 
+
+### Rekenkundig gemiddelde
+
+Het **rekenkundig gemiddelde**  $\mu$ (de Griekse letter mu), is een centrummaat die gedefinieerd is als de som van alle getallen in een verzameling $X = {x_1, ..., x_n}$, gedeeld door het aantal getallen:
+
+$\mu = \frac{1}{n} \sum_{i = 1}^{n} x_i$
+
+Een voorbeeld:
+
+```{r}
+x <- c(6, 13,  2,  2, 20, 17, 1, 16, 19,  8, 12, 16, 13, 13,  1,  5, 10,  5, 10, 12)
+mu <- sum(x) / length(x)   # Formule toepassen
+mean(x)                    # Functie mean() gebruiken
+```
+
+### Variantie en standaardafwijking
+
+De **variantie** $\sigma^2$ (de Griekse letter sigma), is een spreidingsmaat die gedefinieerd is als:
+
+$\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n}(x_i - \mu)^2$
+
+In R:
+
+```{r}
+sigma_kwadraat <- sum((x - mu)^2) / length(x)
+```
+
+De **standaardafwijking** $\sigma$ is de vierkantswortel van de variantie: $\sigma = \sqrt{\sigma^2}$
+
+```{r}
+sqrt(sigma_kwadraat)
+```
+
+**Opmerking:** In R bestaat er een functie voor het berekenen van de standaardafwijking, `sd()`, maar die is een beetje anders gedefinieerd. We zullen deze later in de cursus introduceren.
+
+### Oefening
+
+Bereken zelf het *gemiddelde* en *standaardafwijking* van de variabele `starwars$height`. In de eerste lijn zijn de ontbrekende waarden in de tabel al uitgefilterd. Als je dit niet doet, zal de berekening niet lukken en krijg je NA als resultaat. De functie `mean()` kan ook ontbrekende waarden wegfilteren met de optie `na.rm = TRUE`, bv. `mean(starwars$height, na.rm = TRUE)`.
+
+Ter controle: het gemiddelde is (afgerond) 174.3580, de standaardafwijking 34.5551.
+
+```{r oef-mean-sd-height, exercise = TRUE}
+lengtes <- na.omit(starwars$height)
+gemiddelde <- 
+standaardafwijking <- 
+gemiddelde
+standaardafwijking
+```
+
+```{r oef-mean-sd-height-solution}
+lengtes <- na.omit(starwars$height)
+gemiddelde <- mean(lengtes)
+standaardafwijking <- sqrt(sum((lengtes - gemiddelde)^2) / length(lengtes))
+```
+
+### Oefening 2
+
+Doe hetzelfde voor de variabele `starwars$mass`. Filter eerst de lege waarden er uit! Ter controle: het gemiddelde is (afgerond) 97.3119, de standaardafwijking 168.0149.
+
+```{r oef-mean-sd-mass, exercise = TRUE}
+massas <- 
+gemiddelde_2 <- 
+standaardafwijking_2 <- 
+gemiddelde_2
+standaardafwijking_2
+```
+
+```{r oef-mean-sd-mass-solution}
+massas <- na.omit(starwars$mass)
+gemiddelde_2 <- mean(mass)
+standaardafwijking_2 <- sqrt(sum((massas - gemiddelde_2)^2) / length(massas))
+```
+
+### Oefening 3
+
+In de volgende oefening is de grootste waarde uit `starwars$mass` weggelaten. Bereken opnieuw gemiddelde en standaardafwijking.
+
+```{r oef-mean-sd-mass-outlier, exercise = TRUE}
+massas <- na.omit(starwars$mass)
+max_massa <- max(massas)
+massas_zonder_max <- massas[-which(massas==max_massa)]  # verwijder grootste waarde uit de lijst
+gemiddelde_3 <- 
+standaardafwijking_3 <- 
+  
+gemiddelde_3
+standaardafwijking_3
+```
+
+```{r oef-mean-sd-mass-outlier-solution}
+massas <- na.omit(starwars$mass)
+max_massa <- max(massas)
+massas_zonder_max <- massas[-which(massas==max_massa)]
+
+gemiddelde_3 <- mean(massas_zonder_max)
+standaardafwijking_3 <- sqrt(sum((massas_zonder_max - gemiddelde_3)^2) / length(massas_zonder_max))
+```
+
+Wat valt je op als je de uitkomsten vergelijkt met de waarden van de gehele lijst? Kan je dit verklaren?
+
+Om dit te begrijpen, kan het helpen om de data te visualiseren. Maak eens een boxplot van de variabele `mass`. Tip: die zal duidelijker zijn als je hem horizontaal tekent.
+
+```{r boxplot-mass, exercise = TRUE}
+ggplot()
+```
+
+```{r boxplot-mass-solution}
+ggplot(data = starwars, aes(y = mass)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+## Mediaan en interkwartielafstand
+
+Je zou in de laatste oefening gemerkt moeten hebben dat het weglaten van een extreme waarde een enorme invloed had op de waarde van het gemiddelde en de standaardafwijking. Het gemiddelde en standaardafwijking zijn erg gevoelig voor uitschieters in de data. Een alternatieve centrummaat die minder gevoelig is voor uitschieters is de *mediaan*.
+
+### Mediaan
+
+> Om de **mediaan** van een verzameling getallen te bepalen, sorteer je eerst alle getallen en neem je de middelste waarde. Als er een even aantal waarden is, neem je het gemiddelde van de twee middelste.
+
+In R kan je de functie `median()` gebruiken:
+
+```{r}
+x <- c(6, 13,  2,  2, 20, 17, 1, 16, 19,  8, 12, 16, 13, 13,  1,  5, 10,  5, 10, 12)
+median(x)
+```
+
+### Kwartielen en interkwartielafstand
+
+De spreidingsmaat geassocieerd met de mediaan is de *interkwartielafstand*. Eerst definiëren we wat een *kwartiel* is:
+
+> Een **kwartiel** is een van de drie getallen in de gesorteerde rij die de verzameling zo goed mogelijk verdeelt in vier even grote delen. Men spreekt (van klein naar groot) van het eerste, tweede en derde kwartiel en noteert $Q_1$, $Q_2$ en $Q_3$.
+
+Merk op dat $Q_2$ overeenkomt met de mediaan!
+
+> De **Interkwartielafstand** is het verschil tussen het derde en eerste kwartiel, $Q_3 - Q_1$
+
+In R bereken je de interkwartielafstand met de functie `IQR()` (afkorting van *InterQuartile Range*):
+
+```{r}
+IQR(x)
+```
+
+Tussen het eerste en derde kwartiel ligt *de helft* van alle datapunten.
+
+Een boxplot is een visuele weergave van de mediaan en de kwartielen:
+
+```{r}
+quartiles <- quantile(starwars$height, c(0.25, 0.5, 0.75), na.rm = TRUE)
+ggplot(data = starwars, mapping = aes(y = height)) +
+  geom_boxplot() +
+  coord_flip() +
+  annotate(geom = "text", x =  0.1, y = quartiles[1], label = "Q_1", col = "red") +
+  annotate(geom = "text", x = -0.1, y = quartiles[2], label = "Q_2", col = "red") +
+  annotate(geom = "text", x =  0.1, y = quartiles[3], label = "Q_3", col = "red")
+
+```
+
+### Percentielen
+
+Het concept van kwartielen kan je veralgemenen tot zgn. *percentielen*.
+
+> Het **n-de percentiel** (of **percentiel n**) is een getal in een van klein naar groot gesorteerde rij getallen waarbij $n$ percent van de waarden *links* ligt.
+
+In R kan je de functie `quantile()` gebruiken. Je geeft als argumenten de lijst getallen mee en een lijst met de percentielen die je wil berekenen, uitgedrukt als een fractie van 1. Bijvoorbeeld:
+
+```{r}
+quantile(starwars$height,
+         c(0, 0.25, 0.5, 0.75, 1),
+         na.rm = TRUE)
+```
+
+Hier worden dus percentielen 0 (het minimum), 25 ($Q_1$), 50 (de mediaan of $Q_2$), 75 ($Q_3$) en 100 (het maximum) berekend.
+
+### Oefening 1
+
+Bereken voor de variabele `starwars$mass` de mediaan (79) en interkwartielafstand (28.9). Vergeet niet ontbrekende waarden weg te filteren!
+
+```{r oef-mediaan-iqr-mass, exercise = TRUE}
+
+```
+
+```{r oef-mediaan-iqr-mass-solution}
+median(starwars$mass, na.rm = TRUE)
+IQR(starwars$mass, na.rm = TRUE)
+```
+
+Bereken ook de percentielen 5, 75, 95 en 100 (uitkomsten resp. 79, 84.5, 136.4 en 1358):
+
+```{r oef-percentielen-mass, exercise = TRUE}
+
+```
+
+```{r oef-percentielen-mass-solution}
+quantile(starwars$mass, na.rm = TRUE,
+         c(.5, .75, .95, 1))
+```
+
+### Oefening 2
+
+We laten opnieuw de grootste (extreme) waarde van `starwars$massas` weg. Bereken mediaan en interkwartielafstand. Is de impact zo groot als bij het gemiddelde en standaardafwijking?
+
+```{r oef-median-outlier, exercise = TRUE}
+massas <- na.omit(starwars$mass)
+max_massa <- max(massas)
+massas_zonder_max <- massas[-which(massas==max_massa)]
+
+
+
+```
+
+```{r oef-median-outlier-solution}
+massas <- na.omit(starwars$mass)
+max_massa <- max(massas)
+massas_zonder_max <- massas[-which(massas==max_massa)]
+
+median(massas_zonder_max)
+IQR(massas_zonder_max)
+```
+
+## Datasaurus dozen
+
+Wanneer je in een dataset op verkenning gaat, is één van de eerste dingen die je gaat doen het berekenen van de centrum- en spreidingsmaten van de belangrijkste variabelen. Het is dan wel belangrijk om te beseffen dat deze slechts een heel beperkt idee geven over de data. Het gemiddelde en de standaardafwijking, bijvoorbeeld, geven een heel vertekend beeld als de data extreme uitschieters bevat. Daarom is het altijd belangrijk om de data ook te visualiseren. De "[Datasaurus Dozen](https://www.autodeskresearch.com/publications/samestats)" is een dataset die specifiek ontworpen is om dit te illustreren. De dataset is beschikbaar in R in de bibliotheek `datasauRus`, en bestaat uit verschillende "deelverzamelingen", aangegeven in de variabele `dataset`:
+
+```{r, echo=TRUE}
+library(datasauRus)
+unique(datasaurus_dozen$dataset)
+```
+
+Om het gemiddelde en standaardafwijking van een deelverzameling te berekenen ga je als volgt te werk:
+
+```{r, echo=TRUE}
+circle <- datasaurus_dozen %>% 
+  filter(dataset == "circle") %>%
+  select(c("x", "y"))
+
+sprintf("x: mean = %.1f sd = %.1f", 
+       mean(circle$x), 
+       sd(circle$x))
+sprintf("y: mean = %.1f sd = %.1f", 
+       mean(circle$y), 
+       sd(circle$y))
+```
+
+Doe nu hetzelfde voor de andere deelverzamelingen. Wat valt je op als je de centrum- en spreidingsmaten vergelijkt?
+
+```{r datasaurus-summary, exercise=TRUE}
+datasaurus_subset <- datasaurus_dozen %>% 
+  filter(dataset == "dino") %>%
+  select(c("x", "y"))
+
+sprintf("x: mean = %.1f sd = %.1f", 
+       mean(datasaurus_subset$x), 
+       sd(datasaurus_subset$x))
+sprintf("y: mean = %.1f sd = %.1f", 
+       mean(datasaurus_subset$y), 
+       sd(datasaurus_subset$y))
+```
+
+Als je de resultaten vergelijkt, zou je verwachten dat de data van alle deelverzamelingen gelijkaardig is. Niets is minder waar! Kijk maar eens naar de plots:
+
+```{r}
+ggplot(datasaurus_dozen, aes(x=x, y=y, colour=dataset)) +
+    geom_point() +
+    theme_void() +
+    theme(legend.position = "none") +
+    facet_wrap(~dataset, ncol=3)
+```
+
+## Geschikte centrum- en spreidingsmaten
+
+### Centrummaten
+
+```{r quiz-centrummaten, echo=FALSE}
+quiz(caption = "Welke *centrummaat* is geschikt voor de gegeven variabele?",
+  question("`starwars$height` (de lengte in cm van personages uit Star Wars)",
+           answer("Gemiddelde", correct = TRUE),
+           answer("Modus", message = "De modus kan je gebruiken bij *kwalitatieve* variabelen, niet bij quantitatieve zoals deze!"),
+           answer("Standaardafwijking", message = "We vroegen naar een *centrummaat*, maar dit is een *spreidingsmaat*!"),
+           answer("Interkwartielafstand", message = "We vroegen naar een *centrummaat*, maar dit is een *spreidingsmaat*!"),
+           random_answer_order = TRUE),
+  question("`starwars$gender` (het geslacht van personages uit Star Wars, bv. 'female', 'hermaphrodite', enz.)",
+           answer("Gemiddelde", message = "Het gemiddelde kan je gebruiken bij *quantitatieve* variabelen, niet bij kwalitatieve zoals deze!"),
+           answer("Modus", correct = TRUE),
+           answer("Standaardafwijking", message = "We vroegen naar een *centrummaat*, maar dit is een *spreidingsmaat*!"),
+           answer("Interkwartielafstand", message = "We vroegen naar een *centrummaat*, maar dit is een *spreidingsmaat*!"),
+           random_answer_order = TRUE),
+  question("`starwars$mass` (gewicht in kg van personages uit Star Wars)",
+           answer("Mediaan", correct = TRUE),
+           answer("Modus", message = "De modus kan je gebruiken bij *kwalitatieve* variabelen, niet bij quantitatieve zoals deze!"),
+           answer("Standaardafwijking", message = "We vroegen naar een *centrummaat*, maar dit is een *spreidingsmaat*!"),
+           answer("Interkwartielafstand", message = "We vroegen naar een *centrummaat*, maar dit is een *spreidingsmaat*!"),
+           random_answer_order = TRUE)
+)
+```
+
+### Spreidingsmaten
+
+```{r quiz-spreidingsmaten, echo=FALSE}
+quiz(caption = "Welke *spreidingsmaat* is geschikt voor de gegeven variabele?",
+  question("`starwars$mass` (gewicht in kg van personages uit Star Wars)",
+           answer("Standaardafwijking", correct = TRUE),
+           answer("Geen", message = "Toch wel!"),
+           answer("Gemiddelde", message = "We vroegen naar een *spreidingsmaat*, maar dit is een *centrummaat*!"),
+           answer("Modus", message = "We vroegen naar een *centrummaat*, maar dit is een *spreidingsmaat*!"),
+           random_answer_order = TRUE),
+  question("`starwars$hair_color` (de haarkleur van personages uit Star Wars, bv. 'auburn', 'black', enz.)",
+           answer("Interkwartielafstand", message = "De interkwartielafstand kan je gebruiken bij *quantitatieve* variabelen, niet bij kwalitatieve zoals deze!"),
+           answer("Geen", correct = TRUE, message = "Inderdaad! Voor een kwalitatieve variabele is er geen spreidingsmaat."),
+           answer("Modus", message = "We vroegen naar een *spreidingsmaat*, maar dit is een *centrummaat*!"),
+           answer("Mediaan", message = "We vroegen naar een *spreidingsmaat*, maar dit is een *centrummaat*!"),
+           random_answer_order = TRUE),
+  question("`starwars$height` (de lengte in cm van personages uit Star Wars)",
+           answer("Interkwartielafstand", correct = TRUE),
+           answer("Geen", message = "Toch wel!"),
+           answer("Modus", message = "We vroegen naar een *spreidingsmaat*, maar dit is een *centrummaat*!"),
+           answer("Gemiddelde", message = "We vroegen naar een *spreidingsmaat*, maar dit is een *centrummaat*!"),
+           random_answer_order = TRUE)
+)
+```
+
+
+
+## Samenvatting
+
+De belangrijkste centrum- en spreidingsmaten voor de verschillende meetniveaus zijn gegeven in onderstaande tabel:
+
+| Meetniveau   | Centrummaat | Spreidingsmaat                |
+| :---         | :---        | :---                          |
+| Kwalitatief  | Modus       | -                             |
+| Quantitatief | Gemiddelde  | Variantie, standaardafwijking |
+|              | Mediaan     | Interkwartielafstand          |
+
+De belangrijkste R-functies hiervoor zijn:
+
+| Maat                 | R-functie      |
+| :---                 | :---           |
+| Gemiddelde           | `mean()`       |
+| Interkwartielafstand | `IQR()`        |
+| Mediaan              | `median()`     |
+| Modus                | --             |
+| Percentielen         | `quantiles()`  |
+| Standaardafwijking   | `sd()`         |
+| Variantie            | `var()`        |
+
+Voor meer uitleg over elke functie, gebruik de helpfunctie via het `?`-commando, bv. `?mean`. Let op dat `sd()` en `var()` anders gedefinieerd zijn dan hierboven gedefinieerd. De verschillen komen later in deze cursus nog aan bod.

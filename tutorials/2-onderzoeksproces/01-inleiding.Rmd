@@ -1,0 +1,143 @@
+---
+title: "Inleiding"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(learnr)
+library(ggmosaic)
+checker <- function(label, user_code, check_code, envir_result, evaluate_result, ...) {
+  list(message = check_code, correct = TRUE, location = "append")
+}
+tutorial_options(exercise.checker = checker)
+```
+
+## Soorten variabelen
+
+TODO
+
+```{r quiz-meetniveaus, echo=FALSE}
+quiz(caption = "Wat is het meetniveau van volgende variabelen?",
+     question("Temperatuur in °C",
+              answer("Nominaal"),
+              answer("Ordinaal"),
+              answer("Interval", correct = TRUE),
+              answer("Ratio"),
+              allow_retry = TRUE),
+     question("Haarkleur",
+              answer("Nominaal", correct = TRUE),
+              answer("Ordinaal"),
+              answer("Interval"),
+              answer("Ratio"),
+              allow_retry = TRUE),
+     question("Kleur judogordel",
+              answer("Nominaal"),
+              answer("Ordinaal", correct = TRUE),
+              answer("Interval"),
+              answer("Ratio"),
+              allow_retry = TRUE)
+)
+```
+
+## Dataframes
+
+lorem ipsum dolor sit amet
+
+```{r}
+starwars
+```
+
+```{r quiz-aantal-rijen-kolommen, echo=FALSE}
+quiz(caption = "Jouw beurt!",
+     question("Hoeveel rijen heeft deze tabel?",
+              answer("9"),
+              answer("10"),
+              answer("13"),
+              answer("87", correct = TRUE),
+              allow_retry = TRUE),
+     question("Hoeveel kolommen heeft deze tabel?",
+              answer("9"),
+              answer("10"),
+              answer("13", correct = TRUE),
+              answer("87"),
+              allow_retry = TRUE)
+)
+```
+
+Toon de tiende lijn van de dataset.
+
+```{r selection-tenth, exercise=TRUE, exercise.eval=FALSE}
+starwars[___] filter
+```
+
+
+Selecteer uit de dataset alle informatie over Yoda.
+
+```{r selection-yoda, exercise=TRUE, exercise.eval=FALSE}
+starwars___
+```
+
+
+
+## Visualisatie van data
+
+### Kwalitatieve data
+
+```{r, echo=FALSE}
+ggplot(data = starwars, mapping = aes(x = skin_color)) +
+  geom_bar() +
+  coord_flip()
+```
+
+### Quantitatieve data
+
+Boxplot
+
+```{r, echo=FALSE}
+ggplot(data = starwars, mapping = aes(y = height)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+Histogram
+
+```{r, echo=FALSE}
+ggplot(data = starwars, mapping = aes(x = height)) +
+  geom_histogram()
+```
+
+Dichtheidsplot
+
+```{r, echo=FALSE}
+ggplot(data = starwars, mapping = aes(x = height)) +
+  geom_density()
+```
+
+### Spreidingsdiagram
+
+Ook: XY-diagram, Eng. scatterplot.
+
+```{r, echo=FALSE}
+ggplot(data = starwars, 
+       mapping = aes(x = height, y = mass, color = gender)) +
+  geom_point()
+```
+
+Voorlopig houden we het hier bij. Later in de cursus worden nog meer visualisatietechnieken besproken.
+
+```{r, echo=FALSE}
+ggplot(data = starwars) +
+  geom_mosaic(aes(x = product(eye_color, gender), fill = eye_color))
+```
+
+```{r, echo=FALSE}
+ggplot(data = starwars, mapping = aes(x = gender, fill = eye_color)) +
+  geom_bar(position = position_fill())
+```
+
+
