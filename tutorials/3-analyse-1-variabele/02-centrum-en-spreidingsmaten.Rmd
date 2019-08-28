@@ -74,7 +74,7 @@ mean(x)                             # Functie mean() gebruiken
 
 De **variantie** van een steekproef, $s^2$, is een spreidingsmaat die gedefinieerd is als:
 
-$s^2 = \frac{1}{n-1} \sum_{i = 1}^{n}(x_i - \mu)^2$
+$s^2 = \frac{1}{n-1} \sum_{i = 1}^{n}(x_i - \overline{x})^2$
 
 In R:
 
@@ -84,7 +84,7 @@ sample_variance
 var(x)
 ```
 
-De **standaardafwijking** van een steekproef, $s$ is de vierkantswortel van de variantie: $s = \sqrt{s^2}$
+De **standaardafwijking** van een steekproef, $s$ is de vierkantswortel van de variantie: $s = \sqrt{s^2}$:
 
 ```{r}
 sqrt(sample_variance)
@@ -166,6 +166,37 @@ ggplot(data = starwars, aes(y = mass)) +
   geom_boxplot() +
   coord_flip()
 ```
+
+## Oefening 4
+
+Je kan in R ook centrum- en spreidingsmaten gegroepeerd berekenen, bv. de lengte van de Starwars-personages, onderverdeeld volgens gender:
+
+```{r aggregate}
+aggregate(starwars$height ~ starwars$gender, FUN = mean)
+```
+
+De `~` operator wordt regelmatig gebruikt in R en kan je lezen als "... onderverdeeld volgens..." of "... gegroepeerd per...". Dus `height ~ gender` is "de lengtes onderverdeeld volgens gender".
+
+Probeer zelf om een overzicht van de gemiddelden en standaardafwijkingen van `mass`, gegroepeerd volgens `gender`:
+
+```{r boxplot-mass, exercise = TRUE}
+# gemiddelde van mass, gegroepeerd op gender
+aggregate(...)
+
+# standaardafwijking van mass, gegroepeerd op gender
+aggregate(...)
+```
+
+Ter controle, de te verwachten uitkomsten:
+
+|  `starwars$gender` |     Gemiddelde  | Standaardafwijking |
+|               ---: |            ---: |               ---: |
+|          female    |       54.02000  |            8.37215 |
+|   hermaphrodite    |     1358.00000  |                 NA |
+|            male    |       81.00455  |           28.22371 |
+|            none    |      140.00000  |                 NA |
+
+Waarom is voor twee waarden de standaardafwijking NA? Probeer dit te achterhalen door alle waarden voor die specifieke genders op te vragen.
 
 ## Mediaan en interkwartielafstand
 
