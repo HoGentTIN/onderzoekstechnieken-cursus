@@ -1,4 +1,4 @@
-\chapter{De centrale limietstelling en betrouwbaarheidsintervallen}
+\chapter{De centrale limietstelling}
 \label{ch:centrale-limietstelling}
 
 In dit hoofdstuk wordt de Centrale Limietstelling geïntroduceerd (zie Sectie~\ref{sec:centrale-limietstelling}). Dit is voor het vakgebied van de statistiek een enorm belangrijk resultaat omdat de gehele theorie van statistische toetsen (zie Hoofdstuk~\ref{ch:toetsingsprocedures}) hierop gebaseerd is. De Centrale Limietstelling laat toe om metingen op basis van een steekproef onder bepaalde voorwaarden te veralgemenen naar de populatie als geheel.
@@ -6,6 +6,30 @@ In dit hoofdstuk wordt de Centrale Limietstelling geïntroduceerd (zie Sectie~\r
 We bespreken eveneens het concept van puntschatters en betrouwbaarheidsintervallen. Een puntschatter is een getal dat berekend wordt uit de steekproef, waarmee men een schatting wil maken van een eigenschap van de populatie. Het steekproefgemiddelde $\overline{x}$ is bijvoorbeeld een puntschatter voor het populatiegemiddelde $\mu$. Een betrouwbaarheidsinterval drukt uit tussen welke grenzen men vermoed dat een bepaalde waarde zich bevindt, en hoe zeker men hiervan is. Een 95\%-betrouwbaarheidsinterval voor het populatiegemiddelde, bijvoorbeeld, is een interval dat opnieuw berekend is aan de hand van de steekproef, waarvan we--onder duidelijke voorwaarden--met 95\% zekerheid kunnen zeggen dat het populatiegemiddelde er in zal liggen.
 
 Voordat we deze begrippen kunnen introduceren, is het nodig eerst enkele begrippen uit de kansrekening te herhalen (zie Sectie~\ref{sec:kansverdeling-steekproef}) en de normale verdeling  (zie Sectie~\ref{sec:normale-verdeling}) te bespreken.
+
+\section{Leerdoelen}
+\label{sec:centrale-limietstelling-leerdoelen}
+
+Na dit hoofdstuk moet je in staat zijn om:
+
+\begin{itemize}
+  \item De volgende begrippen uit te leggen en toe te passen:
+  \begin{itemize}
+    \item Uitkomstenruimte (universum), gebeurtenis, kansruimte, kans, discrete/continue kansverdeling
+    \item Puntschatter, betrouwbaarheidsinterval
+  \end{itemize}
+  \item De kansverdeling van de normale verdeling met gegeven gemiddelde en standaardafwijking te schetsen (Gauss-curve) en gemiddelde en standaardafwijking erop aan te duiden;
+  \item De $z$-score van een waarde in een normaal verdeelde stochastische variabele te berekenen;
+  \item De linker- ($P(X<x)$) en rechterstaartkans ($P(X>x)$) of combinaties van beide (bv. $P(x<X<y)$) voor een waarde in een normaal verdeelde stochastische variabele te berekenen, en daarbij waar nodig gebruik te maken van de symmetrieregel en de 100\%-regel;
+  \item Van een gegeven stochastische variabele te bepalen in hoeverre ze normaal verdeeld is a.h.v.~de kansdichtheidscurve, QQ-plot, scheefheid of kurtosis;
+  \item De centrale limietstelling te formuleren (i.h.b. te weten welke kansverdeling het steekproefgemiddelde volgt) en het belang ervan voor statistische analyse uit te leggen.
+  \item Een betrouwbaarheidsinterval voor het populatiegemiddelde van een steekproef met een gegeven betrouwbaarheidsniveau te berekenen in volgende gevallen:
+  \begin{itemize}
+    \item een grote steekproef met gekende populatievariantie
+    \item een kleine steekproef of onbekende populatievariantie
+    \item een populatiefractie
+  \end{itemize}
+\end{itemize}
 
 \section{Kansverdeling van een steekproef}
 \label{sec:kansverdeling-steekproef}

@@ -7,6 +7,25 @@ In de ict-beroepspraktijk zijn er echter ook vele toepassingen waar het nodig is
 
 In dit hoofdstuk gaan we dit soort data onder de loep nemen en de belangrijkste analysemethoden bespreken.
 
+\section{Leerdoelen}
+\label{sec:tijdreeksen-leerdoelen}
+
+Na dit hoofdstuk moet je in staat zijn om:
+
+\begin{itemize}
+  \item Volgende begrippen uit dit hoofdstuk uit te leggen:
+  \begin{itemize}
+    \item Tijdreeks, voortschrijdend gemiddelde
+  \end{itemize}
+  \item Gegeven een tijdserie, d.w.z. een reeks observaties van een tijdreeks:
+  \begin{itemize}
+    \item Het voortschrijdend gemiddelde toepassen;
+    \item Op basis van een plot van de observaties inschatten welke vorm van exponentiële afvlakking (enkelvoudige, dubbele, driedubbele/Holt-Winters) het meest geschikt is;
+    \item Een voorspelling maken van waarden in de toekomst;
+  \end{itemize}
+  \item De formules voor voortschrijdend gemiddelde en exponentiële afvlakking te begrijpen en uit te leggen, meer bepaald het effect van de waarde van parameters te kunnen inschatten;
+\end{itemize}
+
 \section{Tijdreeksen \& voorspellingen}
 
 \begin{definition}[Tijdreeks]
@@ -220,15 +239,14 @@ met $k = t-m+1$. $m$ is de time range en is de parameter van de methode.
 
 \subsection{Meten van de nauwkeurigheid van voorspellingen}
 
-\begin{table}
-  \centering
-\begin{tabular}{|lllllllllll|}
-
-\end{tabular}
-\caption{Voorspellingsfout voor een moving average $m = 10$}
-\label{tab:error}
-\end{table}
-
+%\begin{table}
+%  \centering
+%\begin{tabular}{|lllllllllll|}
+%
+%\end{tabular}
+%\caption{Voorspellingsfout voor een moving average $m = 10$}
+%\label{tab:error}
+%\end{table}
 
 Een methode om de voorspelling te meten is het gemiddelde van de deviaties (Eng.~\emph{Mean Absolute Deviation}, afgekort $MAD$): gemiddelde absolute verschil tussen het voorspelde en de werkelijke waarden van de tijdreeks.
 
