@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="progressive" content="false" />
+<meta name="allow-skip" content="false" />
+
+<title>De normale verdeling</title>
+
+
+<!-- highlightjs -->
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+
+
+<div class="pageContent band">
+<div class="bandContent page">
+
+<div class="topics">
+
+<div id="section-leerdoelen" class="section level2">
+<h2>Leerdoelen</h2>
+<p>Na deze tutorial:</p>
+<ul>
+<li>Kan je een Gauss-curve voor een normale verdeling of de Student-t verdeling plotten</li>
+<li>Een histogram met kansdichtheidscurve voor een steekproef plotten</li>
+<li>De R-functies gerelateerd aan de normale verdeling (<code>dnorm()</code>, <code>pnorm()</code>, <code>qnorm()</code>, <code>rnorm()</code>) en de Student-t verdeling (<code>dt()</code>, <code>pt()</code>, <code>qt()</code>, <code>rt()</code>) toepassen</li>
+<li>Kansrekenen met de normaalverdeling (linker- en rechterstaartkans of combinaties)</li>
+</ul>
+</div>
+<div id="section-een-normale-verdeling-visualiseren" class="section level2">
+<h2>Een normale verdeling visualiseren</h2>
+<p>Om het plotten van een Gausscurve voor een normale verdeling te vergemakkelijken, definiëren we hier een functie <code>gauss_plot</code>:</p>
+<pre class="r"><code>gauss_plot &lt;- function(mean = 0, sd = 1, num_points = 200) {
+  # Create a vector of &quot;interesting&quot; x-values, i.e. the region where
+  # the density function is above 0
+  x &lt;- seq(from = mean - 4 * sd,
+           to =   mean + 4 * sd, 
+           length.out = num_points)
+  # Calculate the probability density for the specified normal distribution
+  y &lt;- dnorm(x, mean, sd)
+  
+  # Plot the function
+  ggplot() +
+    geom_line(aes(x = x, y = y))
+}</code></pre>
+<p>Voor een gegeven gemiddelde (<code>mean</code>) en standaardafwijking (<code>stdev</code>) zal de functie een Gausscurve tekenen voor die normale verdeling. De R-functie <code>dnorm(x, mean, sd)</code> geeft de hoogte van de Gausscurve op punt <code>x</code> voor een normaal verdeelde variabele met gemiddelde <code>mean</code> en standaardafwijking <code>sd</code>.</p>
+<p>Als je geen argumenten opgeeft, zal de standaardnormale verdeling getekend worden. Het gemiddelde ligt altijd in het midden en naar de randen van de grafiek toe is de kansdichtheid zeer dicht bij 0.</p>
+<p>Probeer dit zelf uit. Geef verschillende waarden voor het gemiddelde en standaardafwijking op en probeer het geval van de standaardnormaalverdeling (geen argumenten meegeven).</p>
+<div class="tutorial-exercise" data-label="use-plot-function" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>gauss_plot(mean = 100, sd = 5)</code></pre>
+<img src="01-normale-verdeling_files/figure-html/use-plot-function-1.png" width="624" />
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<p>Wat je zou moeten opvallen is dat de schaal op de x- en y-assen telkens veranderen, maar dat de <em>vorm</em> van de curve altijd dezelfde is.</p>
+<p>De kansdichtheidsfunctie voor de normaalverdeling heeft enkele interessante eigenschappen:</p>
+<ul>
+<li>de totale oppervlakte tussen de x-as en de curve is 1</li>
+<li>de curve is symmetrisch met het gemiddelde als middelpunt</li>
+</ul>
+</div>
+<div id="section-histogram-en-kansdichtheidscurve-van-een-steekproef" class="section level2">
+<h2>Histogram en kansdichtheidscurve van een steekproef</h2>
+<p>Wanneer je de waarden van een variabele uit een steekproef hebt, dan kan je er van uit gaan dat deze niet trouw de Gauss-curve zal volgen. Soms is het nuttig dit te visualiseren om te zien hoe groot de afwijkingen zijn. Je kan een dichtheidsplot maken (<code>geom_density()</code>) of, zoals we hier zullen doen, een histogram plotten met de theoretische kansdichtheid (op basis van steekproefgemiddelde en -standaardafwijking).</p>
+<p>Laten we eerst de steekproef definiëren door een aantal willekeurige getallen te genereren die normaal verdeeld zijn:</p>
+<pre class="r"><code>n &lt;- 10000
+m &lt;- 5
+s &lt;- 1.5
+observations &lt;- rnorm(n = n, mean = m, sd = s)</code></pre>
+<p>De functie <code>rnorm(n, mean, sd)</code> genereert <code>n</code> willekeurige getallen die normaal verdeeld zijn met gemiddelde <code>m</code> en standaardafwijking <code>s</code>.</p>
+<p>Een histogram tekenen we zo:</p>
+<pre class="r"><code>ggplot() +
+  geom_histogram(aes(observations), bins = 30)</code></pre>
+<p><img src="01-normale-verdeling_files/figure-html/sample-histo-1.png" width="624" /></p>
+<p>Om de dichtheidsfunctie te kunnen plotten, berekenen we de punten van de theoretische distributie:</p>
+<pre class="r"><code>dx &lt;- seq(from = m - 4 * s, to = m + 4 * s, length.out = 200)
+dy &lt;- dnorm(dx, m, s)</code></pre>
+<p>De plot wordt dan:</p>
+<pre class="r"><code>ggplot() +
+  geom_histogram(aes(observations, stat(density)), bins = 30, fill = &quot;grey70&quot;) +
+  geom_line(aes(x = dx, y = dy), color = &quot;red&quot;)</code></pre>
+<p><img src="01-normale-verdeling_files/figure-html/sample-histo-density-1.png" width="624" /></p>
+<p>Merk op dat we <code>stat(density)</code> gebruiken om de relatieve frequenties te tonen i.p.v. de absolute. De theoretische kansdichtheidsfunctie bevat waarden tussen 0 en 1 en die zou niet zichtbaar zijn op het histogram met de absolute frequenties.</p>
+<p>Om alles aan elkaar te hangen, definiëren we hier een functie die voor een gegeven steekproef een histogram met theoretische kansdichtheidsfunctie tekent:</p>
+<pre class="r"><code>density_hist &lt;- function(x) {
+  n &lt;- length(x)               # sample size
+  m &lt;- mean(x, na.rm = TRUE)   # sample mean
+  s &lt;- sd(x, na.rm = TRUE)     # sample standard deviation
+  
+  # theoretical density function
+  dx &lt;- seq(from = m - 4 * s, to = m + 4 * s, length.out = 200)
+  dy &lt;- dnorm(dx, m, s)
+  
+  # plot
+  ggplot() +
+    geom_histogram(aes(x, stat(density)), bins = 30, fill = &quot;grey70&quot;) +
+    geom_line(aes(x = dx, y = dy), color = &quot;red&quot;)
+}</code></pre>
+<div id="section-oefening-1" class="section level3">
+<h3>Oefening 1</h3>
+<p>Speel zelf met de functie, en probeer bijvoorbeeld de steekproef veel kleiner te maken. Kleinere steekproeven geven typisch grotere afwijkingen van de theoretische dichtheidsfunctie.</p>
+<div class="tutorial-exercise" data-label="ex-plot-rnorm" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>density_hist(rnorm(n = 10000, mean = 5, sd = 1.5))</code></pre>
+<img src="01-normale-verdeling_files/figure-html/ex-plot-rnorm-1.png" width="624" />
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+</div>
+<div id="section-oefening-2" class="section level3">
+<h3>Oefening 2</h3>
+<p>Stel dat we willen onderzoeken of de lengte van Starwars-karakters normaal verdeeld is. Gebruik de <code>density_hist()</code> function om hier een plot van te maken.</p>
+<div class="tutorial-exercise" data-label="ex-plot-height" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>density_hist()</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":false,"message":true,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<p>En? Is de variabele normaal verdeeld, denk je?</p>
+</div>
+</div>
+<div id="section-kansverdeling-in-de-normale-verdeling" class="section level2">
+<h2>Kansverdeling in de normale verdeling</h2>
+<p>Een interessante eigenschap van de normale verdeling is dat ze toelaat om aan kansberekening te doen. Als je weet dat een bepaalde stochastische variabele <span class="math inline">\(X\)</span> normaal verdeeld is met een zeker gemiddelde <span class="math inline">\(\mu\)</span> en standaardafwijking <span class="math inline">\(\sigma\)</span> (notatie: <span class="math inline">\(X \sim N(\mu, \sigma)\)</span>), dan mag je ook verwachten dat de observaties in een steekproef op een systematische manier verspreid liggen. Onderstaande afbeelding illustreert dit:</p>
+<p><img src="01-normale-verdeling_files/figure-html/norm-dist-prob-1.png" width="624" /></p>
+<p>In de afbeelding zie je de standaardnormaalverdeling, maar de manier waarop de observaties zullen verspreid liggen geldt voor elke normale verdeling:</p>
+<ul>
+<li>in het interval <span class="math inline">\([\mu- \sigma, \mu+ \sigma]\)</span> ligt ongeveer 68.28% van de data;</li>
+<li>in het interval <span class="math inline">\([\mu-2\sigma, \mu+2\sigma]\)</span> ligt ongeveer 95.45% van de data;</li>
+<li>in het interval <span class="math inline">\([\mu-3\sigma, \mu+3\sigma]\)</span> ligt ongeveer 99.28% van de data.</li>
+</ul>
+<p>Dan kan je ook vragen gaan beantwoorden als “wat is de kans dat ik uit een normaal verdeelde populatie een getal selecteer dat kleiner is dan <span class="math inline">\(x\)</span>?”. We noteren deze kans <span class="math inline">\(P(X &lt; x)\)</span> en noemen dit de <strong>linkerstaartkans</strong>. Grafisch:</p>
+<p><img src="01-normale-verdeling_files/figure-html/left-tail-prob-1.png" width="624" /></p>
+<p>De linkerstaartkans voor <span class="math inline">\(x\)</span> is het gekleurde gebied onder de Gauss-curve. Deze waarde is zo vaak nodig dat er een functie voor voorzien is: <code>pnorm()</code>.</p>
+<p>TODO: voorbeelden en oefeningen</p>
+</div>
+<div id="section-de-student-t-verdeling-visualiseren" class="section level2">
+<h2>De Student-t verdeling visualiseren</h2>
+<p><img src="01-normale-verdeling_files/figure-html/student-t-1.png" width="624" /></p>
+</div>
+<div id="section-samenvatting" class="section level2">
+<h2>Samenvatting</h2>
+<p>Functies voor kansberekening bij de <strong>normaalverdeling</strong> met gemiddelde <code>m</code> en standaardafwijking <code>s</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Functie</th>
+<th align="left">Betekenis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>pnorm(x, m, s)</code></td>
+<td align="left">Linkerstaartkans <span class="math inline">\(P(X&lt;x)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>dnorm(x, m, s)</code></td>
+<td align="left">Hoogte van de Gausscurve op punt <code>x</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>qnorm(p, m, s)</code></td>
+<td align="left">Onder welke grens zal <code>p</code>% van de waarnemingen liggen?</td>
+</tr>
+<tr class="even">
+<td align="left"><code>rnorm(n, m, s)</code></td>
+<td align="left">Genereer <span class="math inline">\(n\)</span> willekeurige normaal verdeelde getallen</td>
+</tr>
+</tbody>
+</table>
+<p>Functies voor kansberekening bij de <strong>Student-t</strong> verdeling met <code>df</code> vrijheidsgraden.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Functie</th>
+<th align="left">Betekenis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>pt(x, df)</code></td>
+<td align="left">Linkerstaartkans <span class="math inline">\(P(X&lt;x)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>dt(x, df)</code></td>
+<td align="left">Hoogte van de dichtheidsfunctie op punt <code>x</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>qt(p, df)</code></td>
+<td align="left">Onder welke grens zal <code>p</code>% van de waarnemingen liggen?</td>
+</tr>
+<tr class="even">
+<td align="left"><code>rt(n, df)</code></td>
+<td align="left">Genereer <span class="math inline">\(n\)</span> willekeurige getallen volgens de gegeven verdeling</td>
+</tr>
+</tbody>
+</table>
+
+<script type="application/shiny-prerendered" data-context="server-start">
+library(learnr)
+library(tidyverse)
+library(ggplot2)
+#knitr::opts_chunk$set(echo = FALSE)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-use-plot-function-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-use-plot-function-code-editor`)), session)
+output$`tutorial-exercise-use-plot-function-output` <- renderUI({
+  `tutorial-exercise-use-plot-function-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-ex-plot-rnorm-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-ex-plot-rnorm-code-editor`)), session)
+output$`tutorial-exercise-ex-plot-rnorm-output` <- renderUI({
+  `tutorial-exercise-ex-plot-rnorm-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-ex-plot-height-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-ex-plot-height-code-editor`)), session)
+output$`tutorial-exercise-ex-plot-height-output` <- renderUI({
+  `tutorial-exercise-ex-plot-height-result`()
+})
+</script>
+ <!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["1.14"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9.2.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.9.2.1"]}]}]}
+</script>
+<!--/html_preserve-->
+<!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","broom","cellranger","cli","colorspace","compiler","crayon","datasets","digest","dplyr","evaluate","forcats","generics","ggplot2","glue","graphics","grDevices","grid","gtable","haven","hms","htmltools","htmlwidgets","httpuv","httr","jsonlite","knitr","labeling","later","lattice","lazyeval","learnr","lubridate","magrittr","markdown","methods","mime","modelr","munsell","nlme","pillar","pkgconfig","plyr","promises","purrr","R6","Rcpp","readr","readxl","rlang","rmarkdown","rprojroot","rstudioapi","rvest","scales","shiny","stats","stringi","stringr","tibble","tidyr","tidyselect","tidyverse","tools","utils","vctrs","withr","xfun","xml2","xtable","yaml","zeallot"]},{"type":"character","attributes":{},"value":["0.2.1","1.1.4","3.6.0","0.5.2","1.1.0","1.1.0","1.4-1","3.6.0","1.3.4","3.6.0","0.6.15","0.8.3","0.14","0.4.0","0.0.2","3.1.1","1.3.1","3.6.0","3.6.0","3.6.0","0.3.0","2.1.1","0.5.0","0.3.6","1.3","1.5.1","1.4.1","1.6","1.24","0.3","0.8.0","0.20-38","0.2.2","0.9.2.1","1.7.4","1.5","1.1","3.6.0","0.7","0.1.4","0.5.0","3.1-139","1.3.1","2.0.2","1.8.4","1.0.1","0.3.2","2.2.2","1.0.2","1.3.1","1.3.1","0.4.0","1.14","1.3-2","0.10","0.3.4","1.0.0","1.3.2","3.6.0","1.4.3","1.4.0","2.1.3","0.8.3","0.2.5","1.2.1","3.6.0","3.6.0","0.2.0","2.1.2","0.7","1.2.0","1.8-4","2.2.0","0.1.0"]}]}]}
+</script>
+<!--/html_preserve-->
+</div>
+
+</div> <!-- topics -->
+
+<div class="topicsContainer">
+<div class="topicsPositioner">
+<div class="band">
+<div class="bandContent topicsListContainer">
+
+<!-- begin doc-metadata -->
+<div id="doc-metadata">
+<h2 class="title toc-ignore" style="display:none;">De normale verdeling</h2>
+</div>
+<!-- end doc-metadata -->
+
+</div> <!-- bandContent.topicsListContainer -->
+</div> <!-- band -->
+</div> <!-- topicsPositioner -->
+</div> <!-- topicsContainer -->
+
+
+</div> <!-- bandContent page -->
+</div> <!-- pageContent band -->
+
+
+
+
+<script>
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+
+</html>
