@@ -317,7 +317,7 @@ Het bepalen van $X_{2}$ is een belangrijke parameter. Men kan kiezen om:
 Waarom wordt dit een exponentiële methode genoemd? Als we zouden substitueren vinden we bv. voor $X_{t-1}$:
 
 \[ X_{t} = \alpha x_{t} + (1-\alpha)\left[\alpha x_{t-1} + (1-\alpha)X_{t-2}\right] \] 
-\[ X_{t} = \alpha x_{t-1} + \alpha (1-\alpha)x_{t-1} + (1-\alpha)^{2} X_{t-2} \]
+\[ X_{t} = \alpha x_{t} + \alpha (1-\alpha)x_{t-1} + (1-\alpha)^{2} X_{t-2} \]
 of dus algemeen gesteld :
 \[ X_{t} = \alpha \sum_{i=0}^{t-2}(1-\alpha)^{i-1}x_{t-i} + (1-\alpha)^{t-2} X_{2}, t \geq 2 \]
 
