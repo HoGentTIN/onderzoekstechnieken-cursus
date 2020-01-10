@@ -7,7 +7,7 @@ De studiewijzer geeft een overzicht van de belangrijkste informatie over deze cu
 
 \subsection{Doel en plaats van de cursus in het curriculum}
 
-Deze cursus is een inleiding op wat tegenwoordig vaak \emph{data science} genoemd wordt. Het doel is om je wegwijs te maken in het correct verzamelen, verwerken en analyseren van numerieke data en daar een onderzoeksverslag over te schrijven.
+Deze cursus is een inleiding op wat tegenwoordig vaak \emph{data science} genoemd wordt. Het doel is om je wegwijs te maken in het correct verzamelen, verwerken en analyseren van numerieke data en daar een onderbouwd onderzoeksverslag over te schrijven.
 
 In de eerste plaats is dit een voorbereiding op de bachelorproef, waar je deze technieken in de praktijk zal moeten omzetten. Maar ook na je afstuderen blijft de kennis die je in deze cursus opdoet waardevol. Succesvolle bedrijven nemen beslissingen, niet op basis van buikgevoel of intuïtie, maar door het verzamelen van data. Aan de hand van de technieken die hier toegelicht worden, heb je voldoende achtergrond om vragen te beantwoorden als:
 
@@ -16,6 +16,10 @@ In de eerste plaats is dit een voorbereiding op de bachelorproef, waar je deze t
   \item Welk van twee systemen (software of hardware) is het meest performant? Is het verschil tussen beide significant, of kunnen verschillen in de metingen te wijten zijn aan het toeval?
   \item Wanneer moeten aankopen van nieuwe apparatuur (bv.~harde schijven, servers, geheugen, enz.) ingepland worden, op basis van historische gebruiksgegevens?
 \end{itemize}
+
+Deze cursus heeft niet alleen nut voor de lezer als informaticus, maar maakt van je een scherpere persoon die kritisch omgaat met informatie en data. Vandaag verspreiden verschillende bronnen data, en of het nu moedwillig is of niet, niet al deze data is even rigoreus verkregen of toont de volledige waarheid. `Fake News` is een term die vaak zijn kop opsteekt en kan vaak ontkracht worden door kritisch om te gaan met de informatie die verspreid wordt, waardoor vaak de achterliggende reden van die desinformatie duidelijk wordt. Statistiek  en data science zijn dan ook onontbeerlijk om (i) te data correct te analyseren en tot onderbouwde conclusies te komen en (ii) zelf onderzoeken uit te voeren waarbij je onderbouwde conclusies de wereld kan in sturen. 
+
+
 
 \subsection{Leerdoelen en competenties}
 
@@ -33,17 +37,19 @@ Deze vind je ook terug in de studiefiche.
 
 Verder in dit hoofdstuk vind je instructies voor het installeren van de nodige software, en een korte inleiding op het werken met R, een programmeertaal voor data-analyse.
 
-Hoofdstuk~\ref{ch:onderzoeksproces} geeft een inleiding op het verloop van een typisch onderzoeksproces en introduceert enkele basisconcepten van data-analyse.
+Hoofdstuk~\ref{ch:onderzoeksproces} geeft een inleiding op het verloop van een typisch onderzoeksproces en introduceert enkele basisconcepten van data-analyse. We introduceren het concept van het nemen van steekproeven uit een populatie.
 
-Hoofdstuk~\ref{ch:analyse1var} behandelt de analyse van een enkele variabele, meer bepaald centrum- en spreidingsmaten, en ook geschikte grafiektypes voor elk soort variabelen.
+Hoofdstuk~\ref{ch:analyse1var} behandelt de analyse van een enkele variabele, meer bepaald centrum- en spreidingsmaten, samen met geschikte grafiektypes voor elke soort variabele.
 
-Hoofdstuk~\ref{ch:steekproefonderzoek} introduceert het concept van het nemen van steekproeven uit een populatie, en de randvoorwaarden waaronder resultaten binnen een steekproef kunnen veralgemeend worden tot de gehele populatie.
+%Hoofdstuk~\ref{ch:steekproefonderzoek} introduceert het concept van het nemen van steekproeven uit een populatie, en de randvoorwaarden waaronder resultaten binnen een steekproef kunnen veralgemeend worden tot de gehele populatie.
+
+Hoofdstuk ~\ref{ch:centrale-limietstelling} herhaalt kort de stof rond kansverdelingen, waarna de centrale limietstelling aan bod komt met een onmiddelijke toepassing via betrouwbaarheidsintervallen. 
 
 Hoofdstuk~\ref{ch:toetsingsprocedures} gaat hierop verder met de algemene werkwijze voor het voeren van statistische toetsen, en specifiek met toetsen voor uitspraken over het gemiddelde van een populatie: de $z$-toets en de $t$-toets.
 
 Waar de vorige hoofdstukken telkens één variabele apart beschouwden, bekijkt Hoofdstuk~\ref{ch:analyse2var} verschillende technieken om verbanden tussen twee variabelen te leggen, afhankelijk van het variabeletype.
 
-Hoofdstuk~\ref{ch:chikwadraat} introduceert de $\chi^2$-toets, waarmee je kan nagaan of de verdeling van een steekproef relevant is voor een populatie, of in hoeverre twee steekproeven een gelijkaardige verdeling hebben.
+%Hoofdstuk~\ref{ch:chikwadraat} introduceert de $\chi^2$-toets, waarmee je kan nagaan of de verdeling van een steekproef relevant is voor een populatie, of in hoeverre twee steekproeven een gelijkaardige verdeling hebben.
 
 Hoofdstuk~\ref{ch:tijdreeksen} geeft een inleiding op het analyseren van hoe de waarde van een variabele evolueert in de tijd aan de hand van wiskundige modellen die onder bepaalde voorwaarden ook toelaten om voorspellingen te doen.
 
@@ -67,24 +73,24 @@ De software die nodig is voor dit opleidingsonderdeel is gratis/open source. Ins
 
 \textbf{Studenten afstandsleren} kunnen vragen stellen tijdens de contactmomenten. Dit zijn echter geen lesmomenten! Het rooster vind je in de Chamilo-cursus ``Informatie voor studenten TILE.''
 
-\textbf{Studenten dagonderwijs} krijgen één uur per week hoorcollege en twee uur werkcollege.
+\textbf{Studenten dagonderwijs} krijgen drie uur per week les.
 
 \subsection{Werk- en leeraanwijzingen}
 
-Het opleidingsonderdeel \emph{Onderzoekstechnieken} wordt door veel studenten als moeilijk ervaren. Dat is begrijpelijk, want het onderwerp ligt dan ook buiten de comfortzone van de doorsnee informatica-student en we weten allemaal dat wiskundige vakken niet de populairste van onze opleiding zijn.
+Het opleidingsonderdeel \emph{Onderzoekstechnieken} wordt door veel studenten als moeilijk ervaren. Dat is begrijpelijk, want het onderwerp ligt dan ook buiten de comfortzone van de doorsnee informaticastudent en we weten allemaal dat wiskundige vakken niet de populairste van onze opleiding zijn.
 
 Er zijn twee manieren om hier mee om te gaan. Je kan de weg van de minste weerstand nemen: je concentreren op de vakken die je graag doet en een dag voor het examen de cursus doornemen in de hoop dat je voldoende punten bij elkaar sprokkelt om een tien te halen. De ervaring leert dat deze strategie niet succesvol is, wat blijkt uit het lage slagingspercentage in de eerste zittijd (in academiejaar 2016-2017 was dat ca. 35\% voor het dagonderwijs en 10\% voor afstandsleren).
 
 Enkele tips om wél meteen te slagen voor dit vak:
 
 \begin{itemize}
-  \item Kom naar de theorieles en \emph{neem actief nota's};
-  \item Werk ook voor dit vak \emph{buiten de contactmomenten}. Herhaal de geziene theorie en werk oefeningen af waarmee je nog niet klaar was. Noteer zaken die je niet snapt of waar je vast zit, en stel je vraag bij het eerstvolgende werkcollege.
+  \item Kom naar de les en \emph{neem actief nota's};
+  \item Werk ook voor dit vak \emph{buiten de contactmomenten}. Herhaal de geziene theorie en werk oefeningen af waarmee je nog niet klaar was. Noteer zaken die je niet snapt of waar je vast zit, en stel je vraag bij het eerstvolgende college.
   \item Gebruik goede \emph{leertechnieken}. Je vindt een goed overzicht van leertechnieken waarvan het effect wetenschappelijk aangetoond is via de website van \emph{The Learning Scientists}\footnote{\url{http://www.learningscientists.org/}}.
   \begin{itemize}
     \item \emph{Spaced practice:} Studeer in meerdere kleine sessies (minstens één keer per week) en niet in grote blokken. Blokkeer een vast moment in je weekagenda/lesplanning.
     \item \emph{Retrieval practice:} Neem een leeg blad papier en probeer zoveel mogelijk zaken over een bepaald onderwerp op te schrijven vanuit je herinnering (dus zonder in de cursus te kijken). Controleer dit daarna aan de hand van je lesnota's en in de cursus.
-    \item \emph{Elaboration:} Stel jezelf vragen over hoe dingen (bv. formules, toetsingsprocedures, \ldots) in elkaar zitten en waarom dat zo is. Overleg met medestudenten. Vraag je lector om meer uitleg indien nodig. Leg verbanden tussen verschillende onderwerpen in de cursus (bv. vergelijk toetsingsprocedures).
+    \item \emph{Elaboration:} Stel jezelf vragen over hoe dingen (bv. formules, toetsingsprocedures \ldots) in elkaar zitten en waarom dat zo is. Overleg met medestudenten. Vraag je lector om meer uitleg indien nodig. Leg verbanden tussen verschillende onderwerpen in de cursus (bv. vergelijk toetsingsprocedures).
     \item \emph{Interleaving:} Wissel onderwerpen af tijdens het studeren.
     \item Gebruik \emph{concrete voorbeelden} om abstracte ideeën te begrijpen. In de cursus worden voorbeelden gegeven, probeer er zelf te bedenken. Overleg met medestudenten en vraag eventueel feedback aan je lector.
     \item \emph{Dual coding:} Combineer woord en beeld, probeer de leerstof die je instudeert visueel voor te stellen.
@@ -95,41 +101,41 @@ Uiteindelijk komt het er op neer dat je voldoende tijd en inspanning investeert 
 
 \subsection{Studiebegeleiding en planning}
 
-Studenten \textbf{afstandsleren} die vragen hebben over de leerstof kunnen in de eerste plaats terecht op het forum in Chamilo. Wanneer je een oefening gemaakt hebt en twijfelt over de correcte oplossing, kan je de lector per mail contacteren. Zet dan in de onderwerpregel ``[OZT][TILE]''. Deze mails worden niet dagelijks beantwoord, dus het kan even duren voordat je reactie krijgt.
+Studenten \textbf{afstandsleren} die vragen hebben over de leerstof kunnen in de eerste plaats terecht op het forum in Chamilo. 
 
-Studenten \textbf{dagonderwijs} kunnen vragen stellen tijdens de werkcolleges, of ook op het forum.
+Studenten \textbf{dagonderwijs} kunnen vragen stellen tijdens de werkcolleges of  op het forum.
 
-In Tabel~\ref{tab:weekplanning} vind je een overzicht van de lesplanning voor het dagonderwijs die ook als leidraad kan dienen voor de studieplanning van studenten afstandsleren.
+%In Tabel~\ref{tab:weekplanning} vind je een overzicht van de lesplanning voor het dagonderwijs die ook als leidraad kan dienen voor de studieplanning van studenten afstandsleren.
 
-\begin{table}
-  \begin{center}
-    \begin{tabular}{cll}
-       \hline
-       \textbf{Week} & \textbf{Theorie}     & \textbf{Oefeningen}            \\
-       \hline
-       1  & Intro, Onderzoeksproces         & Software installeren, \LaTeX{} \\
-       2  & Analyse van 1 variabele         & Wetenschappelijk schrijven     \\
-       3  & Steekproefonderzoek             & Analyse van 1 variabele        \\
-       4  & Steekproefonderzoek             & Steekproefonderzoek            \\
-       5  & Toetsingsprocedures ($z$-toets) & Steekproefonderzoek            \\
-       6  & Toetsingsprocedures ($t$-toets) & Toetsingsprocedures            \\
-       7  & Analyse van 2 variabelen        & Toetsingsprocedures            \\
-      --- & \textbf{Paasvakantie}           & ---                            \\
-       8  & Analyse van 2 variabelen        & Analyse van 2 variabelen       \\
-       9  & $\chi^2$-toets                  & Analyse van 2 variabelen       \\
-      10  & Tijdreeksen                     & $\chi^2$-toets                 \\
-      11  & Toelichting bachelorproef       & Tijdreeksen                    \\
-      12  & Herhaling                       & Herhaling                      \\
-      \hline
-    \end{tabular}
-    \caption[Weekplanning]{Weekplanning van de cursus.}
-    \label{tab:weekplanning}
-  \end{center}
-\end{table}
+%\begin{table}
+%  \begin{center}
+%    \begin{tabular}{cll}
+%       \hline
+%       \textbf{Week} & \textbf{Theorie}     & \textbf{Oefeningen}            \\
+%       \hline
+%       1  & Intro, Onderzoeksproces         & Software installeren, \LaTeX{} \\
+%       2  & Analyse van 1 variabele         & Wetenschappelijk schrijven     \\
+%       3  & Steekproefonderzoek             & Analyse van 1 variabele        \\
+%       4  & Steekproefonderzoek             & Steekproefonderzoek            \\
+%       5  & Toetsingsprocedures ($z$-toets) & Steekproefonderzoek            \\
+%       6  & Toetsingsprocedures ($t$-toets) & Toetsingsprocedures            \\
+%       7  & Analyse van 2 variabelen        & Toetsingsprocedures            \\
+%      --- & \textbf{Paasvakantie}           & ---                            \\
+%       8  & Analyse van 2 variabelen        & Analyse van 2 variabelen       \\
+%       9  & $\chi^2$-toets                  & Analyse van 2 variabelen       \\
+%      10  & Tijdreeksen                     & $\chi^2$-toets                 \\
+%      11  & Toelichting bachelorproef       & Tijdreeksen                    \\
+%      12  & Herhaling                       & Herhaling                      \\
+%      \hline
+%    \end{tabular}
+%    \caption[Weekplanning]{Weekplanning van de cursus.}
+%    \label{tab:weekplanning}
+%  \end{center}
+%\end{table}
 
 \subsection{Evaluatie}
 
-\textbf{Dagonderwijs}
+
 
 \begin{itemize}
   \item Eerste examenperiode:
@@ -144,20 +150,7 @@ In Tabel~\ref{tab:weekplanning} vind je een overzicht van de lesplanning voor he
   \end{itemize}
 \end{itemize}
 
-\textbf{Afstandsleren}
 
-\begin{itemize}
-  \item Eerste examenperiode:
-  \begin{itemize}
-    \item 70\% periodegebonden evaluatie: schriftelijk examen, bestaande uit een deel gesloten boek (theorie) en een deel met voorbereiding op pc (oefeningen)
-    \item 30\% niet-periodegebonden evaluatie: niet-periodegebonden evaluatie: het voeren van een mini-onderzoek in groep, bestaande uit een literatuurstudie, opzetten van een reproduceerbaar experiment, verzamelen van meetgegevens en die statistisch analyseren, en er een verslag over schrijven
-  \end{itemize}
-  \item Tweede examenperiode:
-  \begin{itemize}
-    \item 70\% periodegebonden evaluatie: schriftelijk examen, bestaande uit een deel gesloten boek (theorie) en een deel met voorbereiding op pc (oefeningen)
-    \item 30\% niet-periodegebonden evaluatie: er wordt geen tweede examenkans georganiseerd voor dit onderdeel. Wanneer een student in de eerste examenkans niet geslaagd was voor de opdracht blijft de beoordeling voor deze evaluatievorm of de afwezigheid voor deze evaluatievorm geldig voor de tweede examenkans.
-  \end{itemize}
-\end{itemize}
 
 \section{Installatie software}
 \label{sec:installatie-software}
@@ -575,7 +568,7 @@ Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimen
 \section{Oefeningen}
 
 \begin{exercise}
-  Bekijk de dataset mtcars. Geef de waarde terug voor de eerste rij, tweede kolom. Geef ook het aantal rijen, het aantal kolommen. Geef ook een preview van het volledige data frame. Geef enkel de kolom terug met de definities van de cylinders. Om een data frame te bekomen met de twee kolommen mpg en hp, pakken we de kolomnamen in een indexvector in met single square bracket operator. Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set mtcars bepaalt.
+  Bekijk de dataset \texttt{mtcars}. Geef de waarde terug voor de eerste rij, tweede kolom. Geef ook het aantal rijen, het aantal kolommen. Geef ook een preview van het volledige data frame. Geef enkel de kolom terug met de definities van de cylinders. Om een data frame te bekomen met de twee kolommen mpg en hp, pakken we de kolomnamen in een indexvector in met single square bracket operator. Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set mtcars bepaalt.
 \end{exercise}
 
 \begin{exercise}
