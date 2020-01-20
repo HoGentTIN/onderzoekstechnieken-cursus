@@ -300,8 +300,8 @@ Controleer deze instellingen via menu-item \emph{Options > Configure TeXstudio}:
 \begin{itemize}
   \item Build
   \begin{itemize}
-    \item Default Compiler: pdflatex
-    \item Default Bibliography tool: biber
+    \item Default Compiler: XeLaTeX
+    \item Default Bibliography tool: Biber
   \end{itemize}
   \item Editor:
   \begin{itemize}
@@ -313,7 +313,13 @@ Controleer deze instellingen via menu-item \emph{Options > Configure TeXstudio}:
 
 \end{itemize}
 
-Om te testen of TeXstudio goed werkt, kan je het bestand \texttt{cursus/cursus-onderzoekstechnieken.tex} openen. Kies \emph{Tools > Build \& View} (of druk F5) om de cursus te compileren in een PDF-bestand.
+Om te testen of TeXstudio goed werkt, kan je het bestand \texttt{cursus/cursus-onderzoekstech\-nie\-ken.tex} openen. Kies \emph{Tools > Build \& View} (of druk F5) om de cursus te compileren in een PDF-bestand. Controleer of er achteraan het document een bibliografie en/of index te vinden is. Indien niet, volg dan nog volgende stappen:
+
+\begin{enumerate}
+  \item Kies \emph{Tools > Index} voor het genereren van de index;
+  \item Kies \emph{Tools > Bibliography} (of druk F8) voor het genereren van de bibliografie;
+  \item Voer daarna opnieuw emph{Build \& View} (F5) uit.
+\end{enumerate}
 
 Veel functionaliteiten van \LaTeX{} zitten in aparte packages die niet noodzakelijk standaard geïnstalleerd zijn. De eerste keer dat je een bestand compileert, is het dan ook mogelijk dat er extra packages moeten gedownload worden. MiK\TeX{} zal een pop-up tonen om je toestemming te vragen, bevestig dit. Op Linux is het mogelijk dat je deze packages nog manueel moet installeren. De eerste keer compileren kan enkele minuten duren zonder dat je feedback krijgt over wat er gebeurt. Even geduld, dus!
 
