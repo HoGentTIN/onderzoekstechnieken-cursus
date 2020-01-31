@@ -9,17 +9,17 @@ De studiewijzer geeft een overzicht van de belangrijkste informatie over deze cu
 
 Deze cursus is een inleiding op wat tegenwoordig vaak \emph{data science} genoemd wordt. Het doel is om je wegwijs te maken in het correct verzamelen, verwerken en analyseren van numerieke data en daar een onderbouwd onderzoeksverslag over te schrijven.
 
-In de eerste plaats is dit een voorbereiding op de bachelorproef, waar je deze technieken in de praktijk zal moeten omzetten. Maar ook na je afstuderen blijft de kennis die je in deze cursus opdoet waardevol. Succesvolle bedrijven nemen beslissingen, niet op basis van buikgevoel of intuïtie, maar door het verzamelen van data. Aan de hand van de technieken die hier toegelicht worden, heb je voldoende achtergrond om vragen te beantwoorden als:
+In de eerste plaats is dit een voorbereiding op de bachelorproef, waar je deze technieken in de praktijk zal moeten omzetten. Maar ook na je afstuderen blijft de kennis die je in deze cursus opdoet waardevol. Succesvolle bedrijven nemen beslissingen, niet op basis van buikgevoel of intuïtie, maar door het verzamelen en analyseren van data. Aan de hand van de technieken die hier toegelicht worden, heb je voldoende achtergrond om vragen te beantwoorden als:
 
 \begin{itemize}
   \item Is een (web)applicatie snel genoeg voor de gebruikers? Is de gebruikerservaring consistent, of zit er grote variatie op responstijden?
-  \item Welk van twee systemen (software of hardware) is het meest performant? Is het verschil tussen beide significant, of kunnen verschillen in de metingen te wijten zijn aan het toeval?
+  \item Als je twee systemen moet vergelijken, zij het software of hardware, welke van de twee is het meest performant? Is het verschil tussen beide significant, of kunnen verschillen in de metingen te wijten zijn aan het toeval of andere factoren?
   \item Wanneer moeten aankopen van nieuwe apparatuur (bv.~harde schijven, servers, geheugen, enz.) ingepland worden, op basis van historische gebruiksgegevens?
 \end{itemize}
 
-Deze cursus heeft niet alleen nut voor de lezer als informaticus, maar maakt van je een scherpere persoon die kritisch omgaat met informatie en data. Vandaag verspreiden verschillende bronnen data, en of het nu moedwillig is of niet, niet al deze data is even rigoreus verkregen of toont de volledige waarheid. `Fake News` is een term die vaak zijn kop opsteekt en kan vaak ontkracht worden door kritisch om te gaan met de informatie die verspreid wordt, waardoor vaak de achterliggende reden van die desinformatie duidelijk wordt. Statistiek  en data science zijn dan ook onontbeerlijk om (i) te data correct te analyseren en tot onderbouwde conclusies te komen en (ii) zelf onderzoeken uit te voeren waarbij je onderbouwde conclusies de wereld kan in sturen. 
+De competenties die je in deze cursus verwerft hebben ook buiten de informatica hun nut. Je leert immers kritisch omgaan met data en informatie, en hoe die correct te analyseren en interpreteren. In het politieke en maatschappelijke debat worden moedwillig beweringen gedaan die aantoonbaar fout zijn of die de waarheid proberen ``om te buigen.'' De term die in dat verband vaak de kop opsteekt is `Fake News'. Een manier om je hiertegen te wapenen is kritisch omgaan met de informatie die verspreid wordt. Daardoor kan vaak de achterliggende reden van die desinformatie duidelijk gemaakt worden.
 
-
+Statistiek  en data science zijn dan ook onontbeerlijk om (i) te data correct te analyseren en tot onderbouwde conclusies te komen en (ii) zelf onderzoeken uit te voeren waarbij je onderbouwde conclusies de wereld kan in sturen. 
 
 \subsection{Leerdoelen en competenties}
 
@@ -37,19 +37,15 @@ Deze vind je ook terug in de studiefiche.
 
 Verder in dit hoofdstuk vind je instructies voor het installeren van de nodige software, en een korte inleiding op het werken met R, een programmeertaal voor data-analyse.
 
-Hoofdstuk~\ref{ch:onderzoeksproces} geeft een inleiding op het verloop van een typisch onderzoeksproces en introduceert enkele basisconcepten van data-analyse. We introduceren het concept van het nemen van steekproeven uit een populatie.
+Hoofdstuk~\ref{ch:onderzoeksproces} geeft een inleiding op het verloop van een typisch onderzoeksproces en introduceert enkele basisconcepten van data-analyse, waaronder het nemen een steekproef uit een populatie, variabelen en meetniveaus.
 
-Hoofdstuk~\ref{ch:analyse1var} behandelt de analyse van een enkele variabele, meer bepaald centrum- en spreidingsmaten, samen met geschikte grafiektypes voor elke soort variabele.
-
-%Hoofdstuk~\ref{ch:steekproefonderzoek} introduceert het concept van het nemen van steekproeven uit een populatie, en de randvoorwaarden waaronder resultaten binnen een steekproef kunnen veralgemeend worden tot de gehele populatie.
+Hoofdstuk~\ref{ch:analyse1var} behandelt de analyse van een enkele variabele, meer bepaald centrum- en spreidingsmaten, samen met geschikte visualisatietechnieken voor elke soort variabele.
 
 Hoofdstuk ~\ref{ch:centrale-limietstelling} herhaalt kort de stof rond kansverdelingen, waarna de centrale limietstelling aan bod komt met een onmiddelijke toepassing via betrouwbaarheidsintervallen. 
 
 Hoofdstuk~\ref{ch:toetsingsprocedures} gaat hierop verder met de algemene werkwijze voor het voeren van statistische toetsen, en specifiek met toetsen voor uitspraken over het gemiddelde van een populatie: de $z$-toets en de $t$-toets.
 
 Waar de vorige hoofdstukken telkens één variabele apart beschouwden, bekijkt Hoofdstuk~\ref{ch:analyse2var} verschillende technieken om verbanden tussen twee variabelen te leggen, afhankelijk van het variabeletype.
-
-%Hoofdstuk~\ref{ch:chikwadraat} introduceert de $\chi^2$-toets, waarmee je kan nagaan of de verdeling van een steekproef relevant is voor een populatie, of in hoeverre twee steekproeven een gelijkaardige verdeling hebben.
 
 Hoofdstuk~\ref{ch:tijdreeksen} geeft een inleiding op het analyseren van hoe de waarde van een variabele evolueert in de tijd aan de hand van wiskundige modellen die onder bepaalde voorwaarden ook toelaten om voorspellingen te doen.
 
@@ -73,18 +69,18 @@ De software die nodig is voor dit opleidingsonderdeel is gratis/open source. Ins
 
 \textbf{Studenten afstandsleren} kunnen vragen stellen tijdens de contactmomenten. Dit zijn echter geen lesmomenten! Het rooster vind je in de Chamilo-cursus ``Informatie voor studenten TILE.''
 
-\textbf{Studenten dagonderwijs} krijgen drie uur per week les.
+\textbf{Studenten dagonderwijs} krijgen drie uur per week les, waarvan één uur klassikale instructie en hoorcollege, en twee uur oefeningen en begeleiding bij het groepswerk.
 
 \subsection{Werk- en leeraanwijzingen}
 
 Het opleidingsonderdeel \emph{Onderzoekstechnieken} wordt door veel studenten als moeilijk ervaren. Dat is begrijpelijk, want het onderwerp ligt dan ook buiten de comfortzone van de doorsnee informaticastudent en we weten allemaal dat wiskundige vakken niet de populairste van onze opleiding zijn.
 
-Er zijn twee manieren om hier mee om te gaan. Je kan de weg van de minste weerstand nemen: je concentreren op de vakken die je graag doet en een dag voor het examen de cursus doornemen in de hoop dat je voldoende punten bij elkaar sprokkelt om een tien te halen. De ervaring leert dat deze strategie niet succesvol is, wat blijkt uit het lage slagingspercentage in de eerste zittijd (in academiejaar 2016-2017 was dat ca. 35\% voor het dagonderwijs en 10\% voor afstandsleren).
+Er zijn twee manieren om hier mee om te gaan. Je kan de weg van de minste weerstand nemen: je concentreren op de vakken die je graag doet en een dag voor het examen de cursus doornemen in de hoop dat je voldoende punten bij elkaar sprokkelt om een tien te halen. De ervaring leert dat deze strategie niet succesvol is, wat blijkt uit het lage slagingspercentage in de eerste zittijd (in academiejaar 2016-2017 was dat ca. 35\% voor het dagonderwijs en 10\% voor afstandsleren). In de tweede zittijd zien we vaak een veel hoger slagingspercentage, wat ons inziens suggereert dat als je voldoende inspanning levert voor dit vak, het zeker haalbaar is.
 
 Enkele tips om wél meteen te slagen voor dit vak:
 
 \begin{itemize}
-  \item Kom naar de les en \emph{neem actief nota's};
+  \item Kom naar de les en \emph{neem actief nota's}\parencite{Lundin2020};
   \item Werk ook voor dit vak \emph{buiten de contactmomenten}. Herhaal de geziene theorie en werk oefeningen af waarmee je nog niet klaar was. Noteer zaken die je niet snapt of waar je vast zit, en stel je vraag bij het eerstvolgende college.
   \item Gebruik goede \emph{leertechnieken}. Je vindt een goed overzicht van leertechnieken waarvan het effect wetenschappelijk aangetoond is via de website van \emph{The Learning Scientists}\footnote{\url{http://www.learningscientists.org/}}.
   \begin{itemize}
@@ -101,7 +97,7 @@ Uiteindelijk komt het er op neer dat je voldoende tijd en inspanning investeert 
 
 \subsection{Studiebegeleiding en planning}
 
-Studenten \textbf{afstandsleren} die vragen hebben over de leerstof kunnen in de eerste plaats terecht op het forum in Chamilo. 
+Studenten \textbf{afstandsleren} die vragen hebben over de leerstof kunnen in de eerste plaats terecht op het forum in Chamilo. Op de contactmomenten voor afstandsleren is er ook gelegenheid voor het stellen van vragen.
 
 Studenten \textbf{dagonderwijs} kunnen vragen stellen tijdens de werkcolleges of  op het forum.
 
@@ -141,16 +137,14 @@ Studenten \textbf{dagonderwijs} kunnen vragen stellen tijdens de werkcolleges of
   \item Eerste examenperiode:
   \begin{itemize}
     \item 70\% periodegebonden evaluatie: schriftelijk examen, bestaande uit een deel gesloten boek (theorie) en een deel met voorbereiding op pc (oefeningen)
-    \item 30\% niet-periodegebonden evaluatie: het voeren van een mini-onderzoek in groep, bestaande uit een literatuurstudie, opzetten van een reproduceerbaar experiment, verzamelen van meetgegevens en die statistisch analyseren, en er een verslag over schrijven
+    \item 30\% niet-periodegebonden evaluatie, groepsopdracht: het voeren van een mini-onderzoek in groep, bestaande uit een literatuurstudie, opzetten van een reproduceerbaar experiment, verzamelen van meetgegevens en die statistisch analyseren, en er een verslag over schrijven
   \end{itemize}
   \item Tweede examenperiode:
   \begin{itemize}
     \item 70\% periodegebonden evaluatie: schriftelijk examen, bestaande uit een deel gesloten boek (theorie) en een deel met voorbereiding op pc (oefeningen)
-    \item 30\% niet-periodegebonden evaluatie: er wordt geen tweede examenkans georganiseerd voor dit onderdeel. Wanneer een student in de eerste examenkans niet geslaagd was voor de opdracht blijft de beoordeling voor deze evaluatievorm of de afwezigheid voor deze evaluatievorm geldig voor de tweede examenkans.
+    \item 30\% niet-periodegebonden evaluatie: er wordt geen tweede examenkans georganiseerd voor dit onderdeel. Wanneer een student in de eerste examenkans niet geslaagd was voor het opleidingsonderdeel wordt het resultaat voor de groepsopdracht ongewijzigd overgenomen.
   \end{itemize}
 \end{itemize}
-
-
 
 \section{Installatie software}
 \label{sec:installatie-software}
@@ -163,14 +157,15 @@ Voor de cursus onderzoekstechnieken maak je gebruik van verschillende softwarepa
   \item \LaTeX{} editor;
   \item Jabref (bibliografische databank);
   \item R (statistische analysesoftware);
-  \item Rstudio (IDE voor R).
+  \item Rstudio (IDE voor R);
+  \item Lettertypes voor de HOGENT-huisstijl.
 \end{itemize}
 
 Sommige van deze applicaties nemen veel schijfruimte in, dus zorg dat je voldoende ruimte vrij hebt.
 
 In vele andere cursussen rond statistiek of onderzoekstechnieken wordt gebruik gemaakt van commerciële software: SPSS of SAS voor data-analyse, MS Office voor de opmaak van documenten. In deze cursus wordt er expliciet voor gekozen om open source of gratis software te gebruiken. Het grootste voordeel is dat je die ook na je afstuderen nog kan gebruiken zonder dat jij of je bedrijf/organisatie softwarelicenties moet aankopen.
 
-Bovendien zijn de tools die we zullen gebruiken kwalitatief minstens even goed dan hun commerciële tegenhangers. R, een programmeertaal voor statistische analyse, wordt wereldwijd gebruikt in academische én professionele context. Volgens de TIOBE-index\footnote{\url{https://www.tiobe.com/tiobe-index/}} zit R intussen bijna in de top-10 van alle programmeertalen en de taal zit sinds een vijftal jaar in een vrij sterk stijgende trend. De kans is dus niet onbestaande dat je het in je professionele loopbaan nog zal tegenkomen, of het zal kunnen toepassen voor het oplossen van datagerelateerde problemen. Feedback die we kregen van oud-studenten bevestigt dit.
+Bovendien zijn de tools die we zullen gebruiken kwalitatief minstens even goed dan hun commerciële tegenhangers. R, een programmeertaal voor statistische analyse, wordt wereldwijd gebruikt in academische én professionele context. De kans is dus niet onbestaande dat je het in je professionele loopbaan nog zal tegenkomen, of het zal kunnen toepassen voor het oplossen van datagerelateerde problemen. Feedback die we kregen van oud-studenten bevestigt dit.
 
 \LaTeX{} is een markuptaal en tekstzetsysteem voor de professionele vormgeving van documenten. De bedoeling is dat de auteur zich vooral moet bezig houden met het logisch structureren van een tekst, en dat het vormgeven op papier wordt overgenomen door de software. Het aanleren van de markuptaal vraagt wat inspanning, maar het is een investering die rendeert wanneer je een lang document (zoals een scriptie) op een professionele, strakke manier wil opmaken. Er zijn in het verleden nog zelden of nooit bachelorproeven ingediend die in MS Word geschreven waren en die een voldoende goede opmaak hadden. Het lijkt veel eenvoudiger om een tekst op te stellen in Word, maar het is zo goed als onmogelijk om in een lang document een consistente en professioneel ogende opmaak te realiseren.
 
@@ -226,20 +221,21 @@ Wie toch alles manueel wil installeren kan de applicaties hier downloaden:
 \end{itemize}
 
 \subsection{Linux}
+\label{ssec:installatie-linux}
 
 Op RStudio na zijn alle nodige softwarepakketten beschikbaar in de repositories van de meest gebruikte Linux-distributies. We geven hier command-line instructies voor enerzijds Ubuntu (Xenial/16.04) en Debian 9 en anderzijds Fedora.
 
 \paragraph{Ubuntu/Debian} 
 
-Controleer eerst de link naar de laatste versie van RStudio via de website.
+Controleer eerst de URL naar de laatste versie van RStudio via de website. Er is een aparte versie voor Debian-gebruikers. Die kopiëren dus best de URL van de link op de website i.p.v. deze die hieronder gegeven is.
 
 \begin{verbatim}
-sudo aptitude update
-sudo aptitude install texlive-latex-base texlive-latex-extra \
-  texlive-lang-european texlive-bibtex-extra texlive-extra-utils \
-  biber git texstudio jabref r-base
-wget https://download1.rstudio.org/rstudio-xenial-1.1.414-amd64.deb
-sudo dpkg -i ./rstudio-xenial-1.1.414-amd64.deb
+sudo apt install biber git jabref r-base texlive-bibtex-extra \
+  texlive-extra-utils texlive-fonts-recommended texlive-lang-european \
+  texlive-latex-base texlive-latex-extra texlive-latex-recommended \
+  texlive-pictures texstudio ttf-mscorefonts
+wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.2.5033-amd64.deb
+sudo dpkg -i ./rstudio-1.2.5033-amd64.deb
 \end{verbatim}
 
 \paragraph{Fedora}
@@ -250,13 +246,14 @@ Controleer eerst de link naar de laatste versie van RStudio via de website. Dit 
 sudo dnf install git texstudio R \
   java-1.8.0-openjdk-openjfx texlive-collection-latex \
   texlive-texliveonfly texlive-babel-dutch \
-  https://download1.rstudio.org/rstudio-1.1.414-x86_64.rpm
+  msttcore-fonts-installer.noarch \
+  https://download1.rstudio.org/desktop/fedora28/x86_64/rstudio-1.2.5033-x86_64.rpm
 \end{verbatim}
 
-Je kan JabRef ook installeren vanuit de Fedora package repository, maar dan krijg je een verouderde versie. Je kan dan beter de ``Platform Independent Runnable Jar'' downloaden via de projectwebsite\footnote{\url{https://jabref.org/}}. Die kan je dan opstarten vanuit de shell met het commando (hier voorbeeld voor versie 4.1):
+Je kan JabRef ook installeren vanuit de Fedora package repository, maar dan krijg je een verouderde versie. Je kan dan beter de ``Platform Independent Runnable Jar'' downloaden via de projectwebsite\footnote{\url{https://jabref.org/}}. Die kan je dan opstarten vanuit de shell met het commando (hier voorbeeld voor versie 4.3.1):
 
 \begin{verbatim}
-java -jar JabRef-4.1.jar
+java -jar JabRef-4.3.1.jar
 \end{verbatim}
 
 \section{Configuratie}
@@ -265,7 +262,7 @@ java -jar JabRef-4.1.jar
 
 Wellicht heb je Git al geconfigureerd voor enkele van je andere vakken. Kijk eventueel alles nog eens na! Als alles ok is, kan je deze sectie overslaan.
 
-\emph{Wij raden aan om Git via de command line te gebruiken.} Zo krijg je het beste inzicht in de werking. Het commando \texttt{git status} geeft op elk moment een goed overzicht van de toestand van je lokale repository en geeft aan met welk commando je een stap verder kan zetten of de laatste stap ongedaan kan maken.
+\emph{Wij raden aan om Git via de command line te gebruiken.} Zo krijg je het beste inzicht in de werking. Het commando \texttt{git status} geeft op elk moment een goed overzicht van de toestand van je lokale repository en geeft aan met welk commando je een stap verder kan zetten of de laatste stap ongedaan kan maken. Voor wie toch een GUI verkiest, raden we GitKraken~\footnote{\url{https://www.gitkraken.com/}} aan.
 
 Als je nog geen GitHub-account hebt, kies dan een gebruikersnaam die je na je afstuderen nog kan gebruiken (dus bv.~niet je HoGent login). De kans is erg groot dat je tijdens je carrière nog van GitHub gebruik zult maken. Koppel ook je HoGent-emailadres aan je GitHub account (je kan meerdere adressen registreren). Op die manier kan je aanspraak maken op het GitHub Student Developer Pack\footnote{\url{https://education.github.com/pack}}, wat je gratis toegang geeft tot een aantal in principe betalende producten en diensten.
 
@@ -291,17 +288,40 @@ Test nu of je de code van de cursus Onderzoekstechnieken kan downloaden. Ga in d
 git clone git@github.com:HoGentTIN/onderzoekstechnieken-cursus.git
 \end{verbatim}
 
-Als dit lukt, is er nu een directory aangemaakt met dezelfde naam als de repository. Doe tijdens het semester regelmatig \texttt{git pull} om de laatste wijzigingen in het cursusmateriaal bij te werken. Pas zelf geen bestanden aan binnen deze repository, dit zal leiden tot conflicten.
+Als dit lukt, is er nu een directory aangemaakt met dezelfde naam als de repository. Je mag indien gewenst de directory verplaatsen en zelfs de naam wijzigen. Doe tijdens het semester regelmatig \texttt{git pull} (binnen deze directory) om de laatste wijzigingen in het cursusmateriaal bij te werken. Pas zelf geen bestanden aan binnen deze repository, dit zal leiden tot conflicten.
+
+\subsection{Lettertypes}
+
+De HOGENT-huisstijl, zoals toegepast in de slides, maakt gebruik van lettertypes die niet standaard geïnstalleerd zijn. Als je een PDF wil genereren van de slides, heb je deze lettertypes nodig.
+
+Gebruikers van Linux downloaden ook best de gekende Microsoft-fonts (Arial, Courier, Times New Roman, enz.). Als je de installatie-instructies in Sectie~\ref{ssec:installatie-linux} gevolgd hebt, dan is dat al in orde.
+
+De benodigde lettertypes zijn:
+
+\begin{itemize}
+  \item Montserrat: \url{https://fonts.google.com/specimen/Montserrat}
+  \item Code Pro Black: o.a. via \url{https://www.wfonts.com/font/code-pro-black}
+  \item Fira Math: \url{https://github.com/firamath/firamath}
+  \item Inconsolata: \url{https://fonts.google.com/specimen/Inconsolata}
+\end{itemize}
+
+De Google Fonts kan je als volgt downloaden: volg de link naar het lettertype, klik op ``Select this font'' en vervolgens rechtsonder op de zwarte balk met de tekst ``1 Family selected''. In de pop-up zie je rechtsboven een download-icoon. Klik hier op om het lettertype te downloaden.
 
 \subsection{TeXstudio}
 
 Controleer deze instellingen via menu-item \emph{Options > Configure TeXstudio}:
 
 \begin{itemize}
-  \item Build
+  \item Build:
   \begin{itemize}
     \item Default Compiler: XeLaTeX
     \item Default Bibliography tool: Biber
+  \end{itemize}
+  \item Commands:
+  \begin{itemize}
+    \item \texttt{xelatex -synctex=1 -interaction=nonstopmode  -shell-escape \%.tex}
+    
+    (voeg de optie \texttt{-shell-escape} toe)
   \end{itemize}
   \item Editor:
   \begin{itemize}
@@ -318,6 +338,7 @@ Om te testen of TeXstudio goed werkt, kan je het bestand \texttt{cursus/cursus-o
 \begin{enumerate}
   \item Kies \emph{Tools > Index} voor het genereren van de index;
   \item Kies \emph{Tools > Bibliography} (of druk F8) voor het genereren van de bibliografie;
+  \item Kies \emph{Tools > Index} (geen shortcut) om de zoekindex te genereren;
   \item Voer daarna opnieuw emph{Build \& View} (F5) uit.
 \end{enumerate}
 
@@ -335,10 +356,9 @@ Kies in het \emph{Preferences}-venster voor de categorie \emph{File} en geef een
 
 Voor meer gedetailleerde informatie over het bijhouden van bibliografische referenties, zie de bachelorproefgids~\autocite{VanVreckem2017}.
 
-
 \section{Gebruik van R}
 
-R is een softwareprogramma voor datamanipulatie, berekening en het grafisch voorstellen van data. Het heeft onder meer:
+R is een softwarepakket voor het bewerken, analyseren en visualiseren van data. Het heeft onder meer:
 
 \begin{enumerate}
   \item een effectieve gegevensbeheer- en opslagfaciliteit,
@@ -437,7 +457,7 @@ Als u niet zeker bent welke bestanden in de huidige werkmap zitten, kunt u het c
 
 Het databestand komt uit de publicatie van \autocite{Stengos2005}. Deze dataset bevat data van 1993 tot 1995 over de prijzen van computers. Je kan nagaan wat het effect van de toevoeging van cd-rom-station is op de prijs van de computer of  het effect van de kloksnelheid op de prijs. 
 
-\begin{lstlisting}
+\begin{lstlisting}[breaklines=true]
 > dir()
 [1] "breakingbad.csv"  "Desktop"          "Documents"        "Downloads"        "dumps"            "earch php-"       "examples.desktop"
 [8] "f.r"              "kids.csv"         "kmissles.csv"     "kmissles.ods"     "Music"            "out.pdf"          "Pictures"        
@@ -448,14 +468,14 @@ Het databestand komt uit de publicatie van \autocite{Stengos2005}. Deze dataset 
 
 Als u niet zeker weet welke kolommen gedefinieerd zijn, kunt u \texttt{names()} gebruiken:
 
-\begin{lstlisting}
+\begin{lstlisting}[breaklines=true]
 > names(computers)
 [1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"
 \end{lstlisting}
 
 Wanneer u het commando \texttt{read.csv} gebruikt, gebruikt R een specifiek soort variabele, dat een dataframe heet. Alle gegevens worden opgeslagen in het dataframe als afzonderlijke kolommen. Als u niet zeker weet wat voor variabele u hebt, dan kunt u de opdracht \texttt{attributes} gebruiken. Hiermee worden alle dingen vermeld die R gebruikt om de variabele te beschrijven:
 
-\begin{lstlisting}
+\begin{lstlisting}[breaklines=true]
 attributes(computers)
 $names
 [1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"  
@@ -554,9 +574,9 @@ Een ander belangrijk gegevenstype is het logische type. Er zijn twee vooraf gede
 Een andere  manier om informatie op te slaan is in een tabel.  We kijken alleen maar naar het maken en defini\"eren van tabellen. 
 
 \lstinputlisting{data/tables.R}
-Als je rijen wilt toevoegen aan uw tabel, voeg dan nog een vector toe als argument van de tabelopdracht. In het onderstaande voorbeeld hebben wij twee vragen. In de eerste vraag staan de reacties  'Never', 'Sometimes' of 'Always'. In de tweede vraag staan de reacties 'Yes', 'No' of 'Maybe'. De set van vectoren 'a', en 'b' bevatten het antwoord voor elke meting. Het derde punt in 'a' is hoe de derde persoon op de eerste vraag reageerde en het derde punt in 'b' is hoe de derde persoon op de tweede vraag reageerde.
+Als je rijen wilt toevoegen aan de tabel, voeg dan nog een vector toe als argument van de tabelopdracht. In het onderstaande voorbeeld hebben wij twee vragen. In de eerste vraag staan de reacties  'Never', 'Sometimes' of 'Always'. In de tweede vraag staan de reacties 'Yes', 'No' of 'Maybe'. De set van vectoren 'a', en 'b' bevatten het antwoord voor elke meting. Het derde punt in 'a' is hoe de derde persoon op de eerste vraag reageerde en het derde punt in 'b' is hoe de derde persoon op de tweede vraag reageerde.
 
-\lstinputlisting{data/twotables.R}
+\lstinputlisting{data/twotables.R}[breaklines=true]
 
 \subsubsection{Matrix}
 
