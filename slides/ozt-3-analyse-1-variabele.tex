@@ -28,6 +28,7 @@
 \usepackage{wrapfig}
 \usepackage{pgf-pie}
 \usepackage{pgfplots}
+\usepackage{booktabs}
 
 %---------- Configuratie ------------------------------------------------------
 
@@ -269,6 +270,18 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Eigenschappen standaardafwijking}
+  
+  Waarom $n-1$ in de noemer en niet $n$?
+  
+  De reden voor de wijziging kan je wiskundig bewijzen, maar we gaan het empirisch onderzoeken
+  
+  \vfill
+  
+  R-script: \href{https://github.com/HoGentTIN/onderzoekstechnieken-cursus/blob/master/cursus/data/sample-variance.R}{cursus/data/sample-variance.R}
+\end{frame}
+
 \begin{frame}[plain]
   
   \includegraphics[width=\textwidth]{les2-01}
@@ -286,6 +299,23 @@
   \end{itemize}
 \end{frame}
 
+\subsection{Samenvatting}
+
+\begin{frame}
+  \frametitle{Centrum- en spreidingsmaten: samenvatting}
+  
+  \centering
+  \begin{tabular}{lll}
+  	\toprule
+  	\textbf{Meetniveau} & \textbf{Centrummaten} & \textbf{Spreidingsmaten}      \\
+  	\midrule
+  	Kwalitatief         & Modus                 & ---                           \\
+  	\midrule
+  	Kwantitatief        & Gemiddelde            & Variantie, standaardafwijking \\
+  	                    & Mediaan               & Bereik, interkwartielafstand  \\
+  	\bottomrule
+  \end{tabular}
+\end{frame}
 
 \section{Grafieken}
 
