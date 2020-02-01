@@ -45,11 +45,25 @@ _EOF_
 #TODO support DIRnames with spaces (which shouldn't be used on Linux)
 }
 
+# Usage: log [ARG]...
+#
+# Prints all arguments on the standard output stream
+log() {
+  printf '\e[0;33m>>> %s\e[0m\n' "${*}"
+}
+
+# Usage: error [ARG]...
+#
+# Prints all arguments on the standard error stream
+error() {
+  printf '\e[0;31m!!! %s\e[0m\n' "${*}" 1>&2
+}
+
+# Usage: die MESSAGE
+# Prints the specified error message and exits with an error status
 die() {
-    echo "ERROR: $1"
-    echo
-    usage
-    exit 1
+  error "${*}" 1>&2
+  exit 1
 }
 
 search_files() {
@@ -120,7 +134,7 @@ process_file() {
 
     if [ $force -eq 0 -a $needrebuild -eq 0 ]; then
         n_skipped=$((n_skipped + 1))
-        echo "=== skipping ${foldername}/${filebase}.tex"
+        log "skipping ${foldername}/${filebase}.tex"
         if [ $cleanup -eq 1 ]; then
             if has_questions_and_answers "${filebase}.tex"; then
                 rm -f "${filebase}.pdf" #cleanup stuff from when has_questions_and_answers() was false
@@ -150,7 +164,7 @@ compile_file() {
     foldername="$1"
     inputname="$2"
     outputname="$3"
-    echo "=== creating ${foldername}/${outputname}.pdf"
+    log "creating ${foldername}/${outputname}.pdf"
     # remove old tmp files from previous run
     #eval rm -f ${outputname}.{$tmp_extensions}
     exitcode=0
@@ -163,15 +177,15 @@ compile_file() {
     # run biber, only if necessary
     if [ $exitcode -eq 0 -a -f "${outputname}.bcf" ]; then
         if grep 'bcf:citekey' "${outputname}.bcf" >/dev/null; then
-            echo "    running biber and recompiling (pass 2)"
+            log "running biber and recompiling (pass 2)"
             $biber_cmd "$outputname" || exitcode=$?
             # compile 2nd time, only if biber was successful
             if [ $exitcode -eq 0 ]; then
                 $compiler_cmd -jobname="$outputname" "$inputname" || exitcode=$?
                 compilecount=2
             else
-                echo "    if biber failed due to UTF-8 errors, it might help to run following command:"
-                echo "    iconv -f WINDOWS-1252 -t UTF-8 biblio.bib >tmpfile; mv tmpfile biblio.bib"
+                error "if biber failed due to UTF-8 errors, it might help to run following command:"
+                error "  iconv -f WINDOWS-1252 -t UTF-8 biblio.bib >tmpfile; mv tmpfile biblio.bib"
             fi
         fi
     fi
@@ -179,7 +193,7 @@ compile_file() {
         # check if need to rerun
         if grep 'Rerun to' "${outputname}.log" >/dev/null; then
             compilecount=$((compilecount + 1))
-            echo "    compiling again (pass ${compilecount})"
+            log "compiling again (pass ${compilecount})"
             $compiler_cmd -jobname="$outputname" "$inputname" || exitcode=$?
         else
             break
@@ -187,13 +201,13 @@ compile_file() {
     done
     if [ $exitcode -eq 0 ]; then
         n_succes=$((n_succes + 1))
-        echo "    OK"
+        log "OK"
         if [ $nocleanup -eq 0 ]; then cleanup "$outputname"; fi
     else
         n_failed=$((n_failed + 1))
         # errors from pdflatex doesn't always end with a newline
         # so, the 'echo' below will add a newline
-        echo " !! Build FAILED !!"
+        error "Build FAILED!"
         # rename pdf if build failed
         if [ -f "${outputname}.pdf" ]; then
             mv "${outputname}.pdf" "${outputname}-withERRORS.pdf" || tmp=0 #don't die on failure
@@ -236,7 +250,7 @@ else
     # some versions of pdflatex (eg. on Mac) don't recognize the '-quiet' option
     compiler_cmd="pdflatex -interaction=batchmode -shell-escape"
 fi
-echo "=== type 'sh $0 --help' for more details"
+log "type 'sh $0 --help' for more details"
 
 # get rid of all options in beginning of command line
 while [ $# -gt 0 ]; do
@@ -259,21 +273,20 @@ while [ $# -gt 0 ]; do
             if grep '^\\documentclass' "$1" >/dev/null; then
                 process_file "$1"
             else
-                echo "=== skipping $1 (\\documentclass is missing) ==="
+                log "skipping $1 (\\documentclass is missing) ==="
             fi
         else
-            echo "=== skipping $1 (not a .tex file) ==="
+            log "skipping $1 (not a .tex file) ==="
         fi
     elif [ -d "$1" ]; then search_files "$1";
     else
-        echo "=== skipping $1 (not a FILE or DIRECTORY) ==="
+        log "skipping $1 (not a FILE or DIRECTORY) ==="
     fi
     shift
 done
 
 n_total=$((n_skipped + n_failed + n_succes))
-echo
-echo "= REPORT ="
+log "REPORT"
 if [ $n_total -eq 0 ]; then
     echo "  There were no valid TeX files found"
     echo "  Type 'sh $0 --help' for more details"
