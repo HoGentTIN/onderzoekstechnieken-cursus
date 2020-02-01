@@ -1,20 +1,22 @@
 %%----------------------------------------------------------------------------
-%% Presentatie HoGent Bedrijf en Organisatie
+%% Onderzoekstechnieken: Een bachelorproefvoorstel schrijven
 %%----------------------------------------------------------------------------
- 
-\documentclass[aspectratio=169,usenames,dvipsnames]{beamer}
+
+\documentclass[aspectratio=169]{beamer}
 
 %==============================================================================
 % Aanloop
 %==============================================================================
 
-%---------- Packages ----------------------------------------------------------
-\usepackage{etex}
+%---------- Vormgeving --------------------------------------------------------
+
+\usetheme{hogent}
+
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+
 \usepackage{graphicx,multicol}
 \usepackage{comment,enumerate,hyperref}
 \usepackage{amsmath,amsfonts,amssymb}
-\usepackage{wasysym}
-\usepackage{tikz}
 \usepackage[dutch]{babel}
 \usepackage{multirow}
 \usepackage{eurosym}
@@ -22,36 +24,41 @@
 \usepackage{textcomp}
 \usepackage{framed}
 \usepackage{wrapfig}
+\usepackage{tabu} %needed for \tabulinesep
+\usepackage{wrapfig}
 \usepackage{pgf-pie}
 \usepackage{pgfplots}
 \usepackage{booktabs}
 \usepackage{pgfplotstable}
 \usepackage{changepage}
-\usepackage{pst-plot,pst-func}
+\usepackage{ulem} % for \sout{text} (strikethrough)
+\usepackage{fancyvrb} % for \begin{Verbatim} (LaTeX controls within verbatim)
 
 %---------- Configuratie ------------------------------------------------------
 
+\pgfplotsset{compat=1.16}
 \usetikzlibrary{arrows,shapes,backgrounds,positioning,shadows}
 \usetikzlibrary{pgfplots.statistics}
-\newif\ifprivate
-\privatetrue
-
-
-\usetheme{hogent}
-\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
-\setbeameroption{show notes}
 
 %---------- Commando-definities -----------------------------------------------
 
 \newcommand{\tabitem}{~~\llap{\textbullet}~~}
-\renewcommand{\arraystretch}{1.2}
+\newcommand{\alertbox}[2][hgblue]{%
+  \setbeamercolor{alertbox}{bg=#1,fg=white}
+  \begin{beamercolorbox}[sep=2pt,center]{alertbox}
+    \textbf{#2}
+  \end{beamercolorbox}
+}
+\pgfmathdeclarefunction{gauss}{2}{%
+  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+}
 
 %---------- Info over de presentatie ------------------------------------------
 
-\title[OZT: Voorbereiding Bachelorproef]{Voorbereiding Bachelorproef}
+\title{Voorbereiding Bachelorproef}
 \subtitle{Onderzoekstechnieken}
-\author{Jens Buysse \and Wim {De Bruyn} \and Bert {Van Vreckem}}
-\date{AJ 2018-2019}
+\author{Jens Buysse \and Wim {De Bruyn} \and Pieter-Jan Maenhout \and Bert {Van Vreckem}}
+\date{AJ 2019-2020}
 
 %==============================================================================
 % Inhoud presentatie
@@ -59,16 +66,14 @@
 
 \begin{document}
 
-%---------- Front matter ------------------------------------------------------
-
 \begin{frame}
-\maketitle
+  \maketitle
 \end{frame}
 
 \begin{frame}
-\frametitle{What's on the menu today?}
-
-\tableofcontents
+  \frametitle{What's on the menu today?}
+  
+  \tableofcontents
 \end{frame}
 
 \begin{frame}
@@ -102,11 +107,11 @@
     \item proof-of-concept opzetten
     \item rapporteren
   \end{itemize}
-
+  
 \end{frame}
 
 \begin{frame}{Bachelorproef vs stage}
-
+  
   \begin{multicols}{2}
     \textbf{Stage}
     
@@ -126,9 +131,9 @@
       \item Resultaat is rapport, proof-of-concept, \textbf{geen} product
     \end{itemize}
   \end{multicols}
-
-Stage en bachelorproef mogen over zelfde onderwerp gaan, maar moeten gescheiden zijn en onafhankelijk van elkaar.
-
+  
+  Stage en bachelorproef mogen over zelfde onderwerp gaan, maar moeten gescheiden zijn en onafhankelijk van elkaar.
+  
 \end{frame}
 
 \begin{frame}{Praktisch}
@@ -141,20 +146,20 @@ Stage en bachelorproef mogen over zelfde onderwerp gaan, maar moeten gescheiden 
     \item indienen bij aanvang examenperiode
     \item presentatie + verdediging in juni
   \end{itemize}
-
-Uitzonderingen: BP in 2e zit of 1e semester
+  
+  Uitzonderingen: BP in 2e zit of 1e semester
 \end{frame}
 
 \begin{frame}{Opvolging}
   
   \begin{itemize}
-    \item \textbf{Promotor:} \emph{proces}opvolging
+    \item \textbf{Promotor:} \textbf{proces}opvolging
     \begin{itemize}
       \item Lector van de opleiding
       \item Voorzitter jury presentatie
       \item Kent examencijfer toe
     \end{itemize}
-    \item \textbf{Co-promotor:} \emph{inhoudelijke} opvolging
+    \item \textbf{Co-promotor:} \textbf{inhoudelijke} opvolging
     \begin{itemize}
       \item Opdrachtgever
       \item Vakexpert
@@ -162,68 +167,68 @@ Uitzonderingen: BP in 2e zit of 1e semester
       \item Geen familielid (tot 3e graad)
     \end{itemize}
   \end{itemize}
-
-Je dient zelf een co-promotor te zoeken!
-
+  
+  Je dient zelf een co-promotor te zoeken!
+  
 \end{frame}
 
 \section{Een onderwerp kiezen}
 
 \begin{frame}{Op zoek naar een onderwerp}
-
-\begin{itemize}
-  \item Via stagebedrijf/-mentor
-  \item (Beperkt) aanbod onderwerpen via Chamilo
-  \item Voorstel vanuit je eigen contacten in het werkveld
-  \item Eigen idee/voorstel
-\end{itemize}
-
-\alertbox{Wacht niet te lang met het zoeken naar een onderwerp!}
+  
+  \begin{itemize}
+    \item Via stagebedrijf/-mentor
+    \item (Beperkt) aanbod onderwerpen via Chamilo
+    \item Voorstel vanuit je eigen contacten in het werkveld
+    \item Eigen idee/voorstel
+  \end{itemize}
+  
+  \alertbox{Wacht niet te lang met het zoeken naar een onderwerp!}
 \end{frame}
 
 \begin{frame}{Geschikte onderwerpen}
-
-  Bachelorproef = \emph{toegepast} onderzoek
+  
+  Bachelorproef = \textbf{toegepast} onderzoek
   
   \begin{itemize}
     \item Concreet probleem in bedrijfscontext
     \item Wat is de beste oplossing binnen huidige state-of-the-art?
   \end{itemize}
-
+  
   \alertbox{Start vanuit een concrete, \textcolor{hgyellow}{reële bedrijfscasus}}
 \end{frame}
 
 \begin{frame}{Ongeschikte onderwerpen}
-
-\begin{itemize}
-  \item Onvoldoende technische diepgang (bv. enkel enquête)
-  \item De toekomst van \ldots (niet speculeren!)
-  \item Algemene vergelijking van frameworks/producten/\ldots
+  
   \begin{itemize}
-    \item Afhankelijk van specifieke requirements
-    \item Koppel dit aan een reële bedrijfscasus
+    \item Onvoldoende technische diepgang (bv. enkel enquête)
+    \item De toekomst van \ldots (niet speculeren!)
+    \item Algemene vergelijking van frameworks/producten/\ldots
+    \begin{itemize}
+      \item Afhankelijk van specifieke requirements
+      \item Koppel dit aan een reële bedrijfscasus
+    \end{itemize}
+    \item Te breed, vaag of vrijblijvend
+    \item Enkel literatuurstudie
+    \item Geen eigen bijdrage
   \end{itemize}
-  \item Te breed, vaag of vrijblijvend
-  \item Enkel literatuurstudie
-  \item Geen eigen bijdrage
-\end{itemize}
-
+  
 \end{frame}
 
 \begin{frame}{Zelf een onderwerp zoeken}
   \framesubtitle{Kies een onderzoeksdomein}
-
+  
   \begin{itemize}
     \item Keuzevak 3TI
     \item In welke job wil je starten?
     \item Met welke technologieën/platformen/\ldots wil je werken?
   \end{itemize}
-
+  
 \end{frame}
 
 \begin{frame}{Zelf een onderwerp zoeken}
   \framesubtitle{Volg de actualiteit}
-
+  
   \begin{itemize}
     \item Portaalsites (dzone, infoq, technet, \ldots)
     \item Relevante conferenties/meetups
@@ -235,7 +240,7 @@ Je dient zelf een co-promotor te zoeken!
     \item Newsletters
     \item \ldots
   \end{itemize}
-
+  
   \alertbox{Start hier nu al mee!}
 \end{frame}
 
@@ -264,20 +269,20 @@ Je dient zelf een co-promotor te zoeken!
     \item Security
     \item \ldots
   \end{itemize}
-
+  
   \alertbox{Ja, vooropgesteld dat het onderwerp \textcolor{hgyellow}{ICT-gerelateerd is}, \textcolor{hgyellow}{technische diepgang heeft} en je een \textcolor{hgyellow}{concrete onderzoeksvraag} hebt geformuleerd vanuit een \textcolor{hgyellow}{reële bedrijfscasus}}
 \end{frame}
 
 \section{Het onderwerp uitschrijven}
 
 \begin{frame}{Het onderwerp uitschrijven}
-
+  
   \begin{itemize}
     \item Aan de hand van sjabloon
     
     \url{https://github.com/HoGentTIN/bachproef-latex-sjabloon/tree/master/voorstel}
     
-    \item Doel: zekerheid scheppen dat je voorstel \emph{S.M.A.R.T.} is
+    \item Doel: zekerheid scheppen dat je voorstel \textbf{S.M.A.R.T.} is
     \begin{itemize}
       \item Specifiek, concreet
       \item Meetbare doelstellingen
@@ -289,133 +294,130 @@ Je dient zelf een co-promotor te zoeken!
 \end{frame}
 
 \begin{frame}{Procedure}
-
-\begin{itemize}
-  \item Indienen op Chamilo (cursus Bachelorproef) vóór deadline (half december)
-  \item Feedback door één van de lectoren, dit wordt je promotor
-  \item Herwerk zo nodig voorstel
-  \item Aan de slag!
-\end{itemize}
+  
+  \begin{itemize}
+    \item Indienen op Chamilo (cursus Bachelorproef) vóór deadline (half december)
+    \item Feedback door één van de lectoren, dit wordt je promotor
+    \item Herwerk zo nodig voorstel
+    \item Aan de slag!
+  \end{itemize}
 \end{frame}
 
 \section{Criteria voor beoordeling voorstel}
 
 \begin{frame}{Criteria voor beoordeling voorstel}
-
-\alertbox{De \textbf{titel} is \emph{concreet} en geeft een correct beeld van de onderzoeksdoelstelling}
-
-\begin{itemize}
-  \item Niet enkel het onderzoeksdomein benoemen
-  \item Geen vraag
-  \item Geen ``Onderzoek naar''
-  \item Hoeft niet definitief te zijn!
-\end{itemize}
-
-% TODO: voorbeelden geven: goed/slecht
-
-%\textcolor{OrangeRed}{\XBox} De cloud
-%
-%\textcolor{ForestGreen}{\CheckedBox} Selectie van een Platform-as-a-Service oplossing voor een 
-
-\end{frame}
-
-\begin{frame}{Criteria voor beoordeling voorstel}
-
-\alertbox{Er is een \textbf{samenvatting} met alle nodige elementen}
-\small
-\begin{description}
-  \item[Context] Waarom is dit werk belangrijk?
-  \item[Nood] Waarom moet dit onderzocht worden?
-  \item[Taak] Wat ga je specifiek doen doen?
-  \item[Object] Wat staat in dit document geschreven?
-  \item[Resultaat] Welk concreet resultaat verwacht je van je onderzoek?
-  \item[Conclusie] Wat verwacht je van van de conclusies?
-  \item[Perspectief] Waarvoor zal het resultaat kunnen gebruikt worden? Wat is de meerwaarde van je werk?
-\end{description}
-
-\alertbox{Een samenvatting is geen inleiding!}
-
-\end{frame}
-
-\begin{frame}{Criteria voor beoordeling voorstel}
-
-\alertbox{Het voorstel is \textbf{vernieuwend} en heeft een duidelijke \textbf{meerwaarde} voor een specifieke doelgroep uit het werkveld}
-
-\begin{itemize}
-  \item Op een onderzoeksvraag is nu nog geen antwoord!
-  \item Eigen bijdrage moet duidelijk zijn!
-  \item Baken domein af naar specifieke doelgroep toe (bv. een bedrijf)
-  \item Geen ``algemeen'' onderwerp
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Criteria voor beoordeling voorstel}
-
-\alertbox{De methodologie is duidelijk verantwoord, onderzoekstechnieken zijn geschikt voor beantwoorden onderzoeksvraag}
-
-\begin{itemize}
-  \item Concreet plan van aanpak!
-  \item Uit welke fasen bestaat jouw onderzoek?
-  \item Welk doel en resultaat heeft elke fase?
-  \item Wees specifiek! Niet: ``onderzoek doen naar\ldots''
+  
+  \alertbox{De \textbf{titel} is \textbf{concreet} en geeft een correct beeld van de onderzoeksdoelstelling}
+  
   \begin{itemize}
-    \item Literatuurstudie
-    \item Interview (bv. requirements verzamelen)
-    \item Experiment (bv. performantiemeting)
-    \item Vergelijkende studie
-    \item Risico-analyse (bv. in kader van security)
-    \item Proof-of-concept opzetten
-    \item \ldots
+    \item Niet enkel het onderzoeksdomein benoemen
+    \item Geen vraag
+    \item Geen ``Onderzoek naar''
+    \item Hoeft niet definitief te zijn!
   \end{itemize}
-\end{itemize}
-
+  
+  % TODO: voorbeelden geven: goed/slecht
+  
+  %\textcolor{OrangeRed}{\XBox} De cloud
+  %
+  %\textcolor{ForestGreen}{\CheckedBox} Selectie van een Platform-as-a-Service oplossing voor een 
+  
 \end{frame}
 
 \begin{frame}{Criteria voor beoordeling voorstel}
-
-\alertbox{Er wordt op een correcte manier verwezen naar vakliteratuur}
-
-\begin{itemize}
-  \item Voldoende referenties
-  \item Elke bewering
-  \item APA-stijl (volgens sjabloon)
-\end{itemize}
-
+  
+  \alertbox{Er is een \textbf{samenvatting} met alle nodige elementen}
+  \small
+  \begin{description}
+    \item[Context] Waarom is dit werk belangrijk?
+    \item[Nood] Waarom moet dit onderzocht worden?
+    \item[Taak] Wat ga je specifiek doen doen?
+    \item[Object] Wat staat in dit document geschreven?
+    \item[Resultaat] Welk concreet resultaat verwacht je van je onderzoek?
+    \item[Conclusie] Wat verwacht je van van de conclusies?
+    \item[Perspectief] Waarvoor zal het resultaat kunnen gebruikt worden? Wat is de meerwaarde van je werk?
+  \end{description}
+  
+  \alertbox{Een samenvatting is geen inleiding!}
+  
 \end{frame}
 
 \begin{frame}{Criteria voor beoordeling voorstel}
+  
+  \alertbox{Het voorstel is \textbf{vernieuwend} en heeft een duidelijke \textbf{meerwaarde} voor een specifieke doelgroep uit het werkveld}
+  
+  \begin{itemize}
+    \item Op een onderzoeksvraag is nu nog geen antwoord!
+    \item Eigen bijdrage moet duidelijk zijn!
+    \item Baken domein af naar specifieke doelgroep toe (bv. een bedrijf)
+    \item Geen ``algemeen'' onderwerp
+  \end{itemize}
+  
+\end{frame}
 
-\alertbox{Er wordt een \textbf{zakelijke schrijfstijl} gehanteerd}
+\begin{frame}{Criteria voor beoordeling voorstel}
+  
+  \alertbox{De methodologie is duidelijk verantwoord, onderzoekstechnieken zijn geschikt voor beantwoorden onderzoeksvraag}
+  
+  \begin{itemize}
+    \item Concreet plan van aanpak!
+    \item Uit welke fasen bestaat jouw onderzoek?
+    \item Welk doel en resultaat heeft elke fase?
+    \item Wees specifiek! Niet: ``onderzoek doen naar\ldots''
+    \begin{itemize}
+      \item Literatuurstudie
+      \item Interview (bv. requirements verzamelen)
+      \item Experiment (bv. performantiemeting)
+      \item Vergelijkende studie
+      \item Risico-analyse (bv. in kader van security)
+      \item Proof-of-concept opzetten
+      \item \ldots
+    \end{itemize}
+  \end{itemize}
+  
+\end{frame}
 
-\begin{description}
-  \item[Zakelijk] geen bloemrijk, informeel taalgebruik, spreektaal
-  \item[Objectief] geen mening, enkel aantoonbare feiten
-  \item[Onpersoonlijk] \textbf{Geen ``ik''}/wij
-  \item[Precies] geen vage uitspraken, alles kwantificeren
-  \item[Correct] taalgebruik: grammatica, spelling
-\end{description}
+\begin{frame}{Criteria voor beoordeling voorstel}
+  
+  \alertbox{Er wordt op een correcte manier verwezen naar vakliteratuur}
+  
+  \begin{itemize}
+    \item Voldoende referenties
+    \item Elke bewering
+    \item APA-stijl (volgens sjabloon)
+  \end{itemize}
+  
+\end{frame}
 
-Zie \url{http://www.taalwinkel.nl/een-wetenschappelijke-schrijfstijl/}
-
+\begin{frame}{Criteria voor beoordeling voorstel}
+  
+  \alertbox{Er wordt een \textbf{zakelijke schrijfstijl} gehanteerd}
+  
+  \begin{description}
+    \item[Zakelijk] geen bloemrijk, informeel taalgebruik, spreektaal
+    \item[Objectief] geen mening, enkel aantoonbare feiten
+    \item[Onpersoonlijk] \textbf{Geen ``ik''}/wij
+    \item[Precies] geen vage uitspraken, alles kwantificeren
+    \item[Correct] taalgebruik: grammatica, spelling
+  \end{description}
+  
+  Zie \url{http://www.taalwinkel.nl/een-wetenschappelijke-schrijfstijl/}
+  
 \end{frame}
 
 \section{Uitdagingen}
 
 \begin{frame}{Uitdagingen}
-
-\begin{itemize}
-  \item Inwerken in een nieuw domein
-  \item Iets \emph{onderzoeken} is moeilijker dan concrete opdracht \emph{uitvoeren}
-  \item Uitstelgedrag!
-  \item Gebruik stagevrije dag voor BP, niet voor andere activiteiten!
-\end{itemize}
-
+  
+  \begin{itemize}
+    \item Inwerken in een nieuw domein
+    \item Iets \textbf{onderzoeken} is moeilijker dan concrete opdracht \textbf{uitvoeren}
+    \item Uitstelgedrag!
+    \item Gebruik stagevrije dag voor BP, niet voor andere activiteiten!
+  \end{itemize}
+  
 \end{frame}
-
-
 
 \section{Veel succes!}
 
 \end{document}
-
