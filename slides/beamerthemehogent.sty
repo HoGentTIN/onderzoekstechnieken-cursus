@@ -3,9 +3,11 @@
 %==========================================================================
 % Auteur: Bert Van Vreckem [bert.vanvreckem@hogent.be]
 
+\NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{beamerthemehogent}
 
 \mode<presentation>
+\graphicspath{{graphics/}}
 
 %--------------------------------------------------------------------------
 % Nodige packages
@@ -14,12 +16,16 @@
 \RequirePackage{tikz}
 \usetikzlibrary{fadings,positioning}
 \RequirePackage[overlay, absolute]{textpos}
-\RequirePackage{fontspec}
+\RequirePackage{ifpdf}
+\RequirePackage{ifxetex}
+\RequirePackage{ifluatex}
+\RequirePackage{xkeyval}
 
 %--------------------------------------------------------------------------
 % Kleuren
 %--------------------------------------------------------------------------
-% Bron: https://hnet.hogent.be/themas/communicatie/huisstijl-logo-s-en-sjablonen/kleurgebruik/
+% Bron: https://hnet.hogent.be/themas/communicatie/
+%    huisstijl-logo-s-en-sjablonen/kleurgebruik/
 
 % Kleurendefinities
 
@@ -35,16 +41,96 @@
 \definecolor{hgyellow}{RGB}{244,222,0}
 
 %--------------------------------------------------------------------------
-% Lettertypes
+% Commando's
 %--------------------------------------------------------------------------
 
-\setsansfont{Montserrat}
-\setmonofont{Fira Code}
+\newif\if@nativefonts
+\DeclareOptionX{nativefonts}{\@nativefontstrue}
+\ProcessOptionsX\relax
 
-\setmathrm{Montserrat}
-\setmathsf{Montserrat}
-\setmathtt{Fira Code}
-\setboldmathrm{Montserrat ExtraBold}
+%--------------------------------------------------------------------------
+% Lettertypes
+%--------------------------------------------------------------------------
+\ifxetex
+    \RequirePackage[no-math]{fontspec}
+    \RequirePackage[mathrm=sym]{unicode-math}
+    \unimathsetup{math-style=ISO,bold-style=ISO,sans-style=upright,mathrm=sym}
+    \RequirePackage{realscripts}
+    \defaultfontfeatures{Ligatures=TeX}
+\else
+\ifluatex
+    \RequirePackage[no-math]{fontspec}
+    \RequirePackage[mathrm=sym]{unicode-math}
+    \unimathsetup{math-style=ISO,bold-style=ISO,sans-style=upright,mathrm=sym}
+    \RequirePackage{lualatex-math}
+    \RequirePackage{realscripts}
+\else
+    \@nativefontstrue %% Force native font rendering
+\fi
+\fi
+
+\if@nativefonts
+    \ClassInfo{\@classname}{Option 'nativefonts' set or
+        not running XeLaTeX/LuaLaTeX: using native fonts}
+    \RequirePackage[defaultfam,tabular,lining]{montserrat}
+    \RequirePackage{inconsolata}
+    \RequirePackage{sfmath} %% Fallback sans serif math font
+
+    \RequirePackage[T1]{fontenc}
+    \setmonofont{inconsolata}[StylisticSet={1,3}] %% Shapely l, upright quotes,
+    %% striked zeroes
+    \renewcommand*\oldstylenums[1]{{\fontfamily{Montserrat-TOsF}\selectfont #1}}
+\else
+%% Using fontspec for font rendering, first check system paths
+%% for font availability, if not fall back to local .otf files
+\IfFontExistsTF{Montserrat}{%
+    \setmainfont{Montserrat}
+    \setsansfont{Montserrat}
+}{%
+    \setmainfont{Montserrat}[
+        Path = fonts/Montserrat/,
+        Extension = .otf,
+        UprightFont = *-Regular,
+        BoldFont=*-Bold,
+        ItalicFont=*-Italic,
+        BoldItalicFont= *-BoldItalic]
+
+    \setsansfont{Montserrat}[
+        Path = fonts/Montserrat/,
+        Extension = .otf,
+        UprightFont = *-Regular,
+        BoldFont=*-Bold,
+        ItalicFont=*-Italic,
+        BoldItalicFont= *-BoldItalic]
+}
+
+\IfFontExistsTF{Fira Code}{%
+    \setmonofont{Fira Code}
+}{%
+    \setmonofont{FiraCode}[
+        Path = fonts/FiraCode/,
+        Extension = .otf,
+        UprightFont = *-Regular,
+        BoldFont=*-Bold,
+        ItalicFeatures = FakeSlant,
+        BoldItalicFeatures = FakeSlant]
+}
+
+%% Use a unicode-compliant sans serif math font
+\IfFontExistsTF{Fira Math Regular}{%
+    \setmathfont{Fira Math Regular}[BoldFont=Fira Math Bold]
+    \setmathfont{Fira Math Regular}[FakeSlant, range={bfit->it}]
+}{%
+    \setmathfont{FiraMath-Regular.otf}[
+        Path = fonts/FiraMath/,
+        BoldFont=FiraMath-Bold.otf]
+        \setmathfont{FiraMath-Regular.otf}[
+        Path = fonts/FiraMath/,
+        FakeSlant,
+        range={bfit->it}]
+}
+
+\fi
 
 \setbeamerfont{title}{series=\bfseries, size=\Huge}
 \setbeamerfont{subtitle}{series=\bfseries, size=\large}
@@ -55,14 +141,15 @@
 %--------------------------------------------------------------------------
 
 \setbeamertemplate{title page}{%
-  \begin{beamercolorbox}[wd=\paperwidth, ht=.8\textheight, leftskip=1cm]{title page header}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.8\textheight,leftskip=1cm]
+    {title page header}
     \usebeamerfont{title}\usebeamercolor{title}\inserttitle \\%
     \usebeamerfont{subtitle}\usebeamercolor{subtitle}\insertsubtitle%
-    
+
     \bigskip\bigskip\bigskip\bigskip
-    
+
     \usebeamerfont{framesubtitle}\insertauthor%
-    
+
     \insertdate
   \end{beamercolorbox}%
 }
@@ -73,16 +160,18 @@
 % \setbeamertemplate{background}[imgletter]{img/example.jpg}{E}
 %
 % Bronnen:
-% https://tex.stackexchange.com/questions/63146/negative-font-overlayed-with-a-photo
-% https://tex.stackexchange.com/questions/451312/positioning-of-text-in-tikzfadingfrompicture
+% https://tex.stackexchange.com/questions/63146/
+%    negative-font-overlayed-with-a-photo
+% https://tex.stackexchange.com/questions/451312/
+%    positioning-of-text-in-tikzfadingfrompicture
 % Met dank aan TeX.SE-gebruikers marmot en samcarter voor hun hulp
 
 \defbeamertemplate{background}{imgletter}[2]{%
   \begin{tikzfadingfrompicture}[name=letter#2]
     \path[use as bounding box] (-15,-4) rectangle (6,12);
-    \node[text=transparent!0] {\fontspec[Scale=26]{Code Pro Black}#2};
+    \node[text=transparent!0] {\includegraphics[height=\textheight]{#2}};
   \end{tikzfadingfrompicture}
-  
+
   \begin{tikzpicture}[remember picture,overlay,anchor=north west]
   \node[scope fading=letter#2,fit fading=false]
   at (current page.north west) {\includegraphics[height=\textheight]{#1}};
@@ -94,8 +183,9 @@
 {
   \begin{frame}<beamer>
 
-    \begin{beamercolorbox}[wd=\paperwidth, ht=.5\textheight, leftskip=1cm]{title page header}
-      \usebeamerfont{title}\usebeamercolor{title}\insertsection%
+    \begin{beamercolorbox}[wd=\paperwidth, ht=.5\textheight, leftskip=1cm]
+        {title page header}
+        \usebeamerfont{title}\usebeamercolor{title}\insertsection%
     \end{beamercolorbox}%
   \end{frame}
 }
@@ -108,25 +198,8 @@
 \setbeamertemplate{blocks}[default]
 
 % ``bullets'' op drie niveaus
-\setbeamertemplate{itemize item}{$\bullet$}  % opgevulde cirkel
-\setbeamertemplate{itemize subitem}{$\circ$} % lege cirkel
+\setbeamertemplate{itemize item}{$●$}  % opgevulde cirkel
+\setbeamertemplate{itemize subitem}{$○$} % lege cirkel
 \setbeamertemplate{itemize subsubitem}{--}   % streepje
-
-%--------------------------------------------------------------------------
-% Commando's
-%--------------------------------------------------------------------------
-
-% Een gecentreerd en gekleurd kader met vette tekst in het wit. Standaard
-% achtergrondkleur is hgblue, maar dit kan ingesteld worden met een
-% optioneel argument. Voorbeelden:
-%  \alertbox{Let op!}
-%  \alertbox[hgpurple]{Let op!}
-
-\newcommand{\alertbox}[2][hgblue]{%
-  \setbeamercolor{alertbox}{bg=#1,fg=white}
-  \begin{beamercolorbox}[sep=2pt,center]{alertbox}
-    \textbf{#2}
-  \end{beamercolorbox}
-}
 
 \mode<all>
