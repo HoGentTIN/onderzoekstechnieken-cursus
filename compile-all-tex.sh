@@ -4,7 +4,7 @@ set -o errexit # exit immediately if a command exits with a non-zero status
 set -o nounset # do not allow to use an unset variable
 set -o pipefail # force exit code of a pipeline to non-zero, if one of commands fails with non-zero
 
-compiler="pdflatex"
+compiler="xelatex"
 biber_cmd="biber --quiet"
 
 # tmp_extensions: these files will be removed after a successful run
@@ -35,7 +35,7 @@ By default, all temporary files are removed, but only after a successful build
  -c, --cleanup   : always remove tmp files, also if build failed or PDF newer
  -nc, --nocleanup: never remove temporary files, even if build was successful
  -h, --help      : show this help message
- -x, --xelatex   : use xelatex as compiler instead of pdflatex
+ -p, --pdflatex   : use pdflatex as compiler instead of xelatex
 Send questions, requests, issues, bugs, ... to wim.goedertier@hogent.be
 _EOF_
 
@@ -222,19 +222,19 @@ for i in "$@"; do
     -f|--force) force=1 ;;
     -c|--cleanup) cleanup=1 ;;
     -nc|--nocleanup) nocleanup=1 ;;
-    -x|--xelatex) compiler=xelatex ;;
+    -p|--pdflatex) compiler=pdflatex ;;
     -*) die "Unexpected argument '$i'";;
     esac
 done
 
 # define the commands and their options here, for maintainability
 if [ "${compiler}" = 'xelatex' ]; then
-    compiler_cmd="xelatex -interaction=batchmode"
+    compiler_cmd="xelatex -interaction=batchmode -shell-escape"
 elif pdflatex --help|grep '\-quiet'>/dev/null; then
-    compiler_cmd="pdflatex -interaction=batchmode -quiet"
+    compiler_cmd="pdflatex -interaction=batchmode -quiet -shell-escape"
 else
     # some versions of pdflatex (eg. on Mac) don't recognize the '-quiet' option
-    compiler_cmd="pdflatex -interaction=batchmode"
+    compiler_cmd="pdflatex -interaction=batchmode -shell-escape"
 fi
 echo "=== type 'sh $0 --help' for more details"
 
