@@ -177,14 +177,18 @@ De spreidingsmaat die typisch geassocieerd wordt met het gemiddelde is de standa
   \end{equation}
 \end{definition}
 
+Het is je misschien opgevallen dat in de formule gedeeld wordt door $n-1$ en niet door $n$, wat je zou kunnen verwachten. Er bestaat ook effectief een variant van de formule met $n$ in de noemer. Dit noemen we de populatievariantie, aangeduid met $\sigma^2$ (de Griekse letter sigma).
+
+De variantie van een steekproef wordt in de praktijk gebruikt als een schatting voor de (onbekende) populatievariantie. De formule met $n-1$ in de noemer is een zgn.~\textit{zuivere schatter} is, wat betekent dat bij veel herhalingen het gemiddelde van de schattingen convergeert naar de te schatten populatievariantie. Je kan dit wiskundig bewijzen, maar dat valt buiten het bestek van deze cursus.
+
 \begin{example}
   De variantie bij de lengtes van onze superhelden wordt als volgt berekend:
   
   \begin{align*}
-  s^{2} &=  \frac{(173,4 - 141)^{2} + (173,4 - 198 )^{2} + (173,4 - 143)^{2} + (173,4 - 201)^{2} + (173,4 - 184 )^{2}}{4} \\
-  &=  \frac{(-32,4)^{2} + (24,6)^{2} + (-30,4)^{2} + (27,6)^{2} + (10,6)^{2}}{4}\\
-  &= \frac{1049,76 + 605,16 + 924,16 + 761,76 + 112,36}{4}\\
-  &= \frac{3453,2}{4} = 863,3
+  	s^{2} & =  \frac{(173,4 - 141)^{2} + (173,4 - 198 )^{2} + (173,4 - 143)^{2} + (173,4 - 201)^{2} + (173,4 - 184 )^{2}}{4} \\
+  	      & =  \frac{(-32,4)^{2} + (24,6)^{2} + (-30,4)^{2} + (27,6)^{2} + (10,6)^{2}}{4}                                    \\
+  	      & = \frac{1049,76 + 605,16 + 924,16 + 761,76 + 112,36}{4}                                                          \\
+  	      & = \frac{3453,2}{4} = 863,3
   \end{align*}
 \end{example}
 
@@ -220,8 +224,6 @@ Dit geeft ons dus inzicht in wat normaal is en wat abnormaal is: een kleine stan
 Een aangename eigenschap van de standaardafwijking is dat het uitgedrukt kan worden in dezelfde metriek als de gemeten data. Bij ons voorbeeld van de superhelden, wil dat zeggen dat de standaardafwijking (ongeveer) 29,38 cm is.
 
 Zoals het gemiddelde zijn de variantie en de standaarddeviatie gevoelig aan uitschieters. De variantie is eigenlijk gevoeliger dan het gemiddelde. Inderdaad, voor een uitschieter is de afstand tot het gemiddelde kleiner dan het kwadraat van deze afstand. % TODO: Wat wordt hiermee bedoeld?
-
-% TODO: Waarom n-1 in de noemer?
 
 \subsection{Mediaan}
 
@@ -323,13 +325,18 @@ Bij het visualiseren van een kwalitatieve variabele wordt eerst een frequentieta
   Een \index{frequentietabel}\emph{frequentietabel} is tabel waarin opgesomd staat hoeveel keer een waarde voorkomt in de volledige dataset (= frequentie). Meestal zijn de tabellen verticaal georiënteerd.
 \end{definition}
 
-Om de grafiek te tekenen worden de verschillende waarden opgesomd onder de X-as en voor elke waarde wordt een staaf getekend waarvan de hoogte bepaald wordt door het aantal keer dat de overeenkomstige waarde voorkomt.
+Om de een \index{staafdiagram}\emph{staafdiagram} (zie Figuur~\ref{fig:staafdiagram}) te tekenen worden de verschillende waarden opgesomd onder de X-as en voor elke waarde wordt een staaf getekend waarvan de hoogte bepaald wordt door het aantal keer dat de overeenkomstige waarde voorkomt.
 
-% TODO: Voorbeeld staafdiagram toevoegen
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{staafdiagram}
+  \caption[Voorbeeld van een staafdiagram]{\textbf{Voorbeeld van een staafdiagram.} De labels op de x-as duiden de mogelijke waarden van de gevisualiseerde kwalitatieve variabele aan. De hoogte van elke staaf geeft de frequentie aan van elke waarde binnen de steekproef.}
+  \label{fig:staafdiagram}
+\end{figure}
 
 \subsection{Boxplot}
 
-De \index{boxplot}\emph{boxplot} wordt gevormd door een rechthoek begrensd door de kwartielwaarden (25\% en 75\%). In deze rechthoek wordt ook de mediaan getekend. De stelen, die aan de rechthoek zitten, bevatten de rest van de waarnemingen, op de uitschieters en extremen na.
+De \index{boxplot}\emph{boxplot} (zie Figuur~\ref{fig:boxplot}) wordt gevormd door een rechthoek begrensd door de kwartielwaarden (25\% en 75\%). In deze rechthoek wordt ook de mediaan getekend. De stelen, die aan de rechthoek zitten, bevatten de rest van de waarnemingen, op de uitschieters en extremen na.
 
 \begin{itemize}
   \item Een \index{uitschieter}\textit{uitschieter} is een waarde die meer dan 1,5 keer de interkwartielafstand boven/onder het derde/eerste kwartiel ligt en wordt aangeduid met een cirkeltje.
@@ -338,17 +345,59 @@ De \index{boxplot}\emph{boxplot} wordt gevormd door een rechthoek begrensd door 
 
 Een boxplot wordt horizontaal of verticaal georiënteerd, op basis van wat het duidelijkst is.
 
-% TODO: Voorbeeld boxplot toevoegen
+\begin{figure}
+  \centering
+  % Source: http://mirrors.ibiblio.org/CTAN/graphics/pgf/contrib/pgfplots/doc/pgfplots.pdf
+  % p.430
+  \begin{tikzpicture}
+    \begin{axis}[x=3cm,xticklabels={},xmax=2.3]
+      \addplot+[
+      boxplot prepared={
+        draw direction=y,
+        lower whisker=5,
+        lower quartile=7,
+        median=8.5,
+        upper quartile=9.5,
+        upper whisker=10,
+      },
+      ]
+      table[row sep=\\,y index=0] {
+        data\\ 1\\ 3\\
+      }
+      [right,color=hgorange]
+      node at (boxplot box cs: 1,.6) {uitschieter}
+      node at (boxplot box cs: \boxplotvalue{lower quartile},1) {$Q_1$}
+      node at (boxplot box cs: \boxplotvalue{median},1)         {$Q_2$, mediaan}
+      node at (boxplot box cs: \boxplotvalue{upper quartile},1) {$Q_3$}
+      node at (boxplot box cs: \boxplotvalue{upper whisker},1)  {max}
+      ;
+    \end{axis}
+  \end{tikzpicture}
+  \caption[Voorbeeld van een boxplot]{\textbf{Voorbeeld van een boxplot.} De blauwe rechthoek duidt het interval aan waarbinnen de helft van de waarnemingen zich bevinden. De grenzen zijn het eerste kwartiel onderaan ($Q_1$) en het derde bovenaan ($Q_3$). De lijn in het midden van de rechthoek is de mediaan (of het tweede kwartiel, $Q_2$). De andere blauwe horizontale strepen duiden in principe de kleinste en grootste waarnemingen aan. In dit geval zijn er echter enkele waarnemingen die erg ver van de mediaan liggen. Deze worden uitschieters genoemd en worden apart geplot als een punt.}
+  \label{fig:boxplot}
+\end{figure}
 
 \subsection{Histogram}
 
-Een \index{histogram}\emph{histogram} is een soort staafdiagram, maar dan aangepast naar kwantitatieve variabelen. Het bereik van de variabele wordt onderverdeeld in een door de onderzoeker gekozen aantal, typisch even grote, intervallen. Voor elk interval wordt er geteld hoeveel waarden er binnen vallen en op basis daarvan wordt de hoogte van de staven bepaald.
+Een \index{histogram}\emph{histogram} (zie Figuur~\ref{fig:histogram}) is een soort staafdiagram, maar dan aangepast naar kwantitatieve variabelen. Het bereik van de variabele wordt onderverdeeld in een door de onderzoeker gekozen aantal, typisch even grote, intervallen of klassen. Voor elke klasse wordt er geteld hoeveel waarnemingen er binnen vallen en op basis daarvan wordt de hoogte van de staven bepaald.
 
-% TODO: Voorbeeld histogram toevoegen
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{histogram}
+  \caption[Voorbeeld van een histogram]{\textbf{Voorbeeld van een histogram.} De X-as is hier onderverdeeld in een aantal even grote intervallen. De hoogte van elke staaf is gebaseerd op het aantal waarnemingen binnen elk interval.}
+  \label{fig:histogram}
+\end{figure}
 
 \subsection{Dichtheidsgrafiek}
 
-% TODO: uitleg en voorbeeld toevoegen
+De duidelijkheid van een histogram hangt in grote mate af van de keuze van de intervallen. Als deze te groot gekozen zijn verlies je precisie, en als ze te klein zijn zullen verschillende intervallen geen observaties bevatten. Als alternatief voor een histogram kan je ook een \index{dichtheidsgrafiek}\index{kansdichtheidsgrafiek}(kans)dichtheidsgrafiek (zie Figuur~\ref{fig:dichtheidsgrafiek}) plotten. De X-as is dan niet onderverdeeld in klassen. Er wordt een continue curve getekend waarvan de hoogte overeenkomt met de hoeveelheid waarnemingen ``in de buurt''. Een dichtheidsgrafiek toont typisch nog beter hoe de waarnemingen gespreid zijn.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=.7\textwidth]{dichtheidsgrafiek}
+  \caption[Voorbeeld van een dichtheidsgrafiek]{\textbf{Voorbeeld van een (kans)dichtheidsgrafiek.} De grafiek toont dezelfde data als het histogram in Figuur~\ref{fig:histogram}.}
+  \label{fig:dichtheidsgrafiek}
+\end{figure}
 
 \section{Oefeningen}
 
