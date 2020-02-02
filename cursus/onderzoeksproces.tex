@@ -114,10 +114,6 @@ Er worden meestal vier meetniveaus gebruikt in statistische analyse. Het meetniv
   \item [Rationiveau] \index{Rationiveau}: intervalniveau met nulpunt. Je kunt hierdoor verhoudingen berekenen tussen verschillende waarden op de schaal.
 \end{description}
 
-\begin{exercise}
-  Zoek zelf nu eens voorbeelden voor de verschillende meetniveaus.
-\end{exercise}
-
 \paragraph{Onderzoeksproces}
 Het onderzoeksproces kan grotendeels opgedeeld worden in 6 grote fasen:
 \begin{enumerate}
@@ -135,11 +131,25 @@ Het onderzoeksproces kan grotendeels opgedeeld worden in 6 grote fasen:
 
 Er is niet altijd een verband zichtbaar, en we moeten soms verder kijken dan naar de absolute waarden van de variabelen alvorens conclusies te trekken.
 
-% TODO: Dit voorbeeld staat niet in de cursus, enkel in de slides:
-
 \begin{example}
-  Bij het voobeeld van Pepsi versus cola zou je initeel kunnen denken dat Pepsi lekkerder is omdat er meer mensen ervan geproefd hebben (70 ten opzichte van 30). Maar dit zou een verkeerde manier van redeneren zijn. We moeten relatief ten op zichte van de  \textit{marginale} totalen kijken. Hier zien we dan dat 56 van de 70 ($\frac{56}{70} = 0.8$) mensen die Pepsi gedronken hebben het lekker vonden, en 24 van de 30 ($\frac{24}{30}$=0.8) mensen vonden cola lekker. Dus is er geen verschil in waarden voor cola en Pepsi voor de gemiddelde waarde van smaak.
+  Bekijk de waarden in Tabel~\ref{tab:pepsi-coca}, die het resultaat zijn van een smaaktest. Aan honderd mensen werd gevraagd om blind één soort cola te proeven en dan te zeggen of ze het al dan niet lekker vonden.
+  
+  Initieel zou je kunnen denken dat Pepsi lekkerder is omdat er meer mensen dit lekkerder vonden (56 t.o.v. 24 voor Coca Cola). Maar dit zou een verkeerde manier van redeneren zijn. Er zijn immers ook meer mensen die Pepsi geproefd hebben. We moeten relatief ten opzichte van de\textit{marginale} totalen kijken. Hier zien we dan dat 56 van de 70 ($\frac{56}{70} = 0.8$) mensen die Pepsi gedronken hebben het lekker vonden, en 24 van de 30 ($\frac{24}{30}$=0.8) mensen vonden cola lekker. Dus eigenlijk is er geen verschil in de beoordeling van beide merken.
 \end{example}
+
+\begin{table}
+  \centering
+  \begin{tabular}{l|cc|c}
+  	            & Pepsi & Coca Cola & Totaal \\
+  	\midrule
+  	Lekker      &  56   &    24     &   80   \\
+  	Niet lekker &  14   &     6     &   20   \\
+  	\midrule
+  	Totaal      &  70   &    30     &  100
+  \end{tabular}
+  \caption[Resultaten van een smaaktest tussen Pepsi en Coca Cola.]{Resultaten van een smaaktest tussen Pepsi en Coca Cola. Aan honderd mensen werd gevraagd om blind een soort cola te proeven (hetzij Pepsi, hetzij Coca Cola) en te zeggen of ze het al dan niet lekker vonden.}
+  \label{tab:pepsi-coca}
+\end{table}
 
 \section{Steekproefonderzoek}
 \label{sec:steekproefonderzoek}
