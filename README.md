@@ -128,7 +128,7 @@ Controleer deze instellingen via menu-item *Options > Configure TeXstudio*
     - Default Compiler: `pdflatex`
     - Default Bibliography tool: `biber`
 - Commands:
-    - `xelatex -synctex=1 -interaction=nonstopmode -shell-escape \%.tex` (voeg de optie `-shell-escape` toe)
+    - XeLaTeX: `xelatex -synctex=1 -interaction=nonstopmode -shell-escape \%.tex` (voeg de optie `-shell-escape` toe)
 - Editor:
     - Indentation mode: *Indent and Unindent Automatically*
     - Replace Indentation Tab by Spaces: *Aanvinken*
