@@ -53,6 +53,12 @@
   \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
 }
 
+%---------- Bibliografie ------------------------------------------------------
+
+\usepackage[backend=biber,style=apa]{biblatex}
+\DeclareLanguageMapping{dutch}{dutch-apa}
+\addbibresource{ozt-oef-1-latex.bib}
+
 %---------- Info over de presentatie ------------------------------------------
 
 \title{Rapporteren over onderzoek.}
@@ -80,12 +86,6 @@
 \section{Hoe rapporteren over onderzoek?}
 
 \subsection{Fasen in het schrijven}
-
-%\sectionframe{
-%\begin{center}
-%\includegraphics[width=0.8\textwidth]{oef2-02.jpg}
-%\end{center}
-%}
 
 \begin{frame}
   \frametitle{Fasen in het schrijven}
@@ -225,9 +225,6 @@
 \end{frame}
 
 \subsection{Structuur van een document}
-%\sectionframe{\begin{center}
-%\includegraphics[width=0.8\textwidth]{oef2-07.jpg}
-%\end{center}}
 
 \begin{frame}[plain]
   \frametitle{Documentstructuur}
@@ -396,15 +393,9 @@
   
 \end{frame}
 
-
-
 \section{Hoe refereren naar vakliteratuur?}
 
 \subsection{Waarom een literatuurstudie?}
-
-%\sectionframe{\begin{center}
-%\includegraphics[width=0.8\textwidth]{oef2-01.png}
-%\end{center}}
 
 \begin{frame}
   \frametitle{Vaak voorkomende fouten}
@@ -483,10 +474,6 @@
 \end{frame}
 
 \subsection{Informatie opzoeken en bijhouden}
-%\sectionframe{\begin{center}
-%\includegraphics[width=0.8\textwidth]{oef2-02}
-%\end{center}}
-
 
 \begin{frame}
   \frametitle{Soorten bronnen}
@@ -518,6 +505,7 @@
     \item Google Scholar: \url{https://scholar.google.com/}
     \item ScienceDirect: \url{https://www.sciencedirect.com/}
     \item Springer Online Journals: \url{https://link.springer.com/}
+    \item Catalogus Bib: \url{https://www.hogent.be/student/bibliotheken/}
     \item Wikipedia (uiteraard\dots)
   \end{itemize}
   
@@ -660,6 +648,91 @@
   
 \end{frame}
 
+\begin{frame}
+  \frametitle{Bibliografische gegevens in Jabref}
+  
+  Info die \textbf{altijd} ingevuld moet worden:
+  
+  \begin{description}
+    \item[Author] Familienaam, Voornaam and Familienaam, Voornaam and Familienaam, Voornaam\ldots
+    \item[Title] v/h artikel, boek, \ldots
+    \item[Year] of datum van publicatie
+    \item[Bibtexkey] id van deze bron, gebruikt bij refereren (tip: klik op sleutel-icoon)
+  \end{description}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Bibliografische gegevens in Jabref}
+  \framesubtitle{Extra info voor Article}
+  
+  \begin{description}
+    \item[Journal] Naam van het tijdschrift
+    \item[Volume] Jaargang
+    \item[Number] Nummer binnen de jaargang (optioneel)
+    \item[Pages] \verb|mmm--nnn|
+  \end{description}
+
+  \bigskip
+  
+  \textbf{Voorbeeld:}
+  
+  \bigskip
+  
+  \fullcitebib{Anscombe1973}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bibliografische gegevens in Jabref}
+  \framesubtitle{Extra info voor Electronic}
+  
+  \begin{description}
+    \item[Url] Hyperlink naar de bron
+    \item[Urldate] Datum van raadplegen
+  \end{description}
+
+  \bigskip
+
+  \textbf{Voorbeeld:}
+
+  \bigskip
+
+  \fullcitebib{Lundin2020}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bibliografische gegevens in Jabref}
+  \framesubtitle{Extra info voor InProceedings}
+  
+  \begin{description}
+    \item[Booktitle] ``Proceedings of the [naam conferentie]''
+    \item[Editor] Redacteur(s) (optioneel)
+    \item[Pages] paginanummers (optioneel)
+  \end{description}
+  
+  \medskip
+  
+  \textbf{Voorbeeld:}
+  
+  \fullcitebib{vanderLaanEtAl2015}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bibliografische gegevens in Jabref}
+  
+  Vul zoveel mogelijk info in (maakt zoeken gemakkelijker):
+  
+  \begin{description}
+    \item[DOI] Digital Object Identifier: uniek ID voor artikel, hiermee kan je automatisch alle velden invullen
+    \item[URL] ook al is het niet echt een Electronic bron
+    \item[Keywords] Sleutelwoorden
+    \item[File] PDF van de publicatie
+    \item[Abstract] Samenvatting
+    \item[Comments] Je eigen samenvatting/opmerkingen
+  \end{description}
+  
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{Bronvermelding en referentielijst in {\LaTeX}}
   
@@ -689,7 +762,7 @@
   \frametitle{Oefening}
   
   \begin{itemize}
-    \item Compileer de cursus Onderzoekstechnieken in TexStudio en controleer of het lukt de bibliografie en bronverwijzingen in te voegen
+    \item Compileer de cursus Onderzoekstechnieken in TexStudio en controleer of het lukt de bibliografie en bronverwijzingen in te voegen (F5 - F8 - F5)
     \item Zoek een aantal artikels i.v.m.~onderwerp van de groepstaak
     \item Voer ze in in JabRef
     \begin{itemize}
