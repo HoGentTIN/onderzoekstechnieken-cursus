@@ -33,6 +33,7 @@ Na dit hoofdstuk moet je in staat zijn om:
 \end{itemize}
 
 \section{De wetenschappelijke methode}
+\label{sec:onderzoeksproces-wetenschappelijke-methode}
 
 Er zijn verschillende manieren om kennis te vergaren:
 
@@ -93,6 +94,7 @@ Afhankelijk van de onderzoeksdoelstelling spreken we van hetzij fundamenteel, he
 \emph{Toegepast onderzoek} begint bij een concreet probleem, typisch in een bedrijfscontext. Onderzoekers moeten zich eerst inwerken in het specifieke probleemdomein. Dan kunnen ze op zoek gaan naar de meest geschikte methode om dat probleem op te lossen. Daarom moeten ze ook op de hoogte zijn van de state-of-the-art binnen het relevante fundamentele onderzoek. De meerwaarde van toegepast onderzoek is meestal makkelijker te meten, maar de impact blijft beperkt tot het bedrijf of de organisatie waarvoor het onderzoek werd uitgevoerd.
 
 \section{Basisconcepten in onderzoek}
+\label{sec:onderzoeksproces-basisconcepten}
 
 \paragraph{Meetniveaus}
 
@@ -152,7 +154,7 @@ Er is niet altijd een verband zichtbaar, en we moeten soms verder kijken dan naa
 \end{table}
 
 \section{Steekproefonderzoek}
-\label{sec:steekproefonderzoek}
+\label{sec:onderzoeksproces-steekproefonderzoek}
 
 Een reden om kwantitatief onderzoek uit te voeren is het kunnen doen van uitspraken die een representatief beeld van de werkelijkheid geven. Hierbij wordt vaak gebruik gemaakt van een steekproef. Een steekproef is een selectie uit een totale populatie ten behoeve van een meting van bepaalde eigenschappen van die populatie.
 
@@ -307,7 +309,7 @@ Dit soort fouten zijn te vermijden door bijvoorbeeld de vragen duidelijk en niet
 Wanneer bijvoorbeeld respondenten met een sterke band met het onderzoek eerder geneigd zijn om een vragenlijst in te vullen, ga je positievere antwoorden krijgen - terwijl ze niet representatief zijn voor de gehele populatie.
 
 \section{Oefeningen}
-\label{sec:proces-oefeningen}
+\label{sec:onderzoeksproces-oefeningen}
 
 \subsection{Onderzoeksproces}
 
@@ -391,12 +393,18 @@ We gaan dit onderzoek eens onder de loep nemen, kijken wat er goed aan was en wa
   Dankzij de gemarkeerde kleuren in je nota's heb je nu een zicht op wat je al kent en waar je nog moet op studeren. Herhaal deze oefening nog een aantal keer in de loop van het semester. Kijk nooit eerst naar het resultaat van een vorige poging, maar probeer meteen op een leeg blad zoveel mogelijk informatie vanuit je geheugen terug te halen. Vergelijk achteraf wel de resultaten. Je zou moeten merken dat je de volgende keren meer en meer in het groen hebt gemarkeerd en minder of zelfs geen rood meer hebt moeten gebruiken.
 \end{exercise}
 
+Een data frame of tibble in R kan je altijd beschouwen als het resultaat van een \textit{steekproef}. Elke rij is een \textit{observatie}\index{observatie} en elke kolom een \textit{variabele}\index{variabele}. Je kan een variabele selecteren met de notatie \texttt{dataset\$kolomnaam}. Observaties kan je selecteren op rijnummer (bv. \texttt{dataset[1,]}) of a.h.v. een eigenschap (bv. \verb|dataset[dataset$a == "yes",]|)
+
 \begin{exercise}
   Importeer de dataset van het onderzoek van~\textcite{Akin2016} in R. Je vindt deze terug in de Github repository voor deze cursus, onder de directory \texttt{oefeningen/datasets/} in het bestand \texttt{android\_persistence\_cpu.csv}.
   
   \begin{enumerate}
     \item Som de verschillende variabelen op in deze dataset
-    \item Bepaal voor elke variabele het meetniveau
+    \item Gebruik de functie \texttt{glimpse()} en \texttt{View()} om de inhoud van de dataset te bekijken.
+    \item Gebruik de functie \texttt{unique()} om de verschillende in de steekproef voorkomende waarden van elke variabele op te vragen.
+    \item Bepaal voor elke variabele het meetniveau. De resultaten uit de vorige stappen kunnen hier bij helpen!
+    \item Vraag de waarden in de kolom \texttt{price} op
+    \item Vraag een lijst op van computers met een CD-ROM station (variabele \texttt{cd} is \texttt{yes}).
   \end{enumerate}
 \end{exercise}
 
