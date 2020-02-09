@@ -379,31 +379,46 @@ Een alternatief is
 > ?solve
 \end{lstlisting}
 
+Er is online heel veel informatie terug te vinden over R. Er is een erg levendige en open \textit{community} van mensen wereldwijd die professioneel bezig zijn met R.
+
+Je zal ook merken dat er meerdere manieren zijn om in R eenzelfde taak uit te voeren, bv. een databestand inlezen of een grafiek plotten. Er zijn meer bepaald twee grote ``families'' van werkwijzen die vaak aangeduid worden met enerzijds \textit{Base-R} en anderzijds \textit{the tidyverse}. \textit{Base-R} omvat de commando's en functies die al van oudsher in R aanwezig zijn, maar die door verschillende auteurs kunnen geschreven zijn, met onderling verschillende codeerstijl en API. \textit{The tidyverse} is een verzameling van codebibliotheken met een gemeenschappelijke filosofie en codeerstijl met als doel makkelijk leesbare code en krachtige functionaliteit.
+
+In deze cursus hebben we niet echt een doorgedreven keuze gemaakt voor een van de twee. Voor alle taken die we verwachten dat studenten ze kunnen uitvoeren met R is er echter voorbeeldcode voorzien, daar kan je je op baseren om zelf aan de slag te gaan.
+
+\subsection{Een omgeving opzetten voor bijhouden van oefeningen}
+
+Voor de oefeningen waarvoor je R nodig hebt, kan je best een omgeving opzetten waar je alle databestanden en code kan bijhouden. Het is ook interessant om daar een Git repository van te maken.
+
+\begin{enumerate}
+  \item In RStudio, kies voor \textit{File > New Project}
+  \item Selecteer \textit{New Directory}
+  \item Selecteer \textit{New Project}
+  \item Kies een naam voor de directory (bv. \texttt{ozt-oefeningen}) en de directory waaronder je het nieuwe project wil aanmaken (kies je zelf). Vink ook \textit{Create a git repository} aan.
+  \item Maak nu een directory \texttt{datasets} aan onder \texttt{ozt-oefeningen} (dat kan via bestandsbeheer of in RStudio rechtsonder in het tabblad \textit{Files}). Kopieer in deze directory alle databestanden uit de Github-repository van de cursus, meer bepaald uit de directory \texttt{oefeningen/datasets} en \texttt{cursus/data}. Uit die laatste directory heb je niet de \texttt{.R}-bestanden nodig, maar wel de \texttt{.csv}, \texttt{.txt} en \texttt{.sav}-bestanden.
+  \item Gebruik tenslotte de command-line of de Git-functionaliteit binnen R (bovenaan rechts in het tabblad Git) om een eerste commit aan te maken met de datasets, en de bestanden die door Rstudio zijn aangemaakt: \texttt{.gitignore} en een \texttt{.Rproj}-bestand.
+\end{enumerate}
+
 \subsection{Commando's opslaan en output uitvoeren}
 
-Als de commando's in een extern bestand worden opgeslagen, bv. \texttt{commands.R} in de werkmap, dan kunnen deze op elk moment uitgevoerd worden in een R-sessie met de opdracht
+Je slaat de code die je schrijft om oefeningen op te lossen best op in een R-script. Dat is een tekstbestand met de extensie \texttt{.R}. Je kan een nieuw R-script aanmaken met \textit{File > New File > R-script (Ctrl+Shift+N)}. Kies zelf zinvolle namen en/of mappenstructuren voor je oefeningen (bv. \texttt{hst2/oef-2-5.R}).
+
+Als je de functionaliteiten van de \textit{tidyverse} wil gebruiken, start dan het script met:
 
 \begin{lstlisting}
-> source ("commands.R")
+library(tidyverse)
 \end{lstlisting}
 
-De functie \texttt{sink},
+Als de commando's in een extern bestand worden opgeslagen, bv. \texttt{commands.R} in de werkmap, dan kunnen deze in een R-sessie op elk moment uitgevoerd worden op de console (linksonder, tabblad \textit{Console}) met de opdracht:
 
 \begin{lstlisting}
-> sink ("record.lis")
+> source("commands.R")
 \end{lstlisting}
 
-Zal alle volgende uitvoer van de console naar een extern bestand, \texttt{record.lis}, wegschrijven. Het commando
-
-\begin{lstlisting}
-> sink()
-\end{lstlisting}
-
-Herstelt de output opnieuw naar de console.
+Dit zal je echter niet zo vaak nodig hebben. Je kan ook op een regel in het script gaan staan en \textit{Ctrl+Enter} indrukken. Dat zal het commando op die regel uitvoeren en verder gaan naar de volgende regel. Door achtereenvolgens \textit{Ctrl+Enter} te blijven indrukken, voer je dus regel per regel het script uit.
 
 \subsection{R omgeving en workspace}
 
-De entiteiten die R cre\"eert en manipuleert staan bekend als objecten. Deze kunnen variabelen zijn, arrays van cijfers, reeksen, functies of meer algemene structuren die uit dergelijke componenten zijn gebouwd. Tijdens een R-sessie worden objecten gemaakt en opgeslagen op naam. Het R commando
+De entiteiten die R cre\"eert en manipuleert staan bekend als objecten. Deze kunnen variabelen zijn, arrays van cijfers, reeksen, functies of meer algemene structuren die uit dergelijke componenten zijn gebouwd. Tijdens een R-sessie worden objecten gemaakt en opgeslagen op naam. Je kan deze in Rstudio rechtsboven in het tabblad \textit{Environment} terugvinden. Hetzelfde R commando
 
 \begin{lstlisting}
 > objects()
@@ -411,13 +426,13 @@ De entiteiten die R cre\"eert en manipuleert staan bekend als objecten. Deze kun
 
 geeft een overzicht van alle objecten die gemaakt zijn tot op dat moment.
 De verzameling van objecten die momenteel zijn opgeslagen, heet de werkruimte.
-Om objecten te verwijderen is de functie \texttt{rm} beschikbaar:
+Om objecten te verwijderen kan je in het \textit{Environment}-tabblad op het bezem-icoontje klikken. In de console is de functie \texttt{rm} beschikbaar, waarmee je individuele objecten kan verwijderen:
 
 \begin{lstlisting}
 > rm (x, y, z, inkt, junk, temp, foo, bar)
 \end{lstlisting}
 
-Alle objecten die tijdens een R-sessie zijn aangemaakt, kunnen permanent in een bestand worden opgeslagen voor gebruik in de toekomstige sessies. Wanneer deze optie geactiveerd is, worden de objecten weggeschreven naar een bestand met extensie \texttt{.RData}
+Alle objecten die tijdens een R-sessie zijn aangemaakt, kunnen permanent in een bestand worden opgeslagen voor gebruik in de toekomstige sessies. Wanneer deze optie geactiveerd is, worden de objecten weggeschreven naar een bestand met extensie \texttt{.RData}.
 
 In dit hoofdstuk onderzoeken we hoe je een dataset definieert in R. Er worden slechts twee commando's onderzocht. Het eerste is voor het eenvoudig toewijzen van gegevens, en het tweede is voor het inlezen van een databestand. Er zijn verschillende manieren om gegevens in een R-sessie te lezen, maar we richten ons op slechts twee om het eenvoudig te houden.
 
@@ -440,28 +455,32 @@ Om met \'e\'en van de nummers te werken, kan je toegang krijgen tot de variabele
 [1] 5.6
 \end{lstlisting}
 
-\subsection{Een csv file lezen}
+\subsection{Een csv-bestand lezen}
 
-We gaan ervan uit dat het gegevensbestand een csv bestand is: "komma-gescheiden waarden" (csv). Dat wil zeggen, elke regel bevat een rij met waarden die getallen of letters kunnen zijn, en elke waarde wordt gescheiden door een komma. We gaan ervan uit dat de eerste rij een lijst met labels bevat. Het idee is dat de labels in de bovenste rij gebruikt worden om te verwijzen naar de verschillende variabelen per rij.
+We gaan ervan uit dat het gegevensbestand een CSV-bestand is (\textit{Comma-Separated Values} of waarden gescheiden door komma's). Dat wil zeggen, elke regel bevat een rij met waarden die getallen of letters kunnen zijn, en elke waarde wordt gescheiden door een komma. We gaan ervan uit dat de eerste rij een lijst met labels bevat. Het idee is dat de labels in de bovenste rij gebruikt worden om te verwijzen naar de verschillende variabelen per rij.
 
-Het commando om het gegevensbestand te lezen is \texttt{read.csv}. We moeten tenminste één argument geven aan de opdracht.
+In de \textit{tidyverse} kan je een CSV-bestand inlezen met de functie \texttt{read\_csv()}. \textbf{Let op:} deze functie veronderstelt dat de dataset is ingedeeld volgens Engelstalige conventies: het decimaalteken is de punt (\texttt{.}) en kolommen worden gescheiden door komma's (\texttt{,}). Voor datasets in het Nederlands met komma (\texttt{,}) als decimaalteken en kommapunt (\texttt{;}) als kolomscheidingsteken, is er de functie \texttt{read\_csv2()}.
 
-\begin{exercise}
-  Ga met behulp van het help commando na wat de parameters zijn van het commando. Probeer daarna het bestand \texttt{computers.csv} in te lezen. 
-\end{exercise}
+Het resultaat van de \texttt{read\_csv}-functies is een object van het type \texttt{tibble}\footnote{In \textit{Base R} heb je een gelijkaardige datastructuur, de \texttt{data.table}}. Je kan deze meteen toewijzen aan een variabele, bv.:
 
-Het commando \texttt{dir()} geeft een overzicht van de bestanden in de huidige werkmap, en het commando \texttt{getwd()} (get working directory) geeft het volledige pad terug van de huidige werkmap.
-
-\begin{lstlisting}[breaklines=true]
-> dir()
-[1] "breakingbad.csv"  "Desktop"          "Documents"        "Downloads"        "dumps"            "earch php-"       "examples.desktop"
-[8] "f.r"              "kids.csv"         "kmissles.csv"     "kmissles.ods"     "Music"            "out.pdf"          "Pictures"        
-[15] "public"           "Public"           "R"                "Templates"        "test"             "test.php"         "Videos"          
-> getwd()
-[1] "/home/eothein"
+\begin{lstlisting}
+aardbevingen <- read_csv("datasets/Aardbevingen.csv")
+android_persistence
+  <- read_csv2("datasets/android_persistence.csv")
 \end{lstlisting}
 
-Het databestand komt uit de publicatie van \autocite{Stengos2005}. Deze dataset bevat data van 1993 tot 1995 over de prijzen van computers. Je kan nagaan wat het effect van de toevoeging van een cd-rom-station is op de prijs van de computer, of wat het effect is van de kloksnelheid op de prijs. 
+\begin{exercise}
+  Probeer een databestand te lezen vanuit RStudio:
+  
+  \begin{enumerate}
+    \item Gebruik de help-functie in Rstudio om na te gaan welke parameters er nog mogelijk zijn in \texttt{read\_csv}.
+    \item Importeer het databestand \texttt{computers.csv} en wijs het toe aan de variabele \texttt{computers}. Kijk in het \textit{Environment}-tabblad na wat de waarde is van deze variabele.
+  \end{enumerate}
+  
+Ga met behulp van het help commando na wat de parameters zijn van het commando. Probeer daarna het bestand \texttt{computers.csv} in te lezen. Je vindt het in \texttt{cursus/data}.
+\end{exercise}
+
+Het databestand \texttt{computers.csv} komt uit de publicatie van \autocite{Stengos2005}. Deze dataset bevat data van 1993 tot 1995 over de prijzen van computers. Je kan nagaan wat het effect van de toevoeging van een cd-rom-station is op de prijs van de computer, of wat het effect is van de kloksnelheid op de prijs. 
 
 Via het \texttt{names()} commando kan je achterhalen welke kolommen gedefinieerd zijn:
 
@@ -500,6 +519,24 @@ ads = col_integer(),
 trend = col_integer()
 )
 
+\end{lstlisting}
+
+Met de functie \texttt{glimpse()} kan je een vluchtige blik werpen op de inhoud van de dataset:
+
+\begin{lstlisting}
+glimpse(computers)
+Observations: 6,259
+Variables: 10
+$ price   <dbl> 1499, 1795, 1595, 1849, 3295, 3695, 1720, ...
+$ speed   <dbl> 25, 33, 25, 25, 33, 66, 25, 50, 50, 50, 33...
+$ hd      <dbl> 80, 85, 170, 170, 340, 340, 170, 85, 210, ...
+$ ram     <dbl> 4, 2, 4, 8, 16, 16, 4, 2, 8, 4, 8, 8, 4, 8...
+$ screen  <dbl> 14, 14, 15, 14, 14, 14, 14, 14, 14, 15, 15...
+$ cd      <chr> "no", "no", "no", "no", "no", "no", "yes",...
+$ multi   <chr> "no", "no", "no", "no", "no", "no", "no", ...
+$ premium <chr> "yes", "yes", "yes", "no", "yes", "yes", "...
+$ ads     <dbl> 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94...
+$ trend   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 \end{lstlisting}
 
 \subsection{Data types}
@@ -549,15 +586,17 @@ Een tekenreeks wordt gespecificeerd door gebruik te maken van aanhalingstekens. 
 
 \subsubsection{Factors}
 
-Vaak bevat een experiment proeven voor verschillende niveaus van een verklarende variabele, bijvoorbeeld een nominale variabele die gecodeerd wordt met een integer. De verschillende niveaus worden ook factoren genoemd.
+In een volgend hoofdstuk zullen we leren dat elke variabele een zgn.~\textit{meetniveau}\index{meetniveau} heeft (zie Sectie~\ref{sec:onderzoeksproces-basisconcepten}). Eén van deze meetniveaus zijn de zgn.~\textit{kwalitatieve variabelen} die maar een beperkt aantal mogelijke waarden heeft, niet noodzakelijke numeriek. In R wordt dit soort variabelen een \textit{factor}\index{factor} genoemd.
 
 Je geeft aan dat een variabele een factor is met behulp van het \texttt{factor} commando. 
 
 \subsubsection{Data frames}
 
-Data kan worden opgeslagen aan de hand van dataframes. Dit is een manier om verschillende vectoren van verschillende types te nemen en ze op te slaan in dezelfde variabele. De vectoren kunnen van alle soorten zijn. Een dataframe kan bijvoorbeeld verschillende vectoren bevatten en elke lijst kan een vector zijn van factoren, strings of nummers.
+Data kan worden opgeslagen aan de hand van \textit{data frames}\index{data frame} (\textit{Base R}) of \textit{tibbles}\index{tibble} (\textit{tidyverse}). Beide kunnen meestal door elkaar gebruikt worden en je kan er meestal dezelfde bewerkingen op uitvoeren.
 
-Er zijn verschillende manieren om gegevensframes te maken en te manipuleren. De meeste zijn buiten het bereik van deze introductie. Ze worden hier alleen genoemd om een meer volledige beschrijving te geven. 
+Dit is een manier om verschillende vectoren van verschillende types te nemen en ze op te slaan in dezelfde variabele. De vectoren kunnen van alle soorten zijn. Een dataframe kan bijvoorbeeld verschillende vectoren bevatten en elke lijst kan een vector zijn van factoren, strings of nummers.
+
+Er zijn verschillende manieren om data frames te maken en te manipuleren. In deze cursus zullen we deze meestal aanmaken door een CSV-bestand in te lezen. De meeste andere vallen buiten het bereik van deze inleiding. Ze worden hier alleen genoemd om een meer volledige beschrijving te geven. 
 
 \lstinputlisting{data/dataframe.R}
 
