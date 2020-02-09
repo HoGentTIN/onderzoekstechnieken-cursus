@@ -309,48 +309,34 @@ Wanneer bijvoorbeeld respondenten met een sterke band met het onderzoek eerder g
 \section{Oefeningen}
 \label{sec:proces-oefeningen}
 
+\subsection{Onderzoeksproces}
+
 In de Bachelorproef van~\textcite{Akin2016} wordt een vergelijkende studie verricht rond verschillende persistentiemogelijkheden in Android. In de Abstract kunnen we het volgende lezen:
 
 \begin{displayquote}
-  Vandaag de dag bestaan er veel applicaties, maar hoeveel daarvan blijven werken
-  zonder internetverbinding? Tegenwoordig is het ondersteunen van offline werking in
-  een applicatie geen luxe meer, maar een must-have. Om offline-support te voorzien
-  binnen een applicatie, is er nood aan het gebruik van een database. Hierdoor zijn
-  databases belangrijk binnen de IT-sector.
+  \itshape
+  Vandaag de dag bestaan er veel applicaties, maar hoeveel daarvan blijven werken zonder internetverbinding? Tegenwoordig is het ondersteunen van offline werking in een applicatie geen luxe meer, maar een must-have. Om offline-support te voorzien binnen een applicatie, is er nood aan het gebruik van een database. Hierdoor zijn databases belangrijk binnen de IT-sector.
   
   Er bestaan verschillende soorten databases, maar welke moet men gebruiken?
-  Welke is het meest geschikt bij een bepaalde soort applicatie? De keuze van de database
-  kan een grote invloed hebben op verschillende eigenschappen: performantie,
-  opstartsnelheid, CPU-gebruik,.. Als de database deze eigenschappen op een negatieve
-  manier be\"invloedt, kan dit tot gevolg hebben dat het aantal gebruikers van de mobiele
-  applicatie zal verminderen. Ter beantwoording van de probleemstelling zijn volgende
-  deelvragen geformuleerd met betrekking op de applicatie:
+  Welke is het meest geschikt bij een bepaalde soort applicatie? De keuze van de database kan een grote invloed hebben op verschillende eigenschappen: performantie, opstartsnelheid, CPU-gebruik,.. Als de database deze eigenschappen op een negatieve manier be\"invloedt, kan dit tot gevolg hebben dat het aantal gebruikers van de mobiele applicatie zal verminderen. Ter beantwoording van de probleemstelling zijn volgende deelvragen geformuleerd met betrekking op de applicatie:
+
   \begin{itemize}
-    \item 	Wat is de invloed van de gekozen database op de opstartsnelheid? Vertraagt het
-    gebruik van de gekozen database de opstartsnelheid van de applicatie, of heeft
-    het helemaal geen invloed (in vergelijking met gebruik van andere databases)?
+    \item 	Wat is de invloed van de gekozen database op de opstartsnelheid? Vertraagt het gebruik van de gekozen database de opstartsnelheid van de applicatie, of heeft het helemaal geen invloed (in vergelijking met gebruik van andere databases)?
     \item Wat is de invloed van de gekozen database op het CPU-gebruik? Een hoger
-    CPU-gebruik zal zorgen voor meer batterijverbruik. Zal de applicatie bij gebruik
-    van de gekozen database meer of juist minder CPU gebruiken (in vergelijking
-    met gebruik van andere databases)?
-    \item  Wat is de gemiddelde snelheid van de gekozen database bij het toevoegen van
-    records aan de database?
+    CPU-gebruik zal zorgen voor meer batterijverbruik. Zal de applicatie bij gebruik van de gekozen database meer of juist minder CPU gebruiken (in vergelijking met gebruik van andere databases)?
+    \item  Wat is de gemiddelde snelheid van de gekozen database bij het toevoegen van records aan de database?
   \end{itemize}
   
-  
-  Het onderzoek werd uitgevoerd op drie verschillende applicatieprofielen: weinig data
-  (profiel 1), gemiddelde hoeveelheid data (profiel 2), veel data (profiel 3).
-  De verwachtingen waren dat Realm altijd de beste keuze zou zijn, behalve bij
-  applicatieprofiel 1. Daar zou SharedPreferences de beste keuze moeten zijn, aangezien
-  het speciaal ontwikkeld is voor kleine hoeveelheden simpele data. Het onderzoek heeft
-  echter volgend resultaat opgeleverd:
+  Het onderzoek werd uitgevoerd op drie verschillende applicatieprofielen: weinig data (profiel 1), gemiddelde hoeveelheid data (profiel 2), veel data (profiel 3). De verwachtingen waren dat Realm altijd de beste keuze zou zijn, behalve bij applicatieprofiel 1. Daar zou SharedPreferences de beste keuze moeten zijn, aangezien het speciaal ontwikkeld is voor kleine hoeveelheden simpele data. Het onderzoek heeft echter volgend resultaat opgeleverd:
   
   \begin{enumerate}
     \item Weinig data : Realm
     \item Gemiddelde hoeveelheid data : Realm
     \item Veel data : SQLite
   \end{enumerate}
+
   De details van het onderzoek zijn te vinden in het volgende deel van de scriptie.
+
 \end{displayquote}
 
 We gaan dit onderzoek eens onder de loep nemen, kijken wat er goed aan was en wat de eventuele verbeterpunten kunnen zijn. 
@@ -366,7 +352,8 @@ We gaan dit onderzoek eens onder de loep nemen, kijken wat er goed aan was en wa
 \end{exercise}
 
 \begin{exercise}
-  Schrijf voor jezelf hoe de volgende componenten van het onderzoek ingevuld zijn.
+  Duid in de abstract de hieronder opgesomde componenten aan:
+  
   \begin{itemize}
     \item Context
     \item Nood
@@ -377,8 +364,56 @@ We gaan dit onderzoek eens onder de loep nemen, kijken wat er goed aan was en wa
     \item Perspectief
   \end{itemize}
   
-  Indien je op vorige componenten geen antwoord vindt uit de tekst, probeer dan zelf een antwoord te formuleren indien jij dit onderzoek zou uitvoeren. 
+  Indien je deze niet terugvindt in de tekst, probeer dan zelf een antwoord te formuleren indien jij dit onderzoek zou uitgevoerd hebben. 
 \end{exercise}
+
+\subsection{Basisconcepten in onderzoek}
+
+
+\begin{exercise}[Retrieval practice: meetniveaus]
+  \label{ex:retrieval-practice-meetniveaus}
+  De meetniveaus zijn een belangrijk begrip in de beschrijvende statistiek omdat de meeste technieken voor visualisatie en analyse hier van afhangen. Het is dus belangrijk de verschillende meetniveaus te kennen en te begrijpen.
+  
+  \emph{Retrieval practice} is een studietechniek waarvan wetenschappelijk is aangetoond dat die effectief werkt en tot betere leerresultaten leidt~\parencite{RoedigerKarpicke2006}.
+  
+  \begin{enumerate}[label=\alph*.]
+    \item Neem een leeg blad papier en probeer zonder de cursus of andere bronnen te raadplegen een overzicht te reproduceren van alle meetniveaus. Beschrijf voor elk meetniveau de specifieke eigenschappen en geef enkele voorbeelden.
+    
+    \textbf{Neem hier voldoende tijd voor} (bv. minstens 5 a 10 minuten). Ga niet meteen in de cursus kijken, maar probeer je zoveel mogelijk te herinneren.
+    
+    Wanneer je hiermee klaar bent, duid je alles wat je tot nu toe genoteerd hebt aan met een markeerstift (bv. groen).
+    
+    \item Overleg indien mogelijk met een medestudent en probeer samen het overzicht dat je elk gemaakt hebt te vervolledigen. Duid alle toevoegingen aan met een markeerstift in een andere kleur (bv. geel).
+    
+    \item Ga tenslotte in de cursus nalezen en verbeter/vervolledig zo nodig foute of ontbrekende informatie. Duid dit aan in een derde kleur (bv. oranje of rood).
+  \end{enumerate}
+  
+  Dankzij de gemarkeerde kleuren in je nota's heb je nu een zicht op wat je al kent en waar je nog moet op studeren. Herhaal deze oefening nog een aantal keer in de loop van het semester. Kijk nooit eerst naar het resultaat van een vorige poging, maar probeer meteen op een leeg blad zoveel mogelijk informatie vanuit je geheugen terug te halen. Vergelijk achteraf wel de resultaten. Je zou moeten merken dat je de volgende keren meer en meer in het groen hebt gemarkeerd en minder of zelfs geen rood meer hebt moeten gebruiken.
+\end{exercise}
+
+\begin{exercise}
+  Importeer de dataset van het onderzoek van~\textcite{Akin2016} in R. Je vindt deze terug in de Github repository voor deze cursus, onder de directory \texttt{oefeningen/datasets/} in het bestand \texttt{android\_persistence\_cpu.csv}.
+  
+  \begin{enumerate}
+    \item Som de verschillende variabelen op in deze dataset
+    \item Bepaal voor elke variabele het meetniveau
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  Importeer de dataset \texttt{Aardbevingen.csv}. Wat is het meetniveau van volgende variabelen?
+  
+  \begin{enumerate}
+    \item Latitude en Longitude
+    \item Type
+    \item Time
+    \item Depth
+  \end{enumerate}
+
+  Merk op dat in deze dataset, de kolom ID niet echt als een variabele kan beschouwd worden. Deze dient enkel om een unieke naam te geven aan elke observatie in de steekproef, maar bevat geen eigenschap.
+\end{exercise}
+
+\subsection{Steekproefmethoden en steekproeffouten}
 
 \begin{exercise}
   Een onderzoeker wil zo correct mogelijk de consumptiegewoontes van de inwoners van 18 jaar en ouder in een bepaalde gemeente met 3 woonkernen onderzoeken.  Hij onderscheidt 4 leeftijdsgroepen zodat hij uiteindelijk aan 12 deelgroepen komt. Hij vraagt de procentuele samenstelling van de bevolking op in de gemeente en berekent daaruit hoeveel bevragingen hij per deelgroep moet uitvoeren. Dit noemen we een \emph{quotasteekproef}.
@@ -423,27 +458,6 @@ We gaan dit onderzoek eens onder de loep nemen, kijken wat er goed aan was en wa
     \item Stel dat de aanwezige docent in de perceptie van de studenten zeer streng is en tijdens de bevraging rondloopt. Welk bezwaar kan hier gegeven worden? Meer bepaald, welke fout kan op deze manier ge\"introduceerd worden?
     \item Stel dat de bevraging niet tijdens een les, maar na een examen gehouden wordt. Welke fout kan er dan gemaakt worden?
   \end{enumerate}
-\end{exercise}
-
-\begin{exercise}[Retrieval practice: meetniveaus]
-  \label{ex:retrieval-practice-meetniveaus}
-  De meetniveaus zijn een belangrijk begrip in de beschrijvende statistiek omdat de meeste technieken voor visualisatie en analyse hier van afhangen. Het is dus belangrijk de verschillende meetniveaus te kennen en te begrijpen.
-  
-  \emph{Retrieval practice} is een studietechniek waarvan wetenschappelijk is aangetoond dat die effectief werkt en tot betere leerresultaten leidt~\parencite{RoedigerKarpicke2006}.
-  
-  \begin{enumerate}[label=\alph*.]
-    \item Neem een leeg blad papier en probeer zonder de cursus of andere bronnen te raadplegen een overzicht te reproduceren van alle meetniveaus. Beschrijf voor elk meetniveau de specifieke eigenschappen en geef enkele voorbeelden.
-    
-    \textbf{Neem hier voldoende tijd voor} (bv. minstens 5 a 10 minuten). Ga niet meteen in de cursus kijken, maar probeer je zoveel mogelijk te herinneren.
-    
-    Wanneer je hiermee klaar bent, duid je alles wat je tot nu toe genoteerd hebt aan met een markeerstift (bv. groen).
-    
-    \item Overleg indien mogelijk met een medestudent en probeer samen het overzicht dat je elk gemaakt hebt te vervolledigen. Duid alle toevoegingen aan met een markeerstift in een andere kleur (bv. geel).
-    
-    \item Ga tenslotte in de cursus nalezen en verbeter/vervolledig zo nodig foute of ontbrekende informatie. Duid dit aan in een derde kleur (bv. oranje of rood).
-  \end{enumerate}
-
-  Dankzij de gemarkeerde kleuren in je nota's heb je nu een zicht op wat je al kent en waar je nog moet op studeren. Herhaal deze oefening nog een aantal keer in de loop van het semester. Kijk nooit eerst naar het resultaat van een vorige poging, maar probeer meteen op een leeg blad zoveel mogelijk informatie vanuit je geheugen terug te halen. Vergelijk achteraf wel de resultaten. Je zou moeten merken dat je de volgende keren meer en meer in het groen hebt gemarkeerd en minder of zelfs geen rood meer hebt moeten gebruiken.
 \end{exercise}
 
 \begin{exercise}[Retrieval practice: steekproeffouten]
