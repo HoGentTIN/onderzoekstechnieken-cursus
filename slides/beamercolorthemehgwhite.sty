@@ -18,23 +18,31 @@
 \setbeamercolor{structure}{fg=black}
 
 \setbeamercolor{normal text}{fg=black}
-
 \setbeamercolor{alerted text}{fg=hgorange}
 
 \setbeamercolor{description item}{fg=hgblue}
-\setbeamerfont{description item}{series=\bfseries}
 
+%% Use the length of the 'HO' part of the logo to set the padding of the logo
+\newsavebox{\logopart}
+\savebox{\logopart}{\includegraphics[height=1cm]{graphics/logopart}}
 
-% Voettekst: paginanummer links, HOGENT logo rechts
+%% Footer: pagenumber on the left, logo right
 \setbeamertemplate{footline}{%
-  \begin{beamercolorbox}[wd=\paperwidth]{footline}
-    \usebeamercolor{page number in foot}
-    \usebeamerfont{page number in foot}
-    \hspace{1em}\insertframenumber/\inserttotalframenumber
-    \hfill
-    \includegraphics[width=1.5cm]{img/HOGENT_Logo_Pos_rgb.png}
-    \hspace*{.85cm}\vspace*{.8cm}
-  \end{beamercolorbox}
+    \begin{beamercolorbox}[wd=\paperwidth]{footline}
+        \usebeamercolor{page number in foot}
+        \usebeamerfont{page number in foot}
+        \hspace{1em}\insertframenumber/\inserttotalframenumber
+        \hfill
+
+        %% Insert the HoGent logo
+        \begin{tikzpicture}[remember picture, overlay]
+        \node [anchor=south east, shift={(-\the\wd\logopart, \the\wd\logopart)},
+        inner sep=0, outer sep=0] (logo) at (current page.south east)%
+        {%
+            \includegraphics[height=\the\ht\logopart]{hogent_logo}%
+        };%
+        \end{tikzpicture}
+    \end{beamercolorbox}
 }
 
 \mode<all>

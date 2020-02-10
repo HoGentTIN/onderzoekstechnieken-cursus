@@ -36,22 +36,24 @@
 % Gebruik: \inserttitlepage[achtergrondkleur]{afbeelding.png}
 \newcommand{\inserttitlepage}[2][white]{%
   \begin{titlepage}
+    \newgeometry{margin=1.5cm}
     % Achtergrond invoegen
-    \begin{textblock*}{\paperwidth}(-3cm,-3.5cm)%
+    \begin{textblock*}{\paperwidth}(-1.5cm,-1.9cm)%
       \noindent\includegraphics*[width=\paperwidth]{#2}
     \end{textblock*} 
 
     \begingroup
-    \vspace*{8cm}
+    \vspace*{12cm}
     \sffamily\bfseries
-    \fontsize{35pt}{12pt}\selectfont
+    \fontsize{45pt}{12pt}\selectfont
     \textcolor{#1}{\@title}\\[1cm]
     \fontsize{20pt}{12pt}\selectfont
     \textcolor{#1}{\@author}\\[1cm]
     \fontsize{18pt}{12pt}\selectfont
-    \textcolor{#1}{\@date}
     \vfill
+    \textcolor{#1}{\@date}
     \endgroup
+    \restoregeometry
   \end{titlepage}
 }
 
