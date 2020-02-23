@@ -1,7 +1,5 @@
 ---
-title: "Effect size"
-author: "Bert Van Vreckem"
-date: "7 December 2018"
+title: "6.4 -- Verband tussen kwalitatieve en kwantitatieve variabele"
 output: html_document
 ---
 
@@ -9,7 +7,58 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-If we want to know whether two groups are significantly different, we can use a statistical test like the $t$-test. The result of a statistical test is generally either "true" or "false", depending on the $p$-value and the chosen significance level.
+## De $t$-toets voor twee onafhankelijke steekproeven
+
+De $t$-toets kan ook gebruikt worden om twee steekproeven onderling te vergelijken. Eerst tonen we het geval van *onafhankelijke* steekproeven die afzonderlijk genomen zijn.
+
+In een klinisch onderzoek wil men nagaan of een nieuw medicijn als bijwerking een verminderde reactiesnelheid heeft (Lindquist, g.d.).
+Zes deelnemers kregen een medicijn toegekend (interventiegroep) en zes anderen een placebo (controlegroep). Vervolgens werd hun reactietijd op een stimulus gemeten (in ms). We willen nagaan of er significante verschillen zijn tussen de interventie- en controlegroep.
+
+- Controlegroep: 91, 87, 99, 77, 88, 91
+- Interventiegroep: 101, 110, 103, 93, 99, 104
+
+We noteren $\mu_1$ voor het populatiegemiddelde van de patiënten die het medicijn nemen en $\mu_2$ voor het gemiddelde van de niet behandelde populatie. Als het medicijn een impact heeft op de reactietijd, dan zal die van de controlegroep *lager* zijn van die van de interventiegroep.
+
+```{r}
+control <-      c( 91, 87, 99,77,88, 91)
+intervention <- c(101,110,103,93,99,104)
+t.test(control, intervention, alternative="less")
+```
+
+De gemiddelde reactietijd van de controlegroep (88.83) blijkt inderdaad significant lager te zijn dan die van de interventiegroep (101.67).
+
+Merk op dat in de oproep van `t.test` het significantieniveau (5%) en het veronderstelde populatiegemiddelde ($\mu_1 - \mu_2 = 0$) niet meegegeven werden. De waarden die we voor deze parameters willen kiezen zijn net de standaardwaarden van `t.test`.
+
+In de functie `t.test` kan je ook de "group by" operator (`~`) gebruiken. Bijvoorbeeld, in de dataset `mtcars` kan je de vraag stellen "Zijn auto's met een manuele versnellingsbak zuiniger dan die met een automaat?"
+
+```{r}
+t.test(mpg ~ am, data = mtcars, alternative = 'less')
+```
+
+De $p$-waarde is zeer klein, dus zelfs met een signigicantieniveau van 99% zou je de nulhypothese kunnen verwerpen.
+
+## De $t$-toets voor gepaarde steekproeven
+
+In deze variant van de $t$-toets is een meting uitgevoerd op elk element van de steekproef, &eacute;&eacute;n keer v&oacute;&oacute;r en &eacute;&eacute;n keer na een interventie. De bedoeling is om na te gaan of die interventie een significant effect gehad heeft op de meting.
+
+In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben. Tien auto's werden eerst volgetankt met ofwel gewone benzine, ofwel benzine met additieven (bepaald door opgooien van een munt), waarna het verbruik werd gemeten (uitgedrukt in mijl per gallon). Vervolgens werden de auto's opnieuw volgetankt met de andere soort benzine en werd opnieuw het verbruik gemeten.
+
+We gaan door middel van een gepaarde $t$-toets na of auto's significant zuiniger rijden op benzine met additieven.
+
+```{r}
+regular   <- c(16,20,21,22,23,22,27,25,27,28)
+additives <- c(19,22,24,24,25,25,26,26,28,32)
+t.test(additives, regular, alternative="greater", paired=TRUE)
+```
+
+
+De optie `paired=TRUE` geeft aan dat het hier om een gepaarde t-toets gaat.
+
+De $p$-waarde, 0.0007749, ligt onder het significantieniveau 0.05, dus we kunnen de nulhypothese verwerpen. Volgens deze steekproef rijden auto's inderdaad zuiniger op benzine met additieven.
+
+## Effect size
+
+If we want to know whether two groups are significantly different, we can use a statistical test like the two sample $t$-test. The result of a statistical test is generally either "true" or "false", depending on the $p$-value and the chosen significance level.
 
 *Effect size* is another metric to express the magnitude of the difference between two groups. Several definitions of effect size exist, but one of the most commonly used is *Cohen's $d$*.
 
@@ -17,7 +66,7 @@ If we want to know whether two groups are significantly different, we can use a 
 
 Research papers in this domain always report Cohen's $d$, which allows us to compare the results of different studies. For example, Hattie (2012) performed a massive meta-analysis that synthesises findings from 80,000 studies into what works best in education. As a rule of thumb, an influence with $d$ of at least 0.4 is considered to potentially accelerate student achievement. A value for $d$ of 1 means that students can acquire competencies in about half the time they normally would.
 
-# Cohen's $d$
+### Cohen's $d$
 
 Cohen's $d$ is defined as the difference between the means of both groups, divided by a pooled standard deviation:
 
@@ -41,7 +90,7 @@ cohens_d <- function(x, y) {
 
 We'll use Cohen's $d$ to measure the difference of between groups in two fictitious examples.
 
-# Example 1
+### Example 1
 
 Researchers want to know whether "outlining and transforming" of course material can have a positive impact on student achievements. They set up an experiment with 80 students that are assigned at random to two groups of equal size. All students follow a number of classes on the same subject matter, without any prior knowledge.
 
@@ -50,7 +99,7 @@ Students in Group A (the control group) the learning strategy they are used to. 
 The results of the test are summarised in `effect-size-1.csv`. Column `method` denotes the group (A or B) and `score` the student's score on the test.
 
 ```{r}
-scores <- read.csv('effect-size-1.csv')
+scores <- read.csv('data/effect-size-1.csv')
 strategy_A <- scores$score[scores$method == 'A']
 strategy_B <- scores$score[scores$method == 'B']
 ```
@@ -82,14 +131,14 @@ cohens_d(strategy_A, strategy_B)
 
 This value indicates a medium to large difference between the control group and the intervention group. Since it's larger than 0.4, we can conclude that outlining and transforming has the potential to considerably accelerate student achievement.
 
-# Example 2
+### Example 2
 
 Researchers want to investigate whether giving the student control over their own learning process has a positive impact on their achievements. They set up a controlled experiment with 200 students divided into a control group (A) and an intervention group (B), like in the previous example. Again, some type of assessment is used to measure the difference between the two groups.
 
 The results are summarised in `effect-size-2.csv`. 
 
 ```{r}
-scores2 <- read.csv('effect-size-2.csv')
+scores2 <- read.csv('data/effect-size-2.csv')
 group_A <- scores2$score[scores2$group == 'A']
 group_B <- scores2$score[scores2$group == 'B']
 ```
@@ -116,6 +165,6 @@ cohens_d(group_A, group_B)
 
 So, we can conclude that conclude that according to this study, giving students control over their own learning process has a negligable effect on student achievement.
 
-# References
+### References
 
 Hattie, J. (2012) *Visible Learning for Teachers.* Routledge.
