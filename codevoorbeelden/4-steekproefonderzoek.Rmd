@@ -1,5 +1,5 @@
 ---
-title: "4 -- steekproefonderzoek"
+title: "4 -- De centrale limietstelling"
 output:
   html_document: default
   pdf_document: default
@@ -7,11 +7,12 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 ```
 
 ## De normale verdeling
 
-In R een functie plotten kan je niet rechtstreeks. R kan aan de hand van een lijst met x- en y-coördinaten wel punten tekenen en lijnen ertussen. Die moeten we dus eerst berekenen.
+In R kan je niet rechtstreeks een grafiek van een wiskundige functie tekenen. R kan wel punten en lijnen plotten aan de hand van een lijst met x- en y-coördinaten. Als je een functie wil plotten, bereken je dus eerst een aantal punten op de grafiek.
 
 ### Plot van de standaardnormale verdeling
 
@@ -20,14 +21,15 @@ Specifiek kan je voor de standaardnormale verdeling $Z \sim Nor(\mu = 0, \sigma 
 ```{r}
 # Maak een lijst van 200 getallen tussen het interval [-4, 4]
 # die gelijk verdeeld zijn.
-x <- seq(from = -4,
-         to = 4,
-         length.out = 200)
+xvals <- seq(from = -4,
+             to = 4,
+             length.out = 200)
 # Bereken voor elke x-waarde het punt op de Gauss-curve
-y <- dnorm(x)
+stdnorm <- dnorm(xvals)
 
 # Maak hier een lijngrafiek van
-plot(x, y, type = 'l')
+ggplot(mapping = aes(x = xvals, y = stdnorm)) +
+  geom_line()
 ```
 
 ### Plot van een normale verdeling
@@ -38,14 +40,15 @@ We kunnen deze werkwijze veralgemenen voor een normale verdeling. Als voorbeeld 
 m <- 5    # gemiddelde
 s <- 1.5  # standaardafwijking
 # Bepaal de "interessante" x-waarden voor de plot
-x <- seq(from = m-4*s,
-         to = m+4*s, 
-         length.out = 200)
+xvals <- seq(from = m-4*s,
+             to = m+4*s, 
+             length.out = 200)
 # Bereken de dichtheidsfunctie
-y <- dnorm(x, m, s)
+normdist <- dnorm(xvals, m, s)
 
 # Maak hier een lijngrafiek van
-plot(x, y, type = 'l')
+ggplot(mapping = aes(x = xvals, y = normdist)) +
+  geom_line()
 ```
 
 De *vorm* van deze grafiek is volledig dezelfde als die van de *standaard*normaalverdeling, enkel de schaal (zowel op de x- als de y-as) is anders.
@@ -61,6 +64,9 @@ observaties <- rnorm(n, m, s)
 
 # Teken een histogram (zonder titel)
 histogram <- hist(observaties, main="")
+
+ggplot(mapping = aes(x = observaties)) +
+  geom_histogram(bins = 20)
 ```
 
 Als je op bovenstaand histogram een Gauss-curve zou plotten, dan zal je niet veel zien. De schaal op de y-as voor de Gauss-curve is immers veel kleiner dan die van het histogram (zie bovenstaande plot van een normale verdeling).
@@ -68,25 +74,21 @@ Als je op bovenstaand histogram een Gauss-curve zou plotten, dan zal je niet vee
 We kunnen ook een histogram tekenen met *densiteiten*. In dit geval is de *oppervlakte* van een staaf gelijk aan de *relatieve* frequentie van die klasse. (De *densiteit* of *dichtheid* is de *relatieve* frequentie gedeeld door de *breedte* van de klasse.) De som van alle oppervlaktes van alle balken is één. Dit komt overeen met de oppervlakte onder de Gauss-curve die is ook gelijk aan één. Het histogram en de Gausscurve kunnen dan dezelfde y-as gebruiken.
 
 ```{r}
-# Genereer 10000 willekeurige normaal verdeelde getallen:
+# Genereer n willekeurige normaal verdeelde getallen:
 n <- 10000
 observations <- rnorm(n, m, s)
 
-# Teken een histogram van de relatieve ipv de absolute
-# frequenties.
-# Speel met de waarde van "breaks" om een "fijner" of "grover"
-# histogram te bekomen.
-hist(observations, freq = FALSE, breaks = 50)
-
-# Bereken y-waarden voor de dichtheidsfunctie
-y <- dnorm(x, m, s)
-
-# Voeg deze functie toe aan het histogram
-lines(x, y, col = 'blue')
+# Zet eerst de observaties uit op de X-as
+ggplot(mapping = aes(x = observations)) +
+  # Plot een histogram van de relatieve frequenties van de observaties
+  # ..density.. is een variabele die automatisch berekend wordt uit
+  # de observaties.
+  geom_histogram(mapping = aes(y = ..density..), bins = 30) +
+  # Plot tenslotte de functie `dnorm` (dus de Gauss-curve voor de
+  # normale verdeling) met gemiddelde `m` en standaardafwijking `s`
+  stat_function(fun = dnorm, args = list(mean = m, sd = s),
+                colour = "red")
 ```
-
-
-De oproep van de functie `lines` maakt dat de nieuwe plot bovenop het reeds bestaande histogram wordt getekend. Als je hier de `plot`-functie gebruikt, dan wordt de tekening gewist en begin je opnieuw.
 
 ## Kansverdeling in de normale verdeling
 
@@ -106,9 +108,7 @@ z <- (x - m) / s
 z
 ```
 
-Met de `pnorm` kunnen we enkel de *linker*staartkans $P(X < 6.5)$ of $P(Z < 1)$ berekenen.
-Er wordt gevraagd naar de kans dat de reactiesnelheid ***groter*** is dan 6.5 ms, dus
-we berekenen $1-P(X<6.5)$ of $1-P(Z<1)$:
+Met de `pnorm` kunnen we enkel de *linker*staartkans $P(X < 6.5)$ of $P(Z < 1)$ berekenen. Er wordt gevraagd naar de kans dat de reactiesnelheid ***groter*** is dan 6.5 ms, dus we berekenen $1-P(X<6.5)$ of $1-P(Z<1)$:
 
 ```{r}
 1-pnorm(z)
@@ -118,25 +118,24 @@ we berekenen $1-P(X<6.5)$ of $1-P(Z<1)$:
 Grafische voorstelling van deze situatie:
 
 ```{r}
-# interval van de plot (x-waarden)
-x_interval <- seq(m - 4 * s, m + 4 * s, length=200)
-# punten op de Gauss-curve
-norm_dist <- dnorm(x_interval, m, s)
-plot(x_interval, norm_dist,
-     type = 'l', xlab = '', ylab = '')
+# Selecteer het gebied links van x
+i <- xvals <= x
 
-# Het gebied links van x inkleuren
-i <- x_interval <= x
-polygon(
-  c(x_interval[i], x,              x),
-  c(norm_dist[i],  dnorm(x, m, s), 0),
-  col = 'lightgreen')
-text(x, .01, x)
-
-# Toon het gemiddelde ahv een rode vertikale lijn
-abline(v = m, col='red')
-text(m, .01, m)
+ggplot(mapping = aes(x = xvals)) +
+  # Toon het gebied links van x en onder de Gauss-curve in het groen
+  geom_area(mapping = aes(x = xvals[i], y = dnorm(xvals[i], m, s)), 
+            color = "black", fill = "lightgreen") +
+  # Plot de Gauss-curve
+  stat_function(fun = dnorm, args = list(mean = m, sd = s)) +
+  # Toon het gemiddelde als een rode vertikale lijn
+  geom_vline(xintercept = m, color = "red") +
+  # Pas de titels van de assen aan
+  xlab("x") + ylab("densiteit") +
+  # Voeg tekst toe aan de plot
+  annotate("text", x = x, y = .02, label = x) +
+  annotate("text", x = m+.1, y = .02, label = m, color = "red")
 ```
+
 
 Andere voorbeelden van kansberekening:
 
@@ -212,30 +211,19 @@ Hoe kleiner het aantal vrijheidsgraden, hoe "platter" de curve en hoe breder de 
 In de grafiek hieronder vind je de dichtheidsfunctie voor de Student-$t$-verdeling voor verschillende vrijheidsgraden:
 
 ```{r}
-# Bron: https://www.statmethods.net/advgraphs/probability.html
-x <- seq(-4, 4, length=100) # x-waarden
-std_norm_dist <- dnorm(x)   # standaardnormaalverdeling, ter vgl         
-degf <- c(1, 3, 8, 30)      # te plotten vrijheidsgraden
+# Bepaal de x-waarden waar we de dichtheidsfunctie willen plotten
+x <- seq(-4, 4, length=200)
 
-# afwerking van de grafiek (kleur, legende)
-colors <- c("red", "blue", "darkgreen", "gold", "black")
-labels <- c("df=1", "df=3", "df=8", "df=30", "normaal")
-
-# plot van de standaardnormaalverdeling
-plot(x, std_norm_dist,
-     type="l", lty=2,
-     xlab="x-waarde", ylab="dichtheid",
-     main="Vergelijking van Student-t verdelingen")
-
-# plot van de vier Student-t verdelingen
-for (i in 1:4){
-  lines(x, dt(x,degf[i]), lwd=2, col=colors[i])
-}
-
-legend("topright", inset=.05, title="Verdelingen",
-       labels, lwd=2, lty=c(1, 1, 1, 1, 2), col=colors,
-       cex = .5)
-
+# Leg in de grafiek alvast het bereik van de X-as vast
+ggplot(mapping = aes(x = x)) +
+  # Plot achtereenvolgens de Student-t verdeling met 1, 3, 8 en 30 vrijheidsgraden
+  stat_function(fun = dt, args = list(df = 1), color ="red") +
+  stat_function(fun = dt, args = list(df = 3), color ="orange") +
+  stat_function(fun = dt, args = list(df = 8), color ="yellow") +
+  stat_function(fun = dt, args = list(df = 30), color ="blue") +
+  # Plot tenslote de standaardnormaalverdeling
+  stat_function(fun = dnorm, color = "black", linetype = "dashed") +
+  ylab("density")
 ```
 
 Om dit te illustreren nemen we hetzelfde voorbeeld van hierboven, maar veronderstellen dat de steekproefgrootte slechts 15 was.
