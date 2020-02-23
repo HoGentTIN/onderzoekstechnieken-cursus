@@ -25,6 +25,8 @@ Het is in elk geval nuttig om in elk R-script de functionaliteit van de Tidyvers
 library(tidyverse)
 ```
 
+Als je een library wil laden en deze is nog niet geïnstalleerd, ga dan rechtsonder in RStudio naar het tabblad Packages. Klik op Install en tik de naam van de package in. Zorg dat onderaan "Install dependencies" aangevinkt is.
+
 ## Data frames en tibbles
 
 De meest courante datastructuur voor het analyseren van data uit een experiment is een data frame of tibble. In R kunnen beide grotendeels door elkaar gebruikt worden en ze hebben ook grotendeels dezelfde functionaliteit. Data frames zijn de originele datastructuren uit Base R, tibbles zijn geïntroduceerd in de Tidyverse.
