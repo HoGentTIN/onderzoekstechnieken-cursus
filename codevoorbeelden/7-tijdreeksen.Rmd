@@ -1,5 +1,5 @@
 ---
-title: "8 -- Time series"
+title: "7 -- Time series"
 output: html_document
 ---
 
@@ -119,7 +119,7 @@ plot(dema_fc)
 Holt-Winter's method is also able to model seasonal trends in data.
 
 ```{r}
-sales <- read.csv('shoestore-sales.csv')
+sales <- read.csv('data/shoestore-sales.csv')
 sales_ts <- ts(sales$x_t, frequency = 7, start = c(1, 1))
 plot.ts(sales_ts,
         main = 'Shoestore sales',
