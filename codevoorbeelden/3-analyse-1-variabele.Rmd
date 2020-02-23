@@ -35,9 +35,9 @@ sd(lengths)                       # standard deviation of a *sample*
 
 ### Formula breakdown
 
-Mathematical formulae can often be translated to R quite straightforwardly. Take e.g. the formula for the mean:
+Mathematical formulae can often be translated to R quite straightforwardly. Take e.g. the formula for the sample mean:
 
-$\mu = \frac{\sum_{x=1}^{n}x_i}{n}$
+$\overline{x} = \frac{\sum_{x=1}^{n}x_i}{n}$
 
 In R, this becomes:
 
@@ -45,9 +45,9 @@ In R, this becomes:
 sum(lengths) / length(lengths)
 ```
 
-The same goes for the variance and standard deviation. In the example below, we use the definition of population variance (denominator $n$).
+The same goes for the variance and standard deviation of a sample. The sample variance is given by:
 
-$\sigma^2 = \frac{\sum_{i=1}^{n} \left(x_{i} - \mu\right)^2}{n}$
+$s^2 = \frac{\sum_{i=1}^{n-1} \left(x_{i} - \overline{x}\right)^2}{n-1}$
 
 In the code below, we break down the formula in parts:
 
@@ -62,7 +62,7 @@ stdev <- sqrt(variance)             # take the square root
 Or, the entire calculation of variance in one formula. Can you recognize the mathematical formula in the R-code?
 
 ```{r}
-variance <- sum((lengths - mean(lengths))^2) / length(lengths)
+variance <- sum((lengths - mean(lengths))^2) / (length(lengths) - 1)
 ```
 
 ### Calculations by group
@@ -115,65 +115,4 @@ names(freq_tab)[freq_tab == max(freq_tab)] # Also works for multimodal variables
 
 It's a bit convoluted, but in R, this is the only way to calculate the mode.
 
-## Charts in R
 
-For univariate statistics, the most common chart types are:
-
-- **boxplot**, that shows the spread of a (quantitative)
-- **bar chart**, which can be used for
-    - showing the values of a quantitative variable
-    - showing the frequencies of a qualitative variable
-- **histogram**, a variant of the bar chart for frequencies, where ranges of x-values are taken together in "buckets"
-
-```{r}
-# Chart types
-barplot(lengths)  # bar chart (without any fancy layout add-ons)
-boxplot(lengths)  # boxplot
-
-# Example "Active Duty Personnel, 1998"
-active_duty_personnel <- c(492, 363, 381, 176)
-
-barplot(active_duty_personnel)
-pie(active_duty_personnel)       # Shown for reference, avoid pie charts!
-
-# Plot of the frequencies of a qualitative variable
-barplot(table(esoph$agegp))
-```
-
-As an example of a histogram, we take the `cars` dataset as an example. 
-
-```{r}
-# For reference, a boxplot of the data
-boxplot(cars$dist, horizontal = TRUE)
-
-# A simple histogram, the hist function decides on the number
-# of buckets
-hist(cars$dist)
-
-# Only 4 "breaks" between buckets => 5 buckets
-hist(cars$dist, breaks = 4)  
-
-# Specify boundaries between buckets explicitly
-hist(cars$dist, breaks = c(0,30,60,90,120))  
-```
-
-
-### More elaborate charts
-
-Charts can be extended with titles, legends, colours, etc. A few examples are given here, you can find a lot more on the Internet. Remark that there is a separate chart library in R, called `ggplot`, that is not discussed in this guide.
-
-```{r}
-heroes <- c("Spiderman", "Batman", "Superman",
-            "Deadpool", "Catwoman")
-barplot(lengths,
-        main = "Lengths of super heroes",
-        names = heroes,
-        xlab = "Hero",
-        ylab = "Length (cm)",
-        col = "light blue"
-        )
-
-military_categories <- c("Army", "Air Force", "Navy", "Marine Corps")
-barplot(active_duty_personnel,
-        names = military_categories)
-```

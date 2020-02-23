@@ -1,0 +1,152 @@
+---
+title: "2 -- Het onderzoeksproces"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Onderzoekers verzamelen tijdens het uitvoeren van experimenten, het voeren van een enquête, enz., soms grote hoeveelheden ruwe data. Deze worden opgeslagen volgens diverse gestructureerde bestandsformaten zodat we de data kunnen importeren in onze toolkit voor statistische analyse. Wat vele van deze bestandsformaten gemeen hebben, is dat de data in tabelvorm is opgeslagen.
+
+Zo'n tabel komt dan meestal overeen met een **steekproef**. Elke kolom vormt een onderzochte **variabele**. De eerste rij bevat typisch de kolomhoofding met de namen van alle variabelen. Alle volgende rijen bevatten elk één **observatie**, bestaande uit de waarden voor alle variabelen.
+
+## Base-R vs Tidyverse
+
+Voor we hier dieper op ingaan eerst even dit. Je zal merken dat er meerdere manieren zijn om in R eenzelfde taak uit te voeren, bv. een databestand inlezen of een grafiek plotten. Er zijn meer bepaald twee grote “families” van werkwijzen die vaak aangeduid worden met enerzijds *Base-R* en anderzijds *the Tidyverse*. Base-R omvat de commando’s en functies die al van oudsher in R aanwezig zijn, maar die door verschillende auteurs kunnen geschreven zijn, met onderling verschillende codeerstijl en API. The Tidyverse is een verzameling van codebibliotheken met een gemeenschappelijke filosofie en codeerstijl met als doel makkelijk leesbare code en krachtige functionaliteit.
+
+In deze cursus hebben we niet echt een doorgedreven keuze gemaakt voor een van de twee. Voor alle taken die we verwachten dat studenten ze kunnen uitvoeren met R is er echter voorbeeldcode voorzien, daar kan je je op baseren om zelf aan de slag te gaan.
+
+Het is in elk geval nuttig om in elk R-script de functionaliteit van de Tidyverse te laden. Dat kan door je script te laten beginnen met:
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+## Data frames en tibbles
+
+De meest courante datastructuur voor het analyseren van data uit een experiment is een data frame of tibble. In R kunnen beide grotendeels door elkaar gebruikt worden en ze hebben ook grotendeels dezelfde functionaliteit. Data frames zijn de originele datastructuren uit Base R, tibbles zijn geïntroduceerd in de Tidyverse.
+
+Een data frame of tibble bevat alle metingen uit een steekproef in de vorm van een tabel. Elke rij van deze tabel is een individuele observatie uit de steekproef. Elke kolom kan je beschouwen als een statistische variabele en kan van een verschillend meetniveau zijn, hetzij een kwalitatieve (in R een *factor* genoemd, of ook *category* of *enumerated type*), hetzij een kwantitatieve.
+
+We gaan eerst aan de slag met een data frame die standaard in R beschikbaar is onder de naam `mtcars`.
+
+```{r}
+?mtcars       # Bekijk de "man-page" voor deze dataset
+View(mtcars)  # Bekijk de inhoud van deze dataset in tabelvorm
+nrow(mtcars)  # Aantal rijen
+ncol(mtcars)  # Aantal kolommen
+```
+
+Elementen uit een data frame ophalen:
+
+```{r}
+mtcars[1,2]  # eerste rij, tweede kolom
+mtcars[3,]   # derde rij
+mtcars[3:5,] # derde t/m vijfde rij
+mtcars[,2]   # tweede kolom
+mtcars[,2:4] # tweede t/m vierde kolom
+mtcars$cyl   # kolom met naam "cyl"
+mtcars[c("mpg","hp")] # tabel met enkel kolommen mpg en hp
+```
+
+Je kan ook een subset selecteren op basis van een soort query. Bijvoorbeeld, "Geef het aantal cylinders (`cyl`) van de auto's die geen automatische versnellingsbak (`am`) hebben."
+
+```{r}
+mtcars$cyl[mtcars$am == 0]  
+```
+
+Of "Geef alle info over de auto's met hoogstens 6 cylinders." Merk de komma op binnen de rechte haken!
+
+```{r}
+mtcars[mtcars$cyl <= 6,]
+```
+
+Je kan ook zulke "queries" combineren met logische operatoren *en* (`&`), *of* (`|`) en *niet* (`!`).  Bijvoorbeeld, "Geef alle informatie over auto's met een verbruik tussen 20 en 25 mpg."
+
+```{r}
+mtcars[mtcars$mpg >= 20 & mtcars$mpg <= 25,]
+```
+
+## CSV-bestanden openen
+
+De meest toegankelijke vorm, die door elk softwarepakket voor statistische analyse ondersteund wordt, is het zgn. CSV-bestand. CSV is de afkorting voor Comma Separated Values en is eigenlijk een gewoon tekstbestand. Je kan een .csv-bestand dus openen in een teksteditor. Elke lijn tekst komt overeen met een observatie en de waarden van de variabelen worden van elkaar afgescheiden door een komma.
+
+Om een CSV-bestand te importeren, gebruik je de functie `read_csv()` (uit de Tidyverse). Als het bestand de conventie van CSV-bestanden volgt, dan hoef je enkel de naam van het bestand mee te geven:
+
+```{r}
+computers <- read_csv(file = "data/computers.csv")
+```
+
+Het resultaat van de `read_csv()` functie is een `tibble`-object, wat in R een tabel voorstelt. Je kent het resultaat best toe aan een variabele. Kies een beschrijvende naam zodat je code makkelijker leesbaar is.
+
+R is in de eerste plaats geschreven met de Angelsaksische wereld in het achterhoofd. In getallen wordt als decimaalteken de punt gebruikt (12.3456), terwijl wij de komma gewend zijn (12,3456). Een CSV-bestand opgemaakt in het Nederlandse taalgebied gebruikt dan de komma als decimaalteken en de kommapunt als scheidingsteken. Voor deze gevallen kan je `read_csv2()` gebruiken.
+
+```
+read_csv2(file = "voorbeeld.csv") 
+```
+
+Bij sommige bestanden worden tab-karakters gebruikt om kolommen te scheiden. Daarvoor kan je `read_tsv()` gebruiken (TSV = tab separated values):
+
+```
+read_tsv(file = "voorbeeld.txt")
+```
+
+Er bestaat tenslotte ook een algemene functie `read_delim()` waarmee je alle andere gevallen mee kan opvangen. Deze functie heeft vele opties, dus lees de R-handleiding voor meer info (`?read_delim`).
+
+Enkele belangrijke opties die je sowieso nodig zult hebben (en die voor alle `read_X()` functies herkend worden):
+
+- `quote`: teken gebruikt als aanhalingsteken.
+- `na`: een vector van strings die als ontbrekende waarden moeten geïnterpreteerd worden.
+- `col_names`: boolean die aangeeft of de eerste rij de kolomhoofding bevat. Indien FALSE wordt meegegeven, dan worden de kolomnamen automatisch gegenereerd: X1, X2, enz. Je kan ook een vector van strings meegeven, die dan geïnterpreteerd wordt als de namen van de kolommen.
+- `col_types`: hiermee kan je aangeven van welk type elke kolom is. Je kan een string meegeven met voor elke kolom een letter die het type aangeeft. `c` = character, `i` = integer, enz. (zie de handleiding).
+
+```
+read_delim(file = "voorbeeld.csv",
+           na = c("none", "N/A"),
+           col_names = c("Name", "length", "weight"),
+           col_types = "cid",
+           quote = "'")
+```
+
+Na het inlezen van een dataset en toewijzen aan een variabele, zijn er verschillende manieren om de inhoud van de tabel te bekijken:
+
+- In RStudio rechtsboven onder Global Environment dubbelklikken op de variabelenaam. De data wordt dan getoond in tabelvorm.
+- Op de console: `View(data)`. Dit heeft hetzelfde effect als het vorige.
+- `glimpse(data)`: hiermee wordt een deel van de data getoond, en ook de datatypes van elke variabele/kolom.
+
+## Type van variabelen opgeven
+
+Bestudeer de inhoud van de variabele `computers`. Er zijn slechts 2 datatypes gebruikt, *character* en *double*. Dit klopt op zich wel, maar we zouden dit preciezer kunnen specifiëren. De getallen zijn geheel (*integer*), dus het is niet nodig dit als *double* te beschouwen. Het datatype *character* laat weinig analyse toe, en wordt beter omgezet in *factor* (een kwalitatieve variabele, hetzij nominaal, hetzij ordinaal). Hiervoor gebruik je de optie `col_types` en de functie `cols()` om per kolom in detail het type op te geven. Een voorbeeld voor `computers.csv`:
+
+```{r}
+computers <- read_csv(file = "data/computers.csv",
+                      col_types = cols(
+                        price = col_integer(),
+                        speed = col_integer(),
+                        hd = col_integer(),
+                        ram = col_integer(),
+                        screen = col_integer(),
+                        cd = col_factor(c("no", "yes")),
+                        multi = col_factor(c("no", "yes")),
+                        premium = col_factor(c("no", "yes")),
+                        ads = col_integer(),
+                        trend = col_integer()
+                      ))
+```
+
+## Samenvatting
+
+Belangrijke functies:
+
+| Functie       |  |
+| :---          | :--- |
+| `read_csv()`  | Lees een CSV-bestand in met `,` als scheidingsteken en `.` als decimaalteken |
+| `read_csv2()` | Lees een CSV-bestand in met `;` als scheidingsteken en `,` als decimaalteken |
+| `read_tsv()`  | Lees een TSV-bestand in met TAB als scheidingsteken |
+| `names()`     | Geef de variabelennamen van een tabel |
+| `unique()`    | Geef de unieke waarden uit een vector |
+
+Tip: In RStudio kan je via Help > Cheatsheets samenvattingen vinden van de belangrijkste functies in R.

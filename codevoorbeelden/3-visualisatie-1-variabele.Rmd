@@ -1,0 +1,167 @@
+---
+title: "Visualiseren van één variabele"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(dplyr) # Voor de `starwars` dataset
+library(ggplot2)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Leerdoelen
+
+Na het doorlopen van deze tutorial kan je:
+
+- voor een gegeven variabele het meest geschikte grafiektype benoemen op basis van het meetniveau
+- een staafdiagram genereren voor een kwalitatieve variabele
+- een boxplot, histogram of kansdichtheid plotten voor een quantitatieve variabele
+
+## Kwalitatieve variabelen
+
+Voor het visualiseren van de waarden van een kwalitatieve variabele (die in R een *factor* genoemd wordt), is een staafdiagram gebruikelijk:
+
+```{r, echo=TRUE}
+ggplot(data = starwars, mapping = aes(x = gender)) +
+  geom_bar()
+```
+
+Elke staaf in het diagram stelt het aantal keer voor dat elke mogelijke waarde voorkomt in de dataset.
+
+In de praktijk wordt ook heel vaak een taartdiagram gebruikt. Er zijn echter verschillende redenenen om dit soort grafieken te vermijden. Wij zullen het hier dan ook *niet* bespreken.
+
+### Oefening
+
+Maak een staafdiagram voor de variabele `homeworld`:
+
+```{r barchart-homeworld, exercise=TRUE}
+ggplot(data = starwars)
+```
+
+## Quantitatieve variabelen
+
+Bij quantitatieve variabelen worden volgende grafiektypes gebruikt:
+
+- boxplot (`geom_boxplot()`)
+- histogram (`geom_histogram()`)
+- kansdichtheid (`geom_density()`)
+
+We geven eerst van elk een voorbeeld, voor de variabele `height`.
+
+### Boxplot
+
+Een **boxplot** is een ééndimensionale grafiek die een beeld geeft van de spreiding van de waarden van de variabele. In de figuur hieronder is de boxplot liggend getekend. De linkerzijde van de centrale rechthoek (de *box*) komt overeen met het eerste kwartiel (Q1 = 167), de streep binnenin met de mediaan (Q2 = 180) en de rechterzijde het derde kwartiel (Q3 = 191). De horizontale lijnen links en rechts, in het Engels *whiskers* genoemd, geven in principe aan waar de minimum- respectievelijk maximumwaarde zich bevinden. De lengte van de *whiskers* is echter beperkt tot maximum 1.5 keer de interkwartielafstand (IQR). Waarden die nog verder van de mediaan liggen, worden als uitschieters (*outliers*) beschouwd en zie je op de grafiek als een punt.
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(data = starwars, mapping = aes(x = "", y = height)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+In het voorbeeld is de boxplot horizontaal getoond (met `coord_flip()`) omdat dat duidelijker is.
+
+### Histogram
+
+Een **histogram** is een staafgrafiek voor quantitatieve variabelen. Het volledige bereik van de waarden van de variabele wordt onderverdeeld in even grote intervallen en voor elk interval wordt geteld hoeveel waarden er binnen vallen. Van deze frequenties wordt dan een staafgrafiek getekend.
+
+In R kan je opgeven in hoeveel intervallen (*bins*) het bereik moet verdeeld worden, of hoe breed elk interval moet zijn (*binwidth*).
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(data = starwars, mapping = aes(x = height)) +
+  geom_histogram(bins = 10)
+```
+
+### Kansdichtheid
+
+Met R kan je ook de kansdichtheid tekenen. Deze geeft een nog duidelijker beeld van de spreiding van de data dan een boxplot of histogram. De totale oppervlakte onder de functie is 1.
+
+```{r, echo=TRUE, warning=FALSE}
+ggplot(data = starwars, mapping = aes(x = height)) +
+  geom_density()
+```
+
+### Oefeningen
+
+1. Maak een boxplot van de variabele `mass`.
+
+```{r boxplot-mass, exercise = TRUE}
+ggplot(data = starwars)
+
+```
+
+2. Maak een histogram van de variabele `mass`, met 40 *bins*.
+
+```{r hist-mass, exercise = TRUE}
+ggplot(data = starwars)
+```
+
+3. Maak een grafiek van de kansdichteid voor de variabele `mass`.
+
+```{r density-mass, exercise = TRUE}
+ggplot(data = starwars)
+```
+
+## Geschikte grafiektypes
+
+Kan je voor de opgegeven variabelen bepalen welk grafiektype het meest geschikt is? Let op: als je keuzerondjes ziet (radio buttons), dan is er één goed antwoord, als het vierkantjes zijn (checkboxes), dan zijn er meerdere correct.
+
+```{r geschikte-grafiektypes}
+quiz(
+  question("De leeftijd Star Wars-personages (`birth_year`)",
+    answer("Boxplot", correct = TRUE),
+    answer("Histogram", correct = TRUE),
+    answer("Kansdichtheid", correct = TRUE),
+    answer("Staafdiagram", message = "Een staafdiagram gebruik je voor kwalitatieve variabelen!"),
+    answer("Taartdiagram", message = "Hoewel het in de praktijk gebruikt wordt, vermijd je best het gebruik van een taartdiagram!"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  ),
+  question("Het ras (`species`) van Star Wars-personages (bv. Ewok, Wookiee, Droid, enz.)",
+    answer("Boxplot", message = "Een boxplot gebruik je voor *quantitatieve* variabelen!"),
+    answer("Histogram", message = "Een histogram gebruik je voor *quantitatieve* variabelen!"),
+    answer("Kansdichtheid", message = "De kansdichtheid plot je voor *quantitatieve* variabelen!"),
+    answer("Staafdiagram", correct = TRUE),
+    answer("Taartdiagram", message = "Hoewel het in de praktijk gebruikt wordt, vermijd je best het gebruik van een taartdiagram!"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  ),
+  question("Een lengte in cm",
+    answer("Boxplot", correct = TRUE),
+    answer("Histogram", correct = TRUE),
+    answer("Kansdichtheid", correct = TRUE),
+    answer("Staafdiagram", message = "Een staafdiagram gebruik je voor kwalitatieve variabelen!"),
+    answer("Taartdiagram", message = "Hoewel het in de praktijk gebruikt wordt, vermijd je best het gebruik van een taartdiagram!"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  ),
+  question("Opleidingsniveau (bv. *lagere school*, *lager secundair*, *bachelor*, enz.)",
+    answer("Boxplot", message = "Een boxplot gebruik je voor *quantitatieve* variabelen!"),
+    answer("Histogram", message = "Een histogram gebruik je voor *quantitatieve* variabelen!"),
+    answer("Kansdichtheid", message = "De kansdichtheid plot je voor *quantitatieve* variabelen!"),
+    answer("Staafdiagram", correct = TRUE),
+    answer("Taartdiagram", message = "Hoewel het in de praktijk gebruikt wordt, vermijd je best het gebruik van een taartdiagram!"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  ),
+  question("Een temperatuur in °C",
+    answer("Boxplot", correct = TRUE),
+    answer("Histogram", correct = TRUE),
+    answer("Kansdichtheid", correct = TRUE),
+    answer("Staafdiagram", message = "Een staafdiagram gebruik je voor kwalitatieve variabelen!"),
+    answer("Taartdiagram", message = "Hoewel het in de praktijk gebruikt wordt, vermijd je best het gebruik van een taartdiagram!"),
+    random_answer_order = TRUE,
+    allow_retry = TRUE
+  )
+)
+```
+
+## Samenvatting
+
+We vatten nog eens de belangrijkste grafiektypes voor één variabele samen:
+
+| Meetniveau   | Grafiektype                       |
+|:-------------|:----------------------------------|
+| Kwalitatief  | Staafgrafiek                      |
+| Quantitatief | Boxplot, Histogram, Kansdichtheid |
