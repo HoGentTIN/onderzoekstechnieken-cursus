@@ -1,0 +1,32 @@
+---
+title: "Exercise 1.7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Generate a vector containing the values of $e^x cos(x)$ for $x= 3, 3.1, 3.2, \dots ,6$
+
+1. Generate vector containing values of $x$ 
+
+    ```{r}
+    x <- seq(from = 3, to = 6, by = 0.1)
+    ```
+  
+2. Create function $f(x) = e^x cos(x)$
+
+    ```{r}
+    f <- function(x) {
+      (exp(1)^x)*cos(x)
+    }
+    ```
+  
+3. Calculate $f(x)$ and draw a basic plot
+
+    ```{r}
+    f(x)
+    plot(x,f(x))
+    ```
+  

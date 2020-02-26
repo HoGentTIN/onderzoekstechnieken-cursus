@@ -1,0 +1,32 @@
+---
+title: "Exercise 1.8"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Calculate  $\sum_{i=1}^{100}(i^3 + 4i^2)$
+
+1. Generate vector $i$ 
+
+    ```{r}
+    i <- seq(from = 1, to = 100, by = 1)
+    ```
+  
+2. Create function $f(i) = i^3 + 4i^2$
+
+    ```{r}
+    f <- function(i) {
+      i^3+4*i^2
+    }
+    ```
+  
+3. Calculate $\sum f(i)$
+
+    ```{r}
+    sum(f(i))
+    ```
+  
+    

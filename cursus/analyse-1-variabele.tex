@@ -399,15 +399,19 @@ De duidelijkheid van een histogram hangt in grote mate af van de keuze van de in
   \label{fig:dichtheidsgrafiek}
 \end{figure}
 
+
+
+
+
 \section{Oefeningen}
 
 \subsection{Centrum- en spreidingsmaten}
 
-
-
 \begin{exercise}
   \label{ex:mean-stdev-freq}
-  De formules voor steekproefgemiddelde $\overline{x}$ en -variantie $s^2$ staan beschreven in secties \ref{sec:gemiddelde} en \ref{sec:varEnSD}, resp. Hoe moeten we deze formules aanpassen worden om $\overline{x}$ en $s^2$ te berekenen wanneer we te maken hebben met een frequentietabel? Doe dit voor de data in tabel \ref{tab:pinfreq}.
+  De formules voor het steekproefgemiddelde $\overline{x}$, de steekproefvariantie $s^2$ en de standaarddeviatie $s$ staan beschreven in secties \ref{sec:gemiddelde} en \ref{sec:varEnSD}.
+  Hoe moeten deze formules aangepast worden om $\overline{x}$, $s^2$ en $s$ te berekenen wanneer we te maken hebben met een frequentietabel? 
+  Doe dit voor de data in Tabel~\ref{tab:pinfreq}.
 \end{exercise}
 
 \begin{table}
@@ -453,12 +457,22 @@ De duidelijkheid van een histogram hangt in grote mate af van de keuze van de in
 \end{exercise}
 
 \begin{exercise}
-Zoek eens zelfstandig op wat de variatieco\"effici\"ent voor een steekproef is. Hoe wordt die gedefinieerd voor een volledige populatie en wat zou je ermee kunnen doen?
+  Zoek eens zelfstandig op wat de variatieco\"effici\"ent voor een steekproef is. Hoe wordt die gedefinieerd voor een volledige populatie en wat zou je ermee kunnen doen?
 \end{exercise}
 
 \begin{exercise}
   \label{ex:ais}
-  Beschouw de volgende deelverzameling uit het data frame \texttt{ais} (uit de library DAAG). Bereken voor elk de geschikte centrum- en spreidingsmaten van de variabelen \texttt{sex} en \texttt{ht}.
+  Importeer het bestand \texttt{ais.csv} in R (terug te vinden in de Github-repository van deze cursus, in de map \texttt{oefeningen/datasets}). 
+  Een beschrijving van dit data frame is terug te vinden in dezelfde map, bestand \texttt{ais.html}.
+  
+  Je kan dit bestand importeren met behulp van volgende code:
+  \begin{lstlisting}
+  ais <- read.csv("ais.csv", sep = ",")
+  attach(ais)
+  \end{lstlisting}
+  
+  Beschouw de volgende deelverzamelingen uit dit data frame, 
+  en bereken voor elk de geschikte centrum- en spreidingsmaten van de variabelen \texttt{sex} en \texttt{ht}.
   
   \begin{enumerate}
     \item de roeiers.
@@ -478,7 +492,7 @@ Gebruik de functies \texttt{mean} en \texttt{range} om het gemiddelde en bereik 
 
 In vorige oefeningen hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken ook gebruikt in het onderzoek van~\textcite{Akin2016}. In de volgende oefeningen gaan we trachten de resultaten te reproduceren.
 
-Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu.csv} nodig. Je vindt die in de Github-repository van deze cursus, onder directory \texttt{oefeningen/data/oef\_3\_1variabele}
+Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu.csv} nodig. Je vindt deze eveneens terug in de folder \texttt{oefeningen/datasets}.
 
 \begin{exercise}
   \label{oef:casus-akin2016-1var}
@@ -583,9 +597,9 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
 \paragraph{Oefening \ref{ex:mean-stdev-freq}}
 
 \begin{itemize}
-  \item $\mu = 7$
-  \item $\sigma^2 \approx 5.7333$
-  \item $\sigma \approx 2.3944$
+  \item $\overline{x} = 7$
+  \item $s^2 \approx 5.830508$
+  \item $s \approx 2.414645$
 \end{itemize}
 
 \paragraph{Oefening \ref{ex:ais}}

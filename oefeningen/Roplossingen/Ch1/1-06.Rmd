@@ -1,0 +1,44 @@
+---
+title: "Oefening 1.6"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Remark:** Before running this code in RStudio, first do (from the menu): *Session > Set Working Directory > To Source File Location*. This allows loading the .csv file from the current directory.
+
+Importeer het bestand \texttt{rainforest.csv} in R.
+
+Probeer voor deze datafile te tellen hoeveel rijen er zijn per species die volledig en compleet zijn (dus geen n.a. bevatten). Je kan hiervoor `with`, `table`, `complete.cases` gebruiken.
+
+
+1. Importeer het bestand
+
+    ```{r}
+    # Load data from csv
+    rainforest <- read.csv("../../datasets/rainforest.csv", sep = ",")
+    # Allows the columns to be accessed directly instead of with table$column notation
+    attach(rainforest)
+
+    #View(rainforest) # Inhoud bekijken
+    ```
+    
+2. Selecteer complete records 
+
+    ```{r}
+    # Array die voor elk record aangeeft of die volledig is (TRUE/FALSE)
+    ok <- complete.cases(rainforest)
+    # Selectie uit rainforest met alleen de volledige records.
+    # Ook wordt enkel de kolom "species" behouden
+    complete <- rainforest[ok,c("species")]
+    ```
+    
+3. Frequentietabel voor aantal volledige cases per `species`
+
+    ```{r}
+    table(complete)
+    ```
+  
+**Besluit:** Enkel voor *B. myrtifolia* zijn er vier volledige cases, voor de andere soorten niet.

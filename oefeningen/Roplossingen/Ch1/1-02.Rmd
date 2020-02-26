@@ -1,0 +1,53 @@
+---
+title: "Oefening 1.2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In deze oefening werken we met het ingebouwde data frame `mtcars`.
+    
+1. Gebruik ingebouwde R-functies om informatie weer te geven over deze dataset.
+
+    ```{r mtcars1}
+    #View(mtcars)  # Inhoud van de dataset
+    #?mtcars       # Uitleg over de dataset
+    ```
+
+2. Geef de waarde terug voor de eerste rij, tweede kolom
+
+    ```{r mtcars2}
+    mtcars[1,2]
+    ```
+
+3. Geef het aantal rijen en het aantal kolommen
+
+    ```{r mtcars3}
+    nrow(mtcars) # aantal rijen
+    ncol(mtcars) # aantal kolommen
+    ```
+
+4. Geef enkel de kolom terug met de definities van de cylinders
+
+    ```{r mtcars4}
+    # Heel de kolom
+    mtcars$cyl
+    # Aantal cylinders van de auto's zonder automatische vernelling
+    mtcars$cyl[mtcars$am == 0]  
+    ```
+
+Om een data frame te bekomen met de twee kolommen `mpg` en `hp`, pakken we de kolomnamen in een indexvector in met single square bracket operator.
+
+    ```{r mtcars5}
+    mtcars[c("mpg","hp")]
+    ```
+
+Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set `mtcars` bepaalt.
+
+    ```{r mtcars6}
+    mtcars[3,]               # Derde rij
+    mtcars["Datsun 710",]    # Rij met gegeven naam
+    mtcars[mtcars$cyl == 6,] # Rijen die voldoen aan een voorwaarde 
+    ```
