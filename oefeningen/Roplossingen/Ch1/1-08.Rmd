@@ -1,5 +1,5 @@
 ---
-title: "Exercise 1.8"
+title: "Oefening 1.8"
 output: html_document
 ---
 
@@ -7,15 +7,15 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Calculate  $\sum_{i=1}^{100}(i^3 + 4i^2)$
+Bereken  $\sum_{i=1}^{100}(i^3 + 4i^2)$
 
-1. Generate vector $i$ 
+1. Genereer een vector $i$ met alle waarden van 1 tot 100
 
     ```{r}
     i <- 1:100
     ```
   
-2. Create function $f(i) = i^3 + 4i^2$
+2. Maak de functie $f(i) = i^3 + 4i^2$
 
     ```{r}
     f <- function(i) {
@@ -23,7 +23,7 @@ Calculate  $\sum_{i=1}^{100}(i^3 + 4i^2)$
     }
     ```
   
-3. Calculate $\sum f(i)$
+3. Bereken $\sum f(i)$
 
     ```{r}
     sum(f(i))
