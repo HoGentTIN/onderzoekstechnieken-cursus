@@ -125,10 +125,10 @@ Als dit lukt, is er nu een directory aangemaakt met dezelfde naam als de reposit
 Controleer deze instellingen via menu-item *Options > Configure TeXstudio*
 
 - Build:
-    - Default Compiler: `pdflatex`
+    - Default Compiler: XeLaTeX
     - Default Bibliography tool: `biber`
 - Commands:
-    - XeLaTeX: `xelatex -synctex=1 -interaction=nonstopmode -shell-escape \%.tex` (voeg de optie `-shell-escape` toe)
+    - XeLaTeX: `xelatex -synctex=1 -interaction=nonstopmode -shell-escape %.tex` (voeg de optie `-shell-escape` toe)
 - Editor:
     - Indentation mode: *Indent and Unindent Automatically*
     - Replace Indentation Tab by Spaces: *Aanvinken*
