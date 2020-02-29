@@ -403,6 +403,7 @@ De duidelijkheid van een histogram hangt in grote mate af van de keuze van de in
 
 
 
+% Exercises
 \section{Oefeningen}
 
 \subsection{Centrum- en spreidingsmaten}
@@ -482,12 +483,13 @@ De duidelijkheid van een histogram hangt in grote mate af van de keuze van de in
 \end{exercise}
 
 \begin{exercise}
-Gebruik de functies \texttt{mean} en \texttt{range} om het gemiddelde en bereik van:
-\begin{itemize}
-  \item de cijfers 1, 2, \dots, 21 
-  \item 50 willekeurige normale waarden, die  worden gegenereerd vanuit een normale distributie met gemiddelde 0 en variantie 1 (functie \texttt{rnorm})
-  \item de kolommen \texttt{height} en \texttt{weight} in de data frame \texttt{women} (standaard in R).
-\end{itemize}
+  \label{ex:mean-range-R}
+  Gebruik de functies \texttt{mean} en \texttt{range} in R om het gemiddelde en bereik te bepalen van:
+  \begin{itemize}
+    \item de cijfers 1, 2, \dots, 21.
+    \item 50 willekeurige normale waarden, die  worden gegenereerd vanuit een normale distributie met gemiddelde 0 en variantie 1 (functie \texttt{rnorm}).
+    \item de kolommen \texttt{height} en \texttt{weight} in de data frame \texttt{women} (standaard in R).
+  \end{itemize}
 \end{exercise}
 
 In vorige oefeningen hebben we de verschillende spreidingsmaten en centrummaten besproken. Zoals je merkt worden deze metrieken ook gebruikt in het onderzoek van~\textcite{Akin2016}. In de volgende oefeningen gaan we trachten de resultaten te reproduceren.
@@ -501,9 +503,9 @@ Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu.csv} nodig. Je 
 
 We gaan het programma \texttt{R} gebruiken samen met \texttt{RStudio}. Open de file in \texttt{RStudio}.
 
-\begin{lstlisting}
-android_cpu <-  read.csv("android_persistence_cpu.csv", sep=";", dec=",")
-attach(android_cpu)
+\begin{lstlisting}[breaklines=true]
+  android_cpu <- read.csv("android_persistence_cpu.csv", sep=";", dec=",")
+  attach(android_cpu)
 \end{lstlisting}
 
 We hebben nu de data ingeladen. We kunnen eens kijken wat de gemiddelde tijd, de standaarddeviatie, de kwartielen e.a. zijn. Gebruik hiervoor de commando's \texttt{mean}, \texttt{median}, \texttt{quantile}, \texttt{min}, \texttt{max}, \texttt{var}, \texttt{sd}. Je kan ook makkelijk gebruik maken van de methode \texttt{summary}.
@@ -522,9 +524,9 @@ We hebben nu de data ingeladen. We kunnen eens kijken wat de gemiddelde tijd, de
 
 Een histogram is een eenvoudige plot. het toont de frequenties van de data die in een bepaald bereik voorkomen. 
 
-\begin{lstlisting}
-hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd");
-hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd",breaks=2);
+\begin{lstlisting}[breaklines=true]
+  hist(android_cpu$Time, main="Distribution of execution time", xlab="Execution time (ms)")
+  hist(android_cpu$Time, main="Distribution of execution time", xlab="Execution time (ms)", breaks=2)
 \end{lstlisting}
 \begin{exercise}
 	Wat concludeer je als je bovenstaande grafiek\footnote{Heb je wat problemen met het genereren van grafieken, volgende link \url{https://www.datacamp.com/community/tutorials/15-questions-about-r-plots\#gs.RK_ORsI} bevat een aantal goede tips and tricks om je op weg te helpen.} genereert? Is dit een zinnig resultaat? Wat gebeurt er als je de variabele breaks verhoogt?
@@ -532,9 +534,9 @@ hist(android_cpu$Tijd,main="Verdeling van de tijd",xlab="De gemeten cpu tijd",br
 
 Een boxplot toont de mediaan, de kwartielen, het maximum en het minimum van een dataset. Dit geeft ons een duidelijk impressie van hoe de data er uitziet.
 
-\begin{lstlisting}
-boxplot(x = android_cpu$Tijd);
-boxplot(android_cpu$Tijd,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
+\begin{lstlisting}[breaklines=true]
+boxplot(android_cpu$Time)
+boxplot(android_cpu$Time, main='Distribution of execution time', ylab="Execution time (ms)")
 \end{lstlisting} 
 
 \begin{exercise}
@@ -543,8 +545,8 @@ boxplot(android_cpu$Tijd,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
 
 Als je goed geantwoord hebt op de volgende vragen merk je natuurlijk dat het weinig zin heeft de volledige dataset te analyseren, aangezien de dataset verdeeld is over verschillende categorie\"en. We willen dus wel deze statistieken weten, maar per categorie. We kunnen dus een boxplot maken voor elke categorie.
 
-\begin{lstlisting}
-boxplot(android_cpu$Tijd~android_cpu$Datahoeveelheid,main='Spreiding van de CPU tijd t.o.v. datahoeveelheid',ylab='Tijd in ms');
+\begin{lstlisting}[breaklines=true]
+boxplot(android_cpu$Time ~ android_cpu$DataSize, main="Distribution of CPU time over the data sizes", ylab="Time in ms");
 \end{lstlisting}
 
 \begin{exercise}
@@ -560,17 +562,17 @@ We kunnen hetzelfde doen voor de verschillende soorten dataopslagmogelijkheden i
 
 We kunnen eens kijken hoe de data eruit ziet over alle categorie\"en heen.
 
-\begin{lstlisting}
-boxplot(android_cpu$Tijd~android_cpu$PersistentieType*android_cpu$Datahoeveelheid,main='Spreiding van de CPU tijd',ylab='Tijd in ms');
+\begin{lstlisting}[breaklines=true]
+  boxplot(android_cpu$Time ~ android_cpu$PersistenceType * android_cpu$DataSize, main="Distribution of CPU time over data sizes for the different persistent types", ylab="Time in ms");
 \end{lstlisting}
 
 Het blijkt dat we wel al een duidelijker zicht krijgen over de data over de categorie\"en heen, maar de figuur is op dit moment te druk. 
 
 We moeten de data dus onderverdelen in categorie\"en namelijk onder \texttt{PersistentieType} en \texttt{Datahoeveelheid}. We gaan hiervoor de functie \texttt{which}\footnote{Je kan ook gebruik maken van de functie \texttt{subset}, wat misschien zelfs eenvoudiger is} gebruiken en kijken hoe de verschillende datahoeveelheden verschillen per datahoeveelheidcategorie. 
 
-\begin{lstlisting}
-greenDOA <- android_cpu[which(android_cpu$PersistentieType=='GreenDAO'),];
-boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
+\begin{lstlisting}[breaklines=true]
+  greenDOA <- android_cpu[which(android_cpu$PersistenceType=='GreenDAO'),];
+  boxplot(greenDOA$Time ~ greenDOA$DataSize);
 \end{lstlisting}
 
 \begin{exercise}
@@ -578,7 +580,7 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
 \end{exercise}
 
 \begin{exercise}
-  Ga nu zelf na welke boxplots er interessant zijn om te maken, en kijken of jouw resultaten overeen met die van \textcite{Akin2016}. Welke conclusies trek je1?
+  Ga nu zelf na welke boxplots er interessant zijn om te maken, en kijken of jouw resultaten overeen met die van \textcite{Akin2016}. Welke conclusies trek je?
 \end{exercise}
 
 \begin{exercise}[Retrieval practice]
@@ -592,6 +594,11 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
   \end{itemize}
 \end{exercise}
 
+
+
+
+
+% Answers
 \subsection{Antwoorden op geselecteerde oefeningen}
 
 \paragraph{Oefening \ref{ex:mean-stdev-freq}}
@@ -602,6 +609,23 @@ boxplot(greenDOA$Tijd~greenDOA$Datahoeveelheid);
   \item $s \approx 2.414645$
 \end{itemize}
 
+\paragraph{Oefening \ref{ex:variance-formula}}
+Tabel \ref{tab:opl-variance-ht} geeft een overzicht van de aangepaste steekproefvariantie voor beide datasets.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}l|rrr@{}}
+    \toprule
+      & \textbf{$s^{2}_{1}$} & \textbf{$s^{2}_{2}$} & \textbf{$s^{2}_{3}$} \\
+    \midrule                
+      \textbf{$ X $} & 0           & 5.333333    & 21.33333    \\ 
+      \textbf{$ Y $} & 0           & 5.333333    & 30          \\           
+    \bottomrule
+  \end{tabular}
+  \caption{Resultaten van de aangepaste steekproefvariantie voor beide datasets, voor de verschillende formules van oefening \ref{ex:variance-formula}.}
+  \label{tab:opl-variance-ht}
+\end{table}
+
 \paragraph{Oefening \ref{ex:ais}}
 
 Tabel \ref{tab:opl-ais-ht} geeft een overzicht met de belangrijkste centrum- en spreidingsmaten voor de variabele \texttt{ht} (height, lengte) over de gevraagde groepen.
@@ -611,7 +635,7 @@ Tabel \ref{tab:opl-ais-ht} geeft een overzicht met de belangrijkste centrum- en 
   \begin{tabular}{@{}l|r|rrrr|rr@{}}
     \toprule
     & \textbf{(1)} & \multicolumn{4}{c}{\textbf{(2)}}                                                 & \multicolumn{2}{c}{\textbf{(3)}} \\ 
-    & \textbf{Row} & \textbf{hele groep} & \textbf{Row} & \textbf{Netball} & \textbf{Tennis} & \textbf{B\_ball}  & \textbf{Row} \\ \midrule
+    & \textbf{Row} & \textbf{Total}    & \textbf{Row} & \textbf{Netball} & \textbf{Tennis} & \textbf{B\_ball}  & \textbf{Row} \\ \midrule
     \textbf{gemiddelde} & 182.376      & 179.066                      & 182.376      & 176.087          & 174.164         & 182.269           & 178.859      \\
     \textbf{stdev}      & 7.798        & 7.936                        & 7.798        & 4.124            & 9.858           & 8.621             & 5.970        \\
     \textbf{min}        & 156.000      & 156.000                      & 156.000      & 168.600          & 157.900         & 169.100           & 156.000      \\
@@ -654,4 +678,23 @@ In deeloefening 3 zijn enkel vrouwen geselecteerd, en voor deze oefening tonen w
   \end{tabular}
   \caption{Overzicht resultaten in oefening \ref{ex:ais} (3) voor de variabele \texttt{sport}.}
   \label{tab:opl-ais-sport}
+\end{table}
+
+
+\paragraph{Oefening \ref{ex:mean-range-R}}
+Tabel~\ref{tab:opl-mean-range-R} geeft een overzicht van het gemiddelde en bereik voor oefening~\ref{ex:mean-range-R}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{@{}l|r|rl@{}}
+    \toprule
+      & \textbf{Gemiddelde} & \multicolumn{2}{c}{\textbf{Bereik}} \\
+    \midrule                
+                  \textbf{$1,2,...,21$} & 11       & 1    & 21    \\ 
+        \textbf{\texttt{women\$height}} & 65       & 58   & 72    \\
+        \textbf{\texttt{women\$weight}} & 136.7333 & 115  & 164   \\
+    \bottomrule
+  \end{tabular}
+  \caption{Gemiddele en bereik voor de datasets van oefening \ref{ex:mean-range-R}.}
+  \label{tab:opl-mean-range-R}
 \end{table}
