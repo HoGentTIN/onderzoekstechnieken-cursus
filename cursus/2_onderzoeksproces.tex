@@ -107,17 +107,38 @@ Binnen de statistiek werken we met variabelen en waarden.
   Specifieke eigenschap, invulling voor die variabele. Vb.~1.83m, 78 kg, \ldots
 \end{definition}
 
-Er worden meestal vier meetniveaus gebruikt in statistische analyse. Het meetniveau bepaalt welke statische methodes bruikbaar zijn.
+Er worden meestal vier meetniveaus gebruikt in statistische analyse. 
+Het meetniveau bepaalt welke statische methodes bruikbaar zijn.
+
+\subparagraph{Kwalitatieve schalen}
+
+Waarden van kwalitatieve schalen zijn niet noodzakelijk numeriek.
+Deze schalen hebben altijd een beperkt aantal waarden.
 
 \begin{description}
   \item [Nominaal meetniveau] \index{Nominaal}: er is slechts keuze uit een beperkt aantal categorie\"en, waarbij geen volgorde aanwezig is tussen de antwoorden.
   \item [Ordinaal meetniveau] \index{Ordinaal}: een variabele die is ingedeeld in categorie\"en, waar er echter wel een logische volgorde is tussen de categorie\"en. 
+\end{description}
+
+\subparagraph{Kwantitatieve schalen}
+
+Kwantitatieve variabelen bevatten vaak het resultaat van een meting.
+Ze worden vaak uitgedrukt met behulp van een getal en een meeteenheid.
+Kwantitatieve variabelen kunnen vele waarden hebben, en de waarden zijn vaak uniek.
+
+\begin{description}  
   \item [Intervalniveau] \index{Intervalniveau}: variabelen die als waarde een (re\"eel) getal hebben, en waar berekeningen kunnen mee uitgevoerd worden, maar zonder nulpunt.
   \item [Rationiveau] \index{Rationiveau}: intervalniveau met nulpunt. Hierdoor kan je verhoudingen berekenen tussen verschillende waarden op de schaal.
 \end{description}
 
+\begin{exercise}
+  Bedenk zelf nog enkele andere voorbeelden voor deze 4 meetniveaus. 
+\end{exercise}
+
 \paragraph{Onderzoeksproces}
+
 Het onderzoeksproces kan grotendeels opgedeeld worden in 6 grote fasen:
+
 \begin{enumerate}
   \item Formuleren van de probleemstelling: wat is de onderzoeksvraag?
   \item Exacte informatiebehoefte defini\"eren: welke specifieke vragen moeten we stellen?
@@ -393,7 +414,10 @@ We gaan dit onderzoek eens onder de loep nemen, kijken wat er goed aan was en wa
   Dankzij de gemarkeerde kleuren in je nota's heb je nu een zicht op wat je al kent en waar je nog moet op studeren. Herhaal deze oefening nog een aantal keer in de loop van het semester. Kijk nooit eerst naar het resultaat van een vorige poging, maar probeer meteen op een leeg blad zoveel mogelijk informatie vanuit je geheugen terug te halen. Vergelijk achteraf wel de resultaten. Je zou moeten merken dat je de volgende keren meer en meer in het groen hebt gemarkeerd en minder of zelfs geen rood meer hebt moeten gebruiken.
 \end{exercise}
 
-Een data frame of tibble in R kan je altijd beschouwen als het resultaat van een \textit{steekproef}. Elke rij is een \textit{observatie}\index{observatie} en elke kolom een \textit{variabele}\index{variabele}. Je kan een variabele selecteren met de notatie \texttt{dataset\$kolomnaam}. Observaties kan je selecteren op rijnummer (bv. \texttt{dataset[1,]}) of a.h.v. een eigenschap (bv. \verb|dataset[dataset$a == "yes",]|)
+Een data frame of tibble in R kan je altijd beschouwen als het resultaat van een \textit{steekproef}. 
+Elke rij is een \textit{observatie}\index{observatie} en elke kolom een \textit{variabele}\index{variabele}. 
+Je kan een variabele selecteren met de notatie \texttt{dataset\$kolomnaam}. 
+Observaties kan je selecteren op rijnummer (bv. \texttt{dataset[1,]}) of a.h.v. een eigenschap (bv. \verb|dataset[dataset$a == "yes",]|).
 
 \begin{exercise}
   Importeer de dataset van het onderzoek van~\textcite{Akin2016} in R. Je vindt deze terug in de Github repository voor deze cursus, onder de directory \texttt{oefeningen/datasets/} in het bestand \texttt{android\_persistence\_cpu.csv}.
@@ -403,13 +427,13 @@ Een data frame of tibble in R kan je altijd beschouwen als het resultaat van een
     \item Gebruik de functie \texttt{glimpse()} en \texttt{View()} om de inhoud van de dataset te bekijken.
     \item Gebruik de functie \texttt{unique()} om de verschillende in de steekproef voorkomende waarden van elke variabele op te vragen.
     \item Bepaal voor elke variabele het meetniveau. De resultaten uit de vorige stappen kunnen hier bij helpen!
-    \item Vraag de waarden in de kolom \texttt{price} op
-    \item Vraag een lijst op van computers met een CD-ROM station (variabele \texttt{cd} is \texttt{yes}).
+    %\item Vraag de waarden in de kolom \texttt{price} op
+    %\item Vraag een lijst op van computers met een CD-ROM station (variabele \texttt{cd} is \texttt{yes}).
   \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
-  Importeer de dataset \texttt{Aardbevingen.csv}. Wat is het meetniveau van volgende variabelen?
+  Importeer de dataset \texttt{earthquakes.csv}. Wat is het meetniveau van volgende variabelen?
   
   \begin{enumerate}
     \item Latitude en Longitude
@@ -418,7 +442,7 @@ Een data frame of tibble in R kan je altijd beschouwen als het resultaat van een
     \item Depth
   \end{enumerate}
 
-  Merk op dat in deze dataset, de kolom ID niet echt als een variabele kan beschouwd worden. Deze dient enkel om een unieke naam te geven aan elke observatie in de steekproef, maar bevat geen eigenschap.
+  Merk op dat in deze dataset, de kolom \texttt{ID} niet echt als een variabele kan beschouwd worden. Deze dient enkel om een unieke naam te geven aan elke observatie in de steekproef, maar bevat geen eigenschap.
 \end{exercise}
 
 \subsection{Steekproefmethoden en steekproeffouten}

@@ -35,9 +35,9 @@ sd(lengths)                       # standard deviation of a *sample*
 
 ### Formula breakdown
 
-Mathematical formulae can often be translated to R quite straightforwardly. Take e.g. the formula for the mean:
+Mathematical formulae can often be translated to R quite straightforwardly. Take e.g. the formula for the sample mean:
 
-$\mu = \frac{\sum_{x=1}^{n}x_i}{n}$
+$\overline{x} = \frac{\sum_{x=1}^{n}x_i}{n}$
 
 In R, this becomes:
 
@@ -45,9 +45,9 @@ In R, this becomes:
 sum(lengths) / length(lengths)
 ```
 
-The same goes for the variance and standard deviation. In the example below, we use the definition of population variance (denominator $n$).
+The same goes for the variance and standard deviation of a sample. The sample variance is given by:
 
-$\sigma^2 = \frac{\sum_{i=1}^{n} \left(x_{i} - \mu\right)^2}{n}$
+$s^2 = \frac{\sum_{i=1}^{n-1} \left(x_{i} - \overline{x}\right)^2}{n-1}$
 
 In the code below, we break down the formula in parts:
 
@@ -62,7 +62,7 @@ stdev <- sqrt(variance)             # take the square root
 Or, the entire calculation of variance in one formula. Can you recognize the mathematical formula in the R-code?
 
 ```{r}
-variance <- sum((lengths - mean(lengths))^2) / length(lengths)
+variance <- sum((lengths - mean(lengths))^2) / (length(lengths) - 1)
 ```
 
 ### Calculations by group
@@ -115,65 +115,75 @@ names(freq_tab)[freq_tab == max(freq_tab)] # Also works for multimodal variables
 
 It's a bit convoluted, but in R, this is the only way to calculate the mode.
 
-## Charts in R
+## Sample variance vs population variance
 
-For univariate statistics, the most common chart types are:
+As stated above, the sample variance is given by $s^2 = \frac{\sum_{i=1}^{n-1} \left(x_{i} - \overline{x}\right)^2}{n-1}$. The $n-1$ in the denominator may seem unintuitive: why not $n$? Indeed, the formula with $n$ as denominator does exist and is known as the population variance. Why do we use a different formula for the sample variance? It can be proven mathematically that in a sample, using $n-1$ in the denominator gives an unbiased estimation of the (unknown) population variance. The actual proof is outside of the scope of this course, but we'll illustrate it with an example. We'll use both formulas to calculate the variance of a sample and will compare it with the actual population variance. The formula that, on average, provides the best estimate is the winner!
 
-- **boxplot**, that shows the spread of a (quantitative)
-- **bar chart**, which can be used for
-    - showing the values of a quantitative variable
-    - showing the frequencies of a qualitative variable
-- **histogram**, a variant of the bar chart for frequencies, where ranges of x-values are taken together in "buckets"
+First, let's define functions for population variance and standard deviation. These are not supported out-of-the-box in R. The following functions calculate the population variance and standard deviation, respectively:
 
 ```{r}
-# Chart types
-barplot(lengths)  # bar chart (without any fancy layout add-ons)
-boxplot(lengths)  # boxplot
+# Population variance
+pop_var <- function(x) {
+  mean <- sum(x) / length(x)
+  1/length(x) * sum ((x - mean)^2)
+}
 
-# Example "Active Duty Personnel, 1998"
-active_duty_personnel <- c(492, 363, 381, 176)
-
-barplot(active_duty_personnel)
-pie(active_duty_personnel)       # Shown for reference, avoid pie charts!
-
-# Plot of the frequencies of a qualitative variable
-barplot(table(esoph$agegp))
+# Population standard deviation
+pop_sd <- function(x) {
+  sqrt(pop_var(x))
+}
 ```
 
-As an example of a histogram, we take the `cars` dataset as an example. 
+Let's say our population consists of the numbers 0 - 100
 
 ```{r}
-# For reference, a boxplot of the data
-boxplot(cars$dist, horizontal = TRUE)
-
-# A simple histogram, the hist function decides on the number
-# of buckets
-hist(cars$dist)
-
-# Only 4 "breaks" between buckets => 5 buckets
-hist(cars$dist, breaks = 4)  
-
-# Specify boundaries between buckets explicitly
-hist(cars$dist, breaks = c(0,30,60,90,120))  
+population <- 0:100
 ```
 
-
-### More elaborate charts
-
-Charts can be extended with titles, legends, colours, etc. A few examples are given here, you can find a lot more on the Internet. Remark that there is a separate chart library in R, called `ggplot`, that is not discussed in this guide.
+First, we calculate the mean and standard deviation of the population
 
 ```{r}
-heroes <- c("Spiderman", "Batman", "Superman",
-            "Deadpool", "Catwoman")
-barplot(lengths,
-        main = "Lengths of super heroes",
-        names = heroes,
-        xlab = "Hero",
-        ylab = "Length (cm)",
-        col = "light blue"
-        )
+# µ = 50
+population_mean <- sum(population) / length(population)
+# σ² = 850
+population_variance <- pop_var(population)
+# σ ≈ 29.15
+population_stdev <- pop_sd(population)
 
-military_categories <- c("Army", "Air Force", "Navy", "Marine Corps")
-barplot(active_duty_personnel,
-        names = military_categories)
+sprintf("Population mean    : %f", population_mean)
+sprintf("Population variance: %f", population_variance)
+sprintf("Population stdev   : %f", population_stdev)
 ```
+
+We will show that the formula with denominator $n-1$ gives a better estimate of the actual population variance than denominator $n$.
+
+We will take random samples from the population, calculate the variance with both formulas, and see which one is closest to the actual value.
+
+```{r}
+sample_size <- 15
+num_samples <- 5000
+
+pop_sample <- function(x) sample(population, sample_size)
+samples <- lapply(1:num_samples, pop_sample)
+```
+
+First, let's calculate standard deviations with the "population" formula: denominator $n$:
+
+```{r}
+results_pop_sd <- sapply(samples, pop_sd)
+average_n <- mean(results_pop_sd)
+sprintf("denominator n  : %f, difference : %f", 
+        average_n, abs(average_n - population_stdev))
+```
+
+Then, calculate standard deviation with the built-in function sd(): denominator $n-1$:
+
+```{r}
+results_sample_sd <- sapply(samples, sd)
+average_n_min_1 <- mean(results_sample_sd)
+
+sprintf("denominator n-1: %f, difference : %f", 
+        average_n_min_1, abs(average_n - average_n_min_1))
+```
+
+On average, the formula with denominator $n-1$ gives a better estimate!

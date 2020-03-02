@@ -1,8 +1,6 @@
 ---
-title: "1 -- Aan de slag"
-output:
-  html_document: default
-  pdf_document: default
+title: "Aan de slag"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -102,50 +100,4 @@ mat[3,2]  # Het element op de 3e rij, 2e kolom
 mat[,2]   # De tweede kolom
 mat[1,]   # De eerste rij
 mat[2:3,] # De tweede t/m derde rij
-```
-
-## Data frames
-
-De meest courante datastructuur voor het analyseren van data uit een experiment is een data frame. Die bestaat uit een aantal kolommen met een naam, en een aantal rijen. 
-
-Elke kolom kan je beschouwen als een statistische variabele en kan van een ander meetniveau zijn, hetzij een kwalitatieve (in R een *factor* genoemd, of ook *category* of *enumerated type*), hetzij een kwantitatieve.
-
-We gaan eerst aan de slag met een data frame die standaard in R beschikbaar is onder de naam `mtcars`.
-
-```{r}
-?mtcars       # Bekijk de "man-page" voor deze dataset
-View(mtcars)  # Bekijk de inhoud van deze dataset in tabelvorm
-nrow(mtcars)  # Aantal rijen
-ncol(mtcars)  # Aantal kolommen
-```
-
-Elementen uit een data frame ophalen:
-
-```{r}
-mtcars[1,2]  # eerste rij, tweede kolom
-mtcars[3,]   # derde rij
-mtcars[3:5,] # derde t/m vijfde rij
-mtcars[,2]   # tweede kolom
-mtcars[,2:4] # tweede t/m vierde kolom
-mtcars$cyl   # kolom met naam "cyl"
-mtcars[c("mpg","hp")] # tabel met enkel kolommen mpg en hp
-```
-
-Je kan ook een subset selecteren op basis van een soort query. Bijvoorbeeld, "Geef het aantal cylinders (`cyl`) van de auto's die geen automatische versnellingsbak (`am`) hebben."
-
-```{r}
-mtcars$cyl[mtcars$am == 0]  
-```
-
-Of "Geef alle info over de auto's met 6 cylinders." Merk de komma op binnen de rechte haken!
-
-```{r}
-mtcars[mtcars$cyl == 6,]
-mtcars[mtcars$cyl <= 6,]
-mtcars[mtcars$cyl >  6,]
-```
-
-Je kan ook zulke "queries" combineren met logische operatoren *en* (`&`), *of* (`|`) en *niet* (`!`).  Bijvoorbeeld, "Geef alle informatie over auto's met een verbruik tussen 20 en 25 mpg."
-```{r}
-mtcars[mtcars$mpg >= 20 & mtcars$mpg <= 25,]
 ```

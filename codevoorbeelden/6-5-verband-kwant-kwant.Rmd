@@ -1,0 +1,128 @@
+---
+title: "6.5 -- Verband tussen twee kwantitatieve variabelen"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Regressie
+
+Als voorbeeld voor het berekenen van de regressierechte nemen we de dataset die ook in de slides gebruikt wordt:
+
+```{r}
+weight_gain <- read.csv("../cursus/data/santa.txt",
+                        sep = "")
+```
+
+### Kleinste kwadratenmethode: uitgewerkte berekening
+
+We proberen een verzameling van punten $(x_i, y_i)$ (voor $i: 1, \ldots, n$) zo goed mogelijk te benaderen met een rechte $\hat{y} = \beta_0 + \beta_1 x$. Het symbool $\hat{y}$ betekent "een schatting voor $y$". De parameters $\beta_0$ en $\beta_1$ worden als volgt berekend:
+
+$\beta_1 = \frac{\sum_{i=1}^{n}(x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^{n}(x_i - x)^2}$
+
+$\beta_0 = \overline{y} - \beta_1 \overline{x}$
+
+In R kan je dat als volgt uitrekenen:
+
+```{r}
+mx <- mean(weight_gain$x)  # gemiddelde van x
+my <- mean(weight_gain$y)  # gemiddelde van y
+xx <- weight_gain$x - mx   # x - mx
+yy <- weight_gain$y - my   # y - my
+beta_1 <- sum(xx * yy) / sum(xx^2)
+beta_0 <- my - beta_1 * mx
+```
+
+Een plot toont dat dit een goede benadering is:
+
+```{r}
+plot(x = weight_gain$x, y = weight_gain$y,
+     xlab = "Protein content (%)",
+     ylab = "Weight gain (g)")
+abline(a = beta_0,  # snijpunt y-as
+       b = beta_1,  # richtingscoëfficiënt
+       col = 'red')
+```
+
+### Lineaire regressie in R
+
+Uiteraard bestaat ook hiervoor een manier om dit in R makkelijk te berekenen, meer bepaald met de functie `lm()`, afkorting voor *linear model*.
+
+```{r}
+lm(weight_gain$y ~ weight_gain$x)
+```
+
+Merk op dat hier de "group by" operator `~` gebruikt wordt. De onafhankelijke variabele komt **rechts** van de tilde te staan. Het resultaat van `lm()` kan meteen meegegeven worden aan de functie `abline()`:
+
+```{r}
+plot(x = weight_gain$x, xlab = "Protein content (%)",
+     y = weight_gain$y, ylab = "Weight gain (g)")
+regression <- lm(weight_gain$y ~ weight_gain$x)
+abline(regression,
+       col = 'red')
+```
+
+## Covariantie en correlatie
+
+```{r}
+families <- read.csv("../cursus/data/families.txt", sep ="")
+mx <- mean(families$x)
+my <- mean(families$y)
+
+plot(families$x,families$y)
+abline(h = my, col = 'red')
+abline(v = mx, col = 'red')
+```
+
+Covariantie: $Cov(X,Y) = \frac{1}{n-1}\sum_{i=1}^n(x_i - \overline{x})(y_i - \overline{y})$
+
+```{r}
+# Covariantie manueel berekend
+covar <- sum((families$x - mx) * (families$y - my)) / (length(families$x) - 1)
+covar
+# R-functie
+cov(families$x, families$y)
+```
+
+Correlatie (Pearson's product-momentcorrelatiecoëfficiënt):
+
+$R = \frac{Cov(X,Y)}{\sigma_x \sigma_y} = \frac{\sum(x_i - \overline{x})(y_i - \overline{y})}{\sqrt{\sum{(x_i-\overline{x})^2(y_i - \overline{y})^2}}}$
+
+```{r}
+# Berekenen vanuit covariantie
+covar / (sd(families$x) * sd(families$y))
+# Uitgewerkte formule
+sum((families$x - mx) * (families$y - my)) / 
+  sqrt(sum((families$x- mx)^2 * sum((families$y - my)^2)))
+# R-functie
+cor(families$x, families$y)
+```
+
+Determinatiecoëfficiënt:
+
+- Definieer $SS_{tot} = \sum_{i=1}^{n}(y_i - \overline{y})^2$, de totale variantie van de steekproef (SS is een afkorting voor *squared sum*)
+- Definieer $SS_{res} = \sum_{i=1}^{n}(y_i - \hat{y})^2$, de residuën t.o.v. de regressierechte, of de niet-verklaarde variantie van de steekproef
+- De determinatiecoëfficiënt is dan $R^2 = \frac{SS_{tot} - SS_{res}}{SS_{tot}}$
+
+De determinatiecoëfficiënt heeft als eigenschap dat die het kwadraat is van de correlatiecoëfficiënt (wat de notatie $R^2$ verklaart). Dit is een getal tussen 0 en 1 dat je kan interpreteren als het percentage van de variantie in $y$ die kan verklaard worden door $x$. Dit is een maat die aangeeft hoe goed de regressielijn de echte datapunten benadert. Hoe dichter bij 1, hoe beter de benadering is, dus hoe dichter de geobserveerde datapunten bij de regressierechte liggen.
+
+```{r}
+# gemiddelde van y
+my <- mean(weight_gain$y)
+# som van kwadraten tov gemiddelde
+ss_tot <- sum((weight_gain$y - my)^2)
+# som van kwadraten "residuën", i.e. verschil tussen geobserveerde
+# en voorspelde waarde op basis van regressie
+regression <- lm(weight_gain$y ~ weight_gain$x) # regressiemodel
+yy <- predict.lm(regression, weight_gain)       # voorspelde waarden
+ss_res <- sum((weight_gain$y - yy)^2)           # som v kwadraten
+# R^2 aan de hand van de definite
+(ss_tot - ss_res) / ss_tot
+
+# R^2 aan de hand van correlatie:
+correlation <- cor(x = weight_gain$x, y = weight_gain$y)
+correlation^2
+```

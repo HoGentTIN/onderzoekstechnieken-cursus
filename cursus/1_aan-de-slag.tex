@@ -630,7 +630,17 @@ Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimen
 \section{Oefeningen}
 
 \begin{exercise}
-  Bekijk de dataset \texttt{mtcars}. Geef de waarde terug voor de eerste rij, tweede kolom. Geef ook het aantal rijen, het aantal kolommen. Geef ook een preview van het volledige data frame. Geef enkel de kolom terug met de definities van de cylinders. Om een data frame te bekomen met de twee kolommen mpg en hp, pakken we de kolomnamen in een indexvector in met single square bracket operator. Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set mtcars bepaalt.
+    In deze oefening werken we met het ingebouwde data frame \texttt{mtcars}. 
+    \begin{enumerate}
+        \item   Gebruik ingebouwde R-functies om informatie weer te geven over deze dataset
+        \item   Geef de waarde terug voor de eerste rij, tweede kolom
+        \item   Geef het aantal rijen en het aantal kolommen
+        \item   Geef enkel de kolom terug met de definities van de cylinders
+    \end{enumerate}
+
+    Om een data frame te bekomen met de twee kolommen \texttt{mpg} en \texttt{hp}, 
+    pakken we de kolomnamen in een indexvector in met single square bracket operator. 
+    Probeer ook eens op te zoeken hoe je een rijrecord van de ingebouwde data set \texttt{mtcars} bepaalt.
 \end{exercise}
 
 \begin{exercise}
@@ -638,21 +648,31 @@ Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimen
 \end{exercise}
 
 \begin{exercise}
-  Genereer een $4 \times 5$ array en noem die $x$. Geneer daarna een $3 \times 2$ array waar de eerste kolom de rij-index kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0. 
+  Genereer een $4 \times 5$ array en noem die $x$. Geneer daarna een $3 \times 2$ array $i$ waarin de eerste kolom de rij-index kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0. 
 \end{exercise}
 
 \begin{exercise}
-  Genereer een vector waar een voornaam en een achternaam in komen. Benoem ook de naam van de kolommen. Geef daarna ook voornaam terug van het eerste element van de array. 
+  Genereer een vector waar een voornaam en een achternaam in komen. Benoem ook de naam van de kolommen. Geef daarna de voornaam terug van het eerste element van de array. 
 \end{exercise}
 
 \begin{exercise}
-  Probeer voor de datafile \texttt{rainforest} in de library \texttt{DAAG} te tellen hoeveel rijen er zijn per species die volledig en compleet zijn (dus geen n.a. bevatten). Je kan hiervoor \texttt{with, table, complete.cases} gebruiken. 
+  Importeer het bestand \texttt{rainforest.csv} in R.
+  Je kan dit bestand terugvinden in de Github-repository van deze cursus, in de map \texttt{oefeningen/datasets}. 
+  Een beschrijving van dit data frame is terug te vinden in dezelfde map, bestand \texttt{rainforest.html}.
+    
+  Je kan dit bestand importeren met behulp van volgende code:
+  \begin{lstlisting}
+rainforest <- read.csv("../path/to/rainforest.csv", sep = ",")
+  \end{lstlisting}
+  
+  Probeer voor deze datafile te tellen hoeveel rijen er zijn per species die volledig en compleet zijn (dus geen n.a. bevatten). 
+  Je kan hiervoor \texttt{with}, \texttt{table} en \texttt{complete.cases} gebruiken. 
 \end{exercise}
 
 \begin{exercise}
-	Genereer een vector met de waarden $e^x cos(x)$ voor $x= 3, 3.1, 3.2, \dots ,6$
+	Genereer een vector met de waarden van $e^x cos(x)$ voor $x= 3, 3.1, 3.2, \dots ,6$
 \end{exercise}
 
 \begin{exercise}
-	Bereken: $\sum_{i}^{100}(i^3 + 4i^2)$
+	Bereken: $\sum_{i=1}^{100}(i^3 + 4i^2)$
 \end{exercise}
