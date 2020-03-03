@@ -111,7 +111,7 @@ In dit onderdeel van de  cursus gaan we ons bezig houden met \textbf{inductieve 
 
 \subsubsection{Discrete kansverdeling}
 
-Als we het voorbeeld nemen van het gooien van een dobbelsteen, dan kunnen we de kans dat een van de getallen $\Omega = \{1,2,3,4,5,6\}$ voorkomt in een tabel zetten of kunnen er een histogram van maken.  Er zijn een aantal belangrijke opmerkingen hierbij:
+Als we het voorbeeld nemen van het gooien van een dobbelsteen, dan kunnen we de kans dat een van de getallen $\Omega = \{1,2,3,4,5,6\}$ voorkomt in een tabel zetten of kunnen er een histogram van maken, zoals in figuur \ref{fig:pbDobbelsteen}.  Er zijn een aantal belangrijke opmerkingen hierbij:
 
 \begin{enumerate}
   \item De kansen zijn allemaal groter of gelijk aan nul.
@@ -119,15 +119,59 @@ Als we het voorbeeld nemen van het gooien van een dobbelsteen, dan kunnen we de 
   \item De totale oppervlakte van alle staven is 1.
 \end{enumerate}
 
+\begin{figure}
+    \begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[ybar,ytick=data, anchor=north, yscale=.5]
+	\addplot
+	coordinates {
+		(1, 1/6)
+		(2, 1/6)
+		(3, 1/6)
+		(4, 1/6)
+		(5, 1/6)
+		(6, 1/6)};
+	\end{axis}
+	\end{tikzpicture}
+	\end{center}
+	\label{fig:pbDobbelsteen}
+	\caption{De kansverdeling in grafiek voor het smijten van een dobbelsteen.}
+\end{figure}
+
 Een ander voorbeeld is het gooien van twee dobbelstenen met de mogelijke uitkomst. Je hebt volgens de productregel $6 \times 6 = 36$ mogelijke uitkomsten. Om bijvoorbeeld drie te gooien heb je twee mogelijkheden (kans $P(X=3) = \frac{2}{36}$). Zie voor de andere getallen tot en met 7 de tabel ($ P[X=n] = \frac{n-1}{36}$).
 
-Als we dit nu in een histogram steken bekomen we een mooie trap naar boven tot 7 en dan weer naar beneden. Nu kan je makkelijk zien dat:
+Als we dit nu in een histogram (zie figuur \ref{fig:pbTweedobbelstenen}) steken bekomen we een mooie trap naar boven tot 7 en dan weer naar beneden. Nu kan je makkelijk zien dat:
 \begin{itemize}
   \item Voor de kans om 10 of meer te gooien moet je bijvoorbeeld die blauwe oppervlakte hebben.
   \item Voor de kans op een aantal meer dan 2 maar minder dan 7 moet je de rode oppervlakte hebben.
   \item Voor de kans op een aantal meer dan 7 maar minder dan 10 moet je de groene oppervlakte hebben.
   \item Dan is het ook logisch dat de totale oppervlakte 1 is: de kans dat 1 van al die mogelijkheden voorkomt is natuurlijk 100\%.
 \end{itemize}
+\begin{figure}
+    \begin{center}
+	\begin{tikzpicture}
+	\begin{axis}[ybar,ytick=data, anchor=north, yscale=.5]
+	\addplot
+	coordinates {
+		(2, 1/36)
+		(3, 2/36)
+		(4, 3/36)
+		(5, 4/36)
+		(6, 5/36)
+		(7, 6/36)
+		(8, 5/36)
+		(9, 4/36)
+		(10, 3/36)
+		(11, 2/36)
+		(12, 1/36)
+	};
+	
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+	\label{fig:pbTweedobbelstenen}
+	\caption{Kansverdeling voor het smijten van twee dobbelstenen.}
+\end{figure}
 
 \subsubsection{Continue kansverdeling}
 
