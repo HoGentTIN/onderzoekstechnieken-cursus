@@ -1,0 +1,76 @@
+---
+title: "Oefening 3.7. Gemiddelde en variantie voor een frequentietabel"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Opgave
+
+De formules voor het steekproefgemiddelde $\overline{x}$, de steekproefvariantie $s^2$ en de standaarddeviatie $s$ staan beschreven in Sectie 3.4 van de cursus.
+Hoe moeten deze formules aangepast worden om $\overline{x}$, $s^2$ en $s$ te berekenen wanneer we te maken hebben met een frequentietabel? 
+Doe dit voor de data in onderstaande tabel. 
+
+| Aantal pinnen (*x*) | Frequentie (*f_x*) |
+| :---                | :---               |
+|			0               | 2                  |
+|			1               | 1                  |
+|			2               | 2                  |
+|			3               | 0                  |
+|			4               | 2                  |
+|			5               | 4                  |
+|			6               | 9                  |
+|			7               | 11                 |
+|			8               | 13                 |
+|			9               | 8                  |
+|			10              | 8                  |
+
+## Oplossing
+
+
+We maken eerst twee variabelen aan voor de data:
+
+```{r}
+# De mogelijke scores
+x <- 0:10
+# Frequentie van elke score
+f_x <- c(2,1,2,0,2,4,9,11,13,8,8)
+```
+
+1. Gemiddelde:
+    
+    Het gemiddelde wordt berekend door de som te nemen van de waarden, en deze te delen door het aantal waarden. 
+
+    Voor de geven frequentietabel moeten we dus de som nemen van het product van het aantal pinnen met de frequentie voor elke pin, en deze som delen door de som van de verschillende frequenties.
+    $\sum_{i=1}^n f_i x_i$ 
+    
+    ```{r}
+    m <- sum(x * f_x) / sum(f_x)
+    m
+    ```
+    
+2. Variantie:
+
+    De variantie is de som van de gekwadrateerde verschillen tussen de waarde en het gemiddele, gedeeld door het aantal waarden min 1.
+
+    Toegepast op de frequentietabel moeten we dus de som nemen van het product van de frequentie met het gekwadrateerde verschil, en dit delen door de som van de frequenties min 1.
+    
+    $\frac{1}{(\sum_{i = 1}^n f_i) -1 } \sum_{i = 1}^n f_i \times (\overline{x} - x_i)^2)$
+    
+    ```{r}
+    v <- sum(f_x * (x - m)^2) / (sum(f_x) - 1)
+    v
+    ```
+
+3. Standaardafwijking:
+
+    De standaardafwijking is de wortel van de variantie. Voor een frequentietabel wijzigt er hier dus niets.
+
+    ```{r}
+    stdev <- sqrt(v)
+    stdev
+    ```
+    
+    
