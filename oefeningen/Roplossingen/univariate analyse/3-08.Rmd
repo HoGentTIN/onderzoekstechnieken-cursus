@@ -36,6 +36,16 @@ x <- c(4, 4, -4, -4)
 y <- c(7, 1, -6, -2)
 ```
 
+## Grafieken van de datasets
+```{r}
+plot(x,type="h", col='red',xaxs="i", lwd=3,xlim=c(0,4),ylim=c(-10,10), axes=F)
+axis(1, pos=0)
+axis(2, pos=0)  
+plot(y,type="h", col='red', lwd=3,xlim=c(0,4),ylim=c(-10,10), axes=F)
+axis(1, pos=0)
+axis(2, pos=0)
+```
+
 ## Resultaten formule 1:
 
 ```{r}
