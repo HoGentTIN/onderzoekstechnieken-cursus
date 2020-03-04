@@ -1,0 +1,171 @@
+---
+title: "Oefening 3.7. De ais dataset"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Remark:** Before running this code in RStudio, first do (from the menu): *Session > Set Working Directory > To Source File Location*. This allows loading the .csv file from the current directory.
+
+## Opgave
+
+Beschouw de volgende subsets uit het data frame `ais` (uit de library `DAAG`):
+
+1. Ontleed de gegevens voor de roeiers.
+2. Ontleed de gegevens voor de roeiers, de netballers en de tennissers.
+3. Ontleed de gegevens voor de de vrouwelijke basketballers en roeiers.
+
+## Loading the data
+
+```{r}
+# Load data from csv
+ais <- read.csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/ais.csv", sep = ",")
+# Allows the columns to be accessed directly instead of with table$column notation
+attach(ais)
+```
+
+## Roeiers
+
+De dataset bestaat uit 13 variabelen, waarvan 11 kwantitatief en 2 kwalitatief. We gaan als voorbeeld slechts 2 kwantitatieve variabelen bestuderen, voor de andere kan je een equivalente werkwijze volgen.
+
+1. Selecteer alle gegevens over de roeiers uit de dataset
+    
+    ```{r}
+    roeiers <- ais[ais$sport == 'Row',]
+    ```
+
+2. Bereken interessantste centrum- en spreidingsmaten voor `ht` (grootte in cm) en visualiseer de data.
+
+    ```{r}
+    summary(roeiers$ht)  # min, max, kwartielen, gemiddelde
+    mean(roeiers$ht)     # gemiddelde
+    sd(roeiers$ht)       # standaardafwijking (formule voor steekproef)
+    min(roeiers$ht)      # kleinste waarde
+    median(roeiers$ht)   # mediaan
+    IQR(roeiers$ht)      # Interkwartielafstand
+    max(roeiers$ht)      # grootste waarde
+    quantile(roeiers$ht, c(0,0.25,0.5,0.75,1)) # Percentielen
+    
+    boxplot(roeiers$ht, horizontal = T)        # Boxplot van de spreiding
+    ```
+
+3. Bereken interessantste centrum- en spreidingsmaten voor `hc` (hematocrietwaarde in percent) en visualiseer de data.
+
+    ```{r}
+    summary(roeiers$hc)  # min, max, kwartielen, gemiddelde
+    mean(roeiers$hc)     # gemiddelde
+    sd(roeiers$hc)       # standaardafwijking (formule voor steekproef)
+    min(roeiers$hc)      # kleinste waarde
+    median(roeiers$hc)   # mediaan
+    IQR(roeiers$hc)      # Interkwartielafstand
+    max(roeiers$hc)      # grootste waarde
+    quantile(roeiers$hc, c(0,0.25,0.5,0.75,1)) # Percentielen
+    
+    boxplot(roeiers$hc, horizontal = T)        # Boxplot van de spreiding
+    ```
+
+4. Bereken interessantste centrum- en spreidingsmaten voor `sex` (geslacht) en visualiseer de data.
+
+    ```{r}
+    roeiers_sex_frq <- table(roeiers$sex)       # frequentietabel
+    roeiers_sex_frq[which.max(roeiers_sex_frq)] # modus
+    
+    barplot(roeiers_sex_frq)    # Staafdiagram van de frequentietabel
+    mosaicplot(roeiers_sex_frq) # Moza??ekplot
+    ```
+
+## Roeiers, netballers en tennissers
+
+Hier gaan we de waarden telkens opsplitsen over de drie groepen.
+
+1. Selecteer alle gegevens over de drie groepen uit de dataset
+    
+    ```{r}
+    sporters <- ais[ais$sport == 'Row' |
+                    ais$sport == 'Netball' |
+                    ais$sport == 'Tennis',]
+    # De volgende functie zorgt dat de sporten die niet meer
+    # voorkomen ook niet meer in rekening gebracht worden bij
+    # bv. plots.
+    sporters$sport <- factor(sporters$sport)
+    View(sporters)
+    ```
+
+2. Bereken interessantste centrum- en spreidingsmaten voor `ht` (grootte in cm) en visualiseer de data.
+
+    ```{r}
+    # min, max, kwartielen, gemiddelde
+    aggregate(ht ~ sport, data = sporters, FUN = summary)
+    # gemiddelde
+    aggregate(ht ~ sport, data = sporters, FUN = mean)
+    # standaardafwijking (formule voor steekproef)
+    aggregate(ht ~ sport, data = sporters, FUN = sd)
+    # mediaan
+    aggregate(ht ~ sport, data = sporters, FUN = median)
+    # interkwartielafstand
+    aggregate(ht ~ sport, data = sporters, FUN = IQR)
+    # Percentielen
+    aggregate(ht ~ sport, data = sporters, FUN = quantile)
+
+    # Boxplot van de spreiding
+    boxplot(sporters$ht ~ sporters$sport, horizontal = T)       
+    ```
+
+3. Analyse van de variabele `sex`
+
+    ```{r}
+    # Frequentietabel van de verdeling m/v per sport
+    ft <- table(sporters$sex, 
+                sporters$sport)
+    ft
+    # Moza??ekplot
+    mosaicplot(sporters$sport ~ sporters$sex,
+               main = "Verdeling m/v per sport",
+               xlab = "sport", ylab = "geslacht")
+    # Staafdiagram
+    barplot(ft, legend = TRUE,
+            main = "Verdeling m/v per sport",
+            xlab = "sport", ylab = "geslacht")
+    ```
+
+## Vrouwelijke basketballers en roeiers
+
+1. Selecteer alle relevante gegevens uit de dataset
+   
+    ```{r}
+    vrouwen <- ais[ais$sex == 'f' & 
+                     (ais$sport == 'B_Ball' | 
+                      ais$sport == 'Row'),]
+    vrouwen$sex <- factor(vrouwen$sex)
+    vrouwen$sport <- factor(vrouwen$sport)
+    View(vrouwen)
+    ```
+    
+2. Bereken interessantste centrum- en spreidingsmaten voor `ht` (grootte in cm) en visualiseer de data.
+
+    ```{r}
+    # min, max, kwartielen, gemiddelde
+    aggregate(ht ~ sport, data = vrouwen, FUN = summary)
+    # gemiddelde
+    aggregate(ht ~ sport, data = vrouwen, FUN = mean)
+    # standaardafwijking (formule voor steekproef)
+    aggregate(ht ~ sport, data = vrouwen, FUN = sd)
+    # Percentielen
+    aggregate(ht ~ sport, data = vrouwen, FUN = quantile)
+
+    # Boxplot van de spreiding
+    boxplot(vrouwen$ht ~ vrouwen$sport, horizontal = T)       
+    ```
+
+3. Analyse van de variabele `sport` binnen deze groep.
+
+    ```{r}
+    # Frequentietabel van de verdeling m/v per sport
+    ft_2 <- table(vrouwen$sport)
+    ft_2
+    # Staafdiagram
+    barplot(ft_2, legend = TRUE)
+    ```
+
