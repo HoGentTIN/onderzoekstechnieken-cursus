@@ -44,7 +44,7 @@ f_x <- c(2,1,2,0,2,4,9,11,13,8,8)
     Het gemiddelde wordt berekend door de som te nemen van de waarden, en deze te delen door het aantal waarden. 
 
     Voor de geven frequentietabel moeten we dus de som nemen van het product van het aantal pinnen met de frequentie voor elke pin, en deze som delen door de som van de verschillende frequenties.
-    $\sum_{i=1}^n f_i x_i$ 
+    $\frac{1}{\sum_{i=1}^n f_i}\sum_{i=1}^n f_i x_i$ 
     
     ```{r}
     m <- sum(x * f_x) / sum(f_x)
