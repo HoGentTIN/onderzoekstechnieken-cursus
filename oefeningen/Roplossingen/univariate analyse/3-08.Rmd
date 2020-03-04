@@ -1,0 +1,78 @@
+---
+title: "Oefening 3.8. Formule variantie"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+In de formule voor de variantie wordt het verschil tussen de meetpunten en het gemiddelde gekwadrateerd. Waarom? Zouden we geen eenvoudiger formule kunnen bedenken die een even goede maatstaf is voor de spreiding van een dataset? Hieronder vind je drie voorstellen (de derde is de echte formule).
+
+```{r}
+variance1 <- function(x) {
+  m <- mean(x)
+  
+  sum(m - x) / (length(x) - 1)
+}
+
+variance2 <- function(x) {
+  m <- mean(x)
+  
+  sum(abs(m - x)) / (length(x) - 1)
+}
+
+variance3 <- function(x) {
+  m <- mean(x)
+  
+  sum((m-x)^2) / (length(x) - 1)
+}
+```
+
+Pas elke formule toe op de twee datasets hieronder. Door het resultaat te vergelijken zou je moeten kunnen besluiten of de formules geschikt zijn als een spreidingsmaat.
+
+```{r}
+x <- c(4, 4, -4, -4)
+y <- c(7, 1, -6, -2)
+```
+
+## Resultaten formule 1:
+
+```{r}
+variance1(x)
+variance1(y)
+```
+De punten in de datasets zijn duidelijk verspreid, maar toch geeft de formule als resultaat 0 omdat de datapunten zowel links als rechts van het gemiddelde liggen en elkaar opheffen.
+
+## Resultaten formule 2
+
+```{r}
+variance2(x)
+variance2(y)
+```
+
+De spreiding in deze twee datasets is duidelijk verschillend, min en max liggen bij `x` verder uit elkaar.
+
+```{r}
+range(x)
+range(y)
+```
+
+Toch geeft de formule in beide gevallen 16/3 als resultaat. Dit is dus geen goede maat voor de  spreiding.
+
+## Resultaten formule 3
+
+```{r}
+variance3(x)
+variance3(y)
+```
+
+Voor dataset `y`, waar de punten verder uit elkaar liggen, is het resultaat nu ook effectief groter dan bij dataset `x`. Door de verschillen te kwadrateren gaan datapunten die verder van het gemiddelde liggen zwaarder meetellen.
+
+### Resultaten mbv var
+We hadden uiteraard ook de standaard ingebouwde functie `var` kunnen gebruiken.
+
+```{r}
+var(x)
+var(y)
+```
