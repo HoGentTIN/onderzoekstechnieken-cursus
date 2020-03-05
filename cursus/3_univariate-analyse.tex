@@ -504,7 +504,7 @@ Hiervoor hebben we het bestand \texttt{android\_persistence\_cpu.csv} nodig. Je 
 We gaan het programma \texttt{R} gebruiken samen met \texttt{RStudio}. Open de file in \texttt{RStudio}.
 
 \begin{lstlisting}[breaklines=true]
-  android_cpu <- read.csv("android_persistence_cpu.csv", sep=";", dec=",")
+  android_cpu <- read.csv("android_persistence_cpu.csv", sep=";", dec=".")
   attach(android_cpu)
 \end{lstlisting}
 
@@ -695,6 +695,6 @@ Tabel~\ref{tab:opl-mean-range-R} geeft een overzicht van het gemiddelde en berei
         \textbf{\texttt{women\$weight}} & 136.7333 & 115  & 164   \\
     \bottomrule
   \end{tabular}
-  \caption{Gemiddele en bereik voor de datasets van oefening \ref{ex:mean-range-R}.}
+  \caption{Gemiddelde en bereik voor de datasets van oefening \ref{ex:mean-range-R}.}
   \label{tab:opl-mean-range-R}
 \end{table}
