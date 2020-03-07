@@ -1303,15 +1303,18 @@ De technieken die we kunnen gebruiken (hetzij rekenkundige, hetzij voor visualis
 \section{Oefeningen}
 \label{sec:analyse op 2 variabelen-oefeningen}
 
-De databestanden voor deze oefeningen zijn te vinden op Github (in de directory \emph{oefeningen/data/hfst6\_2variabelen}).
+De databestanden voor deze oefeningen zijn te vinden op Github (in de directory \emph{oefeningen/datasets}).
+
+\subsection{Kwalitatief--kwalitatief}
+\label{ssec:oef-kwal-kwal}
 
 \begin{exercise}
   \label{ex:muziekwijn-analyse} % $\chi^{2}$ - handmatig}
-
+  
   Marktonderzoek toont aan dat achtergrondmuziek in een supermarkt invloed kan hebben op het aankoopgedrag van de klanten. In een onderzoek werden drie methoden met elkaar vergeleken: geen muziek, Franse chansons en Italiaanse hits. Telkens werd het aantal verkochte flessen Franse, Italiaanse en andere wijnen geteld~\autocite{Ryan1998}.
   
   De onderzoeksdata bevindt zich in het csv-bestand MuziekWijn.
-
+  
   Vragen:
   \begin{enumerate}
     \item Stel de correcte kruistabel op. Gebruik hiervoor het R-commando \textit{table} om de frequentietabel te bekomen.
@@ -1324,106 +1327,22 @@ De databestanden voor deze oefeningen zijn te vinden op Github (in de directory 
 
 \begin{exercise}
   \label{ex:muziekwijn-visualisatie}
-	Gebruik dezelfde data.
-		\begin{enumerate}
-		\item Stel de percentages verkochte wijnen voor in een staafdiagram met de  muziekconditie= Geen.
-		\item Stel de percentages verkochte wijnen voor in een geclusterd staafdiagram (clustered bar chart).
-		\item Stel de percentages verkochte wijnen voor in rependiagram (stacked bar chart).
-	\end{enumerate}
+  Gebruik dezelfde data.
+  \begin{enumerate}
+    \item Stel de percentages verkochte wijnen voor in een staafdiagram met de  muziekconditie= Geen.
+    \item Stel de percentages verkochte wijnen voor in een geclusterd staafdiagram (clustered bar chart).
+    \item Stel de percentages verkochte wijnen voor in rependiagram (stacked bar chart).
+  \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
-	\label{ex:aardbevingen} %$\chi^{2}$ met R}
-Lees het databestand ``Aardbevingen.csv'' in. 	
-		\begin{enumerate}
-		\item Maak een histogram en een boxplot van de variabele ``Magnitudes''.
-		\item Maak een lijngrafiek met het aantal aardbevingen per maand.
-		\item Onderzoek of er een verband bestaat tussen de variabelen ``Type'' en ``Source''. Bereken ook de Cramér's V-waarde. Wat is de conclusie?
-	\end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-	\label{ex:test-examen}
-	In onderstaande tabel vindt men voor elke rij (= persoon) het resultaat van een test en zijn examenscore. Gevraagd:
-\begin{itemize}
-	\item Bepaal handmatig de regressierechte $\beta_{0} + \beta_{1} x$. 
-	\item Bepaal handmatig de correlatie- en determinatieco\"effici\"ent ($R, R^{2}$) 
-	\item Geef uitleg bij de gevonden statistieken.
-\end{itemize}
-
-% \begin{table}
-	\centering
-	\begin{tabular}{@{}rr@{}} \toprule
-	Resultaat Test ($X$) & Examenresultaat ($Y$) \\
-		\midrule
-		10 & 11 \\
-		12 & 14 \\
-		8 & 9 \\
-		13 & 13 \\
-		9 & 9 \\
-		10 &  9 \\
-		7 & 8 \\
-		14 & 14 \\
-		11 & 10 \\
-		6 & 6  \\
-		\bottomrule
-	\end{tabular}
-	\captionof{table}{Scores test en examen voor aantal personen}
-	\label{tab:testExamen}
-% \end{table}	
-\end{exercise}
-
-\begin{exercise}
-  \label{ex:scatter-correlatiecoeff}
-	Gegeven 6 scatterplots in volgende figuur en onderstaande correlatieco\"effici\"enten. Match de co\"effici\"enten met de scatterplots. Er is dus één scatterplot waarvan geen correlatie gegeven staat hieronder.
-\begin{itemize}
-	\item $r_{1}$ = 0.6
-	\item $r_{2}$ = 0
-	\item $r_{3}$ = -0.9
-	\item $r_{4}$ = 0.9
-	\item $r_{5}$ = 0.3
-\end{itemize}
-%\begin{figure}[h!]
-%	\centering
-	\includegraphics[width=1.10\textwidth]{correlaties.png}
-	\captionof{figure}{Correlaties}
-	\label{fig:correlaties}
-%\end{figure}
-\end{exercise}
-
-\begin{exercise}
-	\label{ex:cats}
-	Lees het databestand ``Cats.csv'' in. 
-		\begin{enumerate}
-		\item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (\texttt{Bwt}, afhankelijke variabele) en Gewicht hart (\texttt{Hwt}, onafhankelijke variabele).
-		\item Maak een spreidingsdiagram van beide variabelen.
-		\item Bereken en teken de regressielijn.
-		\item Bereken de correlatie- en de determinatiecoëfficiënt.
-		\item Geef een interpretatie van deze resultaten.
-	\end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  \label{ex:cats-per-geslacht}
-	Gebruik dezelfde data als in vorige oefening.
-		\begin{enumerate}
-		\item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (Bwt) en Gewicht hart (Hwt) per geslacht.
-		\item Maak een spreidingsdiagram van beide variabelen voor elk van de geslachten.
-		\item Bereken en teken telkens de regressielijn.
-		\item Bereken de correlatie- en de determinatiecoëfficiënt.
-		\item Geef een interpretatie aan deze resultaten.
-	\end{enumerate}
-\end{exercise}
-
-\begin{exercise}
-  \label{ex:pizza}
-	Lees het databestand ``Pizza.csv'' in.
-		\begin{enumerate}
-		\item Voer een volledige lineaire regressieanalyse uit op de variabelen Rating en CostPerSlice. Trek hieruit de juiste conclusies en ga deze ook grafisch na.
-		\item Onderzoek een mogelijk verband tussen Rating en Neighbourhood. Welke methode kan je hiervoor gebruiken? Kan je de gegevens van Rating hiervoor in dezelfde vorm gebruiken?
-		\item Geef een interpretatie aan deze resultaten.
-		\item Stel de kruistabel grafisch voor met een staafdiagram.  Voorzie een legende.
-	\end{enumerate}
+  \label{ex:aardbevingen} %$\chi^{2}$ met R}
+  Lees het databestand ``Aardbevingen.csv'' in. 	
+  \begin{enumerate}
+    \item Maak een histogram en een boxplot van de variabele ``Magnitudes''.
+    \item Maak een lijngrafiek met het aantal aardbevingen per maand.
+    \item Onderzoek of er een verband bestaat tussen de variabelen ``Type'' en ``Source''. Bereken ook de Cramér's V-waarde. Wat is de conclusie?
+  \end{enumerate}
 \end{exercise}
 
 \begin{exercise}
@@ -1530,9 +1449,151 @@ Lees het databestand ``Aardbevingen.csv'' in.
   \end{tabular}
   \subcaption{Absolute frequentie van de Vlaamse bevolking per leeftijdscategorie. Bron: BelStat (\url{https://bestat.economie.fgov.be/bestat/}, C01.1: Bevolking volgens verblijfplaats (provincie), geslacht, positie in het huishouden (C), burgerlijke staat en leeftijd (B)).}
   \label{tab:leeftijd-vlaanderen}
-  
-  
+    
 \end{table}
+
+\subsection{Kwalitatief--kwantitatief}
+\label{ssec:oef-kwal-kwant}
+
+\begin{exercise}
+  \label{oef:casus-akin2016-toets}
+  
+  In Oefening~\ref{oef:casus-akin2016-1var} en volgende hebben we de resultaten van performantiemetingen voor persistentiemogelijkheden in Android geanalyseerd~\autocite{Akin2016}. Er werden experimenten uitgevoerd voor verschillende combinaties van hoeveelheid data (klein, gemiddeld, groot) en persistentietype (GreenDAO, Realm, SharedPreferences, SQLite). Voor elke hoeveelheid data hebben we kunnen bepalen welk persistentietype het beste resultaat gaf.
+  
+  Nu gaan we uitzoeken of het op het eerste zicht beste persistentietype ook \emph{significant} beter is dan de concurrentie.
+  
+  Concreet: ga aan de hand van een toets voor twee steekproeven voor elke datahoeveelheid na of het gemiddelde van het best scorende persistentietype \emph{significant lager} is dan het gemiddelde van enerzijds het \emph{tweede} beste en anderzijds het slechtst scorende type.
+  
+  Kunnen we de conclusie aanhouden dat voor een gegeven datahoeveelheid één persistentietype het beste is, d.w.z.~significant beter is dan gelijk welk ander persistentietype?
+\end{exercise}
+
+\begin{exercise}
+  Een groot aantal studenten heeft deelgenomen aan een test die in verschillende opeenvolgende sessies werd georganiseerd. Omdat het opstellen van een aparte opgave voor elke sessie praktisch onhaalbaar was, is telkens dezelfde opgave gebruikt. Eigenlijk bestaat er dus het gevaar dat studenten na hun sessie info konden doorspelen aan de groepen die nog moesten komen. De latere groepen hebben dan een voordeel ten opzichte van de eerste. Blijkt dit ook uit de cijfers?
+  
+  Het bestand \texttt{puntenlijst.csv} bevat alle resultaten van de test. Elke groep wordt aangeduid met een letter, in de volgorde van de sessie.
+  
+  \begin{itemize}
+    \item Dag 1: sessies A, B
+    \item Dag 2: sessies C, D, E
+    \item Dag 3: sessies F, G, H
+  \end{itemize}
+  
+  Sessies A en B zijn doorgegaan op een andere campus, dus er zou kunnen verondersteld worden dat er weinig tot geen communicatie is met de studenten van de andere sessies.
+  
+  Als er info met succes doorgespeeld werd, dan verwachten we dat de scores van de groepen die later komen significant beter zijn dan de eerste.
+  
+  Merk op dat de omgekeerde redenering niet noodzakelijk geldt: als blijkt dat het resultaat van de latere sessies inderdaad significant beter blijkt, dan betekent dat niet noodzakelijk dat de oorzaak (enkel) het doorspelen van informatie is. Er kunnen ook andere oorzaken zijn (bv.~``zwakkere'' klasgroepen zijn toevallig eerder geroosterd).
+  
+  \begin{enumerate}
+    \item Ga op verkenning in de data. Bereken de gepaste centrum- en spreidingsmaten voor de dataset als geheel en voor elke sessie afzonderlijk.
+    
+    \item Maak een staafgrafiek van de gemiddelde score per sessie. Is dit voldoende om een beeld te vormen van de resultaten? Waarom (niet)?
+    
+    \item Maak een boxplot van de scores opgedeeld per groep. Vergelijk onderling de hieronder opgesomde sessies. Denk je dat er een significant verschil is tussen de resultaten? Wordt ons vermoeden dat er informatie doorgespeeld wordt bevestigd?
+    
+    \begin{itemize}
+      \item A en B
+      \item C, D en E
+      \item F, G en H
+      \item C en H
+      \item A en H
+    \end{itemize}
+    
+    \item Ga door middel van een geschikte statistische toets voor na of de verschillen tussen die hierboven opgesomde groepen ook \emph{significant} is. Kunnen we concluderen dat de latere groepen beter scoren of niet?
+  \end{enumerate}
+\end{exercise}
+
+\subsection{Kwantitatief--kwantitatief}
+\label{ssec:oef-kwant-kwant}
+
+\begin{exercise}
+  \label{ex:test-examen}
+  In onderstaande tabel vindt men voor elke rij (= persoon) het resultaat van een test en zijn examenscore. Gevraagd:
+  \begin{itemize}
+    \item Bepaal handmatig de regressierechte $\beta_{0} + \beta_{1} x$. 
+    \item Bepaal handmatig de correlatie- en determinatieco\"effici\"ent ($R, R^{2}$) 
+    \item Geef uitleg bij de gevonden statistieken.
+  \end{itemize}
+  
+  % \begin{table}
+  \centering
+  \begin{tabular}{@{}rr@{}} \toprule
+    Resultaat Test ($X$) & Examenresultaat ($Y$) \\
+    \midrule
+    10 & 11 \\
+    12 & 14 \\
+    8 & 9 \\
+    13 & 13 \\
+    9 & 9 \\
+    10 &  9 \\
+    7 & 8 \\
+    14 & 14 \\
+    11 & 10 \\
+    6 & 6  \\
+    \bottomrule
+  \end{tabular}
+  \captionof{table}{Scores test en examen voor aantal personen}
+  \label{tab:testExamen}
+  % \end{table}	
+\end{exercise}
+
+\begin{exercise}
+  \label{ex:scatter-correlatiecoeff}
+  Gegeven 6 scatterplots in volgende figuur en onderstaande correlatieco\"effici\"enten. Match de co\"effici\"enten met de scatterplots. Er is dus één scatterplot waarvan geen correlatie gegeven staat hieronder.
+  \begin{itemize}
+    \item $r_{1}$ = 0.6
+    \item $r_{2}$ = 0
+    \item $r_{3}$ = -0.9
+    \item $r_{4}$ = 0.9
+    \item $r_{5}$ = 0.3
+  \end{itemize}
+  %\begin{figure}[h!]
+  %	\centering
+  \includegraphics[width=1.10\textwidth]{correlaties.png}
+  \captionof{figure}{Correlaties}
+  \label{fig:correlaties}
+  %\end{figure}
+\end{exercise}
+
+\begin{exercise}
+  \label{ex:cats}
+  Lees het databestand ``Cats.csv'' in. 
+  \begin{enumerate}
+    \item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (\texttt{Bwt}, afhankelijke variabele) en Gewicht hart (\texttt{Hwt}, onafhankelijke variabele).
+    \item Maak een spreidingsdiagram van beide variabelen.
+    \item Bereken en teken de regressielijn.
+    \item Bereken de correlatie- en de determinatiecoëfficiënt.
+    \item Geef een interpretatie van deze resultaten.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  \label{ex:cats-per-geslacht}
+  Gebruik dezelfde data als in vorige oefening.
+  \begin{enumerate}
+    \item Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (Bwt) en Gewicht hart (Hwt) per geslacht.
+    \item Maak een spreidingsdiagram van beide variabelen voor elk van de geslachten.
+    \item Bereken en teken telkens de regressielijn.
+    \item Bereken de correlatie- en de determinatiecoëfficiënt.
+    \item Geef een interpretatie aan deze resultaten.
+  \end{enumerate}
+\end{exercise}
+
+\begin{exercise}
+  \label{ex:pizza}
+  Lees het databestand ``Pizza.csv'' in.
+  \begin{enumerate}
+    \item Voer een volledige lineaire regressieanalyse uit op de variabelen Rating en CostPerSlice. Trek hieruit de juiste conclusies en ga deze ook grafisch na.
+    \item Onderzoek een mogelijk verband tussen Rating en Neighbourhood. Welke methode kan je hiervoor gebruiken? Kan je de gegevens van Rating hiervoor in dezelfde vorm gebruiken?
+    \item Geef een interpretatie aan deze resultaten.
+    \item Stel de kruistabel grafisch voor met een staafdiagram.  Voorzie een legende.
+  \end{enumerate}
+\end{exercise}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \subsection{Antwoorden op geselecteerde oefeningen}
 \label{ssec:analyse-2-variabelen-oplossingen}
@@ -1540,6 +1601,19 @@ Lees het databestand ``Aardbevingen.csv'' in.
 \paragraph{Oefening~\ref{ex:muziekwijn-analyse}}
 
 $\chi^2 \approx 18,2792$, Cramér's $V \approx 0,1939$
+
+\paragraph{Oefening~\ref{ex:chisq-survey}}
+
+\begin{enumerate}
+  \item \texttt{Exer}/\texttt{Smoke}: $\chi^2 = 5.4885$, $g = 12.59159$, $p = 0.4828422$
+  \item \texttt{W.Hnd}/\texttt{Fold}: $\chi^2 = 1.581399$, $g = 5.9915$, $p = 0.454$
+  \item \texttt{Sex}/\texttt{Smoke}: $\chi^2 = 3.554$, $g = 7.8147$, $p = 0.314$
+  \item \texttt{Sex}/\texttt{W.Hnd}: $\chi^2 = 0.236$, $g = 3.8415$, $p = 0.627$
+\end{enumerate}
+
+\paragraph{Oefening~\ref{ex:chisq-aids2}} $\chi^2 = 1083.372914$, $g = 14.067140$, $p \approx 1.157 \times 10^{-229}$
+
+\paragraph{Oefening~\ref{ex:chisq-digimeter}} $\chi^2 \approx 6.6997$ ($df = 6$), $g \approx 12.5916$, $p \approx 0.3495$
 
 \paragraph{Oefening~\ref{ex:test-examen}}
 
@@ -1563,15 +1637,3 @@ $\chi^2 \approx 18,2792$, Cramér's $V \approx 0,1939$
 \end{center}
 
 
-\paragraph{Oefening~\ref{ex:chisq-survey}}
-
-\begin{enumerate}
-  \item \texttt{Exer}/\texttt{Smoke}: $\chi^2 = 5.4885$, $g = 12.59159$, $p = 0.4828422$
-  \item \texttt{W.Hnd}/\texttt{Fold}: $\chi^2 = 1.581399$, $g = 5.9915$, $p = 0.454$
-  \item \texttt{Sex}/\texttt{Smoke}: $\chi^2 = 3.554$, $g = 7.8147$, $p = 0.314$
-  \item \texttt{Sex}/\texttt{W.Hnd}: $\chi^2 = 0.236$, $g = 3.8415$, $p = 0.627$
-\end{enumerate}
-
-\paragraph{Oefening~\ref{ex:chisq-aids2}} $\chi^2 = 1083.372914$, $g = 14.067140$, $p \approx 1.157 \times 10^{-229}$
-
-\paragraph{Oefening~\ref{ex:chisq-digimeter}} $\chi^2 \approx 6.6997$ ($df = 6$), $g \approx 12.5916$, $p \approx 0.3495$
