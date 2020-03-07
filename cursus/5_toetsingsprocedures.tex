@@ -490,16 +490,9 @@ In vele gevallen is het maken van een fout van type I erger dan een van type II.
 \section{Oefeningen}
 \label{sec:toetsingsprocedures-oefeningen}
 
-\begin{exercise}
-  Betrouwbaarheidsintervallen.
-  
-  \begin{enumerate}
-    \item Wat is de onder- en bovengrens van een betrouwbaarheidsinterval van 99\%?
-    \item Een betrouwbaarheidsinterval van 99\% is breder dan een van 95\%. Waarom is dit zo?
-    \item Hoe zou het betrouwbaarheidsinterval voor 100\% er uit zien?
-  \end{enumerate}
-  
-\end{exercise}
+Datasets voor deze oefeningen zijn te vinden in de Github repo, onder \texttt{oefeningen/datasets/}.
+
+
 
 \begin{exercise}
   \label{oef:bindend-studieadvies}
@@ -532,6 +525,21 @@ In vele gevallen is het maken van een fout van type I erger dan een van type II.
   
 \end{exercise}
 
+\begin{exercise}
+  \label{ex:z-toets-rlanders}
+  Lees de dataset \texttt{rlanders-generated.csv} in\footnote{Deze dataset bevat synthetische data, gegenereerd met hulp van \url{https://rlanders.net/dataset-generator/}}.
+  
+  De variabele \emph{Money} stelt een bruto-jaarsalaris voor ($\times 100\$$). We gaan er van uit dat het deze variabele een gemiddelde $\mu = 490$ heeft en standaardafwijking $\sigma = 98$. Als we het steekproefgemiddelde berekenen over de gehele dataset (doe dit zelf!), lijkt dat de veronderstelling te ondersteunen. Maar wat als we naar de mannen en de vrouwen afzonderlijk zouden kijken (variabele \emph{Gender})?
+  
+  Gebruik een geschikte statistische toets om de uitspraken hieronder te verifiëren. Gebruik daarbij significantieniveau $\alpha = 5\%$. Bereken telkens de kritieke grenswaarde(n) en de p-waarde.
+  
+  \begin{enumerate}
+    \item Het gemiddelde jaarsalaris van de mannen lijkt hoger dan de verwachte waarde. Is het ook significant hoger?
+    \item Het gemiddelde jaarsalaris van de vrouwen lijkt \emph{lager}. Is het ook significant lager?
+    \item Bepaal tenslotte het aanvaardingsgebied voor het gemiddelde jaarsalaris over de gehele steekproef (vrouwen en mannen samen) als we zouden willen bepalen of het steekproefgemiddelde significant afwijkt van de verwachte waarde, zonder een uitspraak te doen of die al dan niet hoger of lager ligt.
+  \end{enumerate}
+  
+\end{exercise}
 
 \section{Antwoorden op geselecteerde oefeningen}
 \label{sec:toetsingsprocedures-antwoorden}
@@ -578,22 +586,24 @@ In deze situatie ($n = 14 < 30$) mogen we geen $z$-toets gebruiken, maar vallen 
 
 Er is op basis van deze steekproef dus geen reden om aan te nemen dat het gemiddelde prijsverschil op de inruilprijs van oude wagens significant groter is dan door de importeur aanbevolen.
 
-\paragraph{Oefening~\ref{oef:casus-akin2016-toets}}
+\paragraph{Oefening \ref{ex:z-toets-rlanders}}
 
-Tabel~\ref{tab:akin2016-resultaten-ttoets} geeft een overzicht met voor elke datasetgrootte het beste en tweede beste persistentietype (op basis van het steekproefgemiddelde). De conclusie van~\textcite{Akin2016}, dat \emph{Realm} het performantste persistentietype is, blijft overeind, maar voor de kleine datasets is het verschil niet significant.
+Het gemiddelde van de hele steekproef is $\overline{x} \approx 501,156$
 
-Merk op dat we hier niet expliciet vooraf een significantieniveau gekozen hebben. Voor $\alpha = 0,1$, $0,05$ of zelfs $0,01$, kunnen we echter dezelfde conclusie trekken.
-
-\begin{table}
-  \begin{center}
-\begin{tabular}{llll}
-  \toprule
-  \textbf{Grootte} & \textbf{Beste} & \textbf{2e beste} & \textbf{$p$-waarde} \\ \midrule
-  Small            & Realm          & SharedPreferences & 0.1699     \\
-  Medium           & Realm          & GreenDAO          & 0.0002506  \\
-  Large            & Realm          & SQLite            & 0.0017     \\ \bottomrule
-\end{tabular}
-\end{center}
-  \caption{Resultaten $t$-toets voor de beste en 2e beste persistentietype op basis van steekproefgemiddelde~\autocite{Akin2016}.}
-  \label{tab:akin2016-resultaten-ttoets}
-\end{table}
+\begin{enumerate}
+  \item Voor de mannen (rechtszijdige $z$-toets):
+    \begin{itemize}
+      \item $\overline{x}_m \approx 507,535$
+      \item $g_m \approx 511,456$
+      \item $p_m \approx 0,1396$
+      \item We mogen de nulhypothese \textit{niet} verwerpen. Het bruto jaarsalaris van de mannen in de steekproef is niet significant hoger dan verwacht.
+    \end{itemize}
+  \item Voor de vrouwen (linkszijdige $z$-toets):
+    \begin{itemize}
+      \item $\overline{x}_f \approx 472,058$
+      \item $g_f \approx 477,646$
+      \item $p_f \approx 0,0199$
+      \item We mogen de nulhypothese verwerpen. Het bruto jaarsalaris van de vrouwen in de steekproef is significant lager dan verwacht.
+    \end{itemize}
+  \item Het aanvaardingsgebied is het interval [487,852; 512,148]. 
+\end{enumerate}
