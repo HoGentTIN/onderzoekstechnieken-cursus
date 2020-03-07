@@ -708,6 +708,21 @@ Vraag B:
   \end{itemize}
 \end{exercise}
 
+
+\begin{exercise}
+  \label{ex:confidence-money}
+  
+  Lees de dataset \texttt{money.csv} in. We veronderstellen dat de waarden uit deze steekproef normaal verdeeld zijn rond een onbekend populatiegemiddelde $\mu$, maar dat de populatiestandaardafwijking gekend is en gelijk aan $\sigma = 99$.
+  
+  \begin{enumerate}
+    \item Bereken een 99\%-betrouwbaarheidsinterval voor het populatiegemiddelde.
+    \item Bereken een 95\%-betrouwbaarheidsinterval voor het populatiegemiddelde.
+    \item Stel dat $\sigma$ onbekend is. Bereken voor dat geval een 95-\% betrouwbaarheidsinterval voor het populatiegemiddelde.
+    \item Stel tenslotte een 95\%-betrouwbaarheidsinterval voor het populatiegemiddelde, in de veronderstelling dat de steekproef enkel bestaat uit de eerste 25 waarden in het databestand.
+  \end{enumerate}
+\end{exercise}
+
+
 \section{Antwoorden op geselecteerde oefeningen}
 \label{sec:oplossingen-steekproefonderzoek}
 
@@ -724,4 +739,13 @@ Vraag B:
   \item $0,559$
   \item $0,372$
   \item $0,166$
+\end{enumerate}
+
+\paragraph{Oefening \ref{ex:confidence-money}}
+
+\begin{enumerate}
+  \item $[481,725; 523,368]$
+  \item $[486,704; 518,390]$
+  \item $[486,476; 518,617]$
+  \item $[485,761; 519,332]$
 \end{enumerate}
