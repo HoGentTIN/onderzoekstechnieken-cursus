@@ -697,17 +697,15 @@ Vraag B:
 \end{table}
 
 \begin{exercise}
-  Een webhostingfirma heeft een Service Level Agreement met een klant voor een gegarandeerde uptime van ``five nines'' (99,999\%).  Die wordt aan het einde van elk jaar gecontroleerd en als de minimale uptime niet gehaald wordt, moet de hostingfirma een boete betalen.
-
-  Om de uptime te meten, voert een monitoringsysteem elke minuut een \texttt{HTTP GET /} uit en controleert het resultaat a.h.v.
-  de HTTP return code. In de maand januari is er één enkele HTTP request onsuccesvol geweest.
-
-  \begin{itemize}
-    \item Als deze trend zich voortzet, wat is de kans dat de SLA niet gehaald wordt aan het einde van het jaar? Gebruik de formule voor de kansverdeling van een fractie.
-    \item De gebruikte formule is eigenlijk niet geschikt in dit specifieke geval en geeft een vertekend beeld. Wat zou de reden kunnen zijn?
-  \end{itemize}
+  Betrouwbaarheidsintervallen.
+  
+  \begin{enumerate}
+    \item Wat is de onder- en bovengrens van een betrouwbaarheidsinterval van 99\%?
+    \item Een betrouwbaarheidsinterval van 99\% is breder dan een van 95\%. Waarom is dit zo?
+    \item Hoe zou het betrouwbaarheidsinterval voor 100\% er uit zien?
+  \end{enumerate}
+  
 \end{exercise}
-
 
 \begin{exercise}
   \label{ex:confidence-money}
@@ -722,6 +720,17 @@ Vraag B:
   \end{enumerate}
 \end{exercise}
 
+\begin{exercise}
+  Een webhostingfirma heeft een Service Level Agreement met een klant voor een gegarandeerde uptime van ``five nines'' (99,999\%).  Die wordt aan het einde van elk jaar gecontroleerd en als de minimale uptime niet gehaald wordt, moet de hostingfirma een boete betalen.
+
+  Om de uptime te meten, voert een monitoringsysteem elke minuut een \texttt{HTTP GET /} uit en controleert het resultaat a.h.v.
+  de HTTP return code. In de maand januari is er één enkele HTTP request onsuccesvol geweest.
+
+  \begin{itemize}
+    \item Als deze trend zich voortzet, wat is de kans dat de SLA niet gehaald wordt aan het einde van het jaar? Gebruik de formule voor de kansverdeling van een fractie.
+    \item De gebruikte formule is eigenlijk niet geschikt in dit specifieke geval en geeft een vertekend beeld. Wat zou de reden kunnen zijn?
+  \end{itemize}
+\end{exercise}
 
 \section{Antwoorden op geselecteerde oefeningen}
 \label{sec:oplossingen-steekproefonderzoek}
