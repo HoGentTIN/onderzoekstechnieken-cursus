@@ -5,9 +5,10 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
-## Visualiseren van verbanden tussen twee variabelen
+# Visualiseren van verbanden tussen twee variabelen
 
 Wanneer je het verband tussen twee variabelen wil visualiseren, dan hangt het meest geschikte grafiektype af van het meetniveau van de variabelen. Deze vind je de tabel hieronder voor verschillende combinaties van meetniveaus van enerzijds de onafhankelijke en anderzijds de afhankelijke variabele.
 
@@ -20,105 +21,206 @@ Wanneer je het verband tussen twee variabelen wil visualiseren, dan hangt het me
 |                |              | staafgrafiek gemiddelde + error bars  |
 | Kwantitatief   | Kwantitatief | spreidings/XY-grafiek                 |
 
-### Kwalitatief - kwalitatief
+# Kwalitatief - kwalitatief
 
-#### Mozaïekdiagram
+We gebruiken als voorbeeld de dataset `mpg` (informatie over 38 in de VS populaire automodellen). Stel dat we willen weten of er een verband is tussen het type aandrijving (`drv`, de onafhankelijke variabele) en het brandstoftype (`fl`, de afhankelijke variabele). Met andere woorden, we willen weten of het gebruikte brandstoftype tussen de verschillende types aandrijvingen significant verschillend is.
+
+Hieronder is de kruistabel getoond met de onafhankelijke variabele in de kolommen, de afhankelijke in de rijen. Ook de marginale totalen zijn toegevoegd. Als er geen verband is tussen beide variabelen, zullen de verhoudingen over alle kolommen ongeveer gelijk zijn.
+
+```{r}
+addmargins(table(mpg$drv, mpg$fl))
+```
+
+Ter info: de betekenis van de afkortingen:
+
+- `drv`
+    - `f`: voorwielaandrijving
+    - `r`: achterwielaandrijving
+    - `4`: vierwielaandrijving
+- `fl`
+    - `c`: aardgas, Compressed Natural Gas (CNG)
+    - `d`: diesel
+    - `e`: elektrisch
+    - `p`: "premium" benzine
+    - `r`: "regular" benzine
+
+## Geclusterde staafgrafiek
+
+Bij een geclusterde staafgrafiek wordt de onafhankelijke variabele typisch uitgezet op de x-as. Op de y-as worden staven getekend die de frequenties in de afhankelijke variabele voorstellen, naast elkaar.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = drv)) +
+  geom_bar(mapping = aes(fill = fl),
+           position = "dodge")
+```
+
+De optie `position = "dodge"` zorgt er voor dat de staven naast elkaar getoond worden, in plaats van gestapeld.
+
+Als het aantal categorieën groter wordt, wordt dit soort grafiek al snel onduidelijk.
+
+## Rependiagram
+
+Een rependiagram is eveneens gebaseerd op een staafdiagram, maar hier worden de staven gestapeld en genormaliseerd.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = drv)) +
+  geom_bar(mapping = aes(fill = fl), position = "fill") +
+  coord_flip()
+```
+
+Meestal wordt een rependiagram horizontaal getoond (`coord_flip()`). De verhoudingen tussen de verschillende categorieën in de afhankelijke variabele is hier duidelijk te zien. Wat deze grafiek echter niet toont is de verhoudingen binnen de onafhankelijke variabele.
+
+## Mozaïekdiagram
 
 Een mozaïekdiagram is een grafische weergave van een frequentietabel waarbij de oppervlakte van elke tegel proportioneel is met de frequentie in de overeenkomstige cel van de tabel.
 
 ```{r}
-mosaicplot(t(observed),
-           main = "Waardering van het basisassortiment")
+my_mpg <- mpg %>%
+  group_by(drv, fl) %>%
+  summarise(count = n()) %>%
+  mutate(drv.count = sum(count),
+         prop = count / sum(count)) %>%
+  ungroup()
+
+ggplot(data = my_mpg, mapping = aes(x = drv, y = prop, 
+                                    fill = fl, width = drv.count)) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(~drv, scales = "free_x", space = "free_x")
 ```
 
-In deze grafiek is de frequentietabel getransponeerd met de functie `t()`. Op die manier wordt de onafhankelijke variabele in de kolommen weergegeven en kan je duidelijk de verschillen in frequenties zien.
+Een mozaïekdiagram is de duidelijkste manier om het verband tussen twee kwalitatieve variabelen te tonen, maar het heeft wat voeten in de aarde om dit in `ggplot` uit te voeren. De werkwijze hierboven is gebaseerd op [deze StackOverflow-discussie](https://stackoverflow.com/questions/19233365/how-to-create-a-marimekko-mosaic-plot-in-ggplot2).
 
-#### Geclusterde staafgrafiek
+Een alternatief is de package `ggmosaic`:
 
 ```{r}
-barplot(t(prop.table(observed, 2)),
-        beside = TRUE,
-        legend = TRUE)
+library(ggmosaic)
+
+ggplot(data = mpg) +
+  geom_mosaic(mapping = aes(x = product(drv), fill = fl))
 ```
 
-De waarden van de afhankelijke variabele worden op de X-as uitgezet, en elke cluster toont de *relatieve* frequenties van de waarden in de onafhankelijke variabele. Per waarde in de onafhankelijke variabele (hier: man/vrouw) werden de frequenties in de afhankelijke variabele (goed t/m slecht) herberekend tot percentages.
+De onafhankelijke variabele moet aangeduid worden met `x = product(var1)` (dus niet zoals gewoonlijk `x = var1`), de afhankelijke met `fill = var2`.
 
-#### Rependiagram
+# Kwalitatief - kwantitatief
+
+Stel dat we willen weten of in de dataset `mpg` auto's met een manuele versnelling zuiniger zijn dan auto's met een automaat. De variabele `trans` bevat de nodige info, maar is te gedetailleerd:
 
 ```{r}
-proportions <- prop.table(observed, margin = 2)
-barplot(proportions, horiz = TRUE)
+unique(mpg$trans)
 ```
 
-In deze grafiek worden eveneens *relatieve* frequenties getoond. Merk de gelijkenissen met het mozaïekdiagram op! Een mozaïekdiagram geeft echter nog iets meer informatie, want in het rependiagram is niet meer duidelijk of er een verschillend aantal mannen dan wel vrouwen is ondervraagd.
-
-### Kwalitatief - kwantitatief
-
-Als voorbeeld van een verband tussen een kwalitatieve onafhankelijke en een kwantitatieve afhankelijke variabele nemen we "Besteden personeelsleden wekelijks een groter bedrag in het restaurant dan studenten?"
-
-#### Gegroepeerde boxplot
+We zullen daarom eerst een nieuwe kolom, `trans_type` toevoegen waar de info tussen haakjes weggelaten werd:
 
 ```{r}
-boxplot(resto$Bedrag ~ resto$Klanttype)
+mpg2 <- mpg %>%
+  mutate(trans_type = sub("\\(.*", "", trans))
 ```
 
-#### Staafdiagram van gemiddelden
+Er zijn twee variabelen die het verbruik van de auto's weergeven, nl. `cty` (in de stad) en `hwy` (op de autosnelweg). Beide variabelen zijn uitgedrukt in mijl per gallon, dus zuinigere auto's hebben hogere waarden. In de voorbeelden hieronder zullen we `hwy` gebruiken, je kan dit zelf uitproberen met `cty`. 
+
+## Staafdiagram van gemiddelden
 
 Een grafiektype dat we vaak tegenkomen voor dit soort onderzoeksvragen is een staafdiagram van het gemiddelde voor elke groep:
 
 ```{r}
-# Bereken eerst de gemiddelden voor elke groep
-mean_amounts <- aggregate(resto$Bedrag ~ resto$Klanttype, FUN = mean)
-# Plot het staafdiagram
-barplot(mean_amounts$`resto$Bedrag`,
-        names.arg = mean_amounts$`resto$Klanttype`)
+ggplot(data = mpg2, mapping = aes(x = trans_type, y = hwy,
+                                  fill = trans_type)) +
+  geom_bar(stat = "summary", fun.y = "mean")
 ```
 
-In deze grafiek ontbreekt een uiterst belangrijk gegeven, en dat is de spreiding. Zoals de grafiek nu getekend is, geeft die **onvoldoende informatie** over het verschil tussen beide groepen. Die kan toegevoegd worden in de vorm van foutstaven (error bars) die de grootte van de standaardafwijking tonen.
+In deze grafiek ontbreekt een uiterst belangrijk gegeven, en dat is de spreiding. Zoals de grafiek nu getekend is, geeft die **onvoldoende informatie** over het verschil tussen beide groepen.
+
+**Gebruik dus nooit een grafiek van gemiddelden zonder de spreiding te tonen!**
+
+Een manier om de spreiding te tonen is aan de hand van zgn. foutstaven (of *error bars*). Deze geven een idee van de spreiding van de data aan de hand van een te kiezen metriek. Typische waarden zijn:
+
+- de standaardafwijking (van de steekproef)
+- 2x de standaardafwijking
+- de standaardfout op het gemiddelde ($s/\sqrt{n}$)
+- een betrouwbaarheidsinterval (bv. 95%)
+
+Omdat er verschillende mogelijke interpretaties aan de foutstaven kunnen gegeven worden, is het belangrijk om in het bijschrift van de grafiek voldoende uitleg te geven over wat precies getoond wordt.
+
+Om de grafiek makkelijk te kunnen tekenen, berekenen we eerst de nodige waarden. We maken een nieuwe tabel aan met gemiddelde, standaardafwijking, standaardfout en grootte van het 95%-betrouwbaarheidsinterval. We zullen enkel de standaardafwijking gebruiken in de grafiek, maar je kan zelf experimenteren met de andere waarden.
 
 ```{r}
-# Bereken eerst de gemiddelden en standaardafwijkingen voor elke groep
-mean_amounts <- aggregate(resto$Bedrag ~ resto$Klanttype, FUN = mean)
-sd_amounts   <- aggregate(resto$Bedrag ~ resto$Klanttype, FUN = sd)
-# Plot het staafdiagram
-ymax <- max(resto$Bedrag, na.rm = TRUE) # zorg dat Y-as hoog genoeg is
-mean_plot <- barplot(mean_amounts$`resto$Bedrag`,
-                     names.arg = mean_amounts$`resto$Klanttype`,
-                     ylim = c(0,ymax))
-# Teken de vertikale lijnen van de error bars
-segments(mean_plot,
-         mean_amounts$`resto$Bedrag` - sd_amounts$`resto$Bedrag`,
-         mean_plot,
-         mean_amounts$`resto$Bedrag` + sd_amounts$`resto$Bedrag`,
-         lwd = 1.5)
-# Teken de einden van de error bars
-arrows(mean_plot,
-       mean_amounts$`resto$Bedrag` - sd_amounts$`resto$Bedrag`,
-       mean_plot,
-       mean_amounts$`resto$Bedrag` + sd_amounts$`resto$Bedrag`,
-       lwd = 1.5, angle = 90, code = 3, length = 0.05)
+mpg_summary <- mpg2 %>%
+  group_by(trans_type) %>%
+  summarise(hwy_mean = mean(hwy),       # gemiddelde
+            hwy_sd = sd(hwy),           # standaardafwijking
+            hwy_se = sd(hwy)/sqrt(n()), # standaardfout
+            # 95%-betrouwbaarheidsinterval ahv t-score (omdat σ onbekend is):
+            hwy_ci_95 = qt(1-.05/2, df = n() - 1) * sd(hwy)/sqrt(n()))
+mpg_summary
 ```
 
-Jammer genoeg is er geen eenvoudige manier om foutstaven toe te voegen aan een grafiek. 
- 
-Het is belangrijk in het bijschrift van de grafiek te vermelden wat de error bars precies voorstellen. Soms wordt ook 2x de standaardafwijking getoond.
+In de afbeelding hieronder tonen we de standaardafwijking:
 
-In de meeste gevallen is een boxplot een betere grafiek die meer informatie bevat. Bekijk het codevoorbeeld in de handleiding van `?boxplot` voor een vergelijking van beide grafiektypes. Vooral als er uitschieters in de data zitten, zal het gemiddelde en standaardafwijking een verkeerd beeld van de spreiding geven. Ook als de afhankelijke variabele niet normaal verdeeld is, heeft gemiddelde en standaardafwijking geen zin.
+```{r}
+ggplot(data = mpg_summary, mapping = aes(x = trans_type, y = hwy_mean, 
+                                         fill = trans_type)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(mapping = aes(ymin = hwy_mean - hwy_sd, 
+                              ymax = hwy_mean + hwy_sd),
+                width = .3)
+```
 
-### Kwantitatief - kwantitatief
+Als we enkel de gemiddelden over beide groepen bekijken, zijn auto's met een manuele versnellingsbak zuiniger. De error bars nuanceren deze uitspraak: er lijkt redelijk wat overlap tussen de verdelingen van beide categorieën...
+
+Een staafgrafiek met error bars gaat er van uit dat de variabele normaal verdeeld is. Als dit niet het geval is, zal dit soort grafieken een vertekend beeld geven van de situatie. Dit heb je in het bijzonder in geval van uitschieters, een scheve verdeling of observaties die gewoon niet normaal verdeeld zijn...
+
+## Gegroepeerde boxplot
+
+In de meeste gevallen is een boxplot een betere grafiek die meer informatie bevat, meer bepaald de spreiding. 
+
+```{r}
+ggplot(data = mpg2, mapping = aes(x = trans_type, fill = trans_type, y = hwy)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+Uit deze grafiek blijkt dan weer een duidelijk verschil tussen manuele versnellingsbakken en automaten.
+
+Met ggplot kan je ook de individuele datapunten in de grafiek plotten en er eventueel nog extra informatie aan toevoegen (bv. de categorie van wagens):
+
+```{r}
+ggplot(data = mpg2, mapping = aes(x = trans_type, fill = trans_type, y = hwy)) +
+  geom_boxplot() +
+  geom_jitter(mapping = aes(color = class)) +
+  coord_flip()
+```
+
+De functie `geom_jitter()` toont elke individuele observatie als een punt t.o.v. de x-as, maar voegt wat willekeurige variatie in de y-richting toe. Behalve dat dit vermijdt dat punten over elkaar geplot worden, heeft dit geen verdere betekenis.
+
+## Dichtheidsdiagram
+
+Een dichtheidsdiagram, tenslotte kan een nog beter beeld geven over de verdeling van de data:
+
+```{r}
+ggplot(data = mpg2, mapping = aes(x = hwy, color = trans_type)) +
+  geom_density()
+```
+
+Hieruit blijkt dat de data niet normaal verdeeld is, maar een zekere bimodale verdeling volgt!
+
+# Kwantitatief - kwantitatief
 
 Voor dit soort verbanden wordt typisch een XY-grafiek (scatter plot) gebruikt. De onafhankelijke variabele wordt typisch op de X-as uitgezet, de afhankelijke op de Y-as.
 
-Laten we als voorbeeld bekijken of er in de dataset `mtcars` een verband is tussen het volume van een wagen (variabele `disp`, *displacement*, uitgedrukt in kubieke duim) en het gewicht (variabele `wt`, *weight*, in 1000 pond):
+Laten we als voorbeeld bekijken of er in de dataset `mpg` een verband is tussen de motorinhoud (variabele `displ`, *displacement*, uitgedrukt in liter) en het verbruik op de autosnelweg (variabele `hwy`, in mijl per gallon):
 
 ```{r}
-plot(mtcars$disp, mtcars$wt,
-     xlab = "Volume (cu.in.)",
-     ylab = "Weight (1000 lbs)")
-regression <- lm(mtcars$wt ~ mtcars$disp) # bereken de regressierechte
-abline(regression, col = 'red')           # teken die in het rood
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy,
+                                 color = class)) +
+  geom_point()
 ```
 
-De algemene `plot()`-functie zal voor elk datapunt een cirkel teken in een Cartesiaans assenstelsel. Je kan uiteraard het symbool veranderen (kruisje, punt, sterretje, ...). Zie de handleiding van `?plot` voor meer info.
+Het lijkt er inderdaad op dat auto's met een grotere motorinhoud minder zuinig zijn. Door de categorie van auto's als kleur te tonen, zien we ook patronen te voorschijn komen: de subcompact en compact heeft een kleine motorinhoud en rijdt ook zuinig. SUVs en pickups hebben een grote motorinhoud, maar zijn het minst zuinig.
 
-De regressierechte wordt hier ook getoond in het rood. Daarmee is wel duidelijk dat er een positief verband bestaat tussen volume en gewicht (wat je ook wel kan verwachten: grotere wagens zijn zwaarder).
+In de volgende grafiek voegen we ook de regressierechte toe (`lm` staat voor *linear model*, de R-functie om een regressierechte te berekenen):
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+```
