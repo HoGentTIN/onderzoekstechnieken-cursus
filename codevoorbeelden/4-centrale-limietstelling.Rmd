@@ -12,24 +12,24 @@ library(ggplot2)
 
 ## De normale verdeling
 
-In R kan je niet rechtstreeks een grafiek van een wiskundige functie tekenen. R kan wel punten en lijnen plotten aan de hand van een lijst met x- en y-coördinaten. Als je een functie wil plotten, bereken je dus eerst een aantal punten op de grafiek.
+In dit bestand vind je voorbeelden van hoe je in R omgaat met de begrippen uit het hoofdstuk De Centrale Limietstelling uit de cursus. Meer bepaald:
+
+- plotten van een normale verdeling
+- plotten van een histogram van een steekproef met de theoretische kansverdeling
+- kansen berekenen in de normale verdeling
+- betrouwbaarheidsintervallen berekenen
 
 ### Plot van de standaardnormale verdeling
 
 Specifiek kan je voor de standaardnormale verdeling $Z \sim Nor(\mu = 0, \sigma = 1)$ als volgt te werk gaan:
 
 ```{r}
-# Maak een lijst van 200 getallen tussen het interval [-4, 4]
-# die gelijk verdeeld zijn.
-xvals <- seq(from = -4,
-             to = 4,
-             length.out = 200)
-# Bereken voor elke x-waarde het punt op de Gauss-curve
-stdnorm <- dnorm(xvals)
-
-# Maak hier een lijngrafiek van
-ggplot(mapping = aes(x = xvals, y = stdnorm)) +
-  geom_line()
+# We maken eerst een dataframe aan met het interval van de x-as dat we willen
+# plotten
+ggplot(data = data.frame(x = c(-4, 4)), mapping = aes(x)) +
+  # Dan plotten we 201 punten van de "dnorm" functie, met de opgegeven argumenten
+  # (gemiddelde 0 en standaardafwijking 1)
+  stat_function(fun = dnorm, n = 201, args = list(mean = 0, sd = 1))
 ```
 
 ### Plot van een normale verdeling
@@ -37,18 +37,13 @@ ggplot(mapping = aes(x = xvals, y = stdnorm)) +
 We kunnen deze werkwijze veralgemenen voor een normale verdeling. Als voorbeeld nemen we $X \sim Nor(\mu = 5, \sigma = 1.5)$. Alle "interessante" punten op de Gausscurve liggen op max. 4 standaardafwijkingen links of rechts van het gemiddelde. We gaan onze x-waarden dan ook zo berekenen. De `dnorm`-functie laat toe om gemiddelde en standaardafwijking ook op te geven.
 
 ```{r}
-m <- 5    # gemiddelde
-s <- 1.5  # standaardafwijking
-# Bepaal de "interessante" x-waarden voor de plot
-xvals <- seq(from = m-4*s,
-             to = m+4*s, 
-             length.out = 200)
-# Bereken de dichtheidsfunctie
-normdist <- dnorm(xvals, m, s)
+m <- 5000    # gemiddelde
+s <- 165  # standaardafwijking
 
-# Maak hier een lijngrafiek van
-ggplot(mapping = aes(x = xvals, y = normdist)) +
-  geom_line()
+ggplot(data = data.frame(x = c(m-4*s, m+4*s)), mapping = aes(x)) +
+  stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = s)) +
+  # Toon het gemiddelde als een groene lijn
+  geom_vline(xintercept = m, color = "green")
 ```
 
 De *vorm* van deze grafiek is volledig dezelfde als die van de *standaard*normaalverdeling, enkel de schaal (zowel op de x- als de y-as) is anders.
@@ -62,9 +57,7 @@ Het volgende voorbeeldje toont hoe je een histogram kan tekenen van normaal verd
 n <- 10000
 observaties <- rnorm(n, m, s)
 
-# Teken een histogram (zonder titel)
-histogram <- hist(observaties, main="")
-
+# Teken een histogram
 ggplot(mapping = aes(x = observaties)) +
   geom_histogram(bins = 20)
 ```
@@ -119,6 +112,9 @@ Grafische voorstelling van deze situatie:
 
 ```{r}
 # Selecteer het gebied links van x
+xvals <- seq(from = m-4*s,
+             to = m+4*s,
+             length.out = 201)
 i <- xvals <= x
 
 ggplot(mapping = aes(x = xvals)) +
@@ -136,8 +132,9 @@ ggplot(mapping = aes(x = xvals)) +
   annotate("text", x = m+.1, y = .02, label = m, color = "red")
 ```
 
+De linkerstaartkans $P(X < 6.5)$ is het groene gebied op deze grafiek:
 
-Andere voorbeelden van kansberekening:
+### Andere voorbeelden van kansberekening:
 
 1. Hoe groot is de kans dat de reactiesnelheid van Superman minder dan 4 ms is?
 
@@ -249,7 +246,7 @@ Dit interval is een stuk breder dan wat we verkregen bij een grotere steekproef.
 
 ## Betrouwbaarheidsinterval bij fracties
 
-Sommige variabele hebben slechts twee mogelijke waarden, bv. ja/nee, waar/vals, gelukt/mislukt, succes/falen, 1/0, enz. Aan de hand van de steekproef willen we schatten wat in werkelijkheid de verhouding is tussen deze twee uitkomsten over de gehele populatie.
+Sommige variabelen hebben slechts twee mogelijke waarden, bv. ja/nee, waar/vals, gelukt/mislukt, succes/falen, 1/0, enz. Aan de hand van de steekproef willen we schatten wat in werkelijkheid de verhouding is tussen deze twee uitkomsten over de gehele populatie.
 
 Stel dat we willen weten welk percentage van de superhelden (op eigen kracht) kan vliegen. Er werden 100 superhelden ondervraagd, 6 daarvan konden demonstreren dat ze inderdaad kunnen vliegen. Construeer een 95%-betrouwbaarheidsinterval voor het verwachte percentage van vliegende superhelden in de gehele pupulatie.
 
