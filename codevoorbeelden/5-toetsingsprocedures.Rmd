@@ -100,7 +100,7 @@ ggplot() +
 
 ### De linkszijdige $z$-toets
 
-Stel dat het resultaat van de steekproef $\overline{x} = 3.117$ was. Dan hebben we redenen om aan te nemen dat het populatiegemiddelde *kleiner* is dan 3.3. Dit kunnen we verifi&euml;ren met een linksszijdige $z$-toets.
+Stel dat het resultaat van de steekproef $\overline{x} = 3.117$ was. Dan hebben we redenen om aan te nemen dat het populatiegemiddelde *kleiner* is dan 3.3. Dit kunnen we verifi&euml;ren met een linkszijdige $z$-toets.
 
 1. Formuleer de hypothesen:
     - $H_0: \mu = 3.3$
@@ -197,7 +197,7 @@ Hier willen we niet meteen testen of het populatiegemiddelde kleiner dan wel gro
 4. Bepaal de overschrijdingskans $p$ en verwerp $H_0$ als $p < \alpha/2$ (waarom delen door 2?).
 
     ```{r}
-    p <- pnorm(sm, m0, s/sqrt(n))
+    p <- 1 - pnorm(sm, m0, s/sqrt(n))
     p
     if(p < a/2) {
       print("H0 verwerpen")
@@ -260,7 +260,7 @@ ggplot() +
   theme(axis.title = element_blank())
 ```
 
-Als we dus a priori geen uitspraak doen of het werkelijke populatiegemiddelde hetzij kleiner, hetzij groter is, dan blijkt het bekomen steekproefgemiddelde wel voldoende waarschijnlijk te zijn. We kunnen een niet-systematische steekproeffout niet uitsluiten. Of, met andere woorden, we kunnen hier de nulhypothese dus *niet* verwerpen. 
+Als we dus a priori geen uitspraak doen of het werkelijke populatiegemiddelde hetzij kleiner, hetzij groter is, dan blijkt het bekomen steekproefgemiddelde wel voldoende waarschijnlijk te zijn. We kunnen een toevallige steekproeffout niet uitsluiten. Of, met andere woorden, we kunnen hier de nulhypothese dus *niet* verwerpen. 
 
 ## De $t$-toets
 
