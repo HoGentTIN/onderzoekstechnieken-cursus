@@ -1,0 +1,90 @@
+---
+title: "Oefening 4.5"
+author: "Jens Buysse"
+date: "16/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+## Oefening 4.5
+In de Hogeschool zijn er twee klassen voor het vak onderzoekstechnieken. De studenten werden willekeurig over de klassen verdeeld, zodat we mogen veronderstellen dat de ene klas niet slimmer is dan de andere.
+
+In de A-klas geeft mevr. A les, in de B-klas geeft mr. B les. A is nogal streng en op het einde van het schooljaar behaalt haar klas een gemiddelde van 54 op 100 met een standaardafwijking van 11.
+Y is iets losser en stimuleert de leerlingen al gauw met een puntje meer. Op het einde van het schooljaar behaalt zijn klas een gemiddelde van 62 op 100 en een standaardafwijking van 7.
+
+- Wouter zit in de A-klas en heeft 63 op 100 voor wiskunde. 
+- Stijn zit in de B-klas en behaalt 67 op 100.
+
+Wie heeft volgens jou het beste gescoord binnen de eigen klas?
+
+## Oplossing
+
+Als we argeloos naar deze opgave kijken, zou je denken dat Stijn beter gescoord heeft, aangezien zijn puntensaldo hoger is dan dat van Wouter. Maar klopt dit eigenlijk wel? We moeten kijken hoe goed Wouter en Stijn gescoord hebben, relatief ten op zichte van de klas. Met andere woorden, hoe extreem liggen de scores van Wouter en Stijn ten op zichte van het gemiddelde van de klas. In de cursus hebben we gezien dat het standaardiseren dit doet: we moeten dus van beide waarde de $z$-score bepalen en deze vergelijken met elkaar. 
+
+\[ Z = \frac{x - \mu}{\sigma} \]
+
+```{r cars}
+score_wouter = 63
+score_stijn = 67
+m_wouter = 54
+m_stijn = 62
+s_wouter = 11
+s_stijn = 7
+
+normalisation <- function(x,m,s){
+  y <- (x-m)/s
+  return (y)
+}
+
+z_wouter = normalisation(score_wouter,m_wouter,s_wouter)
+z_stijn = normalisation(score_stijn, m_stijn,s_stijn)
+
+z_wouter
+z_stijn
+
+perc_wouter <- 1-z_wouter
+perc_stijn <- 1 -z_stijn
+```
+
+We zien dus dat de gestandaardiseerde waarde van Wouter groter is dan die van Stijn en dus heeft Wouter het relatief t.o.v. zijn klas beter gescoord dan Stijn, ook al heeft hij in absolute getallen beter gescoord. Het is zelfs zo dat:
+
+- Wouter in de top `r 100*round(perc_wouter,2)` % van de klas zit
+- Stijn in de top `r 100*round(perc_stijn,2)` % van de klas zit
+
+Indien we de grafieken zouden maken kunnen we dat ook mooi illustreren:
+
+```{r }
+plotNormal <- function(x,m,s){
+  # Selecteer het gebied links van x
+xvals <- seq(from = m-4*s,
+             to = m+4*s,
+             length.out = 201)
+i <- xvals >= x
+
+ggplot(mapping = aes(x = xvals)) +
+  # Toon het gebied links van x en onder de Gauss-curve in het groen
+  geom_area(mapping = aes(x = xvals[i], y = dnorm(xvals[i], m, s)), 
+            color = "black", fill = "cornflowerblue") +
+  # Plot de Gauss-curve
+  stat_function(fun = dnorm, args = list(mean = m, sd = s)) +
+  # Toon het gemiddelde als een rode vertikale lijn
+  geom_vline(xintercept = m, color = "red") +
+  # Pas de titels van de assen aan
+  xlab("x") + ylab("densiteit") +
+  # Voeg tekst toe aan de plot
+  annotate("text", x = x, y = .02, label = x) +
+  annotate("text", x = m+.1, y = .02, label = m, color = "red")
+}
+
+plotNormal(score_wouter,m_wouter,s_wouter)
+```
+
+## Wouter
+```{r }
+plotNormal(score_wouter,m_wouter,s_wouter)
+plotNormal(score_stijn,m_stijn,s_stijn)
+```
