@@ -310,7 +310,7 @@ Hoe groot is de kans dat superman in minder dan 3 ms reageert?
 \[ P(X<3) = P(Z < -1,33) = 0,0918 \]
 \end{example}
 \begin{example}
-Hoe groot is de kans dat hij reageert tussen de 2 en 6,5 ms
+Hoe groot is de kans dat hij reageert tussen de 2 en 6,5 ms (afgerond)
 \[ P( 2 < X < 6,5) = P(X<6,5) - P(X<2) = P(Z<1) - P(Z<-2) = 0,8186 \]
 \end{example}
 
@@ -467,7 +467,7 @@ Opgelet, we gaan er hier van uit dat we de standaarddeviatie van de populatie ke
 \label{ssec:betrouwbaarheidsinterval-kleine-steekproef}
 
 Bij kleine steekproeven kunnen we niet langer veronderstellen dat de kansverdeling van $\overline{x}$ bij benadering
-normaal verdeel is, omdat de centrale limietstelling alleen normaliteit garandeert voor grote steekproeven ($n >30$). De vorm
+normaal verdeeld is, omdat de centrale limietstelling alleen normaliteit garandeert voor grote steekproeven ($n >30$). De vorm
 van de kansverdeling van het steekproefgemiddelde $\overline{x}$ hangt nu af van de vorm van de verdeling van de populatie waaruit de
 steekproef genomen wordt. Alhoewel nog steeds geldt dat $\sigma_{\overline{x}} = \frac{\sigma}{\sqrt{n}}$ kan
 de standaardafwijking $s$ een slechte benadering zijn voor $\sigma$ als de steekproef klein is.
@@ -482,7 +482,7 @@ construeren we
 
 Deze heeft een kansverdeling die beschreven wordt door een Student-t verdeling. Deze lijkt zeer goed op de normale verdeling: klokvormig, symmetrisch en met verwachtingswaarde 0.
 
-De precieze vorm van de kansverdeling $t$ hang af van de steekproefomvang $n$. We zeggen dat de t-verdeling $(n-1)$ vrijheidsgraden heeft (afgekort $df$).
+De precieze vorm van de kansverdeling $t$ hangt af van de steekproefomvang $n$. We zeggen dat de t-verdeling $(n-1)$ vrijheidsgraden heeft (afgekort $df$).
 Merk op dat:
 \begin{itemize}
   \item $(n-1)$ ook gebruikt werd om $s^{2}$ te berekenen
@@ -492,7 +492,7 @@ Merk op dat:
 Indien we nu een betrouwbaarheidsinterval willen bepalen voor een steekproef met een klein aantal waarden moeten we het volgende doen:
 
 \begin{definition}[Betrouwbaarheidsinterval kleine steekproef]
-  Om een betrouwbaarheidsinterval voor het gemiddelde te bepalen op basis van een klein steekproef bepalen we:
+  Om een betrouwbaarheidsinterval voor het gemiddelde te bepalen op basis van een kleine steekproef bepalen we:
   \[ \overline{x} \pm t_{\frac{\alpha}{2}}(\frac{s}{\sqrt{n}}) \]
   waarbij $t_{\frac{\alpha}{2}}$ gebaseerd is op $(n-1)$ vrijheidsgraden. We veronderstellen wel dat we een aselecte steekproef genomen hebben uit
   een populatie die bij benadering normaal verdeeld is.
