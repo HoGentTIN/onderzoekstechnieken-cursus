@@ -21,7 +21,7 @@ Beschouw de volgende subsets uit het data frame `ais` (uit de library `DAAG`):
 
 ```{r}
 # Load data from csv
-ais <- read.csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/ais.csv", sep = ",")
+#ais <- read.csv("ais.csv", sep = ",")
 # Allows the columns to be accessed directly instead of with table$column notation
 attach(ais)
 ```

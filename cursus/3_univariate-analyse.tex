@@ -179,7 +179,7 @@ De spreidingsmaat die typisch geassocieerd wordt met het gemiddelde is de standa
 
 Het is je misschien opgevallen dat in de formule gedeeld wordt door $n-1$ en niet door $n$, wat je zou kunnen verwachten. Er bestaat ook effectief een variant van de formule met $n$ in de noemer. Dit noemen we de populatievariantie, aangeduid met $\sigma^2$ (de Griekse letter sigma).
 
-De variantie van een steekproef wordt in de praktijk gebruikt als een schatting voor de (onbekende) populatievariantie. De formule met $n-1$ in de noemer is een zgn.~\textit{zuivere schatter} is, wat betekent dat bij veel herhalingen het gemiddelde van de schattingen convergeert naar de te schatten populatievariantie. Je kan dit wiskundig bewijzen, maar dat valt buiten het bestek van deze cursus.
+De variantie van een steekproef wordt in de praktijk gebruikt als een schatting voor de (onbekende) populatievariantie. De formule met $n-1$ in de noemer is een zgn.~\textit{zuivere schatter}, wat betekent dat bij veel herhalingen het gemiddelde van de schattingen convergeert naar de te schatten populatievariantie. Je kan dit wiskundig bewijzen, maar dat valt buiten het bestek van deze cursus.
 
 \begin{example}
   De variantie bij de lengtes van onze superhelden wordt als volgt berekend:
@@ -325,7 +325,7 @@ Bij het visualiseren van een kwalitatieve variabele wordt eerst een frequentieta
   Een \index{frequentietabel}\emph{frequentietabel} is tabel waarin opgesomd staat hoeveel keer een waarde voorkomt in de volledige dataset (= frequentie). Meestal zijn de tabellen verticaal georiënteerd.
 \end{definition}
 
-Om de een \index{staafdiagram}\emph{staafdiagram} (zie Figuur~\ref{fig:staafdiagram}) te tekenen worden de verschillende waarden opgesomd onder de X-as en voor elke waarde wordt een staaf getekend waarvan de hoogte bepaald wordt door het aantal keer dat de overeenkomstige waarde voorkomt.
+Om een \index{staafdiagram}\emph{staafdiagram} (zie Figuur~\ref{fig:staafdiagram}) te tekenen worden de verschillende waarden opgesomd onder de X-as en voor elke waarde wordt een staaf getekend waarvan de hoogte bepaald wordt door het aantal keer dat de overeenkomstige waarde voorkomt.
 
 \begin{figure}
   \centering
@@ -443,9 +443,9 @@ De duidelijkheid van een histogram hangt in grote mate af van de keuze van de in
   In de formule voor de steekproefvariantie wordt het verschil tussen de meetpunten en het gemiddelde gekwadrateerd. Waarom? Zouden we geen eenvoudigere formule kunnen bedenken die een even goede maatstaf is voor de spreiding van een dataset? Hieronder vind je drie voorstellen (de derde is de ``echte'' formule).
 
   \begin{align}
-    s^{2}_{1} &= \frac{1}{n-1} \sum_{i=1}^{n} (\overline{x} - x) \\
-    s^{2}_{2} &= \frac{1}{n-1} \sum_{i=1}^{n} \left| \overline{x} - x\right| \\
-    s^{2}_{3} &= \frac{1}{n-1} \sum_{i=1}^{n} (\overline{x} - x)^{2}
+    s_{1} &= \frac{1}{n-1} \sum_{i=1}^{n} (\overline{x} - x_i) \\
+    s_{2} &= \frac{1}{n-1} \sum_{i=1}^{n} \left| \overline{x} - x_i\right| \\
+    s^{2} &= \frac{1}{n-1} \sum_{i=1}^{n} (\overline{x} - x_i)^{2}
   \end{align}
 
   Pas elke formule toe op de twee datasets hieronder. Door het resultaat te vergelijken zou je moeten kunnen besluiten of de formules geschikt zijn als een spreidingsmaat.
@@ -571,8 +571,8 @@ Het blijkt dat we wel al een duidelijker zicht krijgen over de data over de cate
 We moeten de data dus onderverdelen in categorie\"en namelijk onder \texttt{PersistentieType} en \texttt{Datahoeveelheid}. We gaan hiervoor de functie \texttt{which}\footnote{Je kan ook gebruik maken van de functie \texttt{subset}, wat misschien zelfs eenvoudiger is} gebruiken en kijken hoe de verschillende datahoeveelheden verschillen per datahoeveelheidcategorie. 
 
 \begin{lstlisting}[breaklines=true]
-  greenDOA <- android_cpu[which(android_cpu$PersistenceType=='GreenDAO'),];
-  boxplot(greenDOA$Time ~ greenDOA$DataSize);
+  greenDAO <- android_cpu[which(android_cpu$PersistenceType=='GreenDAO'),];
+  boxplot(greenDAO$Time ~ greenDAO$DataSize);
 \end{lstlisting}
 
 \begin{exercise}

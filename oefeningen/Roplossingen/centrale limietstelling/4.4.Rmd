@@ -20,22 +20,54 @@ Gebruik de functie `rnorm()` een willekeurige steekproef van 25 waarden uit een 
 
 ```{r }
 
+theme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15)), 
+                 legend.title = element_text(colour = "steelblue",  face = "bold.italic", family = "Helvetica"), 
+                 legend.text = element_text(face = "italic", colour="steelblue4",family = "Helvetica"), 
+                  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+                  axis.text = element_text(family = "Courier", colour = "cornflowerblue", size = (10)))
+  
+
+
+overlayplot <- function(n,m,s){
+  data <- rnorm(n,m,s)
+  ggplot(mapping = aes(x=data)) + 
+    geom_histogram(aes(y = ..density.. ), alpha = 0.7, fill = "#333333") + 
+    labs(y="observed", x="observations", title = "Histogram")+
+    geom_density(fill = "#ff4d4d",alpha = 0.5) + 
+    stat_function(fun = dnorm, args = list(mean = m, sd = s),
+                  colour = "red")+
+    theme
+}
+
+overlayplot(25,0,1)
+
 ```
 
 ## Deel 2 
 
 Maak een overlay over het histogram met:
 
-- (a) de theoretische dichtheidscurve voor een normale verdeling met gemiddelde 0 en standaardafwijking gelijk aan 1,0
+- (a) de theoretische dichtheidscurve voor een normale verdeling met gemiddelde 0 en standaardafwijking gelijk aan 1
 - (b) een geschatte dichtheidscurve op basis van het gemeten steekproefgemiddelde en standaardafwijking.
 
-### A
+### 100
 ```{r }
-
+overlayplot(100,0,1)
 ```
 
-Dit kunnen we ook in een functie gieten:
 
+### 500
 ```{r }
+overlayplot(500,0,1)
+```
 
+
+### 1000
+```{r }
+overlayplot(1000,0,1)
+```
+
+### 10000
+```{r }
+overlayplot(10000,0,1)
 ```
