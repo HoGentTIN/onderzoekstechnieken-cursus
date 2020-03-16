@@ -76,12 +76,6 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{What's on the menu today?}
-  
-  \tableofcontents
-\end{frame}
-
-\begin{frame}
   \frametitle{Leerdoelen}
   
   \begin{itemize}
@@ -279,8 +273,8 @@
   De z-waarde die ermee overeen komt is 1.645 dus hebben we
   
   \begin{align*}
-  z = \frac{-g + \mu}{\frac{\sigma}{\sqrt{n}}} &\Leftrightarrow -g = \frac{\sigma}{\sqrt{n}} z - \mu \\
-  & \Leftrightarrow g = \mu - z \frac{\sigma}{\sqrt{n}}
+  z = \frac{-g + \mu}{\frac{\sigma}{\sqrt{n}}} &\Leftrightarrow -g = \frac{\sigma}{\sqrt{n}} z_\alpha - \mu \\
+  & \Leftrightarrow g = \mu - z_\alpha \frac{\sigma}{\sqrt{n}}
   \end{align*}
   
 \end{frame}
@@ -290,7 +284,7 @@
   Soms kan het ook zijn dat er tweezijdig moet getoetst worden. Er moeten dan twee kritieke grenswaarden berekend worden namelijk de linker- en de rechter grenswaarden.
   
   \begin{equation}
-  g = \mu \pm z \times \frac{\sigma}{\sqrt{n}}
+  g = \mu \pm z_{\alpha/2} \times \frac{\sigma}{\sqrt{n}}
   \label{eq:kritiekeGrenswaarde}
   \end{equation}
 \end{frame}
@@ -310,7 +304,7 @@
       \midrule
       $H_{0}$           & $\mu = \mu_{0}$      & $\mu = \mu_{0}$ & $\mu = \mu_{0}$  \\
       $H_{1}$           & $\mu \neq \mu_{0}$   & $\mu < \mu_{0}$ & $\mu > \mu_{0}$  \\
-      Verwerpingsgebied & $\left|z\right| > g$ & $z< -g $        & $z>g$            \\
+      Verwerpingsgebied & $\left|\overline{x}\right| > g$ & $\overline{x}< -g $        & $\overline{x}>g$            \\
       Teststatistiek    & \multicolumn{3}{c}{$z = \frac{\overline{x} - \mu_{0}}{\frac{\sigma}{\sqrt{n}}}$} \\
       \bottomrule
     \end{tabular}
@@ -453,7 +447,7 @@
   \begin{itemize}
     \item De steekproef moet aselect zijn
     \item De steekproef moet voldoende groot zijn ($n \ge 30$)
-    \item De variatie van de toetsingsgrootheid moet normaal verdeeld zijn
+    \item De variantie van de toetsingsgrootheid moet normaal verdeeld zijn
     \item We veronderstellen dat de standaardafwijking van de populatie, $\sigma$, gekend is
   \end{itemize}
   
