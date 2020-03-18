@@ -1,0 +1,109 @@
+---
+title: "Oefening 6.9"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+In onderstaande tabel vindt men voor elke rij (= persoon) het resultaat van een
+test en zijn examenscore. 
+
+```{r}
+resultaten <- tibble(
+  test = c(10, 12, 8, 13, 9, 10, 7, 14, 11, 6),
+  examen = c(11, 14, 9, 13, 9, 9, 8, 14, 10, 6)
+)
+```
+
+## Regressierechte
+
+> Bepaal handmatig de regressierechte $y = \beta_0 + \beta_1 x$.
+
+We nemen *test* als de $x$-variabele, *examen* voor $y$.
+
+Voor een uitwerking in een rekenblad, zie <6-09.ods> (In OpenDocument-formaat). Hier doen we het in R. zoek naar de overeenkomsten tussen de R-code en de formule!
+
+De formules voor de parameters van deze lineaire vergelijking zijn:
+
+\[ \beta_{1} = \frac{\sum_{i}^{n} (x_{i} - \overline{x})(y_{i} - \overline{y})}{\sum_{i}^{n} (x_{i} - \overline{x})^{2}} \]
+
+Omgezet in R-code wordt dit:
+
+```{r}
+mean_test <- mean(resultaten$test)
+mean_examen <- mean(resultaten$examen)
+
+beta_1 <- sum((resultaten$test - mean_test) * (resultaten$examen - mean_examen)) /
+  sum((resultaten$test - mean_test)^2)
+```
+
+\[ \beta_{0} = \overline{y} - \beta_{1} \overline{x} \]
+
+```{r}
+beta_0 <- mean_examen - beta_1 * mean_test
+```
+
+De vergelijking van de rechte wordt dan:
+
+```{r}
+sprintf("y = %.4f + %.4f * x", beta_0, beta_1)
+```
+
+### Uitwerking in R
+
+In R zou je dit berekenen met de `lm()`-functie (linear model):
+
+```{r}
+examen_test_lm <- lm(resultaten$examen ~ resultaten$test)
+examen_test_lm
+```
+
+Intercept is $\beta_0$, de andere coëfficiënt is $\beta_1$, wat overeenkomt met onze resultaten hierboven!
+
+Een plot van deze casus:
+
+```{r}
+ggplot(data = resultaten, mapping = aes(x = test, y = examen)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+```
+
+## Correlatie
+
+> Bepaal handmatig de correlatie- en determinatiecoëfficiënt ($R$, $R^2$) Geef uitleg bij de gevonden statistieken.
+
+Zie het tabblad "Correlatie" van <6-09.ods>.
+
+De correlatiecoëfficiënt is gegeven door de formule:
+
+\[ R = \frac{\sum_{i}^{n}(x_{i}-\overline{x})(y_{i} - \overline{y})}{\sqrt{\sum_{i}^{n} (x_{i}-\overline{x})^{2}} \sqrt{\sum_{i}^{n} (y_{i}-\overline{y})^{2}}} \]
+
+```{r}
+cor_examen_test <- 
+  sum((resultaten$test - mean_test) * (resultaten$examen - mean_examen)) /
+  (sqrt(sum((resultaten$test   - mean_test)^2)) * 
+   sqrt(sum((resultaten$examen - mean_examen)^2)))
+cor_examen_test
+```
+
+Even controleren a.h.v. de `cor()`-functie:
+
+```{r}
+cor(resultaten$test, resultaten$examen)
+```
+
+De waarde van R duidt op een zeer sterk verband tussen de test- en examenresultaten!
+
+### Determinatiecoëfficiënt
+
+De determinatiecoëfficiënt is het kwadraat van $R$:
+
+```{r}
+det_examen_test <- cor_examen_test^2
+det_examen_test
+```
+
+De waarde van $R^2$ geeft aan dat ~87% van de variantie in de resultaten kan verklaard worden vanuit de regressierechte. Dat is hoog, dit wijst op een zeer sterk verband tussen het test- en examenresultaat.
