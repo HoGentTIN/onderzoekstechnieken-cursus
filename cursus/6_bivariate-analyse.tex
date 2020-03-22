@@ -51,7 +51,7 @@ Wanneer we een verband beschrijven tussen variabelen, onderscheiden we:
 Dus als de onafhankelijke variabele op een bepaalde manier verandert, verwachten we dat de waarde van de afhankelijke variabele op een voorspelbare manier mee verandert.
 
 \begin{example}
-  Een voorbeeld waarbij verbanden kunnen gevonden tussen variabelen vind je bij Ant Colony Optimization (ACO). Dit is een techniek die gebruikt wordt in verschillende computationele problemen. Men baseert zich hier op hoe mieren voedsel zoeken en  vinden en dat communiceren aan de groep. Mieren verspreiden feromonen als ze op pad gaan op zoek naar eten. Hoe langer het pad, hoe minder feromonen het pad zal bevatten, hoe korter het pad, hoe groter de kans dat er een grote concentratie aan feromonen te vinden is. Mieren worden aangetrokken door deze feromonen en zullen dus proberen de meest bewandelde paden te gebruiken om naar een bepaalde voedselbron te gaan. Nu kan je onderzoeken of de tijd voor het vinden van een pad, afhangt van een aantal variabelen:
+  Een voorbeeld waarbij verbanden kunnen gevonden worden tussen variabelen vind je bij Ant Colony Optimization (ACO). Dit is een techniek die gebruikt wordt in verschillende computationele problemen. Men baseert zich hier op hoe mieren voedsel zoeken en  vinden en dat communiceren aan de groep. Mieren verspreiden feromonen als ze op pad gaan op zoek naar eten. Hoe langer het pad, hoe minder feromonen het pad zal bevatten, hoe korter het pad, hoe groter de kans dat er een grote concentratie aan feromonen te vinden is. Mieren worden aangetrokken door deze feromonen en zullen dus proberen de meest bewandelde paden te gebruiken om naar een bepaalde voedselbron te gaan. Nu kan je onderzoeken of de tijd voor het vinden van een pad, afhangt van een aantal variabelen:
 
   \begin{itemize}
     \item De mate waarin feromonen verspreid worden
@@ -275,12 +275,12 @@ De toetsingsprocedure verloopt als volgt:
   \item \textbf{Bereken de waarde van de toetsingsgrootheid in de steekproef}
   \[ \chi^{2} = \sum_{i} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
   
-  \item de waarde van $\chi^2$ is gedistribueerd volgens de $\chi^2$-verdeling (zie Sectie~\ref{ssec:chi-kwadraatverdeling}). Deze stochastische verdeling heeft als bijkomende parameter het aantal vrijheidsgraden $df$. Voor een kruistabeltoets is $df = (r - 1) \times (k - 1)$ met $r$ het aantal rijen en $k$ het aantal kolommen.
+  \item De waarde van $\chi^2$ is gedistribueerd volgens de $\chi^2$-verdeling (zie Sectie~\ref{ssec:chi-kwadraatverdeling}). Deze stochastische verdeling heeft als bijkomende parameter het aantal vrijheidsgraden $df$. Voor een kruistabeltoets is $df = (r - 1) \times (k - 1)$ met $r$ het aantal rijen en $k$ het aantal kolommen.
   
   Aan de hand van deze verdeling kunnen we op twee equivalente manieren een besluit trekken:
   
   \begin{enumerate}
-    \item \textbf{Bereken en teken kritiek gebied}. De kritieke grenswaarde $g$ is het getal waarvoor geldt dat $P(\chi^2 > g) = \alpha$. Deze toets is altijd rechtszijdig. Als $\chi^2 < g$, dan zitten we in het \emph{aanvaardingsgebied}, waar we de nulhypothese niet kunnen verwerpen. Als $\chi^2 < g$, dan zitten we in het \emph{verwerpingsgebied} en zullen we de nulhypothese verwerpen.
+    \item \textbf{Bereken en teken kritiek gebied}. De kritieke grenswaarde $g$ is het getal waarvoor geldt dat $P(\chi^2 > g) = \alpha$. Deze toets is altijd rechtszijdig. Als $\chi^2 < g$, dan zitten we in het \emph{aanvaardingsgebied}, waar we de nulhypothese niet kunnen verwerpen. Als $\chi^2 > g$, dan zitten we in het \emph{verwerpingsgebied} en zullen we de nulhypothese verwerpen.
     \item \textbf{Bereken de overschrijdingskans $p$}. Dit is de rechterstaartkans voor de bekomen $\chi^2$-statistiek in de steekproef, afhankelijk van het aantal vrijheidsgraden. De interpretatie van de $p$-waarde is ``Als we zouden veronderstellen dat er \emph{geen} verband is tussen de twee variabelen, wat is dan de kans dat ik een waarde voor $\chi^2$ tegenkom in een steekproef die minstens zo groot is als de daarnet berekende?'' Als $p > \alpha$ (en dus de kans relatief groot is dat we deze $ \chi^2$-waarde tegenkomen), dan aanvaarden we de nulhypothese, als $p < \alpha$, dan verwerpen we deze.
   \end{enumerate}
 
@@ -336,7 +336,7 @@ We zien in de tabel dat er wel een erg groot verschil is tussen de geobserveerde
   \item \textbf{Bepalen hypotheses}
   \begin{itemize}
     \item $H_{0}$: er is geen verband tussen roken en sterven aan longkanker
-    \item $H_{1}$: er is geen verband tussen roken en sterven aan longkanker
+    \item $H_{1}$: er is een verband tussen roken en sterven aan longkanker
   \end{itemize}
   \item \textbf{Bepalen $\alpha$ en $n$:} $\alpha = 0,05$ en $n = 24354$.
   \item \textbf{Toetsingsgrootheid en waarde ervan in steekproef}:
