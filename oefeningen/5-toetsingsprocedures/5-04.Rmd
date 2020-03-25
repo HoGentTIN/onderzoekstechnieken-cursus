@@ -1,0 +1,111 @@
+---
+title: "Oefening 5.4"
+date: "25-3-2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+> Eén van de motieven voor het kiezen van een garage is de inruilprijs voor de oude auto. De importeur van Ford wil graag dat de verschillende dealers een gelijk prijsbeleid voeren. De importeur vindt dat het gemiddelde prijsverschil tussen de dichtstbijzijnde Ford-dealer en de dealer waar men de auto gekocht heeft hoogstens €300 mag bedragen. De veronderstelling is dat als het verschil groter is, potentiële klanten eerder geneigd zullen zijn om bij hun vorige dealer te blijven.
+> In een steekproef worden volgende verschillen genoteerd:
+
+```{r}
+price_diff <- c(400,350,400,500,300,350,200,
+                500,200,250,250,500,350,100)
+```
+
+Toets of er reden is om aan te nemen dat het gemiddelde prijsverschil in werkelijkheid significant groter is dan €300. Gebruik een significantieniveau van 5%.
+
+## Toets en hypothesen
+
+In deze situatie ($n = 14 < 30$ en $\sigma$ onbekend) mogen we geen $z$-toets gebruiken, maar vallen we terug op de $t$-toets.
+
+- $H_0: \mu = 300$
+- $H_1: \mu > 300$
+
+```{r}
+m0 <- 300  # Hypothetisch populatiegemiddelde
+```
+
+## Bepaal significantieniveau en steekproefgrootte
+
+```{r}
+alpha <- 0.05
+n <- length(price_diff)
+```
+
+## Bereken toetsingsgrootheid
+
+```{r}
+m <- mean(price_diff)  # steekproefgemiddelde
+s <- sd(price_diff)    # standaardafwijking van de steekproef
+c(m, s)
+```
+
+## Plot van deze casus
+
+```{r}
+sn <- s /sqrt(n)
+ggplot(data = data.frame(x = c(-4, 4)), mapping = aes(x)) +
+  stat_function(fun = dt, n = 201, args = list(df = n - 1)) +
+  geom_vline(xintercept = (m - m0)/(s/sqrt(n)), color = "green")
+```
+
+
+## Kunnen we H0 verwerpen?
+
+### Methode overschrijdingskans
+
+De overschrijdingskans is de kans $p = P(M > \overline{x})$. We gebruiken hier de functie `pt()`. Aangezien het niet mogelijk is om gemiddelde en standaardafwijking mee te geven aan de functie zoals bij `pnorm()` wel kan, moeten we de waarde voor het steekproefgemiddelde normaliseren (vergelijk met berekening van de $z$-score).
+
+```{r}
+# Overschrijdingskans p = P(M > m)
+p <- 1 - pt((m - m0) / (s / sqrt(n)), df = n - 1)
+p
+```
+
+Of, met de functie `t.test`:
+
+```{r}
+ttest_result <- t.test(price_diff,
+                       mu = 300,
+                       alternative = "greater",
+                       conf.level = 1 - alpha, 
+                       df = n-1)
+ttest_result$p.value
+```
+
+Als $p < \alpha$, dan kunnen we $H_0$ verwerpen.
+
+```{r}
+if(p < alpha) {
+  print("H0 verwerpen")
+} else {
+  print("H0 niet verwerpen")
+}
+```
+
+
+### Methode kritieke grenswaarde
+
+```{r}
+t <- qt(1-alpha, df = n - 1)
+g <- m0 + t * (s / sqrt(n))
+```
+
+Als $\overline{x} > g$, dan kunnen we $H_0$ verwerpen.
+
+```{r}
+if (m > g){
+  print("H0 verwerpen")
+} else {
+  print("H0 niet verwerpen")
+}
+```
+
+## Besluit
+
+Aan de hand van deze steekproef is er geen reden om aan te nemen dat Ford-verdelers een significant lagere inruilprijs bieden voor een auto dan concurrerende garages.
