@@ -1,0 +1,222 @@
+---
+title: "Oefening 5.5 - de z-toets"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+Lees de dataset `rlanders-generated.csv` in.
+
+```{r}
+sample_data <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/rlanders-generated.csv")
+glimpse(sample_data)
+```
+
+> De variabele *Money* stelt een bruto-jaarsalaris voor ($\times 100\$$). We gaan er van uit dat het deze variabele een gemiddelde $\mu = 500$ heeft en standaardafwijking $\sigma = 98$. 
+
+```{r}
+mu <- 500
+sigma <- 98
+```
+
+> Als we het steekproefgemiddelde berekenen over de gehele dataset, lijkt dat de veronderstelling te ondersteunen. Maar wat als we naar de mannen en de vrouwen afzonderlijk kijken (variabele *Gender*)?
+
+```{r}
+mean_general <- mean(sample_data$Money)
+money_female <- sample_data$Money[sample_data$Gender == "Female"]
+mean_female <- mean(money_female)
+money_male   <- sample_data$Money[sample_data$Gender == "Male"]
+mean_male <- mean(money_male)
+```
+
+We zien dus:
+
+- gemiddelde algemeen is : `mean_general` dollar
+- gemiddelde voor de vrouwen is : `mean_female` dollar
+- gemiddelde voor de mannen is : `mean_male` dollar
+
+> Gebruik een geschikte statistische toets om de uitspraken hieronder te verifieren. Gebruik daarbij significantieniveau $\alpha = 5\%$. Bereken telkens de kritieke grenswaarde(n) en de p-waarde.
+
+```{r}
+alpha <- 0.05
+```
+
+# Visualisatie van de dataset
+
+Voor we aan de berekeningen beginnen, visualiseren we eerst de dataset.
+Een boxplot van de volledige dataset:
+
+```{r}
+ggplot(data = sample_data, mapping = aes(y = Money)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+Opgesplitst volgens Gender
+
+```{r}
+ggplot(data = sample_data,
+       mapping = aes(y = Money, x = Gender, color = Gender)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+We zien hier reeds een indicatie: mannen verdienen op het eerste zicht meer dan vrouwen. 
+
+Een densiteitsplot geeft nog beter inzicht in de verdeling. Eerst een plot van alle data. De theoretische dichtheidsfunctie voor *Nor*$(\mu = 500, \sigma = 98)$ is in het blauw toegevoegd. De oranje stippellijn is het gemiddelde van de steekproef.
+
+```{r}
+ggplot(data = sample_data, mapping = aes(x = Money)) +
+  geom_density() +
+  geom_vline(xintercept = mu,
+             color = "blue") +
+  geom_vline(xintercept = mean(sample_data$Money),
+             color = "orange", linetype = "dashed") +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "blue")
+```
+
+Densiteitsplot van Money, opgesplitst volgens Gender. Het steekproefgemiddelde is telkens aangeduid met een verticale stippellijn. De theoretische dichtheidsfunctie is opnieuw toegevoegd in blauw.
+
+```{r}
+ggplot(data = sample_data, mapping = aes(x = Money, color = Gender)) +
+  geom_density() +
+  geom_vline(xintercept = mean(money_female),
+             color = "red1", linetype = "dashed") +
+  geom_vline(xintercept = mean(money_male),
+             color = "green1", linetype = "dashed") +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "blue")
+```
+
+# Jaarsalaris mannen
+
+> Het gemiddelde jaarsalaris van de mannen lijkt hoger dan de verwachte waarde. Is het ook significant hoger?
+
+Voor deze onderzoeksvraag gebruiken we een rechtszijdige z-toets. De hypothesen zijn ($\mu_m$ is gemiddelde mannen):
+
+\[ H_0: \mu_m = 500 \]
+\[ H_1: \mu_m > 500 \]
+
+## Kritieke grenswaarde
+
+```{r}
+n <- length(money_male)
+z <- qnorm(1 - alpha)
+g <- mean_general + z * sigma/sqrt(n)
+
+sprintf("Steekproefgemiddelde  : %.3f", mean_male)
+sprintf("Kritieke grenswaarde g: %.3f", g)
+
+if(mean_male < g) {
+  print("We kunnen H0 NIET verwerpen")
+} else {
+  print("We kunnen H0 verwerpen")
+}
+```
+Er is dus geen bewijs gevonden dat het gemiddelde salaris van mannen hoger dan 500 (x100) dollar ligt. 
+## Overschrijdingskans
+
+```{r}
+p <- 1 - pnorm(mean_male, mean = mu, sd = sigma / sqrt(n))
+
+sprintf("p = %.4f", p)
+
+if(p > alpha) {
+  print("We kunnen H0 NIET verwerpen")
+} else {
+  print("We kunnen H0 verwerpen")
+}
+```
+
+## Besluit
+
+We mogen de nulhypothese niet verwerpen. Het bruto jaarsalaris van de mannen in de steekproef is niet significant hoger dan verwacht.
+
+# Jaarsalaris vrouwen
+
+> Het gemiddelde jaarsalaris van de vrouwen lijkt *lager*. Is het ook significant lager?
+
+Hier gebruiken we een linkszijdige z-toets. De hypothesen (met $\mu_v$ gemiddelde salaris voor vrouwen):
+
+\[ H_0: \mu_v = 500 \]
+\[ H_1: \mu_v < 500 \]
+
+## Kritieke grenswaarde
+
+```{r}
+n <- length(money_female)
+
+gf <- mean_general - qnorm(1 - alpha) * sigma / sqrt(n)
+
+sprintf("Steekproefgemiddelde  : %.3f", mean_female)
+sprintf("Kritieke grenswaarde g: %.3f", gf)
+
+if(mean_female > gf) {
+  print("We kunnen H0 NIET verwerpen")
+} else {
+  print("We kunnen H0 verwerpen")
+}
+```
+
+## Overschrijdingskans
+
+```{r}
+pf <- pnorm(mean_female, mean = mu, sd = sigma / sqrt(n))
+
+sprintf("p = %.4f", pf)
+
+if(pf > alpha) {
+  print("We kunnen H0 NIET verwerpen")
+} else {
+  print("We kunnen H0 verwerpen")
+}
+```
+
+## Besluit
+
+We mogen de nulhypothese verwerpen. Het bruto jaarsalaris van de vrouwen in de steekproef is inderdaad significant lager dan verwacht.
+
+# Tweezijdig toetsen
+
+> Bepaal tenslotte het aanvaardingsgebied voor het gemiddelde jaarsalaris over de gehele steekproef (vrouwen en mannen samen) als we zouden willen bepalen of het steekproefgemiddelde significant afwijkt van de verwachte waarde, zonder een uitspraak te doen of die al dan niet hoger of lager ligt.
+
+Hier hoort een tweezijdige toets bij. De hypothesen zijn hier:
+
+\[ H_0: \mu = 500 \]
+\[ H_1: \mu \ne 500 \]
+
+## Kritieke grenswaarde
+
+We berekenen de onder- en bovengrens van het aanvaardingsgebied:
+
+```{r}
+n <- length(sample_data$Money)
+g_lo <- mu - qnorm(1 - alpha/2) * sigma / sqrt(n)
+g_hi <- mu + qnorm(1 - alpha/2) * sigma / sqrt(n)
+```
+
+Grafische weergave van het aanvaardingsgebied:
+
+```{r}
+ggplot(data = sample_data, mapping = aes(x = Money)) +
+  geom_density() +
+  geom_vline(xintercept = g_lo) +
+  geom_vline(xintercept = g_hi) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "blue") +
+   # stat_function(fun = dnorm,
+    #            args = list(mean = mu, sd = sigma/sqrt(n)),
+     #           color = "red") + Deze is de distributie voor het steekproefgemiddelde maar samen in de tekening is dit niet mooi
+  geom_vline(xintercept = mean(sample_data$Money),
+             color = "orange", linetype = "dashed")
+```
+
+In het zwart de densiteitsplot van de variabele *Money* over de hele dataset. De zwarte verticale strepen zijn de grenzen van het aanvaardingsgebied. De oranje stippellijn het steekproefgemiddelde.
+
+Merk op dat de blauwe, theoretische verdeling die is van de variabele *Money* en niet van de verdeling van het steekproefgemiddelde! Het steekproefgemiddelde zit ruim binnen het aanvaardingsgebied, dus kunnen we de nulhypothese niet verwerpen. Met andere woorden, het bruto jaarsalaris over de gehele steekproef wijkt niet significant af van wat we verwachten.
