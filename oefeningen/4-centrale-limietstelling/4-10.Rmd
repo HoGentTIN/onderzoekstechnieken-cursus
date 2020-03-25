@@ -1,0 +1,34 @@
+---
+title: "Oefening 4.10"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Wat is de onder- en bovengrens van een betrouwbaarheidsinterval van 99%?
+
+Dit hangt enkel af van de $z$-waarde:
+
+```{r}
+z_99 <- qnorm(1 - .01/2)
+z_99
+```
+
+De grenzen zijn dus $\pm 2.575829$.
+
+We kunnen dit ook doen voor een betrouwbaarheidsinterval van 95%:
+
+```{r}
+z_95 <- qnorm(1 - .05/2)
+z_95
+```
+
+## Een betrouwbaarheidsinterval van 99% is breder dan een van 95%. Waarom is dit zo?
+
+Als je zekerder wil zijn dat je het (onbekende) populatiegemiddelde in het interval "gevangen" hebt, moet je het interval groter maken.
+
+## Hoe zou het betrouwbaarheidsinterval voor 100% er uit zien?
+
+Hoe dichter het betrouwbaarheidsniveau bij 100% komt, hoe breder het interval. Hier staat geen grens op, dus wordt het interval $]-\infty, +\infty[$. Je kan nooit 100% zeker zijn dat je het populatiegemiddelde gevangen hebt in een eindig interval.

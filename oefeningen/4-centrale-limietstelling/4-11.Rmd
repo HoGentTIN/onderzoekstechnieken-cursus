@@ -1,0 +1,90 @@
+---
+title: "Oefening 4.11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Oefening 4.11 - Betrouwbaarheidsintervallen "money.csv"
+
+Lees de dataset `money.csv` in. We veronderstellen dat de waarden uit deze steekproef normaal verdeeld zijn rond een onbekend populatiegemiddelde $\mu$, maar dat de populatiestandaardafwijking gekend is en gelijk aan $\sigma = 99$.
+
+```{r}
+money <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/money.csv")
+
+pop_sd <- 99  # standaardafwijking vd populatie (verondersteld gekend)
+
+n <- length(money$Money)
+sample_mean <- mean(money$Money) # gemiddelde vd steekproef
+sample_sd <- sd(money$Money)     # standaardafwijking vd steekproef
+```
+
+## 99% betrouwbaarheidsinterval
+
+> Bereken een 99\%-betrouwbaarheidsinterval voor het populatiegemiddelde.
+
+```{r}
+z_99 <- qnorm(1 - 0.01/2)
+
+sprintf("99%% CI : [%.3f,%.3f]",
+        sample_mean - z_99 * pop_sd / sqrt(n),
+        sample_mean + z_99 * pop_sd / sqrt(n))
+```
+
+## 95% betrouwbaarheidsinterval
+
+> Bereken een 95\%-betrouwbaarheidsinterval voor het populatiegemiddelde.
+
+```{r}
+z_95 <- qnorm(1 - 0.05/2)
+
+sprintf("95%% CI : [%.3f,%.3f]",
+  sample_mean - z_95 * pop_sd / sqrt(n),
+  sample_mean + z_95 * pop_sd / sqrt(n))
+
+betrouw <- function(a,m,s,k){
+  z <- qnorm(1 - a/2)
+  sprintf("CI : [%.3f,%.3f]",
+  m - z * s / sqrt(k),
+  m + z * s / sqrt(k))
+}
+
+betrouw(0.06,sample_mean,pop_sd,n)
+
+```
+
+## Onbekende ??
+
+> Stel dat $\sigma$ onbekend is. Bereken voor dat geval een 95-\% betrouwbaarheidsinterval voor het populatiegemiddelde.
+
+Als $\sigma$ onbekend is, mogen we de z-score niet gebruiken, maar moeten we ons behelpen met de t-score.
+
+```{r}
+t_95 <- qt(1 - 0.05/2, df = n-1)
+
+sprintf("Unknown std, 95%% CI : [%.3f,%.3f]",
+        sample_mean - t_95 * sample_sd / sqrt(n),
+        sample_mean + t_95 * sample_sd / sqrt(n))
+```
+
+## Kleine steekproef
+
+> Stel tenslotte een 95\%-betrouwbaarheidsinterval voor het populatiegemiddelde, in de veronderstelling dat de steekproef enkel bestaat uit de eerste 25 waarden in het databestand.
+
+Ook bij een kleine steekproef moeten we de t-score gebruiken.
+
+```{r}
+small_sample <- money$Money[1:25]
+small_sample_mean <- mean(small_sample)
+small_sample_sd <- sd(small_sample)
+small_sample_n <- length(small_sample)
+
+t_95 <- qt(1 - 0.05/2, df = small_sample_n - 1)
+
+sprintf("Small sample, 95%% CI : [%.3f,%.3f]",
+        small_sample_mean - t_95 * small_sample_sd / sqrt(small_sample_n),
+        small_sample_mean + t_95 * small_sample_sd / sqrt(small_sample_n))
+```

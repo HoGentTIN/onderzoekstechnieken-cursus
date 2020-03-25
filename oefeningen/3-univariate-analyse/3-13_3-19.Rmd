@@ -1,0 +1,170 @@
+---
+title: "Exercise 3.13-19."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Remark:** Before running this code in RStudio, first check the following setting (from the menu): *Session > Set Working Directory > To Source File Location*. This allows for loading the .csv file from the current directory.
+
+# Case Study: Android Persistence CPU
+
+## Loading the data
+
+```{r}
+# Load data from csv
+android_cpu <- read.csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/android_persistence_cpu.csv", sep = ";")
+# Allows the columns to be accessed directly instead of with table$column notation
+attach(android_cpu)
+```
+
+## Descriptive statistics
+
+```{r}
+summary(android_cpu)
+```
+
+What are the possible values for `DataSize` and `PersistenceType`?
+
+```{r}
+levels(DataSize)
+levels(PersistenceType)
+```
+
+Frequency table for `DataSize`, `PersistenceType`
+
+```{r}
+table(DataSize)
+table(PersistenceType)
+table(DataSize, PersistenceType)
+```
+
+Mean, variance, standard deviation over the entire data set
+
+```{r}
+mean(Time)
+var(Time)
+sd(Time)
+```
+
+The same, but over the different persistence types
+
+```{r}
+aggregate(Time ~ PersistenceType, FUN = mean)
+aggregate(Time ~ PersistenceType, FUN = var)
+aggregate(Time ~ PersistenceType, FUN = sd)
+```
+
+The same, but over the data size
+
+```{r}
+aggregate(Time ~ DataSize, FUN = mean)
+aggregate(Time ~ DataSize, FUN = var)
+aggregate(Time ~ DataSize, FUN = sd)
+aggregate(Time ~ PersistenceType * DataSize, 
+          FUN = mean)
+```
+
+Median and quantiles
+
+```{r}
+aggregate(Time ~ PersistenceType, FUN = quantile)
+aggregate(Time ~ DataSize, FUN = quantile)
+```
+
+## Data visualisation
+
+### Histogram
+
+cfr. Exercise 3.14
+
+```{r}
+hist(Time, main="Distribution of execution time", 
+     xlab="Execution time (ms)");
+hist(Time, main="Distribution of execution time",
+     xlab="Execution time (ms)", breaks=2);
+```
+
+### Box Plot
+
+cfr. Exercise 3.15 
+
+```{r}
+
+boxplot(Time)                   # Or boxplot(android_cpu$Time)
+boxplot(Time,
+        main='Distribution of execution time',
+        ylab="Execution time (ms)");
+```
+
+We can set `horizontal` to `TRUE` to draw a horizontal boxplot. 
+Note that in this case we need to add the label to the `x` axis.
+
+```{r}
+
+boxplot(Time,
+        horizontal = TRUE,
+        main='Distribution of execution time',
+        xlab="Execution time (ms)");
+```
+
+cfr. Exercise 3.16
+        
+```{r}
+
+
+boxplot(Time ~ DataSize)
+boxplot(Time ~ DataSize,
+        main="Distribution of CPU time over the data sizes",
+        ylab="Time in ms")
+```
+
+cfr. Exercise 3.17
+```{r}
+boxplot(Time ~ PersistenceType * DataSize,
+        main="Distribution of CPU time over data sizes for the different persistent types",
+        ylab="Time in ms")
+```
+
+Data selection using which
+cfr. Exercise 3.18 - 3.19
+
+```{r}
+greenDOA <- android_cpu[which(android_cpu$PersistenceType=='GreenDAO'),];
+boxplot(greenDOA$Time ~ greenDOA$DataSize,
+        main="Distribution of execution time for GreenDAO");
+```
+
+Data selection using subset
+
+```{r}
+subset_small = subset(android_cpu, DataSize == 'Small')
+boxplot(subset_small$Time ~ subset_small$PersistenceType,
+        main = "Execution time of the small experiments")
+
+subset_medium = subset(android_cpu, DataSize == 'Medium',
+        main = "Execution time of the medium size experiments")
+boxplot(subset_medium$Time ~ subset_medium$PersistenceType)
+
+subset_large = subset(android_cpu, DataSize == 'Large',
+        main = "Execution time of the large experiments")
+boxplot(subset_large$Time ~ subset_large$PersistenceType)
+```
+
+Data selection using which (same results)
+
+```{r}
+results_small <- android_cpu[which(android_cpu$DataSize=='Small'),]
+boxplot(results_small$Time ~ results_small$PersistenceType,
+        main = "Execution time of the small experiments")
+
+results_medium <- android_cpu[which(android_cpu$DataSize=='Medium'),]
+boxplot(results_medium$Time ~ results_medium$PersistenceType,
+        main = "Execution time of the medium size experiments")
+
+results_large <- android_cpu[which(android_cpu$DataSize=='Large'),]
+boxplot(results_large$Time ~ results_large$PersistenceType,
+        main = "Execution time of the large experiments")
+```

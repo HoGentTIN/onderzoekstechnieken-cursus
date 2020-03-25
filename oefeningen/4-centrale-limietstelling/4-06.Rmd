@@ -1,0 +1,52 @@
+---
+title: "Oefening 4.6"
+author: "bvv"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+> Een gezondheidsonderzoek tussen 1988 en 1994 gaf aan dat de gemiddelde cholesterolwaarde bij vrouwen tussen 20 en 29 jaar 183 mg/dl bedroeg, met een standaardafwijking gelijk aan 36. We nemen nu een aselecte steekproef van 81 vrouwen.
+
+```{r}
+m <- 183
+s <- 36
+n <- 81
+```
+
+> Los volgende vragen op
+
+# Kansdichtheidsfunctie
+
+> Schets de kansdichtheidsfunctie voor de populatie en de kansverdeling van het steekproefgemiddelde $\overline{x}$.
+
+```{r}
+sn <- s/sqrt(n)
+ggplot(data = data.frame(x = c(m-4*sn, m+4*sn)), mapping = aes(x)) +
+  stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = sn)) +
+  geom_vline(xintercept = m, color = "green")
+```
+
+# Kansberekening in de normaalverdeling
+
+> Bepaald de kans dat $\overline{x}$ kleiner is dan 185.
+
+```{r}
+pnorm(185, mean = m, sd = s / sqrt(n))
+```
+
+> Bepaal de kans dat $\overline{x}$ tussen 175 en 185 ligt.
+
+```{r}
+pnorm(185, mean = m, sd = s / sqrt(n)) - pnorm(175, mean = m, sd = s / sqrt(n))
+```
+
+> Bepaal de kans dat $\overline{x}$ groter is dan 190.
+
+```{r}
+1 - pnorm(190, mean = m, sd = s / sqrt(n))
+```
+

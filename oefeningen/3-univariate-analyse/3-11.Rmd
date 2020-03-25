@@ -1,0 +1,46 @@
+---
+title: "Oefening 3.11. Mean en Range"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Opgave
+
+Gebruik de functies `mean` en `range` om het gemiddelde en bereik te berekenen van:
+
+1. De cijfers 1,2, ..., 21
+2. 50 willekeurige normale waarden, die worden gegenereerd vanuit een normale distributie met gemiddelde 0 en variantie 1 (functie `rnorm`)
+3. De kolommen `height` en `weight` in de data frame `women` (standaard in R)
+
+
+## Oplossing
+
+1. Cijfers 1,2, ..., 21
+
+    ```{r}
+    # Aanmaken lijst met cijfers en berekenen mean en range
+    numbers <- 1:21
+    mean(numbers)
+    range(numbers)
+    ```
+
+2. 50 willekeurige waarden met normaalverdeling (0,1)
+
+    ```{r}
+    # Aanmaken random woorden, parameters mogen weggelaten worden (default waarden)
+    numbers2 <- rnorm(50, mean = 0, sd = 1)
+    mean(numbers2)
+    range(numbers2)
+    ```
+
+3. De kolommen `height` en `weight` in het data frame `women`
+
+    ```{r}
+    mean(women$height)
+    range(women$height)
+    mean(women$weight)
+    range(women$weight)
+    ```

@@ -1,0 +1,32 @@
+---
+title: "Oefening 1.8"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Bereken  $\sum_{i=1}^{100}(i^3 + 4i^2)$
+
+1. Genereer een vector $i$ met alle waarden van 1 tot 100
+
+    ```{r}
+    i <- 1:100
+    ```
+  
+2. Maak de functie $f(i) = i^3 + 4i^2$
+
+    ```{r}
+    f <- function(i) {
+      i^3+4*i^2
+    }
+    ```
+  
+3. Bereken $\sum f(i)$
+
+    ```{r}
+    sum(f(i))
+    ```
+  
+    

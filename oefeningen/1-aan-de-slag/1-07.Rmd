@@ -1,0 +1,32 @@
+---
+title: "Oefening 1.7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Genereer een vector met de waarden van $e^x cos(x)$ voor $x= 3, 3.1, 3.2, \dots ,6$
+
+1. Geneer een vector met de waarden van $x$ 
+
+    ```{r}
+    x <- seq(from = 3, to = 6, by = 0.1)
+    ```
+  
+2. Definieer de functie $f(x) = e^x cos(x)$
+
+    ```{r}
+    f <- function(x) {
+      (exp(1)^x)*cos(x)
+    }
+    ```
+  
+3. Bereken $f(x)$ en plot de resultaten
+
+    ```{r}
+    f(x)
+    plot(x,f(x))
+    ```
+  

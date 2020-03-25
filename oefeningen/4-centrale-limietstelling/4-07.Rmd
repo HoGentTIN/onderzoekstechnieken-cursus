@@ -1,0 +1,71 @@
+---
+title: "Oefening 4.7"
+author: "Bert Van Vreckem"
+date: "20/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+> Een aselecte steekproef van 64 stuks wordt getrokken uit een populatie met onbekende verdeling. De verwachting en de standaardafwijking van de populatie zijn wel gekend: μ = 20 en σ = 16.
+
+```{r}
+m <- 20
+s <- 16
+n <- 64
+
+```
+
+# Kansverdeling steekproefgemiddelde
+
+> Bepaal de verwachting en standaardafwijking van het steekproefgemiddelde.
+
+- Verwachte waarde: $\mu = 20$
+- Standaardafwijking: $\sigma/\sqrt{n} = 16/\sqrt{64} = 2$
+
+```{r}
+sn <- s / sqrt(n)
+```
+
+> Beschrijf de vorm van de verdeling van het steekproefgemiddelde. In hoeverre hangt je antwoord af van de grootte van de steekproef?
+
+\[ M \sim Nor(\mu = 20, \sigma = 16/\sqrt{64}))$ \]
+
+```{r}
+ggplot(data = data.frame(x = c(m-4*sn, m+4*sn)), mapping = aes(x)) +
+  stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = sn)) +
+  geom_vline(xintercept = m, color = "green")
+```
+
+
+# z-score
+
+> Bereken de z score bij $\overline{x_1}$ = 15.5 en $\overline{x_2}$ = 23.
+
+```{r}
+(15.5 - m) / sn
+(23 - m) / sn
+```
+
+# Kansberekening
+
+> Bepaal de kans dat $\overline{x} < 16$.
+
+```{r}
+pnorm(16, mean = m, sd = sn)
+```
+
+> Bepaal de kans dat $\overline{x} > 23$.
+
+```{r}
+1 - pnorm(23, mean = m, sd = sn)
+```
+
+> Bepaal de kans dat $16 < \overline{x} < 22$.
+
+```{r}
+pnorm(22, mean = m, sd = sn) - pnorm(16, mean = m, sd = sn)
+```

@@ -1,0 +1,94 @@
+---
+title: "Oefening 4.1"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+a. $P(Z < 1.33)$
+
+    Dit is een linkerstaartkans, deze kunnen we rechtstreeks uitrekenen in R:
+
+    ```{r}
+    pnorm(1.33)
+    ```
+
+b. $P(Z > 1.33)$
+
+    Dit is een rechterstaartkans, maar met behulp van de 100%-regel kunnen we deze omvormen naar een linkerstaartkans.
+
+    ```{r}
+    1-pnorm(1.33)
+    ```
+
+c. $P(Z < -1.33)$
+
+    Dit is een linkerstaartkans, deze kunnen we rechtstreeks uitrekenen in R:
+
+    ```{r}
+    pnorm(-1.33)
+    ```
+    
+    We krijgen hetzelfde resultaat als bij vraag b., wat logisch is wegens symmetrie.
+  
+
+d.  $P(Z > -1.33)$
+
+    Dit is een rechterstaartkans, maar met behulp van de 100%-regel kunnen we deze omvormen naar een linkerstaartkans.
+
+    ```{r}
+    1-pnorm(-1.33)
+    ```
+    
+    We krijgen hetzelfde resultaat als bij vraag a., wat logisch is wegens symmetrie.
+
+e. $P(Z < 0.45)$
+
+    Dit is een linkerstaartkans, deze kunnen we rechtstreeks uitrekenen in R:
+
+    ```{r}
+    pnorm(.45)
+    ```
+
+f. $P(Z > -1.05)$
+
+    Dit is een rechterstaartkans, maar met behulp van de 100%-regel kunnen we deze omvormen naar een linkerstaartkans.
+
+    ```{r}
+    1 - pnorm(-1.05)
+    ```
+    
+g. $P(Z < 0.65)$
+
+    ```{r}
+    pnorm(.65) 
+    ```
+
+h. $P(-0.45 < Z < 1.20)$
+
+    Deze kans kunnen we berekenen door de 2 linkerstaartkansen van elkaar af te trekken:
+    
+    $P(-0.45 < Z < 1.20) = P(Z < 1.20) - P(Z < -0.45)$ 
+    
+    ```{r}
+    pnorm(1.2) - pnorm(-.45)
+    ```
+    
+i. $P(-1.35 < Z < -0.10)$
+
+    Analoog aan vorige opgave
+    
+    ```{r}
+    pnorm(-.1) - pnorm(-1.35)
+    ```
+    
+j. $P(-2.10 < Z < -0.90)$
+
+    Analoog aan vorige opgave
+    
+    ```{r}
+    pnorm (-.9) - pnorm(-2.1)
+    ```

@@ -1,0 +1,40 @@
+---
+title: "Oefening 4.12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+Probability distribution of a population fraction
+
+```{r}
+n <- 31 * 24 * 60   # sample size, number of minutes in januari
+k <- n - 1          # number of successes
+p <- k / n          # probability of success for the sample
+q <- 1 - p          # probability of failure for the sample
+```
+
+Properties of the probability distribution:
+
+```{r}
+m <- p              # mean 
+s <- sqrt(p*q/n)    # stdev
+```
+
+Probability that SLA is not met:
+
+```{r}
+g <- 0.99999        # if p < g, the SLA is *not* met
+pnorm(g, m, s)
+```
+
+Plot of the situation:
+
+```{r}
+ggplot(data = data.frame(x = c(m-4*s, m+4*s)), mapping = aes(x)) +
+  stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = s)) +
+  geom_vline(xintercept = g, color = "green")
+```

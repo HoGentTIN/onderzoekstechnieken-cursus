@@ -1,0 +1,37 @@
+---
+title: "Oefening 1.4"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Genereer een 4x5 array en noem die x.
+
+    ```{r}
+    # 20 willekeurige getallen, volgens de standaardnormaalverdeling
+    x <- matrix(rnorm(20), 
+                nrow = 4,
+                ncol = 5)
+    ```
+
+2. Genereer daarna een 3x2 array `i` waarin de eerste kolom de rij-index kan zijn van `x` en de tweede kolom een kolomindex voor x.
+
+    ```{r}
+    # Let op: de matrix i wordt kolom per kolom ingevuld
+    i <- matrix(
+      c(1, 2, 3,
+        4, 3, 1), 
+      nrow = 3,
+      ncol = 2)
+    ```
+
+3. Vervang de elementen gedefinieerd door de index in `i` in `x` door 0.
+
+    ```{r}
+    # Kan je een efficiëntere manier vinden?
+    x[i[1,1], i[1,2]] = 0
+    x[i[2,1], i[2,2]] = 0
+    x[i[3,1], i[3,2]] = 0
+    ```

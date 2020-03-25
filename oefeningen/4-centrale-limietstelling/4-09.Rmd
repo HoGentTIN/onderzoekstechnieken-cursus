@@ -1,0 +1,116 @@
+---
+title: "Oefening 4.9"
+output: html_document
+---
+
+Een conservenfabrikant krijgt de laatste tijd klachten over de netto inhoud van zijn conserven met wortelen en erwtjes, die volgens de verpakking netto 1 liter zouden moeten bevatten. Daarom laat hij een steekproef nemen waarin de netto inhoud van 40 willekeurig gekozen blikjes wordt gecontroleerd. De resultaten worden samengevat in onderstaande tabel:
+
+
+| Inhoud        | $n_i$ |
+| :---          | :---  |
+| $[970,980[$   | 3     |
+| $[980,990[$   | 5     |
+| $[990,1000[$  | 13    |
+| $[1000,1010[$ | 11    |
+| $[1010,1020[$ | 5     |
+| $[1020,1030[$ | 3     |
+    
+## Vraag A:
+
+
+- Vul de tabel aan met de cumulatieve absolute frequentie
+
+    We kunnen de cumulatieve absolute frequentie berekenen via de `cumsum` functie:
+
+    ```{r}
+    n_i <- c(3,5,13,11,5,3)        # De gegeven frequenties
+    cf  <- c(cumsum(n_i))           # Cumulatieve Absolute Frequentie
+    cf
+    ```
+    
+- Vul de tabel aan met de relatieve frequentie
+
+    De relatieve frequentie is de absolute frequentie, genormaliseerd door het totale aantal.
+    $f_i = n_i/N$
+    
+    In dit voorbeeld is $N = 40$ of dus de steekproefgrootte.
+   
+    
+    ```{r}
+    f_i <- n_i / sum(n_i)
+    f_i
+    ```
+
+- Vul de tabel aan met de cumulatieve relatieve frequentie
+
+    We kunnen deze ook berekenen via de `cumsum` functie
+    
+    ```{r}
+    crf <- c(cumsum(f_i))
+    crf
+    ```
+    
+    Merk op dat de laatste waarde 1 moet zijn! (Waarom?)
+    
+Volledige tabel:
+    
+
+| Inhoud        | $n_i$ | CF   | $f_i$ | CRF   |  
+| :---          | :---  | :--- | :---  | :---  |
+| $[970,980[$   | 3     | 3    | 0.075 | 0.075 |
+| $[980,990[$   | 5     | 8    | 0.125 | 0.200 |
+| $[990,1000[$  | 13    | 21   | 0.325 | 0.525 |
+| $[1000,1010[$ | 11    | 32   | 0.275 | 0.800 |
+| $[1010,1020[$ | 5     | 37   | 0.125 | 0.925 |
+| $[1020,1030[$ | 3     | 40   | 0.075 | 1.000 |
+
+In R:
+
+```{r}
+conserven <- tibble(
+  category = c("[970,980[","[980,990[","[990,1000[","[1000,1010[","[1010,1020[","[1020,1030["),
+  n_i = c(3,5,13,11,5,3),
+  cf  = cumsum(n_i),
+  f_i = n_i / sum(n_i),
+  crf = cumsum(f_i)
+)
+```
+
+## Vraag B:
+
+- Bereken het gemiddelde
+
+    Cfr. oefening 3.07. Als x waarden nemen we het midden van het interval.
+    
+    ```{r}
+    x <- c(975,985,995,1005,1015,1025)
+    m <- sum(x * n_i) / sum(n_i)
+    m
+    ```
+
+- Bereken de standaardafwijking
+
+    Cfr. oefening 3.07.
+    
+    ```{r}
+    v <- sum(n_i * (x - m)^2) / (sum(n_i) - 1)
+    stdev <- sqrt(v)
+    stdev
+    ```
+    
+- Hoeveel procent van de blikken bevat te weinig wortelen en erwtjes?
+
+    Er zijn 3 blikken met een inhoud $[970,980[$, 5 blikken met inhoud $[980,990[$ en 13 blikken met inhoud $[990,1000[$. Er zijn dus 21 blikken met te weinig inhoud, dit komt overeen met de 3e waarde van de cumulatieve frequenties.
+    
+    ```{r}
+    cf[3]/sum(n_i)
+    ```
+    
+    $52.5\%$ van de blikken bevat dus te weinig inhoud.
+    
+- Teken een histogram van de absolute frequentie
+
+  ```{r}
+  names(n_i) <- c("[970,980[","[980,990[","[990,1000[","[1000,1010[","[1010,1020[","[1020,1030[")
+  barplot(n_i)
+  ```

@@ -1,0 +1,30 @@
+---
+  title: "Oefening 4.03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+> Bepaal de dichtheid en de cumulatieve waarschijnlijkheidscurve voor een t-
+verdeling met *df* = 3. Teken ook een normale verdeling met een μ = 0 en σ = 1.
+
+## Dichtheidscurve
+
+```{r}
+# Bron: codevoorbeelden/4-centrale-limietstelling.Rmd
+ggplot(data = data.frame(x = c(-4, +4)), mapping = aes(x)) +
+  stat_function(fun = dt, n = 201, args = list(df = 3)) +
+  stat_function(fun = dnorm, n = 201, linetype = "dashed")
+```
+
+## cumulatieve waarschijnlijkheidscurve
+
+```{r}
+# Bron: codevoorbeelden/4-centrale-limietstelling.Rmd
+ggplot(data = data.frame(x = c(-4, +4)), mapping = aes(x)) +
+  stat_function(fun = pt, n = 201, args = list(df = 3)) +
+  stat_function(fun = pnorm, n = 201, linetype = "dashed")
+```
