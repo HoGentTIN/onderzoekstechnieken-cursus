@@ -48,7 +48,6 @@ c(m, s)
 ## Plot van deze casus
 
 ```{r}
-sn <- s /sqrt(n)
 ggplot(data = data.frame(x = c(-4, 4)), mapping = aes(x)) +
   stat_function(fun = dt, n = 201, args = list(df = n - 1)) +
   geom_vline(xintercept = (m - m0)/(s/sqrt(n)), color = "green")
