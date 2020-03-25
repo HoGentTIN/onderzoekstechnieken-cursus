@@ -18,7 +18,7 @@ Probeer voor deze datafile te tellen hoeveel rijen er zijn per species die volle
 
     ```{r}
     # Load data from csv
-    rainforest <- read.csv("../../datasets/rainforest.csv", sep = ",")
+    rainforest <- read.csv("../datasets/rainforest.csv", sep = ",")
     # Allows the columns to be accessed directly instead of with table$column notation
     attach(rainforest)
 

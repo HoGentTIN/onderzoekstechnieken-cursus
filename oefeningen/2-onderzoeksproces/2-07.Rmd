@@ -14,7 +14,7 @@ Import the file `earthquakes.csv` in R.
 
 
 ```{r}
-earthquakes <- read.csv("../../datasets/earthquakes.csv", sep = ",")
+earthquakes <- read.csv("../datasets/earthquakes.csv", sep = ",")
 attach(earthquakes)
 ```
     

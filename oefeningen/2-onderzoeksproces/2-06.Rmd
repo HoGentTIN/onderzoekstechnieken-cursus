@@ -18,8 +18,8 @@ Import the file `android_persistence_cpu.csv` in R.
 
 
 ```{r}
-android_cpu <- read.csv("../../datasets/android_persistence_cpu.csv", sep = ";")
-attach(android_cpu)
+android_cpu <- read.csv("../datasets/android_persistence_cpu.csv", sep = ";")
+#attach(android_cpu)
 ```
     
 1. Get an overview of the different variables in this dataset

@@ -13,7 +13,7 @@ library(tidyverse)
 Lees de dataset `money.csv` in. We veronderstellen dat de waarden uit deze steekproef normaal verdeeld zijn rond een onbekend populatiegemiddelde $\mu$, maar dat de populatiestandaardafwijking gekend is en gelijk aan $\sigma = 99$.
 
 ```{r}
-money <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/money.csv")
+money <- read_csv("../datasets/money.csv")
 
 pop_sd <- 99  # standaardafwijking vd populatie (verondersteld gekend)
 
