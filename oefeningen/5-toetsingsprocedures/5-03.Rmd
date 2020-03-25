@@ -1,0 +1,78 @@
+---
+title: "Oefening 5.3"
+author: "bvv"
+date: "25-3-2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+> Er wordt gezegd dat het invoeren van een bindend studieadvies (BSA) een rendementsverhoging tot gevolg heeft in slaagkans. Voor het invoeren van het BSA was in de studentenpopulatie het gemiddelde aantal behaalde studiepunten per jaar per student gelijk aan 44 met een standaardafwijking van 6,2. Na invoering van het BSA wijst een steekproef onder 72 studenten uit dat deze een gemiddeld aantal studiepunten haalden van 46,2. We veronderstellen dat de populatie-standaardafwijking gekend is en gelijk aan $\sigma = 6,2$
+> Toets of er bewijs is dat het invoeren van een BSA leidt tot een rendementsverhoging. ($\alpha = 2,5\%$)
+
+
+## Gegevens
+
+```{r}
+m <- 44     # Populatiegemiddelde
+s <- 6.2    # Populatiestandaardafwijking
+a <- 0.025  # Significantieniveau
+
+n <- 72     # Steekproefgrootte
+sm <- 46.2  # Steekproefgemiddeldes
+```
+
+## Plot van deze casus
+
+```{r}
+sn <- s/sqrt(n)
+ggplot(data = data.frame(x = c(m-4*sn, m+4*sn)), mapping = aes(x)) +
+  stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = sn)) +
+  geom_vline(xintercept = m) +
+  geom_vline(xintercept = sm, color = "orange")
+```
+
+## Hypothesen
+
+De steekproef is voldoende groot (n > 30) en $\sigma$ is gekend. We gaan hier een rechtszijdige z-toets toepassen. De hypothesen zijn:
+
+\[ H_0: \mu = 44 \]
+\[ H_1: \mu > 44 \]
+
+# Kritieke grenswaarde
+
+> Gebruik methode van kritieke grenswaarde.
+
+```{r}
+g <- m + qnorm(1-a) * s/sqrt(n)
+g
+
+sn <- s/sqrt(n)
+ggplot(data = data.frame(x = c(m-4*sn, m+4*sn)), mapping = aes(x)) +
+  stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = sn)) +
+  geom_vline(xintercept = m) +
+  geom_vline(xintercept = sm, color = "orange") +
+  geom_vline(xintercept = g, color = "red")
+```
+
+Het steekproefgemiddelde $\overline{x}$ ligt in het kritieke gebied ($g < \overline{x}$), dus we kunnen de nulhypothese verwerpen.
+
+# Overschrijdingskans
+
+> Toon hetzelfde aan met de methode van de overschrijdingskans.
+
+```{r}
+p <- 1-pnorm(sm, m, s/sqrt(n))
+p
+```
+
+De overschrijdingskans is kleiner dan het significantieniveau ($p < \alpha$) dus we kunnen de nulhypothese verwerpen.
+
+# Interpretatie alfa
+
+> Geef een interpretatie wat de betekenis is van $\alpha = 2,5\%$.
+
+Het significantieniveau bepaalt de kans op een fout van Type I als we veronderstellen dat de nulhypothese waar is. M.a.w. dit is de kans, als $H_0$ waar is, dat we toch een steekproef nemen met zulke extreme waarden dat het steekproefgemiddelde toch in het kritieke gebied zou liggen.
