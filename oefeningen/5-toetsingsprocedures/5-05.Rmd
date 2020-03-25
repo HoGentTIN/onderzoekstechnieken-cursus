@@ -10,7 +10,7 @@ library(tidyverse)
 Lees de dataset `rlanders-generated.csv` in.
 
 ```{r}
-sample_data <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/rlanders-generated.csv")
+sample_data <- read_csv("../datasets/rlanders-generated.csv")
 glimpse(sample_data)
 ```
 
@@ -29,6 +29,8 @@ money_female <- sample_data$Money[sample_data$Gender == "Female"]
 mean_female <- mean(money_female)
 money_male   <- sample_data$Money[sample_data$Gender == "Male"]
 mean_male <- mean(money_male)
+
+c(mean_general, mean_male, mean_female)
 ```
 
 We zien dus:
@@ -107,7 +109,7 @@ Voor deze onderzoeksvraag gebruiken we een rechtszijdige z-toets. De hypothesen 
 ```{r}
 n <- length(money_male)
 z <- qnorm(1 - alpha)
-g <- mean_general + z * sigma/sqrt(n)
+g <- mu + z * sigma/sqrt(n)
 
 sprintf("Steekproefgemiddelde  : %.3f", mean_male)
 sprintf("Kritieke grenswaarde g: %.3f", g)
@@ -119,6 +121,7 @@ if(mean_male < g) {
 }
 ```
 Er is dus geen bewijs gevonden dat het gemiddelde salaris van mannen hoger dan 500 (x100) dollar ligt. 
+
 ## Overschrijdingskans
 
 ```{r}
@@ -151,7 +154,7 @@ Hier gebruiken we een linkszijdige z-toets. De hypothesen (met $\mu_v$ gemiddeld
 ```{r}
 n <- length(money_female)
 
-gf <- mean_general - qnorm(1 - alpha) * sigma / sqrt(n)
+gf <- mu - qnorm(1 - alpha) * sigma / sqrt(n)
 
 sprintf("Steekproefgemiddelde  : %.3f", mean_female)
 sprintf("Kritieke grenswaarde g: %.3f", gf)
