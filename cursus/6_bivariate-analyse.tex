@@ -293,7 +293,7 @@ Toegepast op het voorbeeld van hierboven:
   \item \textbf{Bepalen hypotheses:}
   \begin{itemize}
     \item $H_0$ Er is geen verband tussen gender en waardering
-    \item $H_1$ Er is een verband tussen gender een waardering
+    \item $H_1$ Er is een verband tussen gender en waardering
   \end{itemize}
   \item \textbf{Bepalen significantieniveau:} $\alpha = 0,05$
   
@@ -358,7 +358,7 @@ Bij het berekenen van de $\chi^2$-waarde is het belangrijk dat er voor elke cel 
 
 De statisticus \textcite{Cochran1954}\index{Cochran!William G.} heeft hierover een aantal aanbevelingen geformuleerd die we in deze cursus de Regel van Cochran\index{Cochran!regel van} zullen noemen.
 
-Om de $\chi^2$ toets te mogen toepassen moeten specifiek de volgende voorwaarden vervuld zijn:
+Om de $\chi^2$-toets te mogen toepassen moeten specifiek de volgende voorwaarden vervuld zijn:
 
 \begin{enumerate}
   \item Voor alle categorie\"en moet gelden dat de verwachte frequentie $e$ groter is dan 1.
@@ -390,13 +390,13 @@ Stel, in het onderzoek naar onze superhelden is een steekproef genomen van $n = 
   \label{tab:frequenties-types-superhelden}
 \end{table}
 
-We willen de frequenties in de steekproef vergelijken met de aantallen die je zou verwachten als de steekproef exact representatief zou zijn naar de types van superhelden. Als deze verschillen relatief groot zijn dan komt de verdeling in de steekproef \emph{niet} overeen met de verdeling in de populaties en zullen we moeten concluderen dat de steekproef niet representatief is. Om te oordelen of deze verschillen relatief groot zijn voeren we een $\chi^{2}$toets uit.
+We willen de frequenties in de steekproef vergelijken met de aantallen die je zou verwachten als de steekproef exact representatief zou zijn naar de types van superhelden. Als deze verschillen relatief groot zijn dan komt de verdeling in de steekproef \emph{niet} overeen met de verdeling in de populaties en zullen we moeten concluderen dat de steekproef niet representatief is. Om te oordelen of deze verschillen relatief groot zijn, voeren we een $\chi^{2}$-toets uit.
 
 Als de steekproef exact representatief is, dan zouden we verwachten dat in de steekproef 35\% van de superhelden een mutant is. Het verwachte aantal of de verwachte frequentie voor deze categorie is dus gelijk aan $0,35 \times 400 = 140$. Er geldt dus:
 
 \[ e = n \times \pi \]
 
-met $e$ de verwachte absolute frequentie in de steekproef, $n$ de steekproefgrootte en $\pi$ de verwachte relatieve frequentie voor de hele populatie. Als de verschillen tussen de geobserveerde en verwachte frequenties $(o - e)$ relatief klein zijn kunnen ze toegerekend worden aan toevallige steekproeffouten. We kunnen opnieuw $\chi^2$ gebruiken om deze verschillen samen te vatten en te interpreteren:
+met $e$ de verwachte absolute frequentie in de steekproef, $n$ de steekproefgrootte en $\pi$ de verwachte relatieve frequentie voor de hele populatie. Als de verschillen tussen de geobserveerde en verwachte frequenties $(o - e)$ relatief klein zijn, kunnen ze toegerekend worden aan toevallige steekproeffouten. We kunnen opnieuw $\chi^2$ gebruiken om deze verschillen samen te vatten en te interpreteren:
 
 \[ \chi^{2} = \sum_i \frac{(o_{i} - e_{i})^{2}}{e_{i}} \]
 
@@ -421,7 +421,7 @@ We volgen de stappen van een statistische toetsingsprocedure:
 
 \begin{enumerate}
   \item \textbf{Bepalen hypotheses}
-  Als nulhypothese formuleren we dat de steekproef representatief is, meer bepaald dat verdeling in de steekproef gelijk is aan de verdeling over de populatie. Als alternatieve hypothese formuleren we dat de verdelingen verschillend zijn.
+  Als nulhypothese formuleren we dat de steekproef representatief is, meer bepaald dat de verdeling in de steekproef gelijk is aan de verdeling over de populatie. Als alternatieve hypothese formuleren we dat de verdelingen verschillend zijn.
   \begin{itemize}
     \item $H_{0}$: steekproef is representatief voor de populatie
     \item $H_{1}$: steekproef is niet representatief voor de populatie
@@ -465,9 +465,9 @@ Stel dat er een onderzoek gebeurd is waar 1022 gezinnen met 5 kinderen hebben aa
   \label{tab:5-kinderen}
 \end{table}
 
-Indien de veronderstelling waar is wordt de kans $\pi_{i}$ om $i$ jongens te krijgen bepaald door een binominaalverdeling met parameters $n=5$ en $p=0,5$.
+Indien de veronderstelling waar is, wordt de kans $\pi_{i}$ om $i$ jongens te krijgen bepaald door een binominaalverdeling met parameters $n=5$ en $p=0,5$.
 
-Dit kan je eenvoudig nagaan aan de hand van voorbeeld. De kans om 2 jongens te krijgen met 5 kinderen is gelijk aan :
+Dit kan je eenvoudig nagaan aan de hand van het voorbeeld. De kans om 2 jongens te krijgen met 5 kinderen is gelijk aan :
 
 \[ (0,5)^{2} \times (1-0,5)^{5-2} \times \binom{5}{2} \]
 
@@ -565,7 +565,7 @@ Dit resultaat is opmerkelijk omdat we via de $\chi^2$-toets geen significant ver
 \begin{example}
   In Tabel~\ref{tab:autovoorkeur} worden de voorkeuren van vrouwen en mannen voor de gegeven automerken opgesomd. We zien dat nog steeds dertig van de honderd respondenten een voorkeur hebben voor de Mercedes, maar dat twee derde van deze dertig vrouwen zijn. We zouden  ook kunnen zeggen dat de helft van de vrouwen een voorkeur heeft voor de Mercedes. Evenzo blijkt dat een derde van de mannen een voorkeur heeft voor een Alfa Romeo, tegenover geen van de vrouwen. Het lijkt alsof de onderscheiden automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen. Om dit te staven bepalen we $\chi^{2}$ en Cramér's V. Probeer dit zelf, hetzij in R, hetzij met een rekenblad (Excel, Numbers, LibreOffice Calc)! We vinden:
   \[ \chi^{2} = 22,619 \]
-  \[ V = \sqrt{\frac{22,169}{100 \times (2-1)}}  = 0,476\]
+  \[ V = \sqrt{\frac{22,619}{100 \times (2-1)}}  = 0,476\]
   
   We vinden dus tussen een redelijk sterke tot sterke samenhang.
 \end{example}
@@ -596,11 +596,11 @@ Dit resultaat is opmerkelijk omdat we via de $\chi^2$-toets geen significant ver
 
 In deze sectie bekijken we methoden om na te gaan of er een verband bestaat tussen enerzijds een kwalitatieve variabele (onafhankelijk) en anderzijds een kwantitatieve variabele (afhankelijk). Een onderzoek naar genderongelijkheid bij verloning in de ict-sector is hier een goed voorbeeld van. De onafhankelijke variabele \emph{gender} is nominaal (mogelijke waarden bijvoorbeeld M/V/X), de afhankelijke variabele \emph{netto maandloon} is een ratio-variabele.
 
-De benadering die men typisch gebruikt is om het gemiddelde en/of standaardafwijking van de afhankelijke variabele tussen de verschillende groepen ontstaan uit de onafhankelijke met elkaar te vergelijken. Als de verschillen klein zijn, dan kunnen ze worden toegeschreven aan toevallige steekproeffouten en besluiten we dat er geen verband is. Als de verschillen groot zijn, dan besluiten we dat er \emph{wel} een verband is. Vaak is het bijvoorbeeld nog altijd zo dat mannen significant meer verdienen dan vrouwen voor een gelijkaardige job!
+De benadering die men typisch gebruikt, is om het gemiddelde en/of standaardafwijking van de afhankelijke variabele tussen de verschillende groepen ontstaan uit de onafhankelijke met elkaar te vergelijken. Als de verschillen klein zijn, dan kunnen ze worden toegeschreven aan toevallige steekproeffouten en besluiten we dat er geen verband is. Als de verschillen groot zijn, dan besluiten we dat er \emph{wel} een verband is. Vaak is het bijvoorbeeld nog altijd zo dat mannen significant meer verdienen dan vrouwen voor een gelijkaardige job!
 
-In deze cursus bespreken we de $t$-toets voor 2 steekproeven om te bepalen of er een verschil is tussen twee groepen (zie Sectie~\ref{ssec:t-toets-twee-steekproeven}. Er bestaan statistische toetsen om een groter aantal groepen tegelijk te beschouwen (bijvoorbeeld de ANOVA-toets), maar die vallen buiten het bestek van deze cursus.
+In deze cursus bespreken we de $t$-toets voor 2 steekproeven om te bepalen of er een verschil is tussen twee groepen (zie Sectie~\ref{ssec:t-toets-twee-steekproeven}). Er bestaan statistische toetsen om een groter aantal groepen tegelijk te beschouwen (bijvoorbeeld de ANOVA-toets), maar die vallen buiten het bestek van deze cursus.
 
-Net zoals Cramér's V bij kwalitatieve variabelen bestaan er ook in dit geval metrieken de aangeven hoe sterk het verband is tussen kwalitatieve en kwantitatieve variabelen. In deze context worden die worden vaak onder de noemer \emph{effectgrootte} genoemd. In deze cursus zien we één definitie van effectgrootte, nl.~Cohen's $d$ (zie Sectie~\ref{ssec:cohens-d}. Opnieuw, er bestaan meerdere vormen van effectgrootte, ook geschikt voor variabelen met andere meetniveaus, maar deze vallen ook buiten het bestek van deze cursus.
+Net zoals Cramér's V bij kwalitatieve variabelen bestaan er ook in dit geval metrieken die aangeven hoe sterk het verband is tussen kwalitatieve en kwantitatieve variabelen. In deze context worden die vaak onder de noemer \emph{effectgrootte} genoemd. In deze cursus zien we één definitie van effectgrootte, nl.~Cohen's $d$ (zie Sectie~\ref{ssec:cohens-d}). Opnieuw, er bestaan meerdere vormen van effectgrootte, ook geschikt voor variabelen met andere meetniveaus, maar deze vallen ook buiten het bestek van deze cursus.
 
 \subsection{De \texorpdfstring{$t$}{t}-toets voor twee steekproeven}
 \label{ssec:t-toets-twee-steekproeven}
@@ -674,7 +674,7 @@ In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van
   
   \textbf{Opmerking}: Vermits $\overline{x}-\overline{y}=-12,833$
   kunnen we met 95\% procent zekerheid zeggen dat het verschil van de \textit{\'echte} gemiddelden ($\mu_1-\mu_2$)
-  van een grotere control- en interventiepopulatie tussen $-\infty$ en $-6.044949$ zal liggen.
+  van een grotere controle- en interventiepopulatie tussen $-\infty$ en $-6.044949$ zal liggen.
   Zie paragraaf \ref{ssec:betrouwbaarheidsinterval-grote-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-grote-steekproef})
   en \ref{ssec:betrouwbaarheidsinterval-kleine-steekproef} (p. \pageref{ssec:betrouwbaarheidsinterval-kleine-steekproef})
   over betrouwbaarheidsintervallen.
@@ -750,7 +750,7 @@ John \textcite{Hattie2012}\index{Hattie, John} verzamelt al decennia lang public
 De gemiddelde gerapporteerde effectgrootte ligt rond $d = 0,4$. De aanbeveling van Hattie is dan ook dat scholen die een positief effect op leerresultaten van studenten willen bekomen, best eerst kijken naar de factoren die resulteren in een effectgrootte van minstens 0,4. Als vuistregel kan je stellen dat een interventie met $d = 1$ als gevolg heeft dat de leerstof die normaal op één jaar gezien wordt, op de helft van de tijd kan verwerkt worden. Tabel~\ref{table:effectgrootte} geeft een overzicht van de interpretatie van verschillende waarden voor Cohen's $d$.
 
 \begin{definition}[Cohen's $d$]
-  is gefefinieerd als het verschil tussen twee gemiddelden gedeeld door een standaardafwijking voor de steekproef, meer bepaald:
+  is gedefinieerd als het verschil tussen twee gemiddelden gedeeld door een standaardafwijking voor de steekproef, meer bepaald:
   \begin{equation}
   d = \frac{\overline{x}_1 - \overline{x}_2}{s}
   \end{equation}
@@ -778,7 +778,7 @@ De gemiddelde gerapporteerde effectgrootte ligt rond $d = 0,4$. De aanbeveling v
     2,00 & Reusachtig \\
     \bottomrule
   \end{tabular}
-  \caption{Interpretatie van de absolute waarde van Cohen's $d$. Merk op dat $d$ ook kleiner dan 0 kan zijn, wat wijst een negatief effect van de interventie.}
+  \caption{Interpretatie van de absolute waarde van Cohen's $d$. Merk op dat $d$ ook kleiner dan 0 kan zijn, wat wijst op een negatief effect van de interventie.}
   \label{table:effectgrootte}
 \end{table}
 
@@ -998,7 +998,7 @@ Voor de tweede uitdrukking vinden we
 \begin{example}
   \label{vb:rendieren}
   We kijken naar het voorbeeld van de Kerstman en zijn rendieren. Hij wil zien of er een lineair verband bestaat tussen het eiwitgehalte van het voeder en de gewichtstoename van de rendieren. Hij voert een aantal proeven uit en bekomt de data in tabel \ref{tab:rendieren}. Door toepassing van de formules die hierboven staan bekomt men (zie tabel \ref{tab:rendieren2}):
-  \[ \beta_{1} = \frac{\sum_{i=1}^{n} (x_{i}-\overline{x})(y_{i} - \overline{y})}{\sum_{i=1}^{n} (x-\overline{x})^{2}} = \frac{10990}{2800} = 3.925 \]
+  \[ \beta_{1} = \frac{\sum_{i=1}^{n} (x_{i}-\overline{x})(y_{i} - \overline{y})}{\sum_{i=1}^{n} (x_{i}-\overline{x})^{2}} = \frac{10990}{2800} = 3.925 \]
   \[ \beta_{0} = \overline{y} - \beta_{1} \overline{x} = 307.7143 - 3.925 \times 30 = 189.96 \]
   Men heeft dus een lineair verband gevonden die de kwadraten van de residuen minimaliseert. Let wel, er wordt niets gezegd over de sterkte of validiteit van dit verband. Dit verband wordt getekend in figuur \ref{fig:rendierenFiguur}.
 \end{example}
@@ -1089,7 +1089,7 @@ We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdr
 
 \subsubsection{Bepaling van $R$ en $R^{2}$}
 \label{sec:determinatiecoef}
-Beschouw het voorbeeld in figuur \ref{fig:moederVerband}:  de grootte van een gezin vs. de grootte gezin moeder. We zien duidelijk dat er een linear verband is. Indien we de gemiddelde berekenen en de figuur in 4 kwadranten (kwadrant $I$, $II$, $III$, $IV$) volgens de gemiddelden verdelen krijgen we de figuur in \ref{fig:kwadranten}.  Dan kunnen we volgende situaties bekijken.
+Beschouw het voorbeeld in figuur \ref{fig:moederVerband}:  de grootte van een gezin vs. de grootte van het gezin van de moeder. We zien duidelijk dat er een linear verband is. Indien we de gemiddelde berekenen en de figuur in 4 kwadranten (kwadrant $I$, $II$, $III$, $IV$) volgens de gemiddelden verdelen krijgen we de figuur in \ref{fig:kwadranten}.  Dan kunnen we volgende situaties bekijken.
 
 \begin{itemize}
   \item Neem een element uit gebied I. Voor dit element is $x_{i} - \overline{x}$ positief en $y_{i} - \overline{y}$ ook. Dus is hun product. $(x_{i} - \overline{x}) (y_{i} - \overline{y}) > 0$.
@@ -1132,7 +1132,7 @@ De correlatieco\"effici\"ent is onafhankelijk van de meeteenheid terwijl de cova
 
 \subsubsection{Interpretatie van $R^{2}$}
 
-Als we aannemen dat $x$ niet bijdraagt aan de voorspelling van $y$ dan is de beste voorspelling voor een waarde van $y$ het steekproefgemiddelde $\overline{y}$, dat in figuur \ref{fig:rendierenFiguur3} als een horizontale lijn wordt weergegeven. De verticale lijnstukken zijn de afwijkingen van de waargenomen punten $y$ van deze voorspelling (het steekproefgemiddelde). De som van de kwadraten van deze afwijkingen is:
+Als we aannemen dat $x$ niet bijdraagt aan de voorspelling van $y$, dan is de beste voorspelling voor een waarde van $y$ het steekproefgemiddelde $\overline{y}$, dat in figuur \ref{fig:rendierenFiguur3} als een horizontale lijn wordt weergegeven. De verticale lijnstukken zijn de afwijkingen van de waargenomen punten $y$ van deze voorspelling (het steekproefgemiddelde). De som van de kwadraten van deze afwijkingen is:
 
 \[ SS_{yy} = \sum(y_{i} - \overline{y})^{2} \]
 
@@ -1146,7 +1146,7 @@ Indien we aannemen dat $x$ wel een rol speelt bij de voorspelling van $y$, berek
     \[ SS_{yy} = \sum(y_{i} - \overline{y})^{2} \] en
     \[ SSE_{yy} = \sum(y_{i} - \widehat{y})^{2} \]
     waarbij $\widehat{y}$ de voorspelde waarde is.
-  \item Als $x$ wel bijdraagt tot de voorspelling van $y$ zal $SSE$ kleiner zijn dan $SS_{yy}$. In feite zal
+  \item Als $x$ wel bijdraagt tot de voorspelling van $y$ zal $SSE_{yy}$ kleiner zijn dan $SS_{yy}$. In feite zal
     \[	SSE_{yy} = \sum(y_{i} - \widehat{y})^{2} \]
     gelijk zijn aan nul als alle punten perfect voorspeld worden (en dus op de regressierechte liggen).
 \end{enumerate}
@@ -1268,7 +1268,7 @@ Tabel~\ref{tab:interpretatie-correlatiecoefficient} geeft een overzicht hoe de w
 
 Er bestaan verschillende soorten verbanden tussen variabelen. Wij zijn geïnteresseerd in monotone en lineaire verbanden. We beschikken hier over een correlatieco\"effici\"ent en lineaire regressie. Deze technieken mogen niet met nominale en ordinale variabelen gebruikt worden. Een kleine waarde $(=0)$ voor een maat voor verband betekent alleen dat het overeenkomend verband afwezig is: er kan een ander soort verband aanwezig zijn. Het gebruik van een spreidingsdiagram is dus altijd aan te raden.
 
-Het feit dat twee variabelen gecorreleerd zijn betekent niet dat de ene de oorzaak is van de andere.
+Het feit dat twee variabelen gecorreleerd zijn, betekent niet dat de ene de oorzaak is van de andere.
 
 \section{Samenvatting}
 
@@ -1360,7 +1360,7 @@ De databestanden voor deze oefeningen zijn te vinden op Github (in de directory 
   We willen de relatie onderzoeken tussen enkele discrete (nominale of ordinale) variabelen in deze dataset. Voor elke hieronder opgesomde paren, volg deze stappen:
   
   \begin{enumerate}[label=(\alph*)]
-    \item Denk eerst eens na welke uitkomt je precies verwacht voor de opgegeven combinatie van variabelen.
+    \item Denk eerst eens na welke uitkomst je precies verwacht voor de opgegeven combinatie van variabelen.
     \item Stel een frequentietabel op voor de twee variabelen. De (vermoedelijk) onafhankelijke variabele komt eerst.
     \item Plot een grafiek van de data, bv.~geclusterde staafgrafiek, gestapelde staafgrafiek van relatieve frequenties, of een ``mozaïekgrafiek'' (eenvoudig met \texttt{plot(table(data\$col1, data\$col2))}).
     \item Als je de grafiek bekijkt, verwacht je dan een eerder hoge of eerder lage waarde voor de $\chi^2$-statistiek? Waarom?
@@ -1499,7 +1499,7 @@ De databestanden voor deze oefeningen zijn te vinden op Github (in de directory 
       \item A en H
     \end{itemize}
     
-    \item Ga door middel van een geschikte statistische toets voor na of de verschillen tussen die hierboven opgesomde groepen ook \emph{significant} is. Kunnen we concluderen dat de latere groepen beter scoren of niet?
+    \item Ga door middel van een geschikte statistische toets na of de verschillen tussen de hierboven opgesomde groepen ook \emph{significant} zijn. Kunnen we concluderen dat de latere groepen beter scoren of niet?
   \end{enumerate}
 \end{exercise}
 
