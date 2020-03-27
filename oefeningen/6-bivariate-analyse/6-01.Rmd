@@ -1,0 +1,29 @@
+---
+title: "Oefening 6-01"
+author: "Jens Buysse"
+date: "27/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Opgave
+> Marktonderzoek toont aan dat achtergrondmuziek in een supermarkt invloed kan hebben op het aankoopgedrag van de klanten. In een onderzoek werden drie methoden met elkaar vergeleken: geen muziek, Franse chansons en Italiaanse hits. Telkens werd het aantal verkochte flessen Franse, Italiaanse en andere wijnen geteld.
+De onderzoeksdata bevindt zich in het csv-bestand MuziekWijn. 
+
+### Vragen
+1. Stel de correcte kruistabel op. Gebruik hiervoor het R-commando table om de frequentietabel te bekomen.
+2. Bepaal de marginale totalen.
+3. Bepaal de verwachte resultaten.
+4. Bereken manueel de $\chi^2$ toetsingsgrootheid.
+5. Bereken manueel de Cramer's V. Wat kan je hieruit besluiten?
+
+```{r}
+MuziekWijn <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/MuziekWijn.csv", 
+     col_types = cols(Muziek = col_factor(levels = c("Geen", 
+         "Franse", "Italiaanse")), Wijn = col_factor(levels = c("Franse", 
+         "Italiaanse", "Andere"))))
+```
