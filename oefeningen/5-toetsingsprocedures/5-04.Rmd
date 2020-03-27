@@ -93,6 +93,7 @@ if(p < alpha) {
 ```{r}
 t <- qt(1-alpha, df = n - 1)
 g <- m0 + t * (s / sqrt(n))
+g
 ```
 
 Als $\overline{x} > g$, dan kunnen we $H_0$ verwerpen.

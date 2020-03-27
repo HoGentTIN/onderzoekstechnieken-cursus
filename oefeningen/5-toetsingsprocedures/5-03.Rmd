@@ -37,7 +37,7 @@ ggplot(data = data.frame(x = c(m-4*sn, m+4*sn)), mapping = aes(x)) +
 
 ## Hypothesen
 
-De steekproef is voldoende groot (n > 30) en $\sigma$ is gekend. We gaan hier een rechtszijdige z-toets toepassen. De hypothesen zijn:
+De steekproef is voldoende groot $(n > 30)$ en $\sigma$ is gekend. We gaan hier een rechtszijdige z-toets toepassen. De hypothesen zijn:
 
 \[ H_0: \mu = 44 \]
 \[ H_1: \mu > 44 \]
@@ -47,7 +47,8 @@ De steekproef is voldoende groot (n > 30) en $\sigma$ is gekend. We gaan hier ee
 > Gebruik methode van kritieke grenswaarde.
 
 ```{r}
-g <- m + qnorm(1-a) * s/sqrt(n)
+sn <- s/sqrt(n)
+g <- m + qnorm(1-a) * sn
 g
 
 sn <- s/sqrt(n)
@@ -76,3 +77,54 @@ De overschrijdingskans is kleiner dan het significantieniveau ($p < \alpha$) dus
 > Geef een interpretatie wat de betekenis is van $\alpha = 2,5\%$.
 
 Het significantieniveau bepaalt de kans op een fout van Type I als we veronderstellen dat de nulhypothese waar is. M.a.w. dit is de kans, als $H_0$ waar is, dat we toch een steekproef nemen met zulke extreme waarden dat het steekproefgemiddelde toch in het kritieke gebied zou liggen.
+
+# Extra opgave
+Wat als het steekproefgemiddelde $\overline(x) = 42$? Is er dan genoeg bewijs gevonden om te zeggen dat het populatiegmiddelde niet gelijk is aan 44? Doe dit voor een $\alpha = 0.03$
+
+## Bepalen van $H_0$ en $H_1$ 
+
+- $H_0 = \mu = 44$
+- $H_1 = \mu < 44$
+
+## Bepalen van de waardes
+
+
+```{r }
+m <- 44     # Populatiegemiddelde
+s <- 6.2    # Populatiestandaardafwijking
+a <- 0.03  # Significantieniveau
+
+n <- 72     # Steekproefgrootte
+sm <- 42  # Steekproefgemiddeldes
+sn <- s/sqrt(n)
+
+```
+
+We gaan dit doen via de p-waarde en kritieke gebied
+```{r }
+p <- pnorm(sm, m, sn)
+p
+if(p < a) {
+  print("H0 verwerpen")
+} else {
+  print("H0 niet verwerpen")
+}
+
+# Kritieke grenswaarde
+g <- m - qnorm(1-a) * sn
+g
+if(sm < g) {
+  print("H0 verwerpen")
+} else {
+  print("H0 niet verwerpen")
+}
+
+sn <- s/sqrt(n)
+ggplot(data = data.frame(x = c(m-4*sn, m+4*sn)), mapping = aes(x)) +
+  stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = sn)) +
+  geom_vline(xintercept = m) +
+  geom_vline(xintercept = sm, color = "orange") +
+  geom_vline(xintercept = g, color = "red")
+```
+
+

@@ -213,9 +213,9 @@ ggplot(data = sample_data, mapping = aes(x = Money)) +
   stat_function(fun = dnorm,
                 args = list(mean = mu, sd = sigma),
                 color = "blue") +
-   # stat_function(fun = dnorm,
-    #            args = list(mean = mu, sd = sigma/sqrt(n)),
-     #           color = "red") + Deze is de distributie voor het steekproefgemiddelde maar samen in de tekening is dit niet mooi
+    #stat_function(fun = dnorm,
+                #args = list(mean = mu, sd = sigma/sqrt(n)),
+                #color = "red") + #Deze is de distributie voor het steekproefgemiddelde maar samen in de tekening is dit niet mooi
   geom_vline(xintercept = mean(sample_data$Money),
              color = "orange", linetype = "dashed")
 ```

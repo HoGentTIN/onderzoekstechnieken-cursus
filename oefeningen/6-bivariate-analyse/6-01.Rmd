@@ -7,23 +7,230 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
 library(tidyverse)
+library(dplyr)
+library(ggpubr)
+library(ggthemes)
+theme_stata()
 ```
 
-## Opgave
+# Opgave
 > Marktonderzoek toont aan dat achtergrondmuziek in een supermarkt invloed kan hebben op het aankoopgedrag van de klanten. In een onderzoek werden drie methoden met elkaar vergeleken: geen muziek, Franse chansons en Italiaanse hits. Telkens werd het aantal verkochte flessen Franse, Italiaanse en andere wijnen geteld.
 De onderzoeksdata bevindt zich in het csv-bestand MuziekWijn. 
 
-### Vragen
+## Vragen
 1. Stel de correcte kruistabel op. Gebruik hiervoor het R-commando table om de frequentietabel te bekomen.
 2. Bepaal de marginale totalen.
 3. Bepaal de verwachte resultaten.
 4. Bereken manueel de $\chi^2$ toetsingsgrootheid.
 5. Bereken manueel de Cramer's V. Wat kan je hieruit besluiten?
 
+We beginnen met de dataset in te lezen. Let op dat er factors gebruikt worden als type van variabele. Dit de interne voorstelling van nominale of ordinale variabelen in R. Voor meer info zie: [deze link](https://swcarpentry.github.io/r-novice-inflammation/12-supp-factors/)
 ```{r}
-MuziekWijn <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/MuziekWijn.csv", 
+
+muziekwijn <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/MuziekWijn.csv", 
      col_types = cols(Muziek = col_factor(levels = c("Geen", 
          "Franse", "Italiaanse")), Wijn = col_factor(levels = c("Franse", 
          "Italiaanse", "Andere"))))
 ```
+
+We gaan de kruistabel opstellen
+```{r }
+observed <- table(muziekwijn$Muziek, muziekwijn$Wijn)
+# Kruistabel van de geobserveerde waarden
+observed
+# We kunnen ook aggregeren in een data-frame: per combinatie schrijven we het aantal elementen uit
+agg <- count(muziekwijn,Muziek,Wijn)
+agg
+```
+
+```{r }
+# Je kan ook een kruistabel opstellen via xtabs, met de titels erbij
+tabel <- xtabs(n ~ Muziek + Wijn, data = agg)
+tabel
+```
+
+
+Er wordt gevraagd om de marginale totalen te bepalen:
+```{r}
+addmargins(tabel)
+
+row_sums <- rowSums(tabel)              # rijtotalen
+col_sums <- colSums(tabel)              # kolomtotalen
+```
+
+## Visualisatie van de data
+We kunnen de frequenties per variabele tonen, bijvoorbeeld per muziek. 
+```{r }
+ggplot(muziekwijn) + geom_bar(aes(x = Muziek)) +
+  ylab("hoeveelheid gekochte wijn")+
+  xlab("afgespeelde muziek")+
+  theme_economist()+ scale_fill_economist()
+
+ggplot(muziekwijn) + geom_bar(aes(x = Wijn))+ 
+  ylab("hoeveelheid gekochte wijn")+
+  xlab("afgespeelde muziek")+
+ theme_economist()+ scale_fill_economist()
+
+#
+# Het is beter als je een nominale variabele plot, om die stijgend/dalend te noteren
+ggplot(mutate(muziekwijn, Muziek = fct_infreq(Muziek)))+
+  geom_bar(aes(x = Muziek))+
+  ylab("hoeveelheid gekochte wijn")+
+  xlab("afgespeelde muziek")+
+  theme_economist()+ scale_fill_economist()
+
+ggplot(mutate(muziekwijn, Wijn = fct_infreq(Wijn))) + geom_bar(aes(x = Wijn))+
+ theme_economist()+ scale_fill_economist()
+```
+
+Het is natuurlijk interessant om de variabele opgesplits te zijn per categorie. We opteren hier voor zowel een **stacked bar chart** als een **geclusterde bar chart**. We zetten deze mooi naast elkaar. Het is aan de onderzoeker om te kiezen welke grafiek (hoewel ze dezelfde data vormgeven) het beste de data voorstelt. 
+```{r }
+# We ordenen eerst de data
+agg_ord <- mutate(agg,
+                  Muziek = reorder(Muziek, -n, sum),
+                  Wijn = reorder(Wijn, -n, sum))
+p1 <- ggplot(agg_ord) +
+      geom_col(aes(x = Muziek, y = n, fill = Wijn))+
+      ylab("hoeveelheid gekochte wijn")+
+      xlab("afgespeelde muziek")+
+  theme_economist()+ scale_fill_economist()
+
+p2 <- ggplot(agg_ord) +
+      geom_col(aes(x = Muziek, y = n, fill = Wijn), position = "dodge")+
+      ylab("hoeveelheid gekochte wijn")+
+      xlab("afgespeelde muziek")+
+  theme_economist()+ scale_fill_economist()
+p1
+p2
+```
+
+In dit geval vind ik dat de geclusterde bar chart het best aantoont dat het afspelen van muziek een invloed heeft op het kopen van de wijn. Je ziet bv. de stijging van aankoop van Franse wijn duidelijk bij het afspelen van Franse muziek doordat de bar vergroot is.
+
+De bovenstaande grafieken hebben de aantallen vormgegeven, maar het is ook interessant te kijken naar de proporties. Hiervoor maken we gebruik van **stacked** bar charts, waar we proportioneel kunnen zien hoeveel wijn er gekocht is per afgespeelde muziek. 
+```{r }
+ggplot(agg) +
+geom_col(aes(x = Muziek, y = n, fill = Wijn), position = "fill")+
+  theme_economist()+ scale_fill_economist()
+
+```
+Als laatste kan je ook gebruik maken van een **balloon plot**
+```{r}
+ggballoonplot(agg_ord)+
+  ylab("hoeveelheid gekochte wijn")+
+  xlab("afgespeelde muziek")+
+  theme_economist()+ scale_fill_economist()
+```
+
+Hoewel deze grafiek er mooi en "cool" uitziet is het niet erg duidelijk: de spreiding op de waardes is te klein om duidelijke verschillen aan te tonen, waardoor ik deze grafiek niet zou gebruiken in mijn documentatie. 
+
+Als toetje bekijken we nog eens de *waffle* package, die ook een interessante vorm van grafiek kan genereren, doch misschien eerder iets mer commerci??le waarde.
+ 
+TODO
+
+## Berekenen van de statistieken
+
+Bij een $\chi^2$ toets wordt er van volgende hypotheses uitgegaan:
+
+- $H_0$ er is geen significante samenhang tussen de variabelen
+- $H_1$ er is een significant samenhang tussen de variabelen
+
+Er wordt gevraagd de verwachte resultaten te berekenen, op voorwaarde dat $H_0$ waar is. Dat is de absolute frequentie die je in deze cel zou verwachten als je veronderstelt dat er helemaal geen samenhang is tussen de variabelen. Deze kan je bereken als volgt:
+\[ e = \frac{\text{rijtotaal} \times \text{kolomtotaal}}{n} \]
+
+```{r}
+n <- sum(observed)                         # totaal hele tabel
+expected <- outer(row_sums, col_sums) / n  # verwachte waarden
+expected
+```
+Er word gevraagd manueel de $\chi^2$ grootheid te bepalen.
+Dit komt overeen met de formule
+
+\[ \chi^2 = \sum_i \frac{(o_i -e_i)^2}{e}\]
+
+```{r}
+chisq <- sum((observed - expected)^2 / expected)
+chisq
+```
+Er word ook gevraagd om Cramer's V te bepalen
+
+\[ V = \sqrt{\frac{\chi^2}{n \times (k-1)}}\] met
+- $n$ het aantal waarnemingen
+- $k$ = de kleinste waarde van het aantal kolommen of het aantal rijen van de tabel.
+```{r}
+k <- min(nrow(observed), ncol(observed))
+cramers_v <- sqrt(chisq / ((k - 1) * n))
+cramers_v
+```
+
+Bovenstaande elementen tonen aan **hoe** we gevraagde statistieken berekenen, maar we moeten ze nog juist toepassen in een toets.
+Laten we deze eens volledig uitvoeren.
+
+## Uitvoeren van de toets
+
+#### Bepalen hypotheses
+- $H_0$ er is geen significante samenhang tussen de variabelen
+- $H_1$ er is een significant samenhang tussen de variabelen
+
+#### Bepalen significantieniveau
+```{r }
+observed <- table(muziekwijn$Muziek, muziekwijn$Wijn)
+a <- 0.05
+```
+#### Bereken de waarde toetsingsgrootheid
+```{r }
+# Hadden we in vorige stap al gedaan
+chisq
+```
+#### Bereken aantal vrijheidsgraden
+```{r}
+k <- (nrow(observed)-1) * (ncol(observed)-1)
+k
+```
+#### Bepaal kritieke grenswaarde
+```{r }
+g <- qchisq(1-a,k)
+g
+```
+#### Bepaal de p-waarde
+```{r }
+p <- pchisq(chisq,k,lower.tail = FALSE )
+p
+```
+#### Besluiten nemen
+```{r }
+if(p < a){
+  print("We kunnen H_0 verwerpen")
+}else{
+  print("We kunnen H_0 NIET verwerpen")
+}
+
+# of
+
+if(chisq > g){
+  print("We kunnen H_0 verwerpen")
+}else{
+  print("We kunnen H_0 NIET verwerpen")
+}
+```
+
+
+Er is dus wel degelijk een significant verband tussen het afspelen van een type muziek en het afspelen van een type muziek. 
+
+In R is dit ook gewoon mogelijk via de **vcd** package:
+```{r }
+library(vcd)
+model1 <- assocstats(observed)
+# Of
+model2 <- chisq.test(observed)
+
+model1 
+model2
+model2$expected
+model2$p.value
+```
+
+
+
+
