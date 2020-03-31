@@ -373,6 +373,57 @@
   \[ \chi^{2} = 3.811, V= 0.279 \]
 \end{frame}
 
+\section{Cramér's V}
+
+\begin{frame}
+  \frametitle{Cramér's V}
+  
+  \alertbox{Cramér's V is een maat die aanduidt hoe sterk de samenhang is tussen twee kwalitatieve variabelen. Dit getal ligt altijd tussen 0 en 1}
+  
+  \[ V = \sqrt{\frac{\chi^2}{n (k - 1)}} \]
+  
+  $n$: het aantal waarnemingen
+  
+  $k$: min(aantal rijen, aantal kolommen)
+\end{frame}
+
+\begin{frame}
+  \frametitle{Interpretatie Cramér's V}
+  
+  \begin{table}[h] \centering
+    \begin{tabular}{@{}rr@{}} \toprule
+      Waarde & Interpretatie \\
+      \midrule
+      $0$ & geen samenhang \\
+      $0.1$ &  zwakke samenhang \\
+      $0.25$ & redelijk sterke samenhang \\
+      $0.5$ & sterke samenhang \\
+      $0.75$ & zeer sterke samenhang \\
+      $1$ & volledige samenhang \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voorbeeld 2}
+  \framesubtitle{Verband tussen geslacht en voorkeur automerk}
+  
+  \begin{table}[h] \centering
+    \begin{tabular}{@{}rrrrrr@{}} \toprule
+      & Mercedes & BMW & Porsche& Alfa Romeo & Totaal \\
+      \midrule
+      Mannen  & $10$ & $10$ & $20$ & $20$ & $60$ \\
+      Vrouwen & $20$ & $5$  & $15$ & $0$  & $40$ \\
+      Totaal  & $30$ & $15$ & $35$ & $20$ & $100$ \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  Het lijkt alsof de automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen.
+  \[ \chi^{2} = 22.619, V = \sqrt{\frac{22.169}{100 . (2-1)}}  = 0.476\]
+\end{frame}
+
+
 \section{Chi-kwadraattoets voor één variabele}
 
 \begin{frame}
@@ -818,56 +869,6 @@
   \end{columns}
   Voor een causale interpretatie van de gegevens (het betreft hier immers geen experiment), moeten we op zijn minst de beschikking hebben over een theorie die de relatie tussen roken en longkanker expliciteert.
   
-\end{frame}
-
-\section{Cramér's V}
-
-\begin{frame}
-  \frametitle{Cramér's V}
-  
-  \alertbox{Cramér's V is een maat die aanduidt hoe sterk de samenhang is tussen twee kwalitatieve variabelen. Dit getal ligt altijd tussen 0 en 1}
-  
-  \[ V = \sqrt{\frac{\chi^2}{n (k - 1)}} \]
-  
-  $n$: het aantal waarnemingen
-  
-  $k$: min(aantal rijen, aantal kolommen)
-\end{frame}
-
-\begin{frame}
-  \frametitle{Interpretatie Cramér's V}
-  
-  \begin{table}[h] \centering
-    \begin{tabular}{@{}rr@{}} \toprule
-      Waarde & Interpretatie \\
-      \midrule
-      $0$ & geen samenhang \\
-      $0.1$ &  zwakke samenhang \\
-      $0.25$ & redelijk sterke samenhang \\
-      $0.5$ & sterke samenhang \\
-      $0.75$ & zeer sterke samenhang \\
-      $1$ & volledige samenhang \\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Voorbeeld 2}
-  \framesubtitle{Verband tussen geslacht en voorkeur automerk}
-  
-  \begin{table}[h] \centering
-    \begin{tabular}{@{}rrrrrr@{}} \toprule
-      & Mercedes & BMW & Porsche& Alfa Romeo & Totaal \\
-      \midrule
-      Mannen  & $10$ & $10$ & $20$ & $20$ & $60$ \\
-      Vrouwen & $20$ & $5$  & $15$ & $0$  & $40$ \\
-      Totaal  & $30$ & $15$ & $35$ & $20$ & $100$ \\
-      \bottomrule
-    \end{tabular}
-  \end{table}
-  Het lijkt alsof de automerken niet gelijkelijk gewaardeerd worden door mannen en vrouwen.
-  \[ \chi^{2} = 22.619, V = \sqrt{\frac{22.169}{100 . (2-1)}}  = 0.476\]
 \end{frame}
 
 \section{Grafieken voor kruistabellen}
