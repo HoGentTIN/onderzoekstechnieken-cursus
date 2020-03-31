@@ -157,7 +157,7 @@ The *goodness of fit test* is suitable to answer this type of question. The proc
 
 1. Formulate the hypotheses:
     - $H_0$: the sample is representative for the population (i.e. the proportions of each class in the sample closely matches those of the population)
-    - $H_0$: the sample is **not** representative for the population (i.e. the proportions diverge *significantly*)
+    - $H_1$: the sample is **not** representative for the population (i.e. the proportions diverge *significantly*)
 2. Determine a significance level, e.g. $\alpha = 0.05$ and the sample size
 
     ```{r}
@@ -374,7 +374,7 @@ df_exer_smoke
 
 ### Cochran's rule
 
-A chi-squared test only gives good results if you have enough observations in each category. A rule of thumb four what exactly is *enough* was formulated by Cochran, and applies to contingency tables larger than 2x2:
+A chi-squared test only gives good results if you have enough observations in each category. A rule of thumb for what exactly is *enough* was formulated by Cochran, and applies to contingency tables larger than 2x2:
 
 * All expected values should be at least 1
 * At most 20% of the expected values should be below 5
