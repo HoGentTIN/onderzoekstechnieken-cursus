@@ -115,6 +115,7 @@ geom_col(aes(x = Muziek, y = n, fill = Wijn), position = "fill")+
   theme_economist()+ scale_fill_economist()
 
 ```
+
 Als laatste kan je ook gebruik maken van een **balloon plot**
 ```{r}
 ggballoonplot(agg_ord)+
@@ -125,7 +126,7 @@ ggballoonplot(agg_ord)+
 
 Hoewel deze grafiek er mooi en "cool" uitziet is het niet erg duidelijk: de spreiding op de waardes is te klein om duidelijke verschillen aan te tonen, waardoor ik deze grafiek niet zou gebruiken in mijn documentatie. 
 
-Als toetje bekijken we nog eens de *waffle* package, die ook een interessante vorm van grafiek kan genereren, doch misschien eerder iets mer commerci??le waarde.
+Als toetje bekijken we nog eens de *waffle* package, die ook een interessante vorm van grafiek kan genereren, doch misschien eerder iets meer commerciële waarde.
  
 TODO
 
@@ -216,7 +217,7 @@ if(chisq > g){
 ```
 
 
-Er is dus wel degelijk een significant verband tussen het afspelen van een type muziek en het afspelen van een type muziek. 
+Er is dus wel degelijk een significant verband tussen het afspelen van een type muziek en het kopen van een type wijn. 
 
 In R is dit ook gewoon mogelijk via de **vcd** package:
 ```{r }
