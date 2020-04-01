@@ -1,0 +1,249 @@
+---
+title: "Oefening 6-04"
+author: "Bert Van Vreckem"
+date: "2020-04-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(vcd)
+library(ggmosaic)
+```
+
+> Voor deze oefening maken we gebruik van de dataset `survey` die is meegeleverd met R. De dataset is samengesteld uit een bevraging onder studenten. Om deze te laden,doe het volgende:
+
+```{r}
+library(MASS)
+glimpse(survey)
+
+# Make Exer and Smoke into ordinal variables, i.e. with ordering
+survey$Exer <- factor(survey$Exer,
+  levels = c("None", "Some", "Freq"))
+survey$Smoke <- factor(survey$Smoke, 
+  levels = c("Never", "Occas", "Regul", "Heavy"))
+```
+
+> Je kan de hele dataset bekijken met `View(survey)`, en uitleg over de inhoud van de dataset met `?survey`.
+
+> We willen de relatie onderzoeken tussen enkele kwalitatieve (nominale of ordinale) variabelen in deze dataset. Voor elke hieronder opgesomde paren, volg deze stappen:
+
+> - Denk eerst eens na welke uitkomst je precies verwacht voor de opgegeven combinatie van variabelen.
+> - Stel een frequentietabel op voor de twee variabelen. De (vermoedelijk) onafhankelijkevariabele komt eerst.
+> - Plot een grafiek die het verband tussen beide variabelen visualiseert.
+> - Als je de grafiek bekijkt, verwacht je dan een eerder hoge of eerder lage waarde voor de $\chi^2$-statistiek? Waarom?
+> - Voer de $\chi^2$-toets uit om te bepalen of er een verband is tussen beide variabelen. Bereken de $\chi^2$-statistiek, de kritiege grenswaarde $g$ en de $p$-waarde, telkens voor significantieniveau $\alpha = 0.05$.
+> - Moeten we de nulhypothese aanvaarden en verwerpen? Wat betekent dat precies voor het verband tussen de twee variabelen?
+> - Bereken Cramér's V. Kom je tot een gelijkaardige conclusie als bij de $\chi^2$-toets?
+
+De te onderzoeken variabelen:
+
+| Onafhankelijke variabele | Afhankelijke variabele                     |
+|:-------------------------|:-------------------------------------------|
+| `Exer` (sporten)         | `Smoke` (rookgedrag)                       |
+| `Sex` (gender)           | `Smoke`                                    |
+| `W.Hnd` (dominante hand) | `Fold` (bovenste hand als je armen kruist) |
+| `Sex`                    | `W.Hnd`                                    |
+
+
+# Exer vs Smoke
+
+We stellen eerst de kruistabel op (eerst de afhankelijke, daarna de onafhankelijke variabele):
+
+```{r}
+exer_smoke <- table(survey$Smoke, survey$Exer)
+addmargins(exer_smoke)
+```
+
+## Visualisatie
+
+Mozaïekplot van de kruistabel:
+
+```{r}
+ggplot(data = survey) +
+    geom_mosaic(mapping = aes(x = product(Exer), fill = Smoke))
+```
+
+De grafiek geeft aan dat de verhoudingen van het rookgedrag binnen elke categorie van de variabele `Sport` gelijkaardig is. We verwachten dus een relatief kleine $\chi^2$ en een zwak verband.
+
+## Chi-kwadraattoets
+
+De $\chi^2$-toets verloopt als volgt:
+
+1. De hypothesen:
+
+    - $H_0:$ Er is geen verband tussen `Exer` en `Smoke`
+    - $H_1:$ Er is een verband tussen `Exer` en `Smoke`
+
+2. Bereken de teststatistiek
+
+    ```{r}
+    smoke_exer_test <- chisq.test(
+        survey$Smoke, 
+        survey$Exer)
+
+    smoke_exer_test$statistic
+    ```
+
+3. Bereken de kritieke grenswaarde
+
+    ```{r}
+    alpha <- 0.05
+    l <- (length(levels(survey$Smoke)) - 1) *
+        (length(levels(survey$Exer)) - 1)
+            
+    g <- qchisq(p = 1 - alpha, df = l)
+    g
+    ```
+
+4. Bereken de overschrijdingskans
+
+    ```{r}
+    smoke_exer_test$p.value
+    ```
+
+5. Conclusie.
+
+    ```{r}
+    # Critical value $g$
+    paste(ifelse(smoke_exer_test$statistic < g, "Accept", "Reject"), "the null hypothesis")
+    # Probability value $p$
+    paste(ifelse(smoke_exer_test$p.value > alpha, "Accept", "Reject"), "the null hypothesis")
+    ```
+
+    $\chi^2 < g$ en $p > \alpha$, dus we kunnen de nulhypothese niet verwerpen. Er is bijgevolg geen significant verband tussen de hoeveelheid beweging iemand neemt (`Sport`) en rookgedrag (`Smoke`).
+
+Plot van deze casus (groen: $\chi^2$, blauw: $g$):
+
+```{r}
+xvals <- seq(0, 15, length=200)
+ggplot(mapping = aes(x = xvals)) +
+  stat_function(fun = dchisq, args = list(df = l)) +
+  geom_vline(xintercept = g, color = "blue") +
+  annotate("text", x = g, y = .05,
+           label = g, color = "blue") +
+  geom_vline(xintercept = smoke_exer_test$statistic, color = "green") +
+  annotate("text", x = smoke_exer_test$statistic, y = .02, 
+           label = smoke_exer_test$statistic, color = "green")
+```
+
+## Cramér's V
+
+```{r}
+assocstats(exer_smoke)
+```
+
+Cramér's V is laag ($V = 0,108$), wat duidt op een zwak verband. Dit stemt overeen met het resultaat van de $\chi^2$-test.
+
+# Sex vs Smoke
+
+
+We stellen eerst de kruistabel op (eerst de afhankelijke, daarna de onafhankelijke variabele):
+
+```{r}
+gender_smoke <- table(survey$Smoke, survey$Sex)
+addmargins(gender_smoke)
+```
+
+## Visualisatie
+
+Mozaïekplot van de kruistabel:
+
+```{r}
+ggplot(data = survey) +
+    geom_mosaic(mapping = aes(x = product(Sex), fill = Smoke))
+```
+
+De grafiek geeft aan dat de verhoudingen van het rookgedrag binnen elke categorie van de variabele `Sex` gelijkaardig is. We verwachten dus een relatief kleine $\chi^2$ en een zwak verband.
+
+## Chi-kwadraattoets
+
+De $\chi^2$-toets verloopt als volgt:
+
+1. De hypothesen:
+
+    - $H_0:$ Er is geen verband tussen `Sex` en `Smoke`
+    - $H_1:$ Er is een verband tussen `Sex` en `Smoke`
+
+2. Bereken de teststatistiek
+
+    ```{r}
+    gender_smoke_test <- chisq.test(
+        survey$Smoke, 
+        survey$Sex)
+
+    gender_smoke_test$statistic
+    ```
+
+3. Bereken de kritieke grenswaarde
+
+    ```{r}
+    alpha <- 0.05
+    l <- (length(levels(survey$Smoke)) - 1) *
+        (length(levels(survey$Sex)) - 1)
+            
+    g <- qchisq(p = 1 - alpha, df = l)
+    g
+    ```
+
+4. Bereken de overschrijdingskans
+
+    ```{r}
+    gender_smoke_test$p.value
+    ```
+
+5. Conclusie.
+
+    ```{r}
+    # Critical value $g$
+    paste(ifelse(gender_smoke_test$statistic < g, "Accept", "Reject"), "the null hypothesis")
+    # Probability value $p$
+    paste(ifelse(gender_smoke_test$p.value > alpha, "Accept", "Reject"), "the null hypothesis")
+    ```
+
+    $\chi^2 < g$ en $p > \alpha$, dus we kunnen de nulhypothese niet verwerpen. Er is bijgevolg geen significant verband tussen gender (`Sex`) en rookgedrag (`Smoke`).
+
+Plot van deze casus (groen: $\chi^2$, blauw: $g$):
+
+```{r}
+xvals <- seq(0, 15, length=200)
+ggplot(mapping = aes(x = xvals)) +
+  stat_function(fun = dchisq, args = list(df = l)) +
+  geom_vline(xintercept = g, color = "blue") +
+  annotate("text", x = g, y = .05,
+           label = g, color = "blue") +
+  geom_vline(xintercept = smoke_exer_test$statistic, color = "green") +
+  annotate("text", x = smoke_exer_test$statistic, y = .02, 
+           label = smoke_exer_test$statistic, color = "green")
+```
+
+## Cramér's V
+
+```{r}
+assocstats(exer_smoke)
+```
+
+Cramér's V is laag ($V = 0,108$), wat duidt op een zwak verband. Dit stemt overeen met het resultaat van de $\chi^2$-test.
+
+# W.Hnd vs Fold
+
+Deze oefening doen we iets compacter.
+
+```{r}
+whnd_fold <- table(survey$Fold, survey$W.Hnd)
+chisq.test(whnd_fold)
+assocstats(whnd_fold)
+```
+
+Opnieuw is er geen/erg zwak verband.
+
+# Sex vs W.Hnd
+
+```{r}
+gender_whnd <- table(survey$W.Hnd, survey$Sex)
+chisq.test(gender_whnd)
+assocstats(gender_whnd)
+```
+
+Opnieuw is er geen/erg zwak verband.
