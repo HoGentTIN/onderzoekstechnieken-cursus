@@ -310,13 +310,15 @@
   
   \alertbox{Covariantie is een maat die aangeeft of een verband tussen twee variabelen stijgend dan wel dalend is.}
   
-  \[ \mathrm{Cov}(X, Y) = \frac{1}{n} \sum_{i = 1}^{n} (x_i - \overline{x}) (y_i - \overline{y}) \]
+  \[ \mathrm{Cov}(X, Y) = \frac{1}{n-1} \sum_{i = 1}^{n} (x_i - \overline{x}) (y_i - \overline{y}) \]
   
   $\mathrm{Cov} > 0$: stijgend
   
   $\mathrm{Cov} \approx 0$: geen verband
   
   $\mathrm{Cov} < 0$: dalend
+
+  \strong{Opm.} Covariantie van populatie (noemer $n$) vs. steekproef (noemer $n-1$)
 \end{frame}
 
 \begin{frame}
@@ -346,7 +348,7 @@
 \tikzset{small dot/.style={fill=black, circle,scale=0.2}}
 \tikzset{every pin/.style={draw=black,fill=yellow!10}}
 
-\begin{frame}
+\begin{frame}[plain]
   \frametitle{Covariantie bij lineair verband}
   \centering
   \begin{tikzpicture}
@@ -372,9 +374,10 @@
   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[plain]
   \frametitle{Covariantie bij willekeurigheid}
   \centering
+  \footnotesize
   \begin{tikzpicture}
   \begin{axis}[
   axis x line=middle,
@@ -396,6 +399,7 @@
   \addplot[only marks] table  {data/families2.txt};
   \end{axis}
   \end{tikzpicture}
+  
   We vinden $\overline{x} = 1942.625$ en $\overline{y} = 3.4375$.
 \end{frame}
 

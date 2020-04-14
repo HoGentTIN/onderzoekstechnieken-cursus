@@ -1150,20 +1150,22 @@ We hebben dus een maat gevonden om het verband tussen twee variabelen te meten:
 We kunnen deze maat onafhankelijk maken van de grootte van de steekproef door te delen door de steekproefgrootte $n$. Dit noemen we de co-variantie en wordt gedefinieerd als gemeenschappelijke spreiding:
 
 \begin{equation}
-  Cov(X,Y) = \frac{\sum_{i}^{n}(x_{i} - \overline{x}) (y_{i} - \overline{y})}{n}
+  Cov(X,Y) = \frac{\sum_{i}^{n}(x_{i} - \overline{x}) (y_{i} - \overline{y})}{n - 1}
   \label{eq:covariantie}
 \end{equation}
 
 Dit geeft ons de gemiddelde afwijking per meetpunt.
 
+Merk op dat bij de covariantie, net als bij de variantie, een onderscheid gemaakt wordt tussen de covariantie van een populatie (met noemer $n$) en de steekproef (noemer $n-1$). In de praktijk ga je er van uit dat je met een steekproef te maken hebt, dus zal je meestal de formule met $n-1$ in de noemer gebruiken. Ook de R-functie \texttt{cov()} gebruikt deze definitie.
+
 Om opnieuw te normaliseren (een variatie in X is niet per se van dezelfde grootteorde als een variatie in Y) gaan we de maatstaf voor het gezamelijk vari\"eren onafhankelijk maken van het aantal waarnemingen en de orde van grootte van de getalswaarden. Zo kunnen we deze waarden universeel vergelijkbaar maken. Daarom delen we de co-variantie door het product van de standaardafwijkingen en noemen we de relatieve co-variantie of Pearson's correlatieco\"effici\"ent ook bekend als product-moment-correlatieco\"effici\"ent of kortweg als correlatieco\"effici\"ent.
 
-\begin{eqnarray}
-  R &=&\frac{COV(X,Y)}{\sigma_{x}\sigma_{y}} \\
-  &=& \frac{COV(X,Y)}{\sqrt{\frac{\sum(x_{i} - \overline{x})^{2}}{n}} \times \sqrt{\frac{\sum(y_{i} - \overline{y})^{2}}{n}}} \\
-  &=& \frac{\sum_{i}^{n}(x_{i}-\overline{x})(y_{i} - \overline{y})}{\sqrt{\sum_{i}^{n} (x_{i}-\overline{x})^{2}} \sqrt{\sum_{i}^{n} (y_{i}-\overline{y})^{2}}}
+\begin{align}
+  R &=\frac{COV(X,Y)}{\sigma_{x}\sigma_{y}} \\
+    &= \frac{COV(X,Y)}{\sqrt{\frac{\sum(x_{i} - \overline{x})^{2}}{n-1}} \times \sqrt{\frac{\sum(y_{i} - \overline{y})^{2}}{n-1}}} \\
+    &= \frac{\sum_{i}^{n}(x_{i}-\overline{x})(y_{i} - \overline{y})}{\sqrt{\sum_{i}^{n} (x_{i}-\overline{x})^{2}} \sqrt{\sum_{i}^{n} (y_{i}-\overline{y})^{2}}}
   \label{eq:relCovar}
-\end{eqnarray}
+\end{align}
 
 De correlatieco\"effici\"ent is onafhankelijk van de meeteenheid terwijl de covariantie afhankelijk is van de meeteenheid.
 
