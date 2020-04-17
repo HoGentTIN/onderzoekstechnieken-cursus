@@ -647,7 +647,7 @@ De $t$-toets die geïntroduceerd werd in Sectie~\ref{sec:t-toets} kan ook gebrui
 Men maakt onderscheid tussen twee gevallen:
 
 \begin{itemize}
-  \item Beide steekproeven zijn onafhankelijk, zijn afzonderlijk genomen. Een voorbeeld is een onderzoek naar een medische behandelingsmethode waar een contolegroep de behandeling \emph{niet} krijgt en een testgroep de behandeling wel krijgt.
+  \item Beide steekproeven zijn onafhankelijk, zijn afzonderlijk genomen. Een voorbeeld is een onderzoek naar een medische behandelingsmethode waar een controlegroep de behandeling \emph{niet} krijgt en een testgroep de behandeling wel krijgt.
   \item De steekproeven zijn afhankelijk, of gepaard. Een voorbeeld is twee metingen uitvoeren op hetzelfde lid van de populatie, zoals de koorts nemen voor en na het innemen van een medicijn om het effect ervan te meten.
 \end{itemize}
 
@@ -659,8 +659,7 @@ In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van
   Zes deelnemers kregen een medicijn toegekend (interventiegroep) en zes anderen een placebo (controlegroep). Vervolgens werd hun reactietijd op een stimulus gemeten (in ms). We willen nagaan of er significante verschillen zijn tussen de interventie- en controlegroep.
   
   \textbf{Opmerking}: De interventiegroep en de controle groep zijn hier toevallig even groot (elk 6 proefpersonen).
-  Dit is niet noodzakelijk. Bij een onafhankelijke (niet-gepaarde) steekproeven
-  mogen de 2 groepen een verschillende grootte hebben.
+  Dit is niet noodzakelijk. Bij onafhankelijke (niet-gepaarde) steekproeven mogen de 2 groepen een verschillende grootte hebben.
   
   \begin{itemize}
     \item Controlegroep: 91, 87, 99, 77, 88, 91 ~~~~~~~~~~~~($\overline{x}=88,83$)
@@ -1129,10 +1128,10 @@ We kunnen twee statistieken bepalen die de sterkte van een lineair verband uitdr
 Beschouw het voorbeeld in figuur \ref{fig:moederVerband}:  de grootte van een gezin vs. de grootte van het gezin van de moeder. We zien duidelijk dat er een linear verband is. Indien we de gemiddelde berekenen en de figuur in 4 kwadranten (kwadrant $I$, $II$, $III$, $IV$) volgens de gemiddelden verdelen krijgen we de figuur in \ref{fig:kwadranten}.  Dan kunnen we volgende situaties bekijken.
 
 \begin{itemize}
-  \item Neem een element uit gebied I. Voor dit element is $x_{i} - \overline{x}$ positief en $y_{i} - \overline{y}$ ook. Dus is hun product. $(x_{i} - \overline{x}) (y_{i} - \overline{y}) > 0$.
-  \item Neem een element uit gebied II. Voor dit element is $x_{i} - \overline{x}$ negatief en $y_{i} - \overline{y}$ ook. Dus is hun product. $(x_{i} - \overline{x}) (y_{i} - \overline{y}) > 0$.
-  \item Neem een element uit gebied III. Voor dit element is $x_{i} - \overline{x}$ negatief en $y_{i} - \overline{y}$ positief. Dus is hun product. $(x_{i} - \overline{x}) (y_{i} - \overline{y}) < 0$.
-  \item Neem een element uit gebied IV. Voor dit element is $x_{i} - \overline{x}$ positief en $y_{i} - \overline{y}$ negatief. Dus is hun product. $(x_{i} - \overline{x}) (y_{i} - \overline{y}) < 0$.
+  \item Neem een element uit gebied I. Voor dit element is $x_{i} - \overline{x}$ positief en $y_{i} - \overline{y}$ ook. Dus is hun product $(x_{i} - \overline{x}) (y_{i} - \overline{y}) > 0$.
+  \item Neem een element uit gebied II. Voor dit element is $x_{i} - \overline{x}$ negatief en $y_{i} - \overline{y}$ ook. Dus is hun product $(x_{i} - \overline{x}) (y_{i} - \overline{y}) > 0$.
+  \item Neem een element uit gebied III. Voor dit element is $x_{i} - \overline{x}$ negatief en $y_{i} - \overline{y}$ positief. Dus is hun product $(x_{i} - \overline{x}) (y_{i} - \overline{y}) < 0$.
+  \item Neem een element uit gebied IV. Voor dit element is $x_{i} - \overline{x}$ positief en $y_{i} - \overline{y}$ negatief. Dus is hun product $(x_{i} - \overline{x}) (y_{i} - \overline{y}) < 0$.
 \end{itemize}
 
 Aangezien dat er meer punten in gebieden I en II zijn dan in gebieden III en IV zal de som $\sum_{i} (x_{i} - \overline{x}) (y_{i} - \overline{y})$ een positief getal zijn. Hoe meer punten in I en II, hoe groter het getal. We merken dus een sterk positief lineair verband.
@@ -1196,7 +1195,7 @@ We noemen $SS_{yy}$ de totale steekproefvariantie van de meetwaarden rond het st
 
 Er kan nu worden aangetoond dat bij enkelvoudige lineaire regressie deze fractie
 \[ \frac{SS_{yy} - SSE_{yy}}{SS_{yy}} = \frac{\textnormal{verklaarde variantie}}{\textnormal{totale steekproefvariantie}} \]
-gelijk is aan het kwadraat van de Pearson correlatieco\"effici\"ent.  (= het deel van de totale variantie dat verklaard wordt door de lineaire rechte).
+gelijk is aan het kwadraat van de Pearson correlatieco\"effici\"ent  (= het deel van de totale variantie dat verklaard wordt door de lineaire rechte).
 
 Tabel~\ref{tab:interpretatie-correlatiecoefficient} geeft een overzicht hoe de waarden van $R$ en $R^2$ kunnen geïnterpreteerd worden, meer bepaald hoe sterk het verband tussen twee variabelen dan is.
 
@@ -1210,7 +1209,7 @@ Tabel~\ref{tab:interpretatie-correlatiecoefficient} geeft een overzicht hoe de w
         grid = major,
         grid style={dashed, gray!30},
         ylabel=eiwitgehalte,
-        xlabel=gewichtstoename(gram),
+        xlabel=gewichtstoename (gram),
         legend style={at={(0.1,-0.1)}, anchor=north}
       ]
       \addplot[only marks] table  {data/santa.txt};
@@ -1253,7 +1252,7 @@ Tabel~\ref{tab:interpretatie-correlatiecoefficient} geeft een overzicht hoe de w
         grid = major,
         grid style={dashed, gray!30},
         ylabel=eiwitgehalte,
-        xlabel=gewichtstoename(gram),
+        xlabel=gewichtstoename (gram),
       ]
       \addplot[only marks] table  {data/santa.txt};
       \addplot [mark=none, color=black] coordinates {
