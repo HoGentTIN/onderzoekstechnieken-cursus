@@ -1,0 +1,134 @@
+---
+title: "Oefening 6-03 -- Aardbevingen"
+author: "Bert Van Vreckem"
+date: "2020-04-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate) # Werken met data
+library(ggmosaic)  # Mozaïekdiagram
+library(vcd)       # Berekening Cramér's V
+```
+
+> Lees het databestand “Aardbevingen.csv” in.
+> 1. Maak een histogram en een boxplot van de variabele “Magnitude”.
+> 2. Maak een lijngrafiek met het aantal aardbevingen per maand.
+> 3. Onderzoek of er een verband bestaat tussen de variabelen “Type” en “Source". Bereken ook Cramér’s V. Wat is de conclusie?
+
+```{r}
+earthquakes <- read_csv("../datasets/earthquakes.csv")
+```
+
+## Magnitudes
+
+```{r}
+ggplot(data = earthquakes, mapping = aes(x = Magnitude)) +
+  geom_histogram()
+```
+
+```{r}
+ggplot(data = earthquakes, mapping = aes(y = Magnitude)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+## Aardbevingen per maand
+
+We converteren eerst de variabele `Date` (ingelezen als een string) naar een correct opgemaakte datum. We ronden de datum ook af op de maand waarin de aardbeving plaats gevonden heeft en voegen dit als een nieuwe kolom toe.
+
+```{r}
+earthquakes <- earthquakes %>%
+  mutate(Date = parse_date(Date, format = "%m/%d/%Y")) %>%
+  mutate(Month = floor_date(Date, unit = "month"))
+```
+
+In de grafiek zetten we de maand op de X-as en het aantal keer dat deze maand voorkomt in de tabel op de Y-as. Dit gaat makkelijker als staafgrafiek, maar als we dit in een lijngrafiek willen tonen, moeten we enkele extra opties meegeven. `..count..` telt het aantal keer dat een waarde voorkomt, maar de functie `geom_line()` laat dit enkel toe met de optie `stat = "bin"`.
+
+```{r}
+ggplot(data = earthquakes, mapping = aes(x = Month, y = ..count..)) +
+  geom_line(stat = "bin") +
+  ylim(0, 1200)
+```
+
+
+## Verband tussen Type en Source
+
+Type en Source zijn beide kwalitatieve (ook: categorische) variabelen. Om de bepalen of er een verband is tussen deze twee variabelen kunnen we een mozaïekdiagram tekenen (of een ander grafiektype dat geschikt is voor 2 kwalitatieve variabelen), een $\chi^2$-toets voor onafhankelijkheid uitvoeren en Cramér's V berekenen.
+
+### Visualisatie van de data
+
+```{r}
+ggplot(data = earthquakes) +
+  geom_mosaic(mapping = aes(x = product(Type), fill = Source))
+```
+
+We merken in de grafiek dat één categorie de dataset beheerst. De kruistabel bevestigt dit:
+
+```{r}
+# Bij het opstellen van een kruistabel: eerst de afhankelijke variabele (= rijen), dan de onafhankelijke (= kolommen)
+table(earthquakes$Source, earthquakes$Type)
+```
+
+Aardbevingen in de VS maken het overgrote deel uit van de observaties in de dataset. Dit heeft ongetwijfeld een negatief effect op de resultaten van het onderzoek naar het verband.
+
+### Chi-kwadraattoets voor onafhankelijkheid
+
+We voeren de $\chi^2$-toets uit:
+
+```{r}
+source_type <- table(earthquakes$Source, earthquakes$Type)
+source_type_test <- chisq.test(source_type)
+```
+
+De p-waarde is:
+
+```{r}
+source_type_test$p.value
+```
+
+Dit is een getal dat zeer dicht bij 0 ligt en met gelijk welk gekozen significantieniveau een significant verband aantoont. We mogen dit echter niet zomaar aannemen. Het uitvoeren van de `chisq.test()`-functie gaf een waarschuwing dat de benadering incorrect kan zijn. De reden is dat de verwachte waarden van de tabel over het algemeen te klein zijn:
+
+```{r}
+source_type_test$expected
+```
+
+De regel van Cochran stelt dat alle verwachte waarden minstens 1 moeten zijn. Klopt dit ook?
+
+```{r}
+source_type_test$expected >= 1
+```
+
+Overal waar "FALSE" staat, is de voorwaarde niet voldaan.
+
+De tweede voorwaarde van de regel van Cochran stelt verder dat minstens 80% van de verwachte waarden groter moet zijn dan 5.
+
+```{r}
+source_type_test$expected >= 5
+```
+
+Deze voorwaarde geldt slechts voor ongeveer een vierde van de cellen in de tabel met verwachte waarden!
+
+Als we naar de gestandaardiseerde residuën kijken:
+
+```{r}
+source_type_test$stdres
+```
+
+Waarden buiten het interval [-2, 2] zijn hetzij onder- hetzij oververtegenwoordigd. Dat is hier bij verschillende categoriën het geval.
+
+Het besluit uit de toets is dat er inderdaad een verband is tussen type en bron van de aardbeving, maar omdat de inhoud van de dataset te eenzijdig is, is dit resultaat niet betrouwbaar.
+
+### Cramér's V
+
+Cramér's V kan als volgt berekend worden:
+
+
+```{r}
+source_type_stats <- assocstats(source_type)
+source_type_stats$cramer
+```
+
+Cramér's V is ongeveer 0,067. Deze waarde ligt dicht bij 0, wat niet wijst op enige samenhang. Dat lijkt ons besluit uit de $\chi^2$-toets tegen te spreken. Maar opnieuw wijzen we op het feit dat de kruistabel erg extreme waarden bevat, wat zeker een invloed heeft op de betrouwbaarheid van de berekening van Cramér's V.
