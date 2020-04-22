@@ -1,0 +1,116 @@
+---
+title: "Oefening 6-05 -- Aids"
+author: "Bert Van Vreckem"
+date: "2020-04-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(ggmosaic)
+```
+
+> Laad de dataset Aids2 uit package MASS (zie Oefening 6.4) die informatie bevat over 2843 patiënten die vóór 1991 in Australië met AIDS besmet werden.
+
+```{r}
+library(MASS)
+```
+
+> Deze dataset werd in detail besproken door Ripley en Solomon (2007). Onderzoek of er een relatie is tussen de variabele geslacht (`Sex`) en de manier van besmetting (`T.categ`).
+>
+> 1. Ga op de gebruikelijke manier te werk: visualiseren van de data, $\chi^2$ , g en p-waarde berekenen ($\alpha = 0,05$), en tenslotte een conclusie formuleren.
+> 2. Bepaal de gestandaardiseerde residuën om te bepalen welke categorieën extreme waarden bevatten.
+
+## Visualisatie data
+
+```{r}
+categ_sex <- table(Aids2$T.categ, Aids2$sex)
+addmargins(categ_sex)
+
+ggplot(data = Aids2) +
+  geom_mosaic(mapping = aes(x = product(sex), fill = T.categ))
+```
+
+Wat eerst en vooral opvalt is dat er véél meer mannen in de dataset zitten dan vrouwen. De manier van besmetting is ook anders. De modus bij de vrouwen is `blood` (besmetting via bloedtransfusie, 37 observaties), bij de mannen `hs` (homosexueel of bisexueel contact, 2464 observaties).
+
+We kunnen dus verwachten dat er een verband zal bestaan tussen beide variabelen.
+
+## Chi-kwadraattoets voor onafhankelijkheid
+
+Toetsingsprocedure:
+
+1. Formuleer de hypothesen:
+    - $H_0:$ Er is geen verband tussen geslacht en transmissiecategorie
+    - $H_1:$ Er is een verband tussen geslacht en transmissiecategorie
+2. Bepaal significantieniveau
+
+    ```{r}
+    alpha <- 0.05
+    ```
+    
+3. Bereken de teststatistiek ($\chi^2$):
+
+    ```{r}
+    categ_sex_test <- chisq.test(categ_sex)
+    categ_sex_test$statistic
+    ```
+4. Bepaal kritieke grenswaarde:
+
+    ```{r}
+    g <- qchisq(1 - alpha, df = categ_sex_test$parameter[["df"]])
+    g
+    ```
+
+5. Bepaal de overschrijdingskans:
+
+    ```{r}
+    categ_sex_test$p.value
+    ```
+
+6. Besluit:
+
+    - $g < \chi^2$, dus ligt (ver) in het kritieke gebied. 
+    - $p < \alpha$, wat eveneens wijst op een significant verschil
+    - We kunnen de nulhypothese dus verwerpen. Er is een verband tussen geslacht en de categorie van transmissie.
+
+## Gestandaardiseerde residuën
+
+```{r}
+categ_sex_test$stdres
+```
+
+Er zijn vrij veel waarden die als extreem beschouwd kunnen worden. Waarden kleiner dan -2 zijn ondervertegenwoordigd (bv. `hs` bij vrouwen), waarden groter dan 2 zijn oververtegenwoordigd (bv. `het` bij vrouwen).
+
+## Regel van Cochran
+
+Als extraatje bekijken we of de regel van Cochran voldaan is. Deze is gebaseerd op de verwachte waarden:
+
+```{r}
+categ_sex_test$expected
+```
+
+1. Alle verwachte waarden moeten minstens 1 zijn:
+
+    ```{r}
+    categ_sex_test$expected >= 1
+    ```
+
+    Deze regel is niet voldaan.
+
+2. Minstens 80% van de verwachte waarden moet minstens 5 zijn:
+
+    ```{r}
+    # Over hoeveel waarden gaat het hier?
+    ceiling(nrow(categ_sex) * ncol(categ_sex) * .80)
+    categ_sex_test$expected >= 5
+    ```
+    
+    Slechts 9 (i.p.v. 13) waarden voldoen aan deze eigenschap, dus ook de 2e regel is niet voldaan
+
+Als de regel van Cochran niet voldaan is, heeft dat vaak een impact op de betrouwbaarheid van de resultaten uit de $\chi^2$-test. In deze dataset zijn er te weinig observaties van vrouwen.
+
+## Referenties
+
+Ripley, B. & Solomon, P. (2007). A note on Australian AIDS survival. Verkregen 3 mei 2017, van
+<https://pdfs.semanticscholar.org/7d23/36da875505e66ae983a271ee6cd83ce42677.pdf>
