@@ -1,0 +1,143 @@
+---
+title: "6.8 - Test results"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(Hmisc)
+```
+
+> A large number of students has participated in a test that was organised in several consecutive sessions. Because composing a different assignment for each session was practically infeasible, the same assignment was reused. Consequently, there is some danger that after a session, participating students pass on information to the next groups. The later groups would then have a significant advantage w.r.t. the first ones. Is this also reflected in the results?
+>
+> The file `test-results.csv` contains all results of the test. Every session is indicated with a letter, in the order of the session:
+>
+> * Day 1: sessions A, B
+> * Day 2: sessions C, D, E
+> * Day 3: sessions F, G, H
+> 
+> Sessions A and B took place on a different campus, so one can assume that there is less opportunity for communication with students of the other sessions.
+> 
+> If information was passed on successfully, we expect that the results of the later sessions are significantly better than the earlier ones.
+>
+> Remark that inversing this reasoning is not necessarily valid: if the result of later sessions is indeed significantly better, that does not necessarily mean that the cause is in fact (only) the passing on of questions and/or solutions. There may be other causes (e.g. ``weaker'' groups were scheduled earlier at random).
+>
+> 1. Create a bar chart with the average score for each session. Is this sufficient to determine differences between the results?
+> 2. Draw a boxplot of the scores for each session. Compare the sessions enumerated below. Would you suspect that there is a significant difference between the results? 
+>
+>     - Sessions A and B
+>     - Sessions C, D and E
+>     - Sessions F, G and H
+>     - Sessions C and H
+>     - Sessions A and H
+>
+> 3. Use a suitable statistical test to check if the differences between the sessions actually are significant. Does that confirm our suspicion that information about the test is passed between sessions?
+
+## Importing the data
+
+```{r}
+test_results <- read_csv('../datasets/test-results.csv')
+table(test_results$Session)    # Number of students per session
+summary(test_results$Score)    # Test score
+```
+
+## Visualising the data
+
+**Remark: plotting the averages is insufficient to draw conclusions**
+
+```{r}
+ggplot(data = test_results, mapping = aes(x = Session, y = Score)) +
+  stat_summary(fun = "mean", geom = "bar") +
+  stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), geom = "errorbar", width = .5)
+```
+
+The grey bars are the average Scores of each Session. The error bars denote the standard deviation within each sample. They are quite wide, indicating a high variability.
+
+A boxplot is always a better visualisation to determine dispersion:
+
+```{r}
+ggplot(data = test_results, mapping = aes(x = Session, y = Score, color = Session)) +
+  geom_boxplot() +
+  geom_jitter(width = .3)
+```
+
+For example, the difference between the averages in session A and B are now much less clear, since there is much more dispersion in the results of session B.
+
+Finally, we show a density plot:
+
+```{r}
+ggplot(data = test_results, mapping = aes(x = Score, color = Session)) +
+  geom_density()
+```
+
+In this case, a density plot does not really show useful information, since it's too crowded.
+
+## Analysing the results
+
+Let's create a vector with the results of each session:
+
+```{r}
+sA <- test_results$Score[test_results$Session == 'A']
+sB <- test_results$Score[test_results$Session == 'B']
+sC <- test_results$Score[test_results$Session == 'C']
+sD <- test_results$Score[test_results$Session == 'D']
+sE <- test_results$Score[test_results$Session == 'E']
+sF <- test_results$Score[test_results$Session == 'F']
+sG <- test_results$Score[test_results$Session == 'G']
+sH <- test_results$Score[test_results$Session == 'H']
+```
+
+To compare the scores of two sessions, we'll use the t-test for independent samples with $\alpha = 0.05$.
+
+### Session A vs B
+
+```{r}
+t.test(sA, sB, alternative = "less")
+```
+
+Since $p = 0.05356 > \alpha$, we cannot reject the null hypothesis. The differences between session A and B are not significant.
+
+### Sessions C, D and E
+
+Session D had the highest score. Sessions C and E had similar results, at least the average score was similar.
+
+```{r}
+t.test(sC, sD, alternative = "less")
+t.test(sE, sD, alternative = "less")
+```
+
+Consequently, session D has a significantly higher score than either sessions C and E. However, session E came *after* D, so the cause is definitely not the passing of information.
+
+### Sessions F, G and H
+
+In these sessions, the average score increases from F to H.
+
+```{r}
+t.test(sF, sH, alternative = "less")
+t.test(sG, sH, alternative = "less")
+```
+
+Neither the difference between session F and H, nor between G and H are significant.
+
+### Sessions C and H
+
+Sessions C and H are respectively the first and the last session on the same campus. So, if there is an opportunity to pass on information about the test, there's definitely enough time between these two sessions. Let's look at the differences:
+
+```{r}
+t.test(sC, sH, alternative = "less")
+```
+
+The difference is not significant!
+
+### Sessions A and H
+
+```{r}
+t.test(sA, sH, alternative = "less")
+```
+
+The difference between sessions A and H are significant, but since they took place on different campuses, it is questionable that this difference is caused by passing on information.
+
+### Conclusion
+
+Most differences between groups are not significant. When differences are significant, there is no reason to suspect that information about the test was passed on between students in later sessions.
