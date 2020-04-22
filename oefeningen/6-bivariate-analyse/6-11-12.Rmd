@@ -119,3 +119,25 @@ cor(x = f_cats$Hwt, y = f_cats$Bwt)^2
 De correlatiecoëfficiënt is hier 0,53, duidend op een matig lineair en stijgend verband. Ongeveer 28,31% van de variantie in de observaties wordt verklaard door de regressierechte.
 
 Er zijn veel minder observaties van poezen dan van katers, waardoor er ook nog niet zo'n duidelijk patroon te zien is. Katers hebben blijkbaar ook een beduidend zwaarder hart en lichaamsgewicht.
+
+## Samenvatting
+
+```{r include=FALSE}
+cats_b0 <- regr_cats$coefficients[["(Intercept)"]]
+cats_b1 <- regr_cats$coefficients[["cats$Hwt"]]
+mcats_b0 <- regr_m_cats$coefficients[["(Intercept)"]]
+mcats_b1 <- regr_m_cats$coefficients[["m_cats$Hwt"]]
+fcats_b0 <- regr_f_cats$coefficients[["(Intercept)"]]
+fcats_b1 <- regr_f_cats$coefficients[["f_cats$Hwt"]]
+
+cor_f <- cor(x = f_cats$Hwt, y = f_cats$Bwt)
+cor_m <- cor(x = m_cats$Hwt, y = m_cats$Bwt)
+```
+
+Nog even de belangrijkste resultaten op een rij:
+
+| Selectie     |    $\beta_0$ |    $\beta_1$ |             $R$ |             $R^2$ |
+|:-------------|-------------:|-------------:|----------------:|------------------:|
+| Hele dataset |  `r cats_b0` |  `r cats_b1` | `r cor_Hwt_Bwt` | `r cor_Hwt_Bwt^2` |
+| Male         | `r mcats_b0` | `r mcats_b1` |       `r cor_m` |       `r cor_m^2` |
+| Female       | `r fcats_b0` | `r fcats_b1` |       `r cor_f` |       `r cor_f^2` |
