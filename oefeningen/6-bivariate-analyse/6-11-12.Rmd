@@ -1,5 +1,5 @@
 ---
-title: "Oefening 6-06 -- Cats"
+title: "Oefening 6-11 en 12 -- Cats"
 author: "Bert Van Vreckem"
 date: "2020-04-22"
 output: html_document
@@ -78,7 +78,7 @@ cor_Hwt_Bwt^2
 
 Dus ca 64,66% van de variantie in de data wordt verklaard door de regressierechte.
 
-## Dezelfde analyse, opgesplitst per geslacht
+## Oef 6.12 - Opgesplitst per geslacht
 
 Eerst een overzicht van de aantallen observaties:
 
