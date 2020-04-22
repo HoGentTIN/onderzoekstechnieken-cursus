@@ -1,0 +1,92 @@
+---
+title: "Oefening 6.6 - Digimeter"
+author: "Bert Van Vreckem"
+date: "2020-04-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+> Elk jaar voert Imec (voorheen iMinds) een studie uit over het gebruik van digitale technologieën in Vlaanderen, de Digimeter (Vanhaelewyn & De Marez, 2016). In deze oefening zullen we nagaan of de steekproef van de Digimeter 2016 ($n = 2164$) representatief is voor de bevolking wat betreft de leeftijdscategorieën van de deelnemers.
+>
+> In `digimeter-ages.csv` worden de relatieve frequenties van de deelnemers weergegeven.
+> De absolute frequenties voor de verschillende leeftijdscategorieën van de Vlaamse bevolking worden samengevat in CSV-bestand `bestat-vl-ages.csv`.
+
+We zullen een $\chi^2$ aanpassingstoets (*goodness-of-fit* test) uitvoeren om te controleren of de steekproef representatief is naar de leeftijdscategorieën.
+
+De functie `chisq.test()` heeft twee parameters nodig: `x`, de absolute frequenties van alle categorieën en `p`, de verwachte percentages van elke categorie (als een fractie van 1) in de populatie.
+
+We lezen eerst de tabel met percentages uit het Digimeter-rapport en converteren deze naar absolute frequencies.
+
+```{r}
+n <- 2164
+digimeter_ages <- read_csv('../datasets/digimeter-ages.csv') %>%
+  mutate(Proportie = Percentage / 100) %>%
+  mutate(Frequentie = Proportie * n)
+digimeter_ages
+```
+
+Vervolgens lezen we de verdeling van leeftijdsgroepen in Vlaanderen in 2016 (opgevraagd via [StatBel](https://bestat.statbel.fgov.be/bestat/)) in:
+
+```{r}
+vl_ages <- read.csv('../datasets/bestat-vl-ages.csv')
+vl_ages
+```
+
+In deze oefening is het moeilijkste deel de data in de juiste vorm te gieten. De leeftijdsgroepen in `vl_ages` kunnen we niet één-op-één koppelen aan deze in het Digimeter-rapport. De leeftijdscategorieën in de Digimeter zijn minder gedetailleerd. We zullen de data dus moeten converteren. Je zou dit via een rekenblad kunnen doen, maar R kan dit ook. Het voordeel van dit in R te doen is dat de werkwijze dan expliciet is gedocumenteerd via de code, en dus ook reproduceerbaar is. De uitwerking in Excel toont niet de tussenstappen die gemaakt zijn, en fouten zijn dus moeilijker op te sporen.
+
+We zullen de resultaten meteen opslaan in de tabel `digimeter_ages` in een nieuwe kolom `Expected` (verwachte absolute frequenties) en `ExpectedProp` (verwachte relatieve frequenties).
+
+Om de categorieën uit de BeStat-gegevens waar nodig op te tellen, definiëren we hier eerst enkele functies om het proces te vereenvoudigen:
+
+```{r}
+# Geef de frequentie van de gegeven leeftijdscategorie
+frq_age_group <- function(age_group) { 
+  vl_ages$population[vl_ages$age.group == age_group]
+}
+
+# Bereken de som van de gegeven vector met leeftijdscategorieën, bv. c('20-24', '25-29'))
+sum_age_groups <- function(x) {
+  sum(sapply(x, frq_age_group, simplify = TRUE))
+}
+
+# Bereken de verwachte frequenties voor de leeftijdsgroep in de Digimeter, gebaseerd op
+# de cijfers van BeStat.
+digimeter_ages <- digimeter_ages %>%
+  mutate(Expected = c(
+    sum_age_groups(c('15-19')),
+    sum_age_groups(c('20-24', '25-29')),
+    sum_age_groups(c('30-34', '35-39')),
+    sum_age_groups(c('40-44', '45-49')),
+    sum_age_groups(c('50-54', '55-59')),
+    sum_age_groups(c('60-64')),
+    sum_age_groups(c('65-69', '70-74', '75-79', '80-84', '85-89',
+                     '90-94', '95-99', '100+')))) %>%
+  mutate(ExpectedProp = Expected / sum(Expected))
+```
+
+De data is nu in de correcte vorm:
+
+- observaties moeten opgegeven zijn als absolute frequenties
+- verwachte waarden moeten opgegeven zijn als relatieve frequenties (percentages)
+
+```{r}
+digimeter_ages
+```
+
+Bijgevolg kunnen we ook de $\chi^2$ aanpassingstoets uitvoeren.
+
+```{r}
+result <- chisq.test(x = digimeter_ages$Frequentie,
+                     p = digimeter_ages$ExpectedProp)
+result$p.value
+```
+
+De $p$-waarde is 0.34, wat de nulhypothese ondersteunt dat de steekproef representatief is voor de populatie naar de verdeling binnen de leeftijdscategorieën.
+
+## Referenties
+
+Vanhaelewyn, B. & De Marez, L. (2016). *Digimeter 2016: measuring digital media trends in Flanders.* Imec. Verkregen 22 april 2020, van <https://www.imec.be/nl/expertises/techtrends/imec-digimeter/digimeter-2016>
