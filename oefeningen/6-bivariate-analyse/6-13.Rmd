@@ -1,0 +1,139 @@
+---
+title: "Oefening 6-13 -- Pizza"
+author: "Bert Van Vreckem"
+date: "2020-04-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggmosaic)
+```
+
+> Lees het databestand “Pizza.csv” in.
+>
+> 1. Voer een volledige lineaire regressieanalyse uit op de variabelen `Rating` en `CostPerSlice`. Trek hieruit de juiste conclusies en ga deze ook grafisch na.
+> 2. Onderzoek een mogelijk verband tussen `Rating` en `Neighbourhood`. Welke methode kan je hiervoor gebruiken? Kan je de gegevens van Rating hiervoor in dezelfde vorm gebruiken?
+> 3. Geef een interpretatie aan deze resultaten.
+> 4. Stel de kruistabel grafisch voor met een staafdiagram. Voorzie een legende.
+
+```{r}
+pizza <- read_csv("../datasets/Pizza.csv")
+```
+
+## Regressie-analyse `Rating` vs `CostPerSlice`
+
+Is er een verband tussen beoordeling (`Rating`) en de prijs (`CostPerSlice`) van pizzas?
+
+### Visualisatie van de dataset
+
+We tonen Rating (beschouwen we als onafhankelijke variabele) op de X-as en `CostPerSlice` op de Y-as. 
+
+```{r}
+ggplot(data = pizza, mapping = aes(x = Rating, y = CostPerSlice)) +
+  geom_point() +
+  geom_smooth(method =  "lm", formula = y ~ x)
+```
+
+De observaties liggen erg verspreid t.o.v. de regressierechte. De regressierechte heeft volgende parameters:
+
+```{r}
+lm(pizza$CostPerSlice ~ pizza$Rating)
+```
+
+Omdat het kan, tonen we ook eens `HeatSource` in kleur. Je zou ook een van de andere variabelen als kleur kunnen tonen (`BrickOven`, `Neighborhood`). De regressierechte wordt dan ook per groep getoond:
+
+```{r}
+ggplot(data = pizza, mapping = aes(x = Rating, y = CostPerSlice, color = HeatSource)) +
+  geom_point() +
+  geom_smooth(method =  "lm", formula = y ~ x)
+```
+
+### Correlatie
+
+Om te weten of er een (lineair) verband is en hoe sterk dat dan is, kunnen we de correlatie-  en determinatiecoëfficiënt berekenen:
+
+```{r}
+cor_rating_cost <- cor(pizza$Rating, pizza$CostPerSlice)
+
+cor_rating_cost
+cor_rating_cost^2
+```
+
+De correlatiecoëfficiënt $R \approx$ `r round(cor_rating_cost, 3)`. Dit wijst op een zeer zwak lineair verband. De determinatiecoëfficiënt $R^2 \approx$ `r round(cor_rating_cost^2, 3)`. Slechts `r round(cor_rating_cost^2, 3)*100`% van de variantie in de observaties wordt verklaard door de regressierechte.
+
+
+## `Rating` vs `Neighborhood`
+
+De vraag is of er een verband is tussen `Rating` en `Neighborhood`. Hoewel het niet expliciet vermeld is, is het meest voor de hand liggend dat de onafhankelijke variabele `Neighborhood` is. Dit is een kwalitatieve variabele. De afhankelijke variabele is dan `Rating`, een kwantitatieve-variabele (ratio-). De onderzoeksvraag luidt dan of er een verschil is in de beoordeling van pizzarestaurants in de verschillende buurten (in Manhattan, New York).
+
+De beste manier om dit grafisch voor te stellen is met een gegroepeerde boxplot. Hier worden de buurten gesorteerd op mediaan van de beoordeling:
+
+```{r}
+ggplot(data = pizza, mapping = aes(x = reorder(Neighborhood, Rating, FUN = median), color = Neighborhood, y = Rating)) +
+  geom_boxplot() +
+  geom_jitter(width = 0.25) +
+  coord_flip()
+```
+
+Vreemd genoeg blijkt Little Italy de laagste `Rating`s te krijgen, maar er zit redelijk wat spreiding op de data. SoHo krijgt de beste `Rating`s. Je kan elke buurt onderling vergelijken met een t-toets voor onafhankelijke steekproeven. Als je meer dan twee groepen hebt, dan wordt typisch een ANOVA-toets uitgevoerd (ANalysys Of VAriance). Deze valt buiten het bestek van deze cursus. We tonen hier wel even hoe het moet:
+
+```{r}
+anova_rating_neighborhood <- aov(Rating ~ Neighborhood, data = pizza)
+summary(anova_rating_neighborhood)
+```
+
+De p-waarde is rechts te lezen (onder `Pr(>F)`), nl. 0.0194. Voor een significantieniveau van 5% zouden we hier de nulhypothese (dat alle groepen eenzelfde gemiddelde hebben) kunnen verwerpen. Dit is niet het einde van het verhaal, want we zouden nog moeten onderzoeken welke groepen precies een onderling significant verschil tonen en welke niet. Dat zou ons echter te ver leiden.
+
+Een alternatieve benadering is om `Rating` om te zetten naar een kwalitatieve variabele, bv. door de waarde af te ronden tot een geheel getal en te converteren naar een *factor* (R-terminologie voor kwalitatieve variabelen).
+
+```{r}
+pizza <- pizza %>%
+  mutate(RRating = factor(round(Rating)))
+
+sort(unique(pizza$RRating))
+```
+
+We krijgen dan een ordinale variabele. De kruistabel voor beide variabelen ziet er dan zo uit:
+
+```{r}
+addmargins(table(pizza$RRating, pizza$Neighborhood))
+```
+
+Nu zoeken we een verband tussen twee kwalitatieve variabelen, wat we met een $\chi^2$-toets voor onafhankelijkheid kunnen onderzoeken:
+
+```{r}
+rrating_neighborhood_chisq <- chisq.test(pizza$RRating, pizza$Neighborhood)
+rrating_neighborhood_chisq
+```
+
+
+We vinden $p \approx$ `r rrating_neighborhood_chisq$p.value`, wat zelfs voor een significantieniveau van 1% zou leiden tot het verwerpen van de nulhypothese (dat er geen verband is tussen Neighborhood en Rating).
+
+Visualisatie van de data:
+
+```{r}
+ggplot(data = pizza) +
+  geom_mosaic(mapping = aes(x = product(RRating), fill = Neighborhood))
+```
+
+De verschillen in proporties binnen elke `Neighbourhood` wijzen eveneens op een verband.
+
+De opgave vraagt om een staafdiagram te tekenen. Er zijn twee varianten mogelijk: een geclusterd staafdiagram of een rependiagram.
+
+Het geclusterd staafdiagram voor deze variabelen:
+
+```{r}
+ggplot(data = pizza, mapping = aes(x = Neighborhood, fill = RRating)) +
+  geom_bar(position = "dodge")
+```
+
+Het rependiagram:
+
+```{r}
+ggplot(data = pizza, mapping = aes(x = Neighborhood)) +
+  geom_bar(mapping = aes(fill = RRating), position = "fill") +
+  coord_flip()
+```
+
