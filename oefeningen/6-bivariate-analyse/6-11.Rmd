@@ -1,0 +1,121 @@
+---
+title: "Oefening 6-06 -- Cats"
+author: "Bert Van Vreckem"
+date: "2020-04-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+>  Lees het databestand “Cats.csv” in.
+
+```{r}
+cats <- read_csv('../datasets/Cats.csv')
+```
+
+> 1. Voer een lineaire regressieanalyse uit op de variabelen Lichaamsgewicht (`Bwt`, afhankelijke variabele) en Gewicht hart (`Hwt`, onafhankelijke variabele).
+> 2. Maak een spreidingsdiagram van beide variabelen.
+> 3. Bereken en teken de regressielijn.
+> 4. Bereken de correlatie- en de determinatiecoëfficiënt.
+> 5. Geef een interpretatie van deze resultaten.
+
+## Visualisatie data
+
+De onafhankelijke variabele (`Hwt`) wordt afgebeeld op de X-as, de afhankelijke (`Bwt`) op de Y-as. We tekenen ook de regressierechte:
+
+```{r}
+ggplot(data = cats, mapping = aes(x = Hwt, y = Bwt)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x)
+```
+
+## Regressierechte
+
+```{r}
+#                 afh       onafh
+regr_cats <- lm(cats$Bwt ~ cats$Hwt)
+```
+
+De parameters van de regressierechte zijn dan:
+
+```{r}
+regr_cats
+```
+
+Als we dit zelf willen uitrekenen:
+
+```{r}
+mx <- mean(cats$Hwt)  # gemiddelde van x
+my <- mean(cats$Bwt)  # gemiddelde van y
+xx <- cats$Hwt - mx   # x - mx
+yy <- cats$Bwt - my   # y - my
+beta_1 <- sum(xx * yy) / sum(xx^2)
+beta_0 <- my - beta_1 * mx
+```
+
+Wat dezelfde resultaten geeft.
+
+## Correlatie en determinatie
+
+De correlatiecoëfficiënt is:
+
+```{r}
+cor_Hwt_Bwt <- cor(x = cats$Hwt, y = cats$Bwt)
+```
+
+Een correlatiecoëfficiënt van ongeveer 0,804 duidt op een sterk lineair en stijgend verband. 
+
+**Let op!** Je mag niet zeggen een sterk stijgend verband. De correlatiecoëfficiënt zegt niets over de mate van stijging, wel over hoe dicht de observaties bij de regressierechte liggen.
+
+De determinatiecoëfficiënt:
+
+```{r}
+cor_Hwt_Bwt^2
+```
+
+Dus ca 64,66% van de variantie in de data wordt verklaard door de regressierechte.
+
+## Dezelfde analyse, opgesplitst per geslacht
+
+Eerst een overzicht van de aantallen observaties:
+
+```{r}
+addmargins(table(cats$Sex))
+```
+
+Samengestelde plot met regressierechten:
+
+```{r}
+ggplot(data = cats, mapping = aes(x = Hwt, y = Bwt, color = Sex)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x)
+```
+
+### Male
+
+```{r}
+m_cats <- cats[cats$Sex == 'M',]
+regr_m_cats <- lm(m_cats$Bwt ~ m_cats$Hwt)
+regr_m_cats
+cor(x = m_cats$Hwt, y = m_cats$Bwt)
+cor(x = m_cats$Hwt, y = m_cats$Bwt)^2
+```
+
+De correlatiecoëfficiënt is hier 0.79, duidend op een sterk lineair en stijgend verband. Ongeveer 62,89% van de variantie in de observaties wordt verklaard door de regressierechte.
+
+### Female
+
+```{r}
+f_cats <- cats[cats$Sex == 'F',]
+regr_f_cats <- lm(f_cats$Bwt ~ f_cats$Hwt)
+regr_f_cats
+cor(x = f_cats$Hwt, y = f_cats$Bwt)
+cor(x = f_cats$Hwt, y = f_cats$Bwt)^2
+```
+
+De correlatiecoëfficiënt is hier 0,53, duidend op een matig lineair en stijgend verband. Ongeveer 28,31% van de variantie in de observaties wordt verklaard door de regressierechte.
+
+Er zijn veel minder observaties van poezen dan van katers, waardoor er ook nog niet zo'n duidelijk patroon te zien is. Katers hebben blijkbaar ook een beduidend zwaarder hart en lichaamsgewicht.
