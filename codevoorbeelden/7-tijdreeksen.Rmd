@@ -48,7 +48,7 @@ If we want to model these values with a linear function $X_t = b_0 + b_1 t + \ep
 
 ```{r}
 week <- 1:length(weekly_demand)
-demand_lm <- lm(weekly_demand ~ week)
+demand_lm <- lm(weekly_demand ~ time(weekly_demand))
 plot.ts(demand_ts, type = 'b', pch = 20)
 abline(demand_lm, col = 'red')
 ```
@@ -130,7 +130,7 @@ plot.ts(sales_ts,
 
 
 ```{r}
-hw <- HoltWinters(sales_ts)
+hw <- HoltWinters(sales_ts, seasonal = "multiplicative")
 plot(hw, xlim = c(1, 4))
 ```
 
