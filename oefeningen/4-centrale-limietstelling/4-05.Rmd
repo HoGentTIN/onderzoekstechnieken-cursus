@@ -71,7 +71,7 @@ ggplot(mapping = aes(x = xvals)) +
             color = "black", fill = "cornflowerblue") +
   # Plot de Gauss-curve
   stat_function(fun = dnorm, args = list(mean = m, sd = s)) +
-  # Toon het gemiddelde als een rode vertikale lijn
+  # Toon het gemiddelde als een rode verticale lijn
   geom_vline(xintercept = m, color = "red") +
   # Pas de titels van de assen aan
   xlab("x") + ylab("densiteit") +
