@@ -48,7 +48,7 @@ x <- seq(m0-4*s/sqrt(n), m0+4*s/sqrt(n), length=200)
 dist <- dnorm(x, m0, s/sqrt(n))
 plot (x, dist, type = 'l', xlab = '', ylab = '')
 
-# Toon het gevonden steekproefgemiddelde ahv rode vertikale lijn
+# Toon het gevonden steekproefgemiddelde ahv rode verticale lijn
 abline(v=sm, col='red')
 text(sm, 2, sm)
 
@@ -61,6 +61,6 @@ polygon(                       # Plot deze waarden op de grafiek
 text(g,.5,signif(g, digits=4)) # Toon grenswaarde
 
 text(m0, 0.1, m0)              # Hypothetisch populatiegemiddelde
-abline(v=m0)                   # Trek daar een vertikale lijn
+abline(v=m0)                   # Trek daar een verticale lijn
 
 text(m0, 1.5, 'aanvaardingsgebied (H0)')
