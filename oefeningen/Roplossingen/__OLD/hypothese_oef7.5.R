@@ -23,7 +23,7 @@ x <- seq(m0-4*s/sqrt(n), m0+4*s/sqrt(n), length=200) # grenzen van de plot (x-wa
 dist <- dnorm(x, m0, s/sqrt(n))                      # y-waarden
 plot (x, dist, type = 'l')
 
-# Toon het gevonden steekproefgemiddelde ahv rode vertikale lijn
+# Toon het gevonden steekproefgemiddelde ahv rode verticale lijn
 abline(v=sm, col='red')
 text(sm, 0.4, sm)
 
