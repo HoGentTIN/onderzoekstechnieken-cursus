@@ -317,8 +317,9 @@
 
 \begin{frame}
   \frametitle{Voorbeeld 1}
-  Bij een aselecte steekproef van 50 waarnemingen vinden we volgende grootheden: gemiddelde $\overline{x} = 25$ en standaardafwijking s = $\sqrt{55} = 7.41$
-  We willen weten of er reden is om aan te nemen dat gemiddelde van de populatie kleiner is dan 27.
+  Bij een aselecte steekproef van 50 waarnemingen uit een populatie met variantie $\sigma^2 = 55$ vinden een gemiddelde $\overline{x} = 25$.
+  
+  We willen weten of er reden is om aan te nemen dat het gemiddelde van de populatie kleiner is dan 27.
   
 \end{frame}
 
@@ -334,13 +335,12 @@
     
     $\alpha = 0.05$ en $n=50$
     
-    \item[3] Toetsingsgrootheiden \& waarde: steekproefgemiddelde $\overline{x} = 25$
-    
+    \item[3] Toetsingsgrootheid: steekproefgemiddelde $\overline{x} = 25$
     
   \end{description}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[plain]
   \frametitle{Voorbeeld 1 (vervolg)}
   
   \begin{description}
@@ -351,8 +351,7 @@
     \[ M \sim Nor(\mu = 27, \frac{\sigma}{\sqrt{n}}) \]
     \[ z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{25-27}{\sqrt\frac{55}{50}} \approx -1.91\]
     
-    We vinden dus een overschrijdingskans van het gemiddelde $0.0281$.
-    
+    We vinden dan een overschrijdingskans \texttt{pnorm(-1.91)} = $0.0281$.
     
     Bij een significantieniveau van 0.05 mogen we $H_{0}$ verwerpen.
   \end{description}

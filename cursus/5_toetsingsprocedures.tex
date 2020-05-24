@@ -274,11 +274,7 @@ Het codevoorbeeld hieronder is de uitwerking van Voorbeeld~\ref{ex:hypothesetoet
 \label{sec:toetsingsprocedures-voorbeelden}
 
 \begin{example}
-  Bij een aselecte steekproef van 50 waarnemingen vinden we volgende grootheden:
-  \begin{itemize}
-    \item $\overline{x} = 25$
-    \item $s = \sqrt{55} = 7,41$
-  \end{itemize}
+  Bij een aselecte steekproef van 50 waarnemingen uit een populatie met variantie $\sigma^2 = 55$ vinden een gemiddelde $\overline{x} = 25$.
   
   We willen weten of er reden is om aan te nemen dat $\mu$ van de populatie kleiner is dan 27.
   
@@ -291,13 +287,13 @@ Het codevoorbeeld hieronder is de uitwerking van Voorbeeld~\ref{ex:hypothesetoet
     
     $\alpha = 0,05$ en $n=50$.
     
-    \item Waarde toetsingsgrootheid bepalen. 
-    
-    We kiezen hiervoor het steekproefgemiddelde $M$. Volgens de centrale limietstelling geldt:
+    \item Waarde toetsingsgrootheid bepalen. Bij de $z$-toets berekenen we het steekproefgemiddelde $\overline{x}$. Volgens de centrale limietstelling geldt dat de verdeling van het steekproefgemiddelde, $M$ normaal verdeeld is met parameters:
     
     \[ M \sim Nor(\mu = 27, \frac{\sigma}{\sqrt{n}}) \]
-    De toetsingsgrootheid is
-    \[ Z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{25-27}{\sqrt\frac{55}{50}} \approx -1,91\]
+    
+    De z-score voor het steekproefgemiddelde is:
+    
+    \[ z = \frac{\overline{x} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{25-27}{\sqrt\frac{55}{50}} \approx -1,91\]
     
     \item Overschrijdingskans berekenen.
     
@@ -374,7 +370,7 @@ Voor het bepalen van de $t$-waarde hebben we het aantal vrijheidsgraden nodig, $
   Kunnen we in deze omstandigheden, met eenzelfde significantieniveau $\alpha = 0,05$, het besluit dat superhelden dagelijks \emph{meer} dan 3,3 mensen redden aanhouden?
   
   \begin{enumerate}
-    \item Bepalen van de hypothesen.
+    \item Formuleren van de hypothesen.
     
       $H_{0} : \mu = 3,3$ en $H_{1}: \mu > 3,3$.
     
