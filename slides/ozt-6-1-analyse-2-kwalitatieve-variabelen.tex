@@ -33,6 +33,7 @@
 \usepackage{changepage}
 \usepackage{ulem} % for \sout{text} (strikethrough)
 \usepackage{fancyvrb} % for \begin{Verbatim} (LaTeX controls within verbatim)
+\usepackage[output-decimal-marker={,}]{siunitx} 
 
 %---------- Configuratie ------------------------------------------------------
 
@@ -651,7 +652,7 @@
 
 \subsection{Voorbeeld}
 
-\begin{frame}
+\begin{frame}[plain]
   \frametitle{Voorbeeld gezinnen}
   Beschouw alle gezinnen met 5 kinderen in een bepaalde gemeenschap.
   \pause
@@ -672,7 +673,7 @@
 
 \begin{frame}
   \frametitle{Voorbeeld}
-  \begin{table}[h]
+  \begin{table}
     \begin{tabular}{@{}llllllll@{}}
       \toprule
       i       & 0  & 1   & 2   & 3   & 4   & 5  &  \\ \midrule
@@ -692,20 +693,23 @@
 
 \begin{frame}
   \frametitle{Voorbeeld}
-  \begin{table}[h]
-    \begin{tabular}{@{}llllllll@{}}
+  \centering
+  \begin{table}
+    \begin{tabular}{lSSSSSSS}
       \toprule
-      $i$                   & 0     & 1       & 2      & 3        & 4      & 5     & Tot.  \\ \midrule
-      $o_i$                 & 58    & 149     & 305    & 303      & 162    & 45    & 1022  \\
-      $\pi_i$               & 0.03  & 0.15    & 0.31   & 0.31     & 0.15   & 0.031 & 1     \\
-      $e_i$                 & 31.68 & 159.43  & 318.86 & 318.86   & 159.43 & 31.68 &       \\
-      $\frac{(o-e)^{2}}{e}$ & 21.86 & 0.68259 & 0.60   & 0.78     & 0.041  & 5.59  & 29.57 \\
-      $r_i$                 & 4.74  & -0.89   & -0.93  & -1.07106 & 0.22   & 2.40  &       \\ \bottomrule
+      $i$                   & 0      & 1      & 2      & 3      & 4     & 5     & Totaal \\
+      \midrule
+      $o_i$                 & 58     & 149    & 305    & 303    & 162   & 45    & 1022   \\
+      $\pi_i$               & 0,031  & 0,156  & 0,313  & 0,313  & 0,156 & 0,031 & 1      \\
+      $e_i$                 & 31,9   & 159,7  & 319,4  & 319,4  & 159,7 & 31,9  & 1022   \\
+      $\frac{(o-e)^{2}}{e}$ & 21,268 & 0,715  & 0,647  & 0,840  & 0,033 & 5,343 & 28,846 \\
+      $r_i$                 & 4,686  & -0,921 & -0,970 & -1,105 & 0,199 & 2,348 &        \\
+      \bottomrule
     \end{tabular}
   \end{table}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[plain]
   \frametitle{Voorbeeld}
   \begin{enumerate}
     \item \textbf{Bepalen hypotheses}
@@ -715,7 +719,7 @@
     \end{itemize}
     \item \textbf{Bepalen $\alpha$ en $n$} : $\alpha = 0.01$ en $n = 1022$.
     \item \textbf{Toetsingsgrootheid en waarde ervan in steekproef}:
-    \[ \chi^{2} = \sum_{i=1}^{n} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \approx 29.5766 \]
+    \[ \chi^{2} = \sum_{i=1}^{n} \frac{(o_{i} - e_{i})^{2}}{e_{i}} \approx 28,846 \]
     \item \textbf{Bereken en teken kritiek gebied}:  kritieke grens is $15.0863$. Onze toetsingsgrootheid ligt dus in het kritieke gebied dus verwerpen we $H_{0}$.
   \end{enumerate}
 \end{frame}
