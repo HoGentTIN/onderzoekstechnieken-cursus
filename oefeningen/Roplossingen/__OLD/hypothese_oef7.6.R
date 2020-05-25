@@ -21,7 +21,7 @@ x <- seq(-4, 4, length=200) # grenzen van de plot (x-waarden)
 dist <- dt(x, n-1)                      # y-waarden
 plot (x, dist, type = 'l')
 
-# Toon het gevonden steekproefgemiddelde ahv rode vertikale lijn
+# Toon het gevonden steekproefgemiddelde ahv rode verticale lijn
 abline(v=(sm-m0)/(s/sqrt(n)), col='red')
 text(sm, 0.4, sm)
 

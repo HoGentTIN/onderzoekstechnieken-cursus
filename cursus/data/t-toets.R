@@ -56,11 +56,11 @@ polygon(                       # Plot deze waarden op de grafiek
   col = 'lightgreen')
 
 text(m0, 0.01, m0) # Hypothetisch populatiegemiddelde
-abline(v=m0)       # Trek daar een vertikale lijn
+abline(v=m0)       # Trek daar een verticale lijn
 
 text(g+.025,.02,signif(g, digits=4)) # Toon grenswaarde
 
-# Toon het gevonden steekproefgemiddelde ahv rode vertikale lijn
+# Toon het gevonden steekproefgemiddelde ahv rode verticale lijn
 abline(v=sm, col='red')
 text(sm-.025, .005, sm, col = 'red')
 
