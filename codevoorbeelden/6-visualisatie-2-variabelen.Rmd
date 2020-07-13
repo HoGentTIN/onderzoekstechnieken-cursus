@@ -31,7 +31,7 @@ We gebruiken als voorbeeld de dataset `mpg` (informatie over 38 in de VS populai
 Hieronder is de kruistabel getoond met de onafhankelijke variabele in de kolommen, de afhankelijke in de rijen. Ook de marginale totalen zijn toegevoegd. Als er geen verband is tussen beide variabelen, zullen de verhoudingen over alle kolommen ongeveer gelijk zijn.
 
 ```{r}
-addmargins(table(mpg$drv, mpg$fl))
+addmargins(table(mpg$fl, mpg$drv))
 ```
 
 Ter info: de betekenis van de afkortingen:
