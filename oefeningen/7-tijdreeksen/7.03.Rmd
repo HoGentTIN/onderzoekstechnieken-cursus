@@ -1,0 +1,157 @@
+---
+title: "Oefening 7.3 - Passagiers"
+author: "Bert Van Vreckem"
+date: "2020-08-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(TTR)
+library(forecast)
+```
+# Data importeren, visualisatie
+
+> In bestand Passagiers2.csv vind je vanaf januari 1949 tot december 1960 het aantal passagiers van een luchtvaartmaatschappij.
+
+In R kan je tijdseriedata inlezen als een tibble:
+
+```{r, warning=FALSE, message=FALSE}
+passagiers2 <- read_csv("../datasets/Passagiers2.csv") %>%
+  mutate(time = parse_date(time, format = "%b-%Y"))
+glimpse(passagiers2)
+```
+Hierboven hebben we de datum-string in het csv-bestand (in de vorm Jan-1951) "geparsed" en omgezet naar het datum-type.
+
+Nu is een tibble (of `data.frame`) niet altijd geschikt voor het toepassen van tijdserie-analyse. De meeste functies hiervoor verwachten als invoer het type `ts`, dat specifiek geschikt is voor tijdserie-objecten:
+
+```{r}
+passagiers <- ts(start = c(1949, 1),
+                 end = c(1960, 12),
+                 frequency = 12,
+                 data = passagiers2$AirPassengers)
+passagiers
+```
+
+Bij het aanmaken van het tijdserie-object maken we geen rechtstreeks gebruik van de `time`-kolom in het CSV-bestand. We zien wel dat de eerste observatie dateert van januari 1949 en de laatste van december 1960. Dit geven we aan bij het oproepen van de `ts()` functie. We maken een `ts` aan met seizoenale frequentie 12. R interpreteert dit automatisch als de maanden van het jaar. We geven ook aan dat de eerste observatie de eerste is uit "tijdseenheid" 1949 en de laatste observatie de 12e uit tijdseenheid 1960.
+
+Jammer genoeg werkt `ggplot2` niet goed samen met `ts`-objecten, en moeten we de Base-R plotfunctie `plot.ts()` gebruiken. Tijdseriegrafieken zien er daarom meestal niet zo mooi uit. Je kan natuurlijk de tibble gebruiken voor visualisatie en het `ts` object voor analyse...
+
+```{r}
+ggplot(data = passagiers2, mapping = aes(x = time, y = AirPassengers)) +
+  geom_line()
+
+plot.ts(passagiers)
+```
+
+# Eenvoudig voortschrijdend gemiddelde
+
+> Bereken het voortschrijdend gemiddelde (simple moving average) over de periodes 4 en 12 voor deze data. Gebruik hiervoor de methode ma. Maak een lijngrafiek van X, MA(4) en MA(12).
+
+```{r}
+ma_4 <- ma(passagiers, order = 4)
+ma_12 <- ma(passagiers, order = 12)
+
+plot.ts(passagiers)          # We plotten eerst de onderlinggende tijdserie
+lines(ma_4, col = "blue")    # Voeg een blauwe lijn toe voor SMA(4)
+lines(ma_12, col = "orange") # Voeg een oranje lijn toe voor SMA(12)
+```
+
+De SMA(12)-lijn vlakt de seizoenale schommelingen binnen een jaar af en je ziet dan dat het aantal passagiers op de langere termijn ongeveer lineair stijgt.
+
+# Lineaire regressie
+
+>  Welke techniek die we eerder gezien hebben (in het deel over beschrijvende statistiek) is ook geschikt om voorspellingen te maken over de waarden van X? Werk dit uit aan de hand van de daarvoor bestemde functie en plot het resultaat in de grafiek.
+
+Tijdseries met een lineaire trend kan je modelleren met lineaire regressie:
+
+```{r}
+passagiers_lm <- lm(passagiers ~ time(passagiers))
+passagiers_lm
+
+ggplot(data = passagiers2, mapping = aes(x = time, y = AirPassengers)) +
+  geom_line() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE)
+```
+
+# Tijdserie ontleden
+
+> Gebruik de methode decompose om de tijdreeks op te delen en zo een idee te krijgen van de trend en de seizoenschommeling.
+
+```{r}
+pass_components <- decompose(passagiers)
+plot(pass_components)
+```
+
+# Exponentieel voortschrijdend gemiddelde
+
+## Enkelvoudig exponentieel voortschrijdend gemiddelde
+
+
+
+> Bereken het exponentieel voortschrijdend gemiddelde (exponential moving average, EMA) door gebruik te maken van de methode ses met $\alpha$ = 0.2. Maak opnieuw via de methode forecast een voorspelling voor 20 periodes. Plot het resultaat op een nieuwe grafiek samen met X.
+
+We gaan *geen* gebruik maken van `ses()`. Het is niet nodig die functie te leren gebruiken. In plaats daarvan zullen we telkens werken met `HoltWinters()`, waarmee je modellen kan opstellen voor enkelvoudig, dubbel en driedubbel exponentieel voortschrijdend gemiddelde (ook: exponentiële afvlakking).
+
+Bij enkelvoudige afvlakking hebben we één parameter $\alpha$ die we een waarde moeten geven tussen 0 en 1. De `HoltWinters()`-functie heeft ook nog parameters $\beta$ en $\gamma$ voor dubbele en driedubbele afvlakking. Die schakelen we nu uit door die op `FALSE` te zetten.
+
+```{r}
+pass_ema1 <- HoltWinters(passagiers, alpha = 0.2, beta = FALSE, gamma = FALSE)
+pass_ema1_fc <- forecast(pass_ema1, h=10)
+plot(pass_ema1_fc)
+```
+
+>  Doe nu hetzelfde met $\alpha$ = 0.6 en $\alpha$ = 0.89. Hoe zien de voorspellingen er nu uit?
+
+```{r}
+# alpha = 0.6
+pass_ema1_2 <- HoltWinters(passagiers, alpha = 0.6, beta = FALSE, gamma = FALSE)
+pass_ema1_fc_2 <- forecast(pass_ema1_2, h = 20)
+plot(pass_ema1_fc_2)
+
+# alpha = 0.89
+pass_ema1_3 <- HoltWinters(passagiers, alpha = 0.89, beta = FALSE, gamma = FALSE)
+pass_ema1_fc_3 <- forecast(pass_ema1_3, h = 20)
+plot(pass_ema1_fc_3)
+```
+
+Met enkelvoudig exponentieel voortschrijdend gemiddelde ga je er van uit dat de tijdserie stabiel is, m.a.w. dat de onderlinggende waarde constant is en enige afwijkingen als "ruis" beschouwd kunnen worden. Het gevolg is dat de voorspelling altijd hetzelfde getal is (resp. 469,6301; 431,7607 en 428,3161, afhankelijk van de gekozen parameter $\alpha$).
+
+Voor deze tijdreeks is dat weinig zinvol!
+
+## Dubbel exponentieel voortschrijdend gemiddelde
+
+> Doe nu hetzelfde met dubbele exponentiële afvlakking. Gebruik hiervoor de methode `HoltWinters()` met parameters $\alpha = 0.8$ en $\beta = 0.2$. Plot het resultaat op de grafiek.
+
+```{r}
+pass_ema2 <- HoltWinters(passagiers, alpha = 0.8, beta = 0.2, gamma = FALSE)
+pass_ema2_fc <- forecast(pass_ema2, h = 10)
+plot(pass_ema2_fc)
+```
+Bij dubbele exponentiële afvlakking veronderstel je dat de onderliggende data een lineaire trend vertoont. Bij elke observatie wordt een schatting van de parameters van de trendrechte bijgestuurd. Omdat er vrij sterke seizoenale schommelingen in de data zitten, wordt de schatting in de war gebracht. Als we nog enkele observaties meer hadden gehad, zouden we in de voorspelling waarschijnlijk toch een stijgende trend zien.
+
+Je kan parameters $\alpha$ en $\beta$ eventueel aanpassen om te controleren in hoeverre er rekening gehouden wordt met oudere observaties. Het zoeken naar geschikte waarden is niet zo eenvoudig, maar je kan gelukkig R zelf een geschikte waarde laten kiezen. Daarvoor volstaat het de parameters gewoon weg te laten: 
+
+```{r}
+pass_ema2 <- HoltWinters(passagiers, gamma = FALSE)
+pass_ema2_fc <- forecast(pass_ema2, h = 10)
+plot(pass_ema2_fc)
+```
+De trendlijn is nu representatiever voor de onderliggende observaties.
+
+## Driedubbel exponentieel voortschrijdend gemiddelde
+
+>  Gebruik dubbele exponentiële afvlakking om voorspellingen te berekenen voor 20 periodes. Plot de waarden op de grafiek. Is deze techniek beter of slechter dan de vorige voor deze dataset?
+
+Driedubbele exponentiële afvlakking is bij uitstek geschikt voor data met een trend én seizoenale schommelingen. Dat is in de observaties duidelijk het geval. We kunnen de `HoltWinters()`-functie zijn werk laten doen en gaan zelf geen parameters instellen:
+
+```{r}
+pass_ema3 <- HoltWinters(passagiers)
+pass_ema3_fc <- forecast(pass_ema3, h = 24)
+plot(pass_ema3_fc)
+```
+Je kan aan de grafiek op verschillende manieren zien dat dit de meest geschikte manier is om de observaties te modelleren.
+
+Enerzijds is het visueel al duidelijk dat de voorspelde waarden (in het blauw) een verderzetting zijn van de observaties. Wat ook moet opvallen is dat het grijze gebied rond de voorspellingen veel kleiner is. Dat gebied stelt een soort betrouwbaarheidsinterval voor. Hoe groter het grijze gebied, hoe minder zeker we zijn van de voorspelde waarde. Bij enkelvoudige en dubbele exponentiële afvlakking was het betrouwbaarheidsinterval rond elke voorspelling ook veel groter, wat dus wijst op een minder geschikt model om de geobserveerde waarden mee te modelleren.
+
+Je kan zelf met de waarden voor $\alpha$, $\beta$ en $\gamma$ spelen in de code hierboven en het resultaat bekijken op de grafiek.
