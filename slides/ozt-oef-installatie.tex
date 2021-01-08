@@ -1,0 +1,280 @@
+% Onderzoekstechnieken/bachelorproef: Software installeren
+
+\documentclass[aspectratio=169]{beamer}
+
+\usepackage{minted}
+\setminted{bgcolor=gray!20,gobble=4}
+
+%---------- Stijl -------------------------------------------------------------
+
+\usetheme{hogent}
+
+\usecolortheme{hgwhite} % witte achtergrond, zwarte tekst
+
+%---------- Info over de presentatie ------------------------------------------
+
+\title{Installatie software.}
+\subtitle{Onderzoekstechnieken}
+\include{authors}
+
+\begin{document}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\begin{frame}
+  \frametitle{What's on the menu today?}
+
+  \tableofcontents
+\end{frame}
+
+\begin{frame}
+  \frametitle{Voor we beginnen}
+
+  \begin{itemize}
+    \item Installatie-instructies voor Windows
+    \item Voor Mac/Linux: zie cursus Github-repo, README
+    \item Let op! Kopieer geen tekst uit PDF naar console
+  \end{itemize}
+
+\end{frame}
+
+\section{Stap 0. Installeer Chocolatey.}
+
+\begin{frame}
+  \frametitle{Chocolatey}
+
+  \begin{itemize}
+    \item Chocolatey = package manager voor Windows
+    \item Ga naar \url{https://chocolatey.org/} > \emph{Get Started}
+    \item Volg de instructies!
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Onderhoud}
+
+  \begin{itemize}
+    \item Zoeken: \verb|choco search ZOEKTERM|
+    \begin{itemize}
+      \item Of: \url{https://chocolatey.org/packages}
+    \end{itemize}
+    \item Installeren: \verb|choco install -y PACKAGE|
+    \item Lijst geïnstalleerde software: \verb|choco list --localonly|
+    \item Updates installeren: \verb|choco upgrade all|
+    \item Tip: maak een PowerShell script voor de installatie
+  \end{itemize}
+
+\end{frame}
+
+\section{Stap 1. Installeer Git}
+
+\begin{frame}[fragile]
+  \frametitle{Git}
+
+  \begin{itemize}
+    \item We veronderstellen dat Git (en Git Bash) al geïnstalleerd is!
+    \item Zoniet:
+  \end{itemize}
+
+  \begin{minted}{powershell}
+    PS> choco install -y git
+    PS> choco install -y gitkraken
+  \end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Configuratie}
+
+  Bij voorkeur in een Git Bash console:
+
+  \begin{minted}{shell-session}
+    $ git config --global user.name "Voornaam Naam"
+    $ git config --global user.email "voornaam.naam@hogent.be"
+    $ git config --global github.user "GithubUserName"
+    $ git config --global push.default simple
+    $ git config --global core.autocrlf input
+    $ git config --global pull.rebase = true
+    $ git config --global rebase.autoStash = true
+  \end{minted}
+
+\end{frame}
+
+\section{Stap 2. R en RStudio.}
+
+\begin{frame}
+  \frametitle{R, RStudio}
+
+  \begin{description}
+    \item[R] (functionele) programmeertaal voor data-analyse
+    \item[RStudio] (open source) IDE voor R
+  \end{description}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Installatie}
+
+  \begin{minted}{powershell}
+    PS> choco install -y r.project
+    PS> choco install -y r.studio
+  \end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Configuratie}
+
+  Open RStudio, console:
+
+  \begin{minted}{r}
+    > install.packages("tidyverse")
+  \end{minted}
+
+\end{frame}
+
+\section{Stap 3. MikTeX, TeXstudio en JabRef.}
+
+\begin{frame}
+  \frametitle{Software voor {\LaTeX}}
+
+  \begin{itemize}
+    \item {\LaTeX} = tekstzetsysteem voor professioneel opgemaakte documenten
+    \item Niet WYSIWYG, maar markuptaal + compiler
+    \item Output typisch PDF
+  \end{itemize}
+
+  \bigskip
+
+  Aanbevolen software:
+
+  \begin{description}
+    \item[MikTeX] {\LaTeX} distributie voor Windows, compilers
+    \item[TeXstudio]  IDE voor {\LaTeX}
+    \item[JabRef] Bibliografische database voor gebruik in {\LaTeX}
+  \end{description}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Installatie}
+
+  \begin{minted}{powershell}
+    PS> choco install -y miktex
+    PS> choco install -y texstudio
+    PS> choco install -y JabRef
+  \end{minted}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Onderhoud Mik{\TeX}}
+
+  \begin{itemize}
+    \item Open Mik{\TeX} console als Administrator
+    \item Settings:
+      \begin{itemize}
+        \item Always install missing packages on-the-fly
+        \item Default paper format: A4
+      \end{itemize}
+    \item Updates: Check for updates
+      \begin{itemize}
+        \item In geval van fouten: installeer updates
+      \end{itemize}
+    \item Zorg dat Mik{\TeX} niet geblokkeerd wordt door firewall/antivirus
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Lettertypes}
+
+  HOGENT huisstijl:
+
+  \begin{itemize}
+    \item Montserrat Regular, ExtraBold: \url{https://fonts.google.com/specimen/Montserrat}
+    \item Code Pro Black: \url{https://www.dafontfree.net/freefonts-code-pro-black-f62435.htm}
+  \end{itemize}
+
+  Code-font met ligaturen (e.g. \(\leftarrow\) i.p.v. \verb|<-|):
+
+  \begin{itemize}
+    \item Fira Code: \texttt{choco install firacode}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Configuratie TeXstudio}
+
+  \begin{itemize}
+    \item Options > Configure TeXstudio
+    \item Commands:
+      \begin{itemize}
+        \item XeLaTeX\@: \texttt{xelatex -synctex=1 -interaction=nonstopmode -shell-escape \%.tex}
+        \item Latexmk: \texttt{latexmk -xelatex -shell-escape -synctex=1 -interaction=nonstopmode -file-line-error \%}
+      \end{itemize}
+    \item Build:
+      \begin{itemize}
+        \item Default Compiler: Latexmk
+        \item Default Bibliography tool: Biber
+      \end{itemize}
+    \item Editor, enz.\ naar eigen voorkeur
+  \end{itemize}
+
+\end{frame}
+
+\section{Alternatief: Visual Studio Code.}
+
+\begin{frame}
+  \frametitle{VS Code}
+
+  \begin{itemize}
+    \item VS Code kan RStudio, TeXstudio en Markdown editor vervangen
+    \item Configuratie is wat complexer
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Installatie}
+
+  \begin{itemize}
+    \item \texttt{choco install -y vscode}
+    \item Extensies:
+      \begin{itemize}
+        \item {\LaTeX} Workshop (James Yu)
+        \item R (Yuki Ueda)
+      \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\section{Stap 4. Repo voor eigen oefeningen, nota's, enz.}
+
+\begin{frame}
+  \frametitle{Repo voor eigen oefeningen en nota's}
+
+  \begin{enumerate}
+    \item In RStudio, kies \emph{File > New Project}
+    \item Selecteer \emph{New Directory}, dan \emph{New Project}
+    \item Kies naam voor de directory (bv.~\texttt{ozt-oefeningen})
+    \item Vink \emph{Create a git repository} aan
+  \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Repo voor eigen oefeningen en nota's}
+
+  \begin{enumerate}
+    \setcounter{enumi}{4}
+    \item Maak directory \texttt{data} aan
+    \item Kopieer alle databestanden (\texttt{.csv}, \texttt{.txt}, \texttt{.sav}) uit de cursus-repo (onder \texttt{oefeningen/datasets} en \texttt{cursus/data}) naar deze directory
+    \item Maak eerste Git commit
+  \end{enumerate}
+
+\end{frame}
+
+\end{document}
