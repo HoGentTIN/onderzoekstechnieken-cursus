@@ -1,52 +1,6 @@
-## Informatie betreffende afstandslessen 
-
-HOGENT wil haar maatschappelijke rol opnemen om de verspreiding van het Coronavirus in te dijken. Daarom werd er besloten, op basis van de huidige situatie, dat de contactmomenten vanaf 16/03/2020 niet doorgaan, maar dat de cursus op alternatieve wijze zal gedoceerd worden.
-
-We beseffen dat dit niet evident zal zijn en dat het ook voor ons een zoektocht wordt om met de situatie om te gaan. Wij willen van onze kant het engagement opnemen om een kwalitatieve opleiding te blijven aanbieden en staan open voor constructieve feedback. We rekenen daarbij ook op jullie verantwoordelijkheidszin: dit is geen vakantie! Steek voldoende tijd en inspanning in het vak, maak een goede studieplanning en hou je er aan.
-
-### Leerpad
-
-In deze mail leggen we uit hoe dit praktisch in z'n werk gaat. Alle extra documenten, extra filmpjes en ander extra materiaal zal je terugvinden in het [leerpad op Chamilo][leerpad] waardoor je geleid door de leerstof kan gaan. 
-
-Alle reguliere materialen blijven beschikbaar op de GitHub [github repo][repository] van het vak. Bekijk zeker de logs om te zien of er toevoegingen/wijzigingen doorgevoerd zijn. 
-
-### Contactmomenten
-
-Virtuele contactmomenten zullen doorgaan via Teams. Op Chamilo zullen er groepen aangemaakt worden per lector waar je ingedeeld in zit. Tijdens de contactmomenten kan je dit direct kanaal naar jouw begeleider gebruiken. 
-
-## Hoorcollege's
-
-De hoorcollege's zullen opgenomen worden via een screencast, waarbij de uitleg te horen zal zijn. Deze screencast zal je terugvinden in het leerpad, via een youtube link. Je mag de screencast op voorhand bekijken (indien beschikbaar), maar je mag ze evengoed tijdens de geroosterde contactmomenten bekijken. De docenten zullen online zijn via Teams waar je eventuele vragen kan stellen. 
-
-## Oefensessies
-
-Per hoofdstuk zullen enkele basisoefeningen (zoals je op het examen kunt krijgen) uitgewerkt staan via screencast. Ander opgeloste oefeningen vind je terug, zoals altijd, op de [github repo][repository] onder `oefeningen/oplossingen/Roplossingen/naamhoofdstuk`
-
-Indien je vragen hebt over de oefeningen, dan kan je deze tijdens de geroosterde contactmomenten stellen via Teams. Heb je daarna nog vragen, dan kan je terecht op het forum van het opleidingsonderdeel. Vragen over oefeningen stel je op `Forum OZT/Oefeningen/Hoofstuknaam`. Per oefening kan je 1 topic aanmaken waar je met je vraag terecht kan. Maak geen twee topics voor dezelfde oefeningen. In de titel van de topic zet je het oefeningennummer.
-
-Indien je een topic maakt, hanteer je de regels van [stackoverflow][Stackoverflow] met betrekking tot het stellen van vragen. Indien je vraag niet correct gesteld is, zal sowieso eerst gevraagd worden om de relevante informatie te bezorgen of eventuele code die je al had te posten. Bespaar jezelf en ons dus wat tijd. 
-
-## NPE
-De NPE verloopt zoals anders, en staat duidelijk en uitgebreid beschreven in het opgavedocument dat je kan terugvinden op Chamilo. We raden aan dit nog eens door te nemen. 
-
-### Vragen rond NPE
-Indien je inhoudelijke vragen hebt met betrekking tot de taak, dan kan je deze stellen via [de Teams app][Teams] tijdens de geroosterde uren. Indien de vraag met code te maken heeft (denk aan vragen rond het gebruik van R of LateX), dan kan het handig zijn een pull request of issue aan te maken in je repository en je begeleider als reviewer aan te duiden. Op deze manier kan er relatief efficiënt codefeedback verzorgd worden. In een pull request kan je meteen verwijzen naar je code, issues kan je gebruiken voor algemenere vragen.
-
-Zit je toch met een prangende vraag buiten de contacturen, dan kan je natuurlijk terecht op het forum onder `Forum OZT/Taak`. 
-
- 
-# Nuttige referenties
-
-- [leerpad]: https://chamilo.hogent.be/index.php?application=Chamilo%5CApplication%5CWeblcms&go=CourseViewer&course=36676 
-- [repository]: https://github.com/HoGentTIN/onderzoekstechnieken-cursus 
-- [Teams]: https://products.office.com/nl-be/microsoft-teams/group-chat-software 
-- [stackoverflow]: https://stackoverflow.com/help/how-to-ask 
-
-- Reguliere inleidingstekst
-
 # Onderzoekstechnieken
 
-Cursusmateriaal Onderzoekstechnieken.
+Cursusmateriaal Onderzoekstechnieken HOGENT toegepaste informatica.
 
 ## Installatie software
 
@@ -54,15 +8,14 @@ Voor de cursus onderzoekstechnieken maak je gebruik van verschillende softwarepa
 
 ### Windows
 
-Installeer eerst de Chocolatey package manager als Administrator in een PowerShell (of CMD) terminal (<https://chocolatey.org/>).
-Daarna voer je onderstaande commando's uit, opnieuw als Administrator in een PowerShell (of CMD) terminal.
+Installeer eerst de Chocolatey package manager als Administrator in een PowerShell terminal (<https://chocolatey.org/>).
+Daarna voer je onderstaande commando's uit, opnieuw als Administrator in een PowerShell terminal.
 
-```
+```powershell
 choco install git
 choco install miktex
 choco install texstudio
 choco install JabRef
-choco install ghostwriter
 choco install r.project
 choco install r.studio
 ```
@@ -90,26 +43,28 @@ Traditionele werkwijze
 
 Via de homebrew package manager (<https://brew.sh/>). *Let op: werkwijze nog niet getest, feedback welkom!*
 
-```
+```console
 brew install git
 brew install --cask mactex
 brew install --cask texstudio
 brew install --cask jabref
 brew install Caskroom/cask/xquartz
 ```
-- R en Rstudio moeten via de downloadpagina geïnstalleerd worden, indien je dit niet gedaan hebt, zullen er geen X11 libraries beschikbaar zijn die worden gebruikt door R. 
+
+- R en Rstudio moeten via de downloadpagina geïnstalleerd worden, indien je dit niet gedaan hebt, zullen er geen X11 libraries beschikbaar zijn die worden gebruikt door R.
 - Je kan de aanwezigheid van de X11 libraries controleren met het volgende commando in Rstudio:
-```
+
+```R
 capabilities()
 ```
 
-Het is ook handig om een markdown editor te installeren (bvb. retext, ...)
+Het is ook handig om een teksteditor te installeren met ondersteuning voor Markdown (bvb. VS Code, ...)
 
-### Linux:
+### Linux
 
 **Ubuntu/Debian.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
 
-```
+```console
 sudo apt update
 sudo apt install texlive-latex-base texlive-latex-extra texlive-lang-european texlive-bibtex-extra biber
 sudo apt install git texstudio jabref r-base
@@ -118,11 +73,11 @@ wget https://download1.rstudio.org/rstudio-1.1.419-amd64.deb
 sudo dpkg -i ./rstudio-1.1.419-amd64.deb
 ```
 
-Het is ook handig om een markdown editor te installeren (bvb. retext, ghostwriter, ...)
+Het is ook handig om een teksteditor te installeren met ondersteuning voor Markdown (bvb. VS Code, ...)
 
 **Fedora.** Controleer eerst de link naar de laatste versie van RStudio via de [website](https://www.rstudio.com/products/rstudio/download/#download)
 
-```
+```console
 sudo dnf install git texstudio texlive-collection-latex texlive-babel-dutch jabref
 sudo dnf install retext
 sudo dnf install R https://download1.rstudio.org/rstudio-1.1.419-x86_64.rpm
@@ -144,7 +99,7 @@ Eerst enkele tips:
 Windows-gebruikers voeren volgende instructies uit via **Git Bash**,  
 MacOS X- en Linux-gebruikers via de standaard (Bash) terminal.
 
-```
+```console
 git config --global user.name "Pieter Stevens"
 git config --global user.email pieter.stevens.u12345@student.hogent.be
 git config --global push.default simple
@@ -152,7 +107,7 @@ git config --global push.default simple
 
 Maak ook een [SSH-sleutel](https://help.github.com/articles/connecting-to-github-with-ssh/) aan om het synchroniseren met Github te vereenvoudigen (je moet dan geen wachtwoord meer opgeven bij push/pull van/naar een private repository).
 
-```
+```console
 ssh-keygen
 ```
 
@@ -160,7 +115,7 @@ Volg de instructies op de command-line, druk gewoon ENTER als je gevraagd wordt 
 
 Test nu of je de code van de cursus Onderzoekstechnieken kan downloaden. Ga in de Bash shell naar een directory waar je dit project lokaal wil bijhouden en voer uit:
 
-```
+```console
 git clone git@github.com:HoGentTIN/onderzoekstechnieken-cursus.git
 ```
 
@@ -192,10 +147,11 @@ Indien er zich fouten voordoen bij de compilatie, kan je onderaan in het tabblad
 [JabRef](http://www.jabref.org/) is een GUI voor het bewerken van BibTeX-bestanden, een soort database van bronnen uit de wetenschappelijke of vakliteratuur voor een LaTeX-document.
 
 van de bibliografische databank compatibel met dat van de cursus en het aangeboden LaTeX-sjabloon voor de bachelorproef
+
 - Kies in het menu voor *Options > Preferences > General* en kies onderaan voor de optie "Default bibliography mode" voor "biblatex". Dit maakt de bestandsindeling van de bibliografische databank compatibel met dat van de cursus en het aangeboden LaTeX-sjabloon voor de bachelorproef.
 - Kies in het *Preferences*-venster voor de categorie *File* en geef een directory op voor het bijhouden van PDFs van de gevonden bronnen onder *Main file directory*. Het is heel interessant om de gevonden artikels te downloaden en onder die directory bij te houden. Nog beter is om als naam van het bestand de BibTeX key te nemen (typisch naam van de eerste auteur + jaartal, bv. Knuth1998.pdf). Je kan het bestand dan makkelijk openen vanuit Jabref.
 
-## Interessante artikels, ...
+## Interessante artikels
 
 - [R Tutorial](https://www.tutorialspoint.com/r/)
 - [Praktische Gids Bachelorproef](https://github.com/bertvv/bachproef-gids) (work in progress, door Bert Van Vreckem)
