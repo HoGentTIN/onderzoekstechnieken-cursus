@@ -55,7 +55,7 @@
   \end{beamercolorbox}
 }
 \pgfmathdeclarefunction{gauss}{2}{%
-  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
+  \pgfmathparse{1/ (#2*sqrt (2*pi)) * exp(-((x-#1)^2) / (2*#2^2))}%
 }
 
 %---------- Info over de presentatie ------------------------------------------
@@ -76,7 +76,7 @@
 
 \begin{frame}
   \frametitle{What's on the menu today?}
-  
+
   \tableofcontents
 \end{frame}
 
@@ -87,35 +87,35 @@
 
 \begin{frame}
   \frametitle{Filosofie: waarom {\LaTeX}?}
-  
+
   \begin{itemize}
     \item<+-> WYSIWYG tekstverwerkers dwingen auteurs om de vormgeving te verzorgen.
     \item<+-> Gevolg is slechte, inconsistente opmaak van documenten.
-    \item<+-> Goede vormgeving van teksten is een \emph{specialisatie}, en wordt best
+    \item<+-> Goede vormgeving van teksten is een \textit{specialisatie}, en wordt best
     uit handen van auteurs genomen.
-    \item<+-> {\LaTeX} zorgt dat auteurs enkel over de \emph{inhoud} en \emph{structuur} van de tekst moet nadenken.
+    \item<+-> {\LaTeX} zorgt dat auteurs enkel over de \textit{inhoud} en \textit{structuur} van de tekst moet nadenken.
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[plain]
   \frametitle{Geschiedenis}
-  
+
   \begin{columns}[c]
-    
+
     \column{.67\textwidth}
     \begin{itemize}
-      \item<+-> 1977: Donald Knuth vindt de drukproeven van zijn boek \emph{The art of Computer Programming} afschuwelijk
+      \item<+-> 1977: Donald Knuth vindt de drukproeven van zijn boek \textit{The art of Computer Programming} afschuwelijk
       \item<+-> 1978: Schreef dan maar zelf een tekstzetsysteem, {\TeX}
-      \item<+-> 1989: Versie 3.0, sindsdien enkel bugfix-releases (convergeren naar $\pi$)
+      \item<+-> 1989: Versie 3.0, sindsdien enkel bugfix-releases (convergeren naar \(\pi\))
       \item<+-> 1980s: Leslie Lamport ontwikkelt markup-taal voor {\TeX}: {\LaTeX}
     \end{itemize}
-    
+
     \column{.33\textwidth}
     \begin{center}
       \only<1-3>{\includegraphics[width=\textwidth]{oef1-01}}
       \only<4->{\includegraphics[width=\textwidth]{oef1-02}}
     \end{center}
-    
+
   \end{columns}
 \end{frame}
 
@@ -123,54 +123,55 @@
 
 \begin{frame}
   \frametitle{Voorbeelden---papers}
-  
+
   {\LaTeX} is de norm voor wetenschappelijke publicaties in computerwetenschappen, wiskunde, fysica, enz.
-  
+
   \begin{center}
     \includegraphics[height=.6\textheight]{oef1-03}
   \end{center}
-  
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Voorbeelden---boeken}
-  
+
   Ook: cursussen, thesissen, enz.
-  
+
   \begin{center}
     \includegraphics[height=.6\textheight]{oef1-04}
   \end{center}
-  
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Voorbeelden---presentaties}
-  
+
   \begin{center}
-    vb. deze presentatie\ldots
+    vb.\ deze presentatie\ldots
   \end{center}
-  
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Voordelen}
-  
+
   \begin{itemize}
     \item<+-> Enkel bezighouden met inhoud, goede en consistente opmaak gegarandeerd.
-    \item<+-> Tekstformaat $\Rightarrow$ geschikt voor versiebeheersysteem!
-    \item<+-> Is de norm in verschillende onderzoeksdomeinen, o.a. computerwetenschappen
+    \item <+-> Stijl aanpassen zonder inhoud te wijzigen.
+    \item<+-> Tekstformaat \(\Rightarrow\) geschikt voor versiebeheersysteem!
+    \item<+-> Is de norm in verschillende onderzoeksdomeinen, o.a.\ computerwetenschappen
   \end{itemize}
 \end{frame}
 
 
 \begin{frame}
   \frametitle{Nadelen}
-  
+
   \begin{itemize}
-    \item<+-> Zware leercurve $\Rightarrow$ copy paste voorbeelden, gebruik infobronnen, vraag hulp
+    \item<+-> Zware leercurve \(\Rightarrow\) copy paste voorbeelden, gebruik infobronnen, vraag hulp
     \item<+-> Soms is gewenste opmaak niet makkelijk te bereiken (vb.~tabellen)
   \end{itemize}
-  
+
   \uncover<1->{%
     \begin{center}
       \includegraphics[height=.5\textheight]{oef1-05}
@@ -181,14 +182,14 @@
 
 \begin{frame}
   \frametitle{Hulp zoeken}
-  
+
   \begin{itemize}
     \item Tobias Oetiker, et al., \emph{The Not So Short Introduction to {\LaTeXe}}, 2011 (a.k.a. ``lshort'', versie 5.01)
-    \item {\TeX} - {\LaTeX} StackExchange (Q \& A site): \url{http://tex.stackexchange.com/}
+    \item {\TeX} --- {\LaTeX} StackExchange (Q \& A site): \url{http://tex.stackexchange.com/}
     \item \emph{{\LaTeX} Wikibook}, \url{http://en.wikibooks.org/wiki/LaTeX}
-    \item \emph{Hypertext help with {\LaTeX}}, \url{http://www.ics.uci.edu/~pan/documents/latex/ltx-2.html}
+    \item Handleidingen van packages (pdf)
   \end{itemize}
-  
+
 \end{frame}
 
 \section{Aan de slag met {\LaTeX}}
@@ -197,9 +198,9 @@
 
 \begin{frame}
   \frametitle{Werkomgeving opzetten}
-  
+
   (1) {\LaTeX} distributie
-  
+
   \begin{itemize}
     \item Windows: MikTeX \url{http://miktex.org/}
     \item MacOS: MacTeX distribution \url{http://www.tug.org/mactex/2011/}
@@ -210,12 +211,13 @@
     \end{itemize}
     \item On-line werkomgeving: \url{https://www.overleaf.com/}
   \end{itemize}
-  
+
   (2) {\LaTeX} editor
-  
+
   \begin{itemize}
     \item Verschillende keuzes, afh.~besturingssysteem
     \item vb. TexStudio \url{http://www.texstudio.org/}
+    \item Visual Studio Code + Latex Workshop plugin
   \end{itemize}
 \end{frame}
 
@@ -223,39 +225,39 @@
 
 \begin{frame}
   \frametitle{Werkwijze}
-  
+
   \begin{itemize}
     \item<+-> Schrijf tekst in {\LaTeX}\\
     = tekstbestand! (markuptaal zoals HTML)
-    \item<+-> Compileer met \texttt{pdflatex} (evt. verschillende keren)
+    \item<+-> Compileer (evt.\ verschillende keren)
     \item<+-> Bekijk resultaat in PDF
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{{\LaTeX} commando's}
-  
+
   \begin{block}{Basis-syntax}
     \verb|\commandonaam[optionele,argumenten]{arg1}{arg2}|
   \end{block}
-  
+
   \pause
-  
+
   Bijvoorbeeld:
-  
+
   \begin{itemize}
-    \item<+-> \verb|\documentclass[a4paper,pdftex,12pt]{paper}|
-    \item<+-> \verb|\'{e}l\`{e}ve| $\Rightarrow$ \'el\`eve
+    \item<+-> \verb|\documentclass[a4paper,pdftex,12pt]{article}|
+    \item<+-> \verb|\'{e}l\`{e}ve| \(\Rightarrow\) \'el\`eve
     \item<+-> \verb|\begin{itemize}|\\
     \verb|\item lijst|\\
     \verb|\end{itemize}|
   \end{itemize}
-  
+
 \end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Een document opbouwen}
-  
+
   \begin{center}
     \alert{%
       \only<1>{Definitie documentsoort (hier: artikel)}
@@ -266,7 +268,7 @@
       \only<6>{Titel in document invoegen}
     }
   \end{center}
-  
+
   \begin{semiverbatim}
     \uncover<1->{\alert<1>{\\documentclass[a4paper,12pt]\{article\}}}
     \uncover<4->{\alert<4>{\\usepackage[dutch]\{babel\}}}
@@ -278,12 +280,12 @@
     \uncover<3->{\alert<3>{Lorem ipsum dolor sit amet, consectetur adipiscing elit.}}
     \uncover<2->{\alert<2>{\\end\{document\}}}
   \end{semiverbatim}
-  
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Resultaat}
-  
+
   \begin{center}
     \includegraphics[height=.6\textheight]{oef1-06}
   \end{center}
@@ -291,19 +293,19 @@
 
 \begin{frame}[fragile]
   \frametitle{Documenttypes}
-  
+
   \begin{center}
     \begin{semiverbatim}
       \\documentclass[\alert<2>{OPTIONS}]\{\alert<1>{TYPE}\}
     \end{semiverbatim}
   \end{center}
-  
-  \only<1>{%  
+
+  \only<1>{%
     \begin{center}
       \begin{tabular}{ll}
-        \hline
+        \toprule
         TYPE & soort document \\
-        \hline
+        \midrule
         \texttt{article} & artikel, paper, korte tekst \\
         \texttt{beamer} & presentatie \\
         \texttt{book} & boek \\
@@ -311,12 +313,12 @@
       \end{tabular}
     \end{center}
   }
-  \only<2>{%  
+  \only<2>{%
     \begin{center}
       \begin{tabular}{ll}
-        \hline
+        \toprule
         OPTION & soort document \\
-        \hline
+        \midrule
         \texttt{12pt} & 12-puntsletters (ipv 10pt) \\
         \texttt{a4paper} & A4 (ipv Am. Letter) \\
         \texttt{twocolumn} & gebruikelijk bij artikels \\
@@ -326,18 +328,16 @@
   }
 \end{frame}
 
-
-
 \begin{frame}[fragile]
   \frametitle{Documentstructuur}
-  
+
   \begin{center}
     \begin{tabular}{ll}
       \verb?\part? & (geen invloed op hoofdstuknummers) \\
       \verb?\chapter? & (enkel in \texttt{book}, \texttt{report}) \\
       \verb?\section? & \\
       \verb?\subsection? & \\
-      \verb?\subsubsection? & (niet in \texttt{book}, \texttt{report}) \\ 
+      \verb?\subsubsection? & (niet in \texttt{book}, \texttt{report}) \\
       \verb?\paragraph? & \\
       \verb?\subparagraph? & \\
       &\\
@@ -349,13 +349,13 @@
 
 \begin{frame}[fragile]
   \frametitle{Preamble---Nuttige packages}
-  
+
   \begin{description}
     \item[\texttt{\textbackslash{}usepackage\{amsfonts\}}] AMS math packages: extra wiskundige
-    \item[\texttt{\textbackslash{}usepackage\{amsmath\}}] symbolen (o.a. getallenverzamelingen
-    \item[\texttt{\textbackslash{}usepackage\{amssymb\}}] $\mathbb{N}, \mathbb{R}, \mathbb{Z}, \mathbb{Q}$, etc.)
+    \item[\texttt{\textbackslash{}usepackage\{amsmath\}}] symbolen (o.a.\ getallenverzamelingen
+    \item[\texttt{\textbackslash{}usepackage\{amssymb\}}] \(\mathbb{N}, \mathbb{R}, \mathbb{Z}, \mathbb{Q}\), etc.)
     \pause
-    \item[\texttt{\textbackslash{}usepackage[dutch]\{babel\}}] Taalinstellingen: woordsplitsingen, commando's voor speciale karakters ("dutch" voor NL)
+    \item[\texttt{\textbackslash{}usepackage[dutch]\{babel\}}] Taalinstellingen: woordsplitsingen, commando's voor speciale karakters (``dutch'' voor NL)
     \pause
     \item[\texttt{\textbackslash{}usepackage\{eurosym\}}] Euro-symbool (\euro)
     \pause
@@ -367,7 +367,7 @@
 
 \begin{frame}[fragile]
   \frametitle{Preamble---Nuttige packages}
-  
+
   \begin{description}
     \item[\texttt{\textbackslash{}usepackage[pdftex,bookmarks=true]\{hyperref\}}] PDF krijgt klikbare links \& verwijzingen, inhoudstafel \pause
     \item[\texttt{\textbackslash{}usepackage[utf8]\{inputenc\}}] Accenten gebruiken in tekst (vb. é ipv \verb|\'e|) \pause
@@ -381,337 +381,352 @@
 \subsection{Tekst schrijven}
 
 \begin{frame}[fragile]
-  \frametitle{Tekstopmaak}
-  
-  \begin{itemize}
-    \item<+-> Speciale tekens ({\LaTeX} syntax): \% \$ \& \{ \} \textbackslash{} enz: \\
-    \begin{semiverbatim}
-      \\\% \\\$ \\\& \\\{ \\\} \\textbackslash\{\}
-    \end{semiverbatim}
-    \item<+-> Ligaturen: \textrm{fi fl ffi ffl} (automatisch opgemaakt)
-    \item<+-> Accenten: \'{e} \`{e} \^{e} \"{e} \={e} \c{c} enz.
-    \begin{semiverbatim}
-      \\'\{e\} \\`\{e\} \\^\{e\} \\"\{e\} \\=\{e\} \\c\{c\} enz.
-    \end{semiverbatim}
-    \item<+-> Ellipsis (\ldots): \texttt{\textbackslash{}ldots}
-    \item<+-> Aanhalingstekens: `enkel' ``dubbel''
-    \begin{verbatim}
-    `enkel' ``dubbel''
-    \end{verbatim}
-  \end{itemize}
+ \frametitle{Tekstopmaak}
+
+ \begin{itemize}
+   \item<+-> Speciale tekens ({\LaTeX} syntax): \% \$ \& \{ \} \textbackslash{} enz: \\
+   \begin{semiverbatim}
+     \\\% \\\$ \\\& \\\{ \\\} \\textbackslash\{\}
+   \end{semiverbatim}
+   \item<+-> Ligaturen: \textrm{fi fl ffi ffl} (automatisch opgemaakt)
+   \item<+-> Accenten: \'{e} \`{e} \^{e} \"{e} \={e} \c{c} enz.
+   \begin{semiverbatim}
+     \\'\{e\} \\`\{e\} \\^\{e\} \\"\{e\} \\=\{e\} \\c\{c\} enz.
+   \end{semiverbatim}
+   \item<+-> Ellipsis (\ldots): \texttt{\textbackslash{}ldots}
+   \item<+-> Aanhalingstekens: `enkel' ``dubbel''
+   \begin{verbatim}
+   `enkel' ``dubbel''
+   \end{verbatim}
+ \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Letterstijlen}
-  
-  \begin{center}
-    \begin{tabular}{ll}
-      \hline
-      Commando & resultaat \\
-      \hline
-      \verb?\emph{xxx}?   & \emph{Benadrukken} (\textrm{\emph{cursief}} of \textsf{\emph{`slanted'}})\\
-      \verb?\textit{xxx}? & \textit{Cursieve tekst} \\
-      \verb?\textbf{xxx}? & \textbf{Vetgedrukte tekst} \\    
-      \verb?\texttt{xxx}? & \texttt{Monogespatieerde letters} \\
-      \verb?\textrm{xxx}? & \textrm{Schreefletters}  \\
-      \verb?\textsf{xxx}? & \textsf{Schreefloze letters}  \\
-      \verb?\textsc{xxx}? & \textsc{Small Caps} \\
-    \end{tabular}
-  \end{center}
-  
+ \frametitle{Letterstijlen}
+
+ \begin{center}
+   \begin{tabular}{ll}
+     \toprule
+     Commando & resultaat \\
+     \midrule
+     \verb?\emph{xxx}?   & \emph{Benadrukken} (\textrm{\emph{cursief}} of \textsf{\emph{`slanted'}})\\
+     \verb?\textit{xxx}? & \textit{Cursieve tekst} \\
+     \verb?\textbf{xxx}? & \textbf{Vetgedrukte tekst} \\
+     \verb?\texttt{xxx}? & \texttt{Monogespatieerde letters} \\
+     \verb?\textrm{xxx}? & \textrm{Schreefletters}  \\
+     \verb?\textsf{xxx}? & \textsf{Schreefloze letters}  \\
+     \verb?\textsc{xxx}? & \textsc{Small Caps} \\
+   \end{tabular}
+ \end{center}
+
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Lijstomgevingen}
-  
-  \begin{columns}[c]
-    \column{.49\textwidth}
-    \begin{verbatim}  
-    \begin{itemize}
-    \item Een onderdeel
-    \item Nog een onderdeel
-    \end{itemize}
-    \end{verbatim}
-    
-    \column{.49\textwidth}
-    \begin{itemize}
-      \item Een onderdeel
-      \item Nog een onderdeel
-    \end{itemize}
-  \end{columns}
-  
-  \pause
-  
-  \begin{columns}[c]
-    \column{.49\textwidth}
-    \begin{verbatim}  
-    \begin{enumerate}
-    \item Een onderdeel
-    \begin{enumerate}
-    \item extra niveau
-    \end{enumerate}
-    \item Nog een onderdeel
-    \end{enumerate}
-    \end{verbatim}
-    
-    \column{.49\textwidth}
-    \begin{enumerate}
-      \item Een onderdeel
-      \begin{enumerate}
-        \item extra niveau
-      \end{enumerate}
-      \item Nog een onderdeel
-    \end{enumerate}
-  \end{columns}
-  
+ \frametitle{Lijstomgevingen}
+
+ \begin{columns}[c]
+   \column{.49\textwidth}
+   \begin{verbatim}
+   \begin{itemize}
+   \item Een onderdeel
+   \item Nog een onderdeel
+   \end{itemize}
+   \end{verbatim}
+
+   \column{.49\textwidth}
+   \begin{itemize}
+     \item Een onderdeel
+     \item Nog een onderdeel
+   \end{itemize}
+ \end{columns}
+
+ \pause
+
+ \begin{columns}[c]
+   \column{.49\textwidth}
+   \begin{verbatim}
+   \begin{enumerate}
+   \item Een onderdeel
+     \begin{enumerate}
+     \item extra niveau
+     \end{enumerate}
+   \item Nog een onderdeel
+   \end{enumerate}
+   \end{verbatim}
+
+   \column{.49\textwidth}
+   \begin{enumerate}
+     \item Een onderdeel
+     \begin{enumerate}
+       \item extra niveau
+     \end{enumerate}
+     \item Nog een onderdeel
+   \end{enumerate}
+ \end{columns}
+
 \end{frame}
 
-\section{Figuren, tabellen, enz. invoegen}
+\section{Figuren, tabellen, enz.\ invoegen}
 
 \subsection{Figuren}
 
-\begin{frame}[fragile]
-  \frametitle{Figuren invoegen}
-  
-  \begin{columns}[c]
-    \column{.65\textwidth}
-    \begin{semiverbatim}
-      \alert<1>{\\begin\{figure\}}
-      \alert<2>{\\includegraphics[width=\\textwidth]
-        \{oef1-01\}}
-      \alert<3>{\\caption\{Donald Knuth, auteur van
-        \{\\TeX\}\}}
-      \alert<4>{\\label\{fig:don\}}
-      \alert<1>{\\end\{figure\}}
-    \end{semiverbatim}
-    
-    \column{.35\textwidth}
-    \begin{figure}
-      \includegraphics[width=\textwidth]{oef1-01}
-      \caption{Donald Knuth, auteur van {\TeX}}
-      \label{fig:don}
-    \end{figure}
-    
-  \end{columns}
-  
+\begin{frame}[fragile,plain]
+ \frametitle{Figuren invoegen}
+
+ \begin{columns}[c]
+   \column{.65\textwidth}
+
+\begin{semiverbatim}
+\alert<1>{\\begin\{figure\}}
+\alert<2>{\\includegraphics[width=\\textwidth]
+ \{oef1-01\}}
+\alert<3>{\\caption\{\alert<4>{\\label\{fig:don\}}Donald Knuth, auteur van
+ \{\\TeX\}\}}
+\alert<1>{\\end\{figure\}}
+\end{semiverbatim}
+
+   \column{.35\textwidth}
+   \begin{figure}
+     \includegraphics[width=\textwidth]{oef1-01}
+     \caption{\label{fig:don}Donald Knuth, auteur van {\TeX}}
+   \end{figure}
+
+ \end{columns}
+
 \end{frame}
 
 \subsection{Tabellen}
 
 \begin{frame}[fragile]
-  \frametitle{Tabellen invoegen}
-  
-  \begin{columns}[c]
-    \column{.6\textwidth}
-    \small
-    \begin{semiverbatim}
-      \alert<1>{\\begin\{table\}}
-      \alert<3>{\\begin\{tabular\}\{\alert<4>{l||c|r}\}}
-      \alert<4>{\\hline}
-      cel11 \alert<5>{&} 
-      \alert<7>{\\multicolumn\{2\}\{c\}\{cel12\}} \alert<6>{\\\\}
-      \alert<4>{\\hline \\hline}
-      cel21 \alert<5>{&} cel22 \alert<5>{&} 
-      \alert<7>{\\multirow\{2\}\{*\}\{cel23\}} \alert<6>{\\\\}
-      cel31 \alert<5>{&} cel32 \alert<5>{&} \alert<6>{\\\\}
-      \alert<3>{\\end\{tabular\}}
-      \alert<2>{\\caption\{Een voorbeeldje van 
-        wat je met tabellen kan doen\}
-        \\label\{tab:vb_tabel\}}
-      \alert<1>{\\end\{table\}}
-    \end{semiverbatim}
-    
-    \column{.4\textwidth}
-    \begin{table}
-      \begin{tabular}{l||c|r}
-        \hline
-        cel11 & \multicolumn{2}{c}{cel12} \\
-        \hline \hline
-        cel21 & cel22 & \multirow{2}{*}{cel23} \\
-        cel31 & cel32 & \\
-      \end{tabular}
-      \caption{Een voorbeeldje van wat je met tabellen kan doen}
-      \label{tab:vb_tabel}
-    \end{table}
-    
-  \end{columns}
+ \frametitle{Tabellen invoegen}
+
+ \begin{columns}[c]
+   \column{.6\textwidth}
+   \small
+\begin{semiverbatim}
+\alert<1>{\\begin\{table\}}
+\alert<3>{\\begin\{tabular\}\{\alert<4>{l||c|r}\}}
+\alert<4>{\\hline}
+cel11 \alert<5>{&}
+\alert<7>{\\multicolumn\{2\}\{c\}\{cel12\}} \alert<6>{\\\\}
+\alert<4>{\\hline \\hline}
+cel21 \alert<5>{&} cel22 \alert<5>{&}
+\alert<7>{\\multirow\{2\}\{*\}\{cel23\}} \alert<6>{\\\\}
+cel31 \alert<5>{&} cel32 \alert<5>{&} \alert<6>{\\\\}
+\alert<3>{\\end\{tabular\}}
+\alert<2>{\\caption\{Een voorbeeldje van
+ wat je met tabellen kan doen\}
+ \\label\{tab:vb_tabel\}}
+\alert<1>{\\end\{table\}}
+\end{semiverbatim}
+
+   \column{.4\textwidth}
+   \begin{table}
+     \begin{tabular}{l||c|r}
+       \hline
+       cel11 & \multicolumn{2}{c}{cel12} \\
+       \hline \hline
+       cel21 & cel22 & \multirow{2}{*}{cel23} \\
+       cel31 & cel32 & \\
+     \end{tabular}
+     \caption{Een voorbeeldje van wat je met tabellen kan doen}
+     \label{tab:vb_tabel}
+   \end{table}
+
+ \end{columns}
 \end{frame}
 
 \subsection{Broncode}
 
 \begin{frame}[fragile]
-  \frametitle{Broncode invoegen: simpel}
-  
-  \begin{semiverbatim}
-    \alert{\\begin\{verbatim\}}
-    public class MyApp \{
-    public static void main(String args[]) \{
-    System.out.println("Hello World");
-    \}
-    \}
-    \alert{\\end\{verbatim\}}
-  \end{semiverbatim}
-  $\Rightarrow$
-  \begin{verbatim}
-  public class MyApp {
-  public static void main(String args[]) {
-  System.out.println("Hello World");
-  }
-  }
-  \end{verbatim}  
-  
+ \frametitle{Broncode invoegen}
+ \framesubtitle{Eenvoudigste vorm: \texttt{verbatim}}
+
+\begin{semiverbatim}
+\alert{\\begin\{verbatim\}}
+public class MyApp \{
+ public static void main(String args[]) \{
+   System.out.println("Hello World");
+ \}
+\}
+\alert{\\end\{verbatim\}}
+\end{semiverbatim}
+
+ \(\Rightarrow\)
+
+\begin{verbatim}
+public class MyApp {
+ public static void main(String args[]) {
+   System.out.println("Hello World");
+ }
+}
+\end{verbatim}
+
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Broncode invoegen: \texttt{\textbackslash{}usepackage\{listings\}}}
-  
-  \begin{semiverbatim}
-    \\lstset\{\%
-    language=java,    breaklines=true,
-    numbers=left,     frame=single,
-    caption=\{Mijn eerste Java-programma.\},
-    label=code:helloworld
-    \}
-    
-    \alert{\\begin\{lstlisting\}}
-    public class MyApp \{
-    public static void main(String args[]) \{
-    System.out.println("Hello World");
-    \}
-    \}
-    \alert{\\end\{lstlisting\}}
-  \end{semiverbatim}
-  
+ \frametitle{Broncode invoegen}
+ \framesubtitle{\texttt{listings} package}
+
+\begin{semiverbatim}
+\\lstset\{\%
+language=java,  breaklines=true,  numbers=left,
+frame=single, caption=\{Mijn eerste Java-programma.\},
+label=code:helloworld\}
+
+\alert{\\begin\{lstlisting\}}
+public class MyApp \{
+ public static void main(String args[]) \{
+   System.out.println("Hello World");
+ \}
+\}
+\alert{\\end\{lstlisting\}}
+\end{semiverbatim}
+
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Broncode invoegen:  \texttt{\textbackslash{}usepackage\{listings\}}}
-  
+  \frametitle{Broncode invoegen}
+  \framesubtitle{\texttt{listings} package}
+
   \lstset{%
     language=java,    breaklines=true,
     numbers=left,     frame=single,
     caption={Mijn eerste Java-programma.},
-    label=code:helloworld
+    label=code:helloworld,
+    gobble=2
   }
-  
+
   \begin{lstlisting}
   public class MyApp {
-  public static void main(String args[]) {
-  System.out.println("Hello World");
-  }
+    public static void main(String args[]) {
+      System.out.println("Hello World");
+    }
   }
   \end{lstlisting}
-  
+
 \end{frame}
 
 \subsection{Literatuurlijst}
 
 \begin{frame}[fragile]
-  \frametitle{Literatuurlijst}
-  
-  \begin{itemize}
-    \item<+-> Literatuurlijst is belangrijk onderdeel van een thesis
-    \item<+-> Strakke regels voor opmaak (HoGent: APA-stijl)
-    \item<+-> Enkel \emph{publicaties} komen in aanmerking
-    \item<+-> Enkel werken waarnaar verwezen wordt in de tekst
-    \item<+-> {\LaTeX}, meer bepaald Bib{\LaTeX} helpt:
-    \begin{itemize}
-      \item<+-> ``bibliografische databank'' (in tekstformaat)
-      \item<+-> Automatische opmaak, sortering literatuurlijst
-      \item<+-> Verwijzingen vanuit uit de tekst (\verb|\textcite{}|)
-      \item<+-> Ondersteuning via externe tools (e.g. JabRef, Mendeley Desktop)
-    \end{itemize} 
-  \end{itemize}
+ \frametitle{Literatuurlijst}
+
+ \begin{itemize}
+   \item<+-> Literatuurlijst is belangrijk onderdeel van een eindwerk
+   \item<+-> Strakke regels voor opmaak (HOGENT: APA-stijl)
+   \item<+-> Enkel \textit{publicaties} komen in aanmerking
+   \item<+-> Enkel werken waarnaar verwezen wordt in de tekst
+   \item<+-> {\LaTeX}, meer bepaald Bib{\LaTeX} helpt:
+   \begin{itemize}
+     \item<+-> ``bibliografische databank'' (in tekstformaat)
+     \item<+-> Automatische opmaak, sortering literatuurlijst
+     \item<+-> Verwijzingen vanuit uit de tekst (\verb|\textcite{}|)
+     \item<+-> Ondersteuning via externe tools (e.g. JabRef, Mendeley Desktop)
+   \end{itemize}
+ \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Literatuurlijst}
-  
-  Voorbeeld inhoud Bib{\LaTeX}-bestand (*.bib):
-  
-  \begin{semiverbatim}
-    \alert<2>{@book}\{\alert<4>{Knuth1998},
-    \alert<3>{author} = \{Knuth, Donald E.\},
-    \alert<3>{title} = \{The art of computer programming,  volume 3:
-    sorting and searching\},
-    \alert<3>{year} = \{1998\},
-    publisher = \{Addison Wesley\},
-    address = \{Redwood City, CA, USA\}
-    \} 
-  \end{semiverbatim}
-  
-  \only<2>{Of: article, inproceedings, inbook, phdthesis, misc, \ldots}
-  \only<3>{Sommige velden verplicht, afh. type publicatie}
-  \only<4>{Verwijzing in de tekst: 
-    \begin{itemize}
-      \item \alert{\texttt{\textbackslash{}textcite\{Knuth1998\}}} $\Rightarrow$ \textcite{Knuth1998}
-      \item \alert{\texttt{\textbackslash{}autocite\{Knuth1998\}}} $\Rightarrow$ \autocite{Knuth1998}
-    \end{itemize}
-  }
-  
+ \frametitle{Literatuurlijst}
+
+ Voorbeeld inhoud Bib{\LaTeX}-bestand (*.bib):
+
+\begin{semiverbatim}
+\alert<2>{@book}\{\alert<4>{Knuth1998},
+ \alert<3>{author} = \{Knuth, Donald E.\},
+ \alert<3>{title} = \{The art of computer programming,  volume 3:
+ sorting and searching\},
+ \alert<3>{year} = \{1998\},
+ publisher = \{Addison Wesley\},
+ address = \{Redwood City, CA, USA\}
+\}
+\end{semiverbatim}
+
+ \only<2>{Of: article, inproceedings, inbook, phdthesis, misc, \ldots}
+ \only<3>{Sommige velden verplicht, afh. type publicatie}
+ \only<4>{Verwijzing in de tekst:
+   \begin{itemize}
+     \item \alert{\texttt{\textbackslash{}textcite\{Knuth1998\}}} $\Rightarrow$ \textcite{Knuth1998}
+     \item \alert{\texttt{\textbackslash{}autocite\{Knuth1998\}}} $\Rightarrow$ \autocite{Knuth1998}
+   \end{itemize}
+ }
+
 \end{frame}
 
 \begin{frame}[fragile,plain]
-  \frametitle{Literatuurlijst}
-  
-  Bibliografie invoegen:
-  \begin{semiverbatim}
-    \\usepackage[backend=bibtex,style=apa]\{biblatex\} \% Preamble
-    \\DeclareLanguageMapping\{dutch\}\{dutch-apa\}
-    \\addbibresource\{<database>\}
-    \dots
-    Verwijzingen in de tekst~\\textcite\{label\}.
-    \ldots
-    \\printbibliography
-  \end{semiverbatim}
-  
-  $\Rightarrow$
-  
-  \printbibliography
-  
+ \frametitle{Literatuurlijst}
+
+ Bibliografie invoegen:
+\begin{semiverbatim}
+\\usepackage[backend=bibtex,style=apa]\{biblatex\} \% Preamble
+\\DeclareLanguageMapping\{dutch\}\{dutch-apa\}
+\\addbibresource\{<database>\}
+\dots
+Verwijzingen in de tekst~\\textcite\{label\}.
+\ldots
+\\printbibliography
+\end{semiverbatim}
+
+ $\Rightarrow$
+
+ \fullcite{Knuth1998}
+
 \end{frame}
 
 \begin{frame}
-  \frametitle{Literatuurlijst}
-  
-  Korte teksten: genummerd, volgens voorkomen (e.g. article)
-  \begin{center}
-    \includegraphics[width=.7\textwidth]{oef1-07}
-  \end{center}
-  
+ \frametitle{Literatuurlijst}
+
+ Korte teksten: genummerd, volgens voorkomen (e.g. article)
+ \begin{center}
+   \includegraphics[width=.7\textwidth]{oef1-07}
+ \end{center}
+
+\end{frame}
+
+\begin{frame}[plain]
+ \frametitle{Literatuurlijst}
+
+ Langere teksten: namen, alfabetisch (e.g. report, book)
+ \begin{center}
+   \includegraphics[width=.7\textwidth]{oef1-08}
+ \end{center}
+
 \end{frame}
 
 \begin{frame}
-  \frametitle{Literatuurlijst}
-  
-  Langere teksten: namen, alfabetisch (e.g. report, book)
-  \begin{center}
-    \includegraphics[width=.7\textwidth]{oef1-08}
-  \end{center}
-  
-  \alertbox{HoGent gebruikt de ``APA''-stijl voor de opmaak van bibliografieën \url{https://bib.hogent.be/how-to/bronnen-vermelden/refereren-volgens-apa6th/}}
-  
+ \frametitle{HOGENT huisstijl}
+
+
+ \begin{itemize}
+   \item HOGENT: ``APA''-stijl (American Psychological Association)
+   \item Zie Chamilo-cursus \href{https://chamilo.hogent.be/index.php?application=Chamilo\%5CApplication\%5CWeblcms&go=CourseViewer&course=22068&tool=LearningPath&tool_action=ComplexDisplay&publication=980981&preview_content_object_id=2280471&learning_path_action=Viewer&child_id=56546}{\textit{Kritisch denken en onderzoekscompetenties voor de bachelorstudent}}
+   \begin{itemize}
+     \item §5.3.2 \textit{Refereren}
+   \end{itemize}
+ \end{itemize}
+
 \end{frame}
 
 \section{Tot slot}
 
-\begin{frame}
-  \frametitle{Tot slot}
-  
-  \begin{itemize}
-    \item Een heleboel niet besproken:
-    \begin{itemize}
-      \item<+-> Wiskundige formules, vb.
-      \begin{semiverbatim}
-        \$x=-\\frac\{b \\pm \\sqrt\{b\^{}2 - 4ac\}\}\{2a\}\$
-      \end{semiverbatim}
-      $x=-\frac{b \pm \sqrt{b^2 - 4ac}}{2a}$
-      \item<+-> Honderden packages (RTFM, Google is your friend)
-      \item<+-> Presentaties met Beamer (baseer je bv. op het sjabloon op \url{https://github.com/HoGentTIN/presentatie-latex-sjabloon}
-      
-    \end{itemize}
-    \item<+-> Hulp nodig? Na googlen, contacteer gerust \texttt{bert.vanvreckem@hogent.be}, \texttt{jens.buysse@hogent.be}
-  \end{itemize}
+\begin{frame}[fragile]
+ \frametitle{Tot slot}
+
+ \begin{itemize}
+   \item Een heleboel niet besproken:
+   \begin{itemize}
+     \item<+-> Wiskundige formules, vb.
+     \begin{semiverbatim}
+       \$x=-\\frac\{b \\pm \\sqrt\{b\^{}2 - 4ac\}\}\{2a\}\$
+     \end{semiverbatim}
+     \(x=-\frac{b \pm \sqrt{b^2 - 4ac}}{2a}\)
+     \item<+-> Honderden packages (RTFM, Google is your friend)
+     \item<+-> Presentaties met Beamer (baseer je bv.\ op het sjabloon op \url{https://github.com/HoGentTIN/presentatie-latex-sjabloon})
+
+   \end{itemize}
+   \item<+-> Hulp nodig? Na googlen, contacteer gerust \texttt{bert.vanvreckem@hogent.be}. Geef aub voldoende informatie (bestand, compiler log, pdf, enz.)
+ \end{itemize}
 \end{frame}
 
 \end{document}
