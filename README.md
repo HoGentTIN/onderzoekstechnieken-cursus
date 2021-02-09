@@ -49,6 +49,8 @@ brew install --cask mactex
 brew install --cask texstudio
 brew install --cask jabref
 brew install Caskroom/cask/xquartz
+brew install --cask r
+brew install rstudio
 ```
 
 - R en Rstudio moeten via de downloadpagina geïnstalleerd worden, indien je dit niet gedaan hebt, zullen er geen X11 libraries beschikbaar zijn die worden gebruikt door R.

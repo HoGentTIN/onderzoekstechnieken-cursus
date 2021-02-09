@@ -19,7 +19,7 @@ Daarnaast vormt dit vak ook een voorbereiding op de bachelorproef, waar je deze 
 
 De competenties die je in deze cursus verwerft hebben ook buiten de informatica hun nut. Je leert immers kritisch omgaan met data en informatie, en hoe die correct te analyseren en interpreteren. In het politieke en maatschappelijke debat worden moedwillig beweringen gedaan die aantoonbaar fout zijn of die de waarheid proberen ``om te buigen.'' De term die in dat verband vaak de kop opsteekt is `Fake News'. Grafieken die op het eerste zicht objectieve data tonen, worden zodanig gemanipuleerd dat ze toch een vertekend (of geheel foutief) beeld van de werkelijkheid geven. Een manier om je hiertegen te wapenen is kritisch omgaan met de informatie die verspreid wordt. Daardoor kan vaak de achterliggende reden van die desinformatie duidelijk gemaakt worden.
 
-Statistiek  en data science zijn dan ook onontbeerlijk om (i) te data correct te analyseren en tot onderbouwde conclusies te komen en (ii) zelf onderzoeken uit te voeren waarbij je onderbouwde conclusies de wereld kan in sturen. 
+Statistiek  en data science zijn dan ook onontbeerlijk om (i) te data correct te analyseren en tot onderbouwde conclusies te komen en (ii) zelf onderzoeken uit te voeren waarbij je onderbouwde conclusies de wereld kan in sturen.
 
 \subsection{Leerdoelen en competenties}
 
@@ -30,7 +30,7 @@ Deze vind je ook terug in de studiefiche.
   \item Kan formules, stellingen uit de beschrijvende en inductieve statistiek in onderzoeksvraagstukken correct toepassen
   \item Kan data analyseren met statistische software
   \item Kan een gestructureerd wetenschappelijk document schrijven en voorzien van referenties in \LaTeX{}
-  \item Kan de wetenschappelijke methode vergelijken met niet-wetenschappelijke onderzoeksmethodes en daarbij voor- en nadelen opsommen 
+  \item Kan de wetenschappelijke methode vergelijken met niet-wetenschappelijke onderzoeksmethodes en daarbij voor- en nadelen opsommen
 \end{itemize}
 
 \subsection{Leerinhoud}
@@ -41,7 +41,7 @@ Hoofdstuk~\ref{ch:onderzoeksproces} geeft een inleiding op het verloop van een t
 
 Hoofdstuk~\ref{ch:analyse1var} behandelt de analyse van een enkele variabele, meer bepaald centrum- en spreidingsmaten, samen met geschikte visualisatietechnieken voor elke soort variabele.
 
-Hoofdstuk~\ref{ch:centrale-limietstelling} herhaalt kort de stof rond kansverdelingen, waarna de centrale limietstelling aan bod komt, één van de belangrijkste fundamenten van statistisch onderzoek. We bespreken ook  onmiddelijke een toepassing van de centrale limietstelling, nl.\ betrouwbaarheidsintervallen. 
+Hoofdstuk~\ref{ch:centrale-limietstelling} herhaalt kort de stof rond kansverdelingen, waarna de centrale limietstelling aan bod komt, één van de belangrijkste fundamenten van statistisch onderzoek. We bespreken ook  onmiddelijke een toepassing van de centrale limietstelling, nl.\ betrouwbaarheidsintervallen.
 
 Hoofdstuk~\ref{ch:toetsingsprocedures} gaat hierop verder met de algemene werkwijze voor het voeren van statistische toetsen, en specifiek met toetsen voor uitspraken over het gemiddelde van een populatie: de $z$-toets en de $t$-toets.
 
@@ -208,6 +208,8 @@ brew install --cask mactex
 brew install --cask texstudio
 brew install --cask jabref
 brew install Caskroom/cask/xquartz
+brew install --cask r
+brew install rstudio
 \end{verbatim}
 
 Wie toch alles manueel wil installeren kan de applicaties hier downloaden:
@@ -221,14 +223,12 @@ Wie toch alles manueel wil installeren kan de applicaties hier downloaden:
   \item Rstudio: \url{https://www.rstudio.com/products/rstudio/download/#download}
 \end{itemize}
 
-R en Rstudio moeten via de downloadpagina geïnstalleerd worden. Indien je dit niet gedaan hebt, zullen er geen X11 libraries beschikbaar zijn die worden gebruikt door R. Je kan de aanwezigheid van de X11 libraries controleren met het volgende commando in Rstudio: \texttt{capabilities()}.
-
 \subsection{Linux}
 \label{ssec:installatie-linux}
 
 Op RStudio na zijn alle nodige softwarepakketten beschikbaar in de repositories van de meest gebruikte Linux-distributies. We geven hier command-line instructies voor enerzijds Ubuntu (Xenial/16.04) en Debian 9 en anderzijds Fedora.
 
-\paragraph{Ubuntu/Debian} 
+\paragraph{Ubuntu/Debian}
 
 Controleer eerst de URL naar de laatste versie van RStudio via de website. Er is een aparte versie voor Debian-gebruikers, zij kopi\"eren dus best de URL van de link op de website i.p.v. deze te gebruiken die hieronder gegeven is.
 
@@ -491,16 +491,16 @@ android_persistence
 
 \begin{exercise}
   Probeer een databestand te lezen vanuit RStudio:
-  
+
   \begin{enumerate}
     \item Gebruik de help-functie in Rstudio om na te gaan welke parameters er nog mogelijk zijn in \texttt{read\_csv}.
     \item Importeer het databestand \texttt{computers.csv} en wijs het toe aan de variabele \texttt{computers}. Kijk in het \textit{Environment}-tabblad na wat de waarde is van deze variabele.
   \end{enumerate}
-  
+
   Ga met behulp van het help commando na wat de parameters zijn van het commando. Probeer daarna het bestand \texttt{computers.csv} in te lezen. Je vindt het in \texttt{cursus/data}.
 \end{exercise}
 
-Het databestand \texttt{computers.csv} komt uit de publicatie van \textcite{Stengos2005}. Deze dataset bevat data van 1993 tot 1995 over de prijzen van computers. Je kan nagaan wat het effect van de toevoeging van een cd-rom-station is op de prijs van de computer, of wat het effect is van de kloksnelheid op de prijs. 
+Het databestand \texttt{computers.csv} komt uit de publicatie van \textcite{Stengos2005}. Deze dataset bevat data van 1993 tot 1995 over de prijzen van computers. Je kan nagaan wat het effect van de toevoeging van een cd-rom-station is op de prijs van de computer, of wat het effect is van de kloksnelheid op de prijs.
 
 Via het \texttt{names()} commando kan je achterhalen welke kolommen gedefinieerd zijn:
 
@@ -514,7 +514,7 @@ Als je niet zeker weet welk type variabelen in de dataset zit, dan kan je de fun
 \begin{lstlisting}[breaklines=true]
 attributes(computers)
 $names
-[1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"  
+[1] "price"   "speed"   "hd"      "ram"     "screen"  "cd"      "multi"   "premium" "ads"     "trend"
 
 $class
 [1] "tbl_df"     "tbl"        "data.frame"
@@ -561,7 +561,7 @@ $ trend   <dbl> 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
 
 \subsection{Data types}
 
-We kijken naar enkele manieren waarop R gegevens kan opslaan en organiseren. Dit is echter een inleiding dus beschouwen we maar een kleine subset van de verschillende datatypes die door R worden herkend. 
+We kijken naar enkele manieren waarop R gegevens kan opslaan en organiseren. Dit is echter een inleiding dus beschouwen we maar een kleine subset van de verschillende datatypes die door R worden herkend.
 
 \subsubsection{Numbers}
 
@@ -608,7 +608,7 @@ Een tekenreeks wordt gespecificeerd door gebruik te maken van aanhalingstekens. 
 
 In een volgend hoofdstuk zullen we leren dat elke variabele een zgn.~\textit{meetniveau}\index{meetniveau} heeft (zie Sectie~\ref{sec:onderzoeksproces-basisconcepten}). Eén van deze meetniveaus zijn de zgn.~\textit{kwalitatieve variabelen} die maar een beperkt aantal mogelijke waarden heeft, niet noodzakelijke numeriek. In R wordt dit soort variabelen een \textit{factor}\index{factor} genoemd.
 
-Je geeft aan dat een variabele een factor is met behulp van het \texttt{factor} commando. 
+Je geeft aan dat een variabele een factor is met behulp van het \texttt{factor} commando.
 
 \subsubsection{Tibbles en data frames}
 
@@ -616,7 +616,7 @@ Data kan worden opgeslagen aan de hand van \textit{data frames}\index{data frame
 
 Dit is een manier om verschillende vectoren van verschillende types te nemen en ze op te slaan in dezelfde variabele. De vectoren kunnen van alle soorten zijn. Een dataframe kan bijvoorbeeld verschillende vectoren bevatten en elke lijst kan een vector zijn van factoren, strings of nummers.
 
-Er zijn verschillende manieren om data frames te maken en te manipuleren. In deze cursus zullen we deze meestal aanmaken door een CSV-bestand in te lezen. De meeste andere vallen buiten het bereik van deze inleiding. Ze worden hier alleen genoemd om een meer volledige beschrijving te geven. 
+Er zijn verschillende manieren om data frames te maken en te manipuleren. In deze cursus zullen we deze meestal aanmaken door een CSV-bestand in te lezen. De meeste andere vallen buiten het bereik van deze inleiding. Ze worden hier alleen genoemd om een meer volledige beschrijving te geven.
 
 \lstinputlisting{data/dataframe.R}
 
@@ -626,7 +626,7 @@ Een ander belangrijk gegevenstype is het logische type. Er zijn twee vooraf gede
 
 \subsubsection{Tables}
 
-Een andere  manier om informatie op te slaan is in een tabel.  We kijken alleen maar naar het maken en defini\"eren van tabellen. 
+Een andere  manier om informatie op te slaan is in een tabel.  We kijken alleen maar naar het maken en defini\"eren van tabellen.
 
 \lstinputlisting{data/tables.R}
 
@@ -640,8 +640,8 @@ Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimen
 
 \[
 \begin{bmatrix}
-2 & 3 \\ 
-4 & 5  
+2 & 3 \\
+4 & 5
 \end{bmatrix}
 \]
 
@@ -666,25 +666,25 @@ Een matrix is een verzameling van gegevens die zijn aangebracht in een tweedimen
 \end{exercise}
 
 \begin{exercise}
-  Genereer een $4 \times 5$ array en noem die $x$. Geneer daarna een $3 \times 2$ array $i$ waarin de eerste kolom de rij-index kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0. 
+  Genereer een $4 \times 5$ array en noem die $x$. Geneer daarna een $3 \times 2$ array $i$ waarin de eerste kolom de rij-index kan zijn van $x$ en de tweede kolom een kolomindex voor $x$. Vervang de elementen gedefinieerd door de index in $i$ in $x$ door 0.
 \end{exercise}
 
 \begin{exercise}
-  Genereer een vector waar een voornaam en een achternaam in komen. Benoem ook de naam van de kolommen. Geef daarna de voornaam terug van het eerste element van de array. 
+  Genereer een vector waar een voornaam en een achternaam in komen. Benoem ook de naam van de kolommen. Geef daarna de voornaam terug van het eerste element van de array.
 \end{exercise}
 
 \begin{exercise}
   Importeer het bestand \texttt{rainforest.csv} in R.
-  Je kan dit bestand terugvinden in de Github-repository van deze cursus, in de map \texttt{oefeningen/datasets}. 
+  Je kan dit bestand terugvinden in de Github-repository van deze cursus, in de map \texttt{oefeningen/datasets}.
   Een beschrijving van dit data frame is terug te vinden in dezelfde map, bestand \texttt{rainforest.html}.
-    
+
   Je kan dit bestand importeren met behulp van volgende code:
   \begin{lstlisting}
 rainforest <- read.csv("data/rainforest.csv", sep = ",")
   \end{lstlisting}
-  
-  Probeer voor deze datafile te tellen hoeveel rijen er zijn per species die volledig en compleet zijn (dus geen n.a. bevatten). 
-  Je kan hiervoor \texttt{with}, \texttt{table} en \texttt{complete.cases} gebruiken. 
+
+  Probeer voor deze datafile te tellen hoeveel rijen er zijn per species die volledig en compleet zijn (dus geen n.a. bevatten).
+  Je kan hiervoor \texttt{with}, \texttt{table} en \texttt{complete.cases} gebruiken.
 \end{exercise}
 
 \begin{exercise}
