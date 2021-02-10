@@ -13,6 +13,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 #choco install -y git        # Git client, Git Bash
 #choco install -y gitkraken  # Git GUI (optioneel)
 choco install -y firacode       # Lettertype met ligaturen voor code-editors
+choco install -y activeperl     # Dependency voor de latexmk compiler
 
 # Applicaties voor LaTeX
 choco install -y miktex      # LaTeX distributie, compilers

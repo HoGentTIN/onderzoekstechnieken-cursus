@@ -12,12 +12,13 @@ Installeer eerst de Chocolatey package manager als Administrator in een PowerShe
 Daarna voer je onderstaande commando's uit, opnieuw als Administrator in een PowerShell terminal.
 
 ```powershell
-choco install git
-choco install miktex
-choco install texstudio
-choco install JabRef
-choco install r.project
-choco install r.studio
+choco install -y git
+choco install -y activeperl
+choco install -y miktex
+choco install -y texstudio
+choco install -y JabRef
+choco install -y r.project
+choco install -y r.studio
 ```
 
 Als alternatief kun je de software ook op de *traditionele* wijze installeren. Download vanaf de projectwebsites en installeer:
