@@ -15,9 +15,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 # Load data from csv
-android_cpu <- read.csv("..datasets/android_persistence_cpu.csv", sep = ";")
+android_cpu <- read.csv("../datasets/android_persistence_cpu.csv", sep = ";")
 # Allows the columns to be accessed directly instead of with table$column notation
 attach(android_cpu)
+View(android_cpu)
 ```
 
 ## Descriptive statistics
