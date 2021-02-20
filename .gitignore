@@ -7,6 +7,9 @@
 .RData
 .Rhistory
 
+# Rmd generated files
+*.html
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
