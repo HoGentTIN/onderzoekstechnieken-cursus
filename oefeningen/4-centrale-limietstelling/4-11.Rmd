@@ -56,7 +56,7 @@ betrouw(0.06,sample_mean,pop_sd,n)
 
 ```
 
-## Onbekende ??
+## Onbekende $\sigma$
 
 > Stel dat $\sigma$ onbekend is. Bereken voor dat geval een 95-\% betrouwbaarheidsinterval voor het populatiegemiddelde.
 

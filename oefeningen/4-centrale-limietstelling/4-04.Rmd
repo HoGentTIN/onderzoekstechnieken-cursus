@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
+library(tidyverse)
 ```
 
 ## Oplossing 4.4
@@ -20,7 +20,7 @@ Gebruik de functie `rnorm()` een willekeurige steekproef van 25 waarden uit een 
 
 ```{r }
 
-theme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15)), 
+my_theme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15)), 
                  legend.title = element_text(colour = "steelblue",  face = "bold.italic", family = "Helvetica"), 
                  legend.text = element_text(face = "italic", colour="steelblue4",family = "Helvetica"), 
                   axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
@@ -29,14 +29,14 @@ theme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", si
 
 
 overlayplot <- function(n,m,s){
-  data <- rnorm(n,m,s)
-  ggplot(mapping = aes(x=data)) + 
+  dataset <- tibble(obs = rnorm(n,m,s))
+  ggplot(data = dataset,mapping = aes(x=obs)) + 
     geom_histogram(aes(y = ..density.. ), alpha = 0.7, fill = "#333333") + 
     labs(y="observed", x="observations", title = "Histogram")+
     geom_density(fill = "#ff4d4d",alpha = 0.5) + 
     stat_function(fun = dnorm, args = list(mean = m, sd = s),
                   colour = "red")+
-    theme
+    my_theme
 }
 
 overlayplot(25,0,1)

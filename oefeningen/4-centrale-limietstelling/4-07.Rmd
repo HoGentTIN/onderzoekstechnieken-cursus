@@ -32,7 +32,7 @@ sn <- s / sqrt(n)
 
 > Beschrijf de vorm van de verdeling van het steekproefgemiddelde. In hoeverre hangt je antwoord af van de grootte van de steekproef?
 
-\[ M \sim Nor(\mu = 20, \sigma = 16/\sqrt{64}))$ \]
+\[ M \sim Nor(\mu = 20, \sigma = 16/\sqrt{64})) \]
 
 ```{r}
 ggplot(data = data.frame(x = c(m-4*sn, m+4*sn)), mapping = aes(x)) +

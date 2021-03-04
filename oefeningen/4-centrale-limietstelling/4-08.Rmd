@@ -1,0 +1,49 @@
+---
+title: "Oefening 4.8"
+author: "Bert Van Vreckem"
+date: "3/4/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Opgave
+
+> Verkeersdrempels zijn bedoeld om de snelheid van automobilisten te beïnvloeden. Afhankelijk van de gewenste snelheid in een straat worden de drempels steiler of minder steil gemaakt. Drempel A is zo ontworpen dat 85% van de automobilisten de drempel passeert met een snelheid van minder dan 50 km per uur. In de praktijk blijkt dat de passeersnelheid bij een drempel normaal verdeeld is. Bij drempel A werd een gemiddelde passeersnelheid van 43,1 km/h gevonden met standaardafwijking 6,6 km/h.
+
+```{r}
+m <- 43.1
+s <- 6.6
+```
+
+Een plot van deze situatie:
+
+```{r}
+intvl <- tibble(x = c(m-4*s, m+4*s))
+ggplot(data = intvl, mapping = aes(x = x)) +
+  stat_function(fun = dnorm, args = list(mean = m, sd = s)) +
+  geom_vline(xintercept = 50)
+```
+
+> (a) Toon aan dat 85% van de automobilisten niet harder dan 50 km/u rijdt
+
+We willen dus controleren dat de oppervlakte van het gebied onder de Gauss-curve *links* van 50 *minstens* 0.85 is.
+
+```{r}
+pnorm(50, mean = m, sd = s)
+```
+We komen iets meer uit dan 85%, dus de stelling klopt: 85.21% van de automobilisten rijden trager dan 50 km/u.
+
+> (b) Bij hoeveel van de 1200 metingen kan, op grond van eerdere ervaringen, een snelheid
+van meer dan 55 km/h worden verwacht?
+
+Als de passeersnelheid verdeeld is $\sim Nor(\mu=43.1, \sigma=6.6)$, dan zoeken we hier naar de rechterstaartkans in deze verdeling voor 55:
+
+```{r}
+prob <- 1 - pnorm(55, mean = m, sd = s)
+prob * 1200
+```
+De kans dat iemand sneller dan 55 km/u rijdt is dus `r str_interp("$[.2f]{prob*100}")`%. Op 1200 metingen zijn dat dus ongeveer `r round(prob * 1200)` observaties.

@@ -1,5 +1,5 @@
 ---
-  title: "Oefening 4.02"
+title: "Oefening 4.02"
 output: html_document
 ---
 
