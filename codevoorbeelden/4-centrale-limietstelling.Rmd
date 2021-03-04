@@ -7,7 +7,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
+library(tidyverse)
 ```
 
 ## De normale verdeling
@@ -37,8 +37,8 @@ ggplot(data = data.frame(x = c(-4, 4)), mapping = aes(x)) +
 We kunnen deze werkwijze veralgemenen voor een normale verdeling. Als voorbeeld nemen we $X \sim Nor(\mu = 5, \sigma = 1.5)$. Alle "interessante" punten op de Gausscurve liggen op max. 4 standaardafwijkingen links of rechts van het gemiddelde. We gaan onze x-waarden dan ook zo berekenen. De `dnorm`-functie laat toe om gemiddelde en standaardafwijking ook op te geven.
 
 ```{r}
-m <- 5000    # gemiddelde
-s <- 165  # standaardafwijking
+m <- 5    # gemiddelde
+s <- 1.5  # standaardafwijking
 
 ggplot(data = data.frame(x = c(m-4*s, m+4*s)), mapping = aes(x)) +
   stat_function(fun = dnorm, n = 201, args = list(mean = m, sd = s)) +
@@ -69,18 +69,17 @@ We kunnen ook een histogram tekenen met *densiteiten*. In dit geval is de *opper
 ```{r}
 # Genereer n willekeurige normaal verdeelde getallen:
 n <- 10000
-observations <- rnorm(n, m, s)
+observaties <- tibble(reactie = rnorm(n, m, s))
 
-# Zet eerst de observaties uit op de X-as
-ggplot(mapping = aes(x = observations)) +
+ggplot(data = observaties, mapping = aes(x = reactie)) +
   # Plot een histogram van de relatieve frequenties van de observaties
   # ..density.. is een variabele die automatisch berekend wordt uit
   # de observaties.
-  geom_histogram(mapping = aes(y = ..density..), bins = 30) +
+  geom_histogram(bins = 20, mapping = aes(y = ..density..)) +
   # Plot tenslotte de functie `dnorm` (dus de Gauss-curve voor de
   # normale verdeling) met gemiddelde `m` en standaardafwijking `s`
-  stat_function(fun = dnorm, args = list(mean = m, sd = s),
-                colour = "red")
+  stat_function(fun = dnorm, n = n, args = list(mean = m, sd = s),
+                color = "red")
 ```
 
 ## Kansverdeling in de normale verdeling
@@ -111,28 +110,31 @@ Met de `pnorm` kunnen we enkel de *linker*staartkans $P(X < 6.5)$ of $P(Z < 1)$ 
 Grafische voorstelling van deze situatie:
 
 ```{r}
-# Selecteer het gebied links van x
-xvals <- seq(from = m-4*s,
-             to = m+4*s,
-             length.out = 201)
-i <- xvals <= x
+# X-waarden in het interval dat ons interesseert
+xvals <- seq(from = m-4*s, to = m+4*s, length.out = 201)
+# Welke waarden in dat interval liggen links van x?
+i <- xvals > x
+# Theoretische dichtheid voor deze X-waarden
+dist <- dnorm(xvals, mean = m, sd = s)
+dx <- dnorm(x, mean = m, sd = s)
 
-ggplot(mapping = aes(x = xvals)) +
-  # Toon het gebied links van x en onder de Gauss-curve in het groen
-  geom_area(mapping = aes(x = xvals[i], y = dnorm(xvals[i], m, s)), 
-            color = "black", fill = "lightgreen") +
-  # Plot de Gauss-curve
-  stat_function(fun = dnorm, args = list(mean = m, sd = s)) +
+ggplot() +
+  # Toon het gebied rechts van x en onder de Gauss-curve in het groen
+  geom_polygon(mapping = aes(
+    x = c(x, x,  xvals[i]),
+    y = c(0, dx, dist[i])
+  ), color = "black", fill = "lightgreen") +
+  # Teken de theoretische kansdichtheidsfunctie (Gauss-curve)
+  geom_line(aes(xvals, dist)) +
   # Toon het gemiddelde als een rode verticale lijn
   geom_vline(xintercept = m, color = "red") +
-  # Pas de titels van de assen aan
-  xlab("x") + ylab("densiteit") +
+  xlab("reactiesnelheid") + ylab("kansdichtheid") +
   # Voeg tekst toe aan de plot
-  annotate("text", x = x, y = .02, label = x) +
-  annotate("text", x = m+.1, y = .02, label = m, color = "red")
+  annotate("text", x = x, y = -.01, label = x) +
+  annotate("text", x = m+.1, y = -.01, label = m, color = "red")
 ```
 
-De linkerstaartkans $P(X < 6.5)$ is het groene gebied op deze grafiek:
+De rechterstaartkans $P(X < 6.5)$ is het groene gebied op deze grafiek:
 
 ### Andere voorbeelden van kansberekening:
 
@@ -209,10 +211,10 @@ In de grafiek hieronder vind je de dichtheidsfunctie voor de Student-$t$-verdeli
 
 ```{r}
 # Bepaal de x-waarden waar we de dichtheidsfunctie willen plotten
-x <- seq(-4, 4, length=200)
+intvl <- tibble(x = seq(-4, 4, length=200))
 
 # Leg in de grafiek alvast het bereik van de X-as vast
-ggplot(mapping = aes(x = x)) +
+ggplot(data = intvl ,mapping = aes(x = x)) +
   # Plot achtereenvolgens de Student-t verdeling met 1, 3, 8 en 30 vrijheidsgraden
   stat_function(fun = dt, args = list(df = 1), color ="red") +
   stat_function(fun = dt, args = list(df = 3), color ="orange") +
