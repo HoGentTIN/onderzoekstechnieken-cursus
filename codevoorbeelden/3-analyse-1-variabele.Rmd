@@ -55,7 +55,7 @@ In the code below, we break down the formula in parts:
 res_1 <- lengths - mean(lengths)    # difference of data points with mean
 res_2 <- res_1^2                    # squared differences
 res_3 <- sum(res_2)                 # take the sum
-variance <- res_3 / length(lengths) # calculate average
+variance <- res_3 / (length(lengths)-1) # calculate average
 stdev <- sqrt(variance)             # take the square root
 ```
 
@@ -99,6 +99,7 @@ About the only measure of central tendency for a factor/qualitative variable is 
 
 ```{r}
 levels(esoph$agegp)            # Show all values of the variable
+unique(esoph$agegp)
 freq_tab <- table(esoph$agegp) # Calculate a frequency table
 freq_tab
 summary(esoph$agegp)           # The summary function applied to a factor
