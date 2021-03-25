@@ -5,6 +5,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggmosaic)
 ```
 
 
@@ -104,30 +106,24 @@ Deze functie geeft zowel de waarde van "Pearson's $\chi^2$" (derde regel, eerste
 The figure below shows the density function of the $\chi^2$-distribution for several degrees of freedom.
 
 ```{r}
-x <- seq(0, 8, length=100)  # x-values
-degf <- c(1, 2, 3, 5, 10)   # degrees of freedom to be plotted
+library(tidyverse)
 
-# line colors and legend labels
-colors <- c("black", "red", "blue", "darkgreen", "gold")
-labels <- c("df=1", "df=2", "df=3", "df=5", "df=10")
+# Gebied op de x-as afbakenen:
+intvl <- seq(0, 12, length = 201)
 
-# plot of the distribution with df = 1
-plot(x, dchisq(x, degf[1]),
-     col = colors[1],
-     type = "l", lwd = 2,
-     ylim = c(0, .5),
-     xlab = "chi-squared",
-     ylab = "density",
-     main = "Comparison of chi-squared distributions")
-
-# plots of the distribution with higher degrees of freedom
-for (i in 2:5){
-  lines(x, dchisq(x, degf[i]), lwd=2, col=colors[i])
-}
-
-legend("topright", inset=.05, title="Verdelingen",
-       labels, lwd=2, lty=c(1, 1, 1, 1, 2), col=colors,
-       cex = .5)
+ggplot(data = tibble(x = intvl), mapping = aes(x = x)) +
+  # Chi-kwadraat dichtheidsfunctie met 1, 2, 3, 5, 10 vrijheidsgraden
+  geom_function(fun = dchisq, args = list(df = 1), aes(color= "df = 1")) +
+  geom_function(fun = dchisq, args = list(df = 2), aes(color= "df = 2")) +
+  geom_function(fun = dchisq, args = list(df = 3), aes(color= "df = 3")) +
+  geom_function(fun = dchisq, args = list(df = 5), aes(color= "df = 5")) +
+  geom_function(fun = dchisq, args = list(df = 10), aes(color= "df = 10")) +
+  # Y-as afbakenen
+  ylim(0, .6) +
+  # Titels en tekst aanpassen:
+  labs(title = expression(paste(chi^{2}, "-verdelingen")),
+       x = "", y = "Kansdichtheid", 
+       color = "Vrijheidsgraden")
 ```
 
 R has several functions for calculations related to the $\chi^2$ density function, just like those for the normal and $t$ distributions.
@@ -210,23 +206,27 @@ The *goodness of fit test* is suitable to answer this type of question. The proc
 #### Plot of this case
 
 ```{r}
+# X- and Y- coordinates of the probability density of the chi-squared distribution
+plot_data <- tibble(
+  intvl = seq(0, 15, length = 201),  # Interval on the X-axis to be plotted
+  dist = dchisq(intvl, df = k-1)     # Apply density function
+)
+
 # Plot the chi-squared density function
-x <- seq(0, 15, length = 100)
-dist <- dchisq(x, df = k - 1)
-plot (x, dist, type = 'l', xlab = '', ylab = '')
-
-# The acceptance region (where H_0 is accepted)
-i <- x <= g
-polygon(c(x[i],    g,                     g),
-        c(dist[i], dchisq(g, df = k - 1), 0),
-        col = 'lightgreen')
-text(x = 4, y = 0.05, 'Acceptance region (H0)')
-text(x = g, y = 0.01, paste('g = ', round(g, digits=2)))
-
-# The test statistic (chi squared)
-abline(v = chisq, col = 'red')
-text(x = chisq, y = 0.15, paste('chi^2 = ', round(chisq, digits=2)))
-
+ggplot(data = plot_data, mapping = aes(x = intvl, y = dist)) +
+  # Plot the acceptance region
+  geom_area(mapping = aes(y = ifelse(intvl <= g, dist, 0)), fill = "light green") +
+  # Plot the density function
+  geom_line() +
+  # Plot vertical lines for the critical value and the chi-squared statistic
+  geom_vline(xintercept = g, color = "red", size = 1.5) +
+  geom_vline(xintercept = chisq, color = "black") +
+  # Plot labels
+  geom_label(label = paste("chi^2 %~~% ", round(chisq, digits=2)), parse = TRUE,
+             x = chisq, y = 0.1) +
+  geom_label(label = "g %~~% 9.49", parse = TRUE,
+             x = g, y = 0.075) +
+  geom_label(label = "Acceptance region", x = 6, y = 0.02, fill = "spring green")
 ```
 
 #### Using the R function `chisq.test`
@@ -325,24 +325,28 @@ The standardised residuals for the families with either only girls (~4.69) or on
 #### Plot of this case
 
 ```{r}
+# X- and Y- coordinates of the probability density of the chi-squared distribution
+plot_data <- tibble(
+  intvl = seq(0, 30, length = 201),  # Interval on the X-axis to be plotted
+  dist = dchisq(intvl, df = k-1)     # Apply density function
+)
 # Plot the chi-squared density function
-x <- seq(0, 35, length = 100)
-dist <- dchisq(x, df = k - 1)
-plot (x, dist, type = 'l', xlab = '', ylab = '')
-
-# The acceptance region (where H_0 is accepted)
-i <- x <= g
-polygon(c(x[i],    g,                     g),
-        c(dist[i], dchisq(g, df = k - 1), 0),
-        col = 'lightgreen')
-abline(v = g)
-text(x = 4, y = 0.05, '(H0)')
-text(x = g, y = 0.02, paste('g = ', round(g, digits=2)))
-
-# The test statistic (chi squared)
-abline(v = chisq, col = 'red')
-text(x = chisq, y = 0.1, paste('chi^2 = ', round(chisq, digits=2)))
-
+ggplot(data = plot_data, mapping = aes(x = intvl, y = dist)) +
+  # Plot the acceptance region
+  geom_area(mapping = aes(y = ifelse(intvl <= g, dist, 0)), fill = "light green") +
+  # Plot the density function
+  geom_line() +
+  # Plot vertical lines for the critical value and the chi-squared statistic
+  geom_vline(xintercept = g, color = "red", size = 1.5) +
+  geom_vline(xintercept = chisq, color = "black") +
+  # Plot labels
+  geom_label(label = paste("chi^2 %~~% ", round(chisq, digits=2)), parse = TRUE,
+             x = chisq, y = 0.1) +
+  geom_label(label = "g %~~% 9.49", parse = TRUE,
+             x = g, y = 0.075) +
+  geom_label(label = "Acceptance region", x = 6, y = 0.02, fill = "spring green") +
+  labs(title = expression(paste(chi^2, "-distribution for this case")),
+       x = "", y = "Probability density")
 ```
 
 ## Chi-squared test for independence of categorical data
@@ -358,12 +362,15 @@ We'll take the `MASS::survey` dataset as an example and will try to determine if
 ```{r}
 library(MASS)
 exer_smoke <- table(survey$Smoke, survey$Exer)
-plot(exer_smoke)
+
+ggplot(data = survey) +
+  geom_mosaic(mapping = aes(x = product(Exer, Smoke), fill = Exer))
+
 exer_smoke_test <- chisq.test(exer_smoke)
 exer_smoke_test
 ```
 
-Since the p-value is approximately 0.483, the null hypothesis cannot be rejected. So, there is no association between smoking habits and exercise. Or, smokers do not have significantly different exercise habits from non-smokers.
+Since the p-value is approximately `r round(exer_smoke_test$p.value, digits = 3)`, the null hypothesis cannot be rejected. So, there is no association between smoking habits and exercise. Or, smokers do not have significantly different exercise habits from non-smokers.
 
 Remark that the degrees of freedom is 6, i.e.:
 
@@ -379,7 +386,7 @@ A chi-squared test only gives good results if you have enough observations in ea
 * All expected values should be at least 1
 * At most 20% of the expected values should be below 5
 
-Let's check whether the previous case satisfies Cochran's rule.
+Let's check whether the previous case satisfies Cochran's rule. The code is a bit convoluted, but don't worry about it. Just pass it a contingency table and look at the output. You can also look at the contingency table and evaluate Cochran's rules manually if necessary.
 
 ```{r}
 # Function that checks whether the specified contingency table x
@@ -406,13 +413,17 @@ cochrans_rule <- function(x) {
   
   # Return final result and intermediate steps
   structure(list(
-    satisfied = SAT_LT_1 & SAT_LT_5,
+    # Are Cochran's rules satisfied?
+    satisfied = SAT_LT_1 & SAT_LT_5, 
     
+    # Expected values
     expected = EXPECTED,
     
+    # First rule is satisfied (no values < 1)
     expected.lt.1 = EXP_LT_1,
     satisfied.lt.1 = SAT_LT_1,
     
+    # Second rule is satisfied (at most 20% values < 5)
     expected.lt.5 = EXP_LT_5,
     satisfied.lt.5 = SAT_LT_5
   ))
@@ -421,7 +432,7 @@ cochrans_rule <- function(x) {
 cochrans_rule(exer_smoke)
 ```
 
-So, Cochran's rule was NOT satisfied. Specifically, 4 out of 12 expected values are less than 5, or 33%.
+So, Cochran's rule was NOT satisfied. Specifically, 4 out of 12 expected values are less than 5, or 33%. This explains the warning "Chi-squared approximation may be incorrect" when calling the `chisq.test()` function!
 
 ### Another example
 
