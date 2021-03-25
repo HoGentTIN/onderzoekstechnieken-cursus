@@ -87,6 +87,44 @@ result$p.value
 
 De $p$-waarde is 0.34, wat de nulhypothese ondersteunt dat de steekproef representatief is voor de populatie naar de verdeling binnen de leeftijdscategorieën.
 
+Het zou nu interessant zijn om ook de gestandaardiseerde residuën te bekijken om te zien welke leeftijdscategorieën onder- en oververtegenwoordigd zijn in de steekproef:
+
+```{r}
+result$stdres
+```
+De "jongere" categorieën (en vooral "tram 4") zijn ondervertegenwoordigd, de oudere (vanaf 50+ en vooral de 64+'ers) zijn oververtegenwoordigd. Dit zou je niet verwachten!
+
+## Visualisatie
+
+We kunnen de verwachte en geobserveerde frequenties (of proporties) visualiseren. De eenvoudige benadering is om de geobserveerde en verwachte frequenties apart te plotten:
+
+```{r}
+ggplot(data = digimeter_ages, mapping = aes(x = Leeftijdsgroep)) +
+  geom_bar(mapping = aes(y = Frequentie), stat = 'identity', position = position_dodge2())
+ggplot(data = digimeter_ages, mapping = aes(x = Leeftijdsgroep)) +
+  geom_bar(mapping = aes(y = Expected), stat = 'identity', position = position_dodge2())
+```
+
+Het zou mooi zijn als we deze naast elkaar kunnen tonen, zoals een geclusterd staafdiagram. Op die manier kunnen we verwachte en geobserveerde waarden makkelijk vergelijken. Dat is echter niet zo eenvoudig met `ggplot`, want je kan niet 2 variabelen op dezelfde "aesthetic mapping" hebben. Die zouden elkaar immers overschrijven.
+
+Een mogelijke oplossing is om de tabel in [long format](https://tidyr.tidyverse.org/reference/pivot_longer.html) om te zetten (zoek zelf eens naar info over "wide" en "long" formaat van data). We maken hier een nieuwe tibble `vgl` aan (omdat we een VerGeLijking willen tonen) met enkel nog de info uit de kolommen Proportie en ExpectedProp. Absolute frequenties zullen we immers niet kunnen vergelijken omdat de verschillen in de aantallen te groot zijn.
+
+```{r}
+vgl <- digimeter_ages %>%
+  select(Leeftijdsgroep,Proportie, ExpectedProp) %>%
+  pivot_longer(!Leeftijdsgroep, names_to = "Stat", values_to = "Value")
+  
+```
+
+Vervolgens kunnen we de grafiek tekenen:
+
+```{r}
+ggplot(data = vgl, mapping = aes(x = Leeftijdsgroep, y = Value, fill = Stat)) +
+  geom_bar(stat = 'identity', position = position_dodge2())
+```
+
+Dit bevestigt het besluit uit de goodness-of-fit test, de verdeling over de leeftijdscategorieën in de steekproef komt erg goed overeen met de verwachte waarden.
+
 ## Referenties
 
 Vanhaelewyn, B. & De Marez, L. (2016). *Digimeter 2016: measuring digital media trends in Flanders.* Imec. Verkregen 22 april 2020, van <https://www.imec.be/nl/expertises/techtrends/imec-digimeter/digimeter-2016>
