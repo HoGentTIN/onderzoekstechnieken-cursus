@@ -79,6 +79,7 @@ De overschrijdingskans is kleiner dan het significantieniveau ($p < \alpha$) dus
 Het significantieniveau bepaalt de kans op een fout van Type I als we veronderstellen dat de nulhypothese waar is. M.a.w. dit is de kans, als $H_0$ waar is, dat we toch een steekproef nemen met zulke extreme waarden dat het steekproefgemiddelde toch in het kritieke gebied zou liggen.
 
 # Extra opgave
+
 Wat als het steekproefgemiddelde $\overline(x) = 42$? Is er dan genoeg bewijs gevonden om te zeggen dat het populatiegmiddelde niet gelijk is aan 44? Doe dit voor een $\alpha = 0.03$
 
 ## Bepalen van $H_0$ en $H_1$ 
@@ -97,10 +98,10 @@ a <- 0.03  # Significantieniveau
 n <- 72     # Steekproefgrootte
 sm <- 42  # Steekproefgemiddeldes
 sn <- s/sqrt(n)
-
 ```
 
 We gaan dit doen via de p-waarde en kritieke gebied
+
 ```{r }
 p <- pnorm(sm, m, sn)
 p

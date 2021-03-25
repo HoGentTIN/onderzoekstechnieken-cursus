@@ -35,9 +35,9 @@ c(mean_general, mean_male, mean_female)
 
 We zien dus:
 
-- gemiddelde algemeen is : `mean_general` dollar
-- gemiddelde voor de vrouwen is : `mean_female` dollar
-- gemiddelde voor de mannen is : `mean_male` dollar
+- gemiddelde algemeen is : `r mean_general` dollar
+- gemiddelde voor de vrouwen is : `r mean_female` dollar
+- gemiddelde voor de mannen is : `r mean_male` dollar
 
 > Gebruik een geschikte statistische toets om de uitspraken hieronder te verifieren. Gebruik daarbij significantieniveau $\alpha = 5\%$. Bereken telkens de kritieke grenswaarde(n) en de p-waarde.
 
