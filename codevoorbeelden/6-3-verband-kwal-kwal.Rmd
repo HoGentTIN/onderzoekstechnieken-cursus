@@ -361,10 +361,19 @@ We'll take the `MASS::survey` dataset as an example and will try to determine if
 
 ```{r}
 library(MASS)
+# Bij aanmaken tabel: eerst afhankelijke, dan onafhankelijke!
 exer_smoke <- table(survey$Smoke, survey$Exer)
 
-ggplot(data = survey) +
-  geom_mosaic(mapping = aes(x = product(Exer, Smoke), fill = Exer))
+# Maak ordinale variabelen van Exer en Smoke
+my_survey <- survey %>%
+  mutate(Exer = factor(Exer, levels = c("None", "Some", "Freq"))) %>%
+  mutate(Smoke = factor(Smoke, levels = c("Never", "Occas", "Regul", "Heavy")))
+
+# Plot met ggmosaic:
+# x = onafhankelijke variabele
+# fill = afhankelijke variabele
+ggplot(data = my_survey) +
+  geom_mosaic(mapping = aes(x = product(Smoke), fill = Exer))
 
 exer_smoke_test <- chisq.test(exer_smoke)
 exer_smoke_test
