@@ -77,14 +77,21 @@ Meestal wordt een rependiagram horizontaal getoond (`coord_flip()`). De verhoudi
 
 Een mozaïekdiagram is een grafische weergave van een frequentietabel waarbij de oppervlakte van elke tegel proportioneel is met de frequentie in de overeenkomstige cel van de tabel.
 
+De code hieronder gebruikt enkel de `ggplot2`-library, maar de code wordt snel complex. Je kan niet rechtstreeks uit de ruwe data een mozaïekdiagram tekenen, maar moet eerst een aantal berekeningen doen, o.a. de waarden in de kruistabel percenteren.
+
+In de afbeelding hieronder tonen we een mozaïekdiagram voor de variabelen `drv` (type aandrijving, onafhankelijke variabele) en `fl` (brandstoftype) van de dataset `mpg`.
+
 ```{r}
 my_mpg <- mpg %>%
-  group_by(drv, fl) %>%
-  summarise(count = n()) %>%
-  mutate(drv.count = sum(count),
-         prop = count / sum(count)) %>%
+  group_by(drv, fl) %>%                  # Groepeer volgens de 2 geselecteerde variabelen
+  summarise(count = n()) %>%             # Tel alle frequenties
+  mutate(drv.count = sum(count),         # Bereken kolomtotalen
+         prop = count / sum(count)) %>%  # Bereken percentages
   ungroup()
 
+# Plotten van de tabel:
+# x = onafhankelijke variabele
+# fill = afhankelijke variabele
 ggplot(data = my_mpg, mapping = aes(x = drv, y = prop, 
                                     fill = fl, width = drv.count)) +
   geom_bar(stat = "identity", position = "fill") +
