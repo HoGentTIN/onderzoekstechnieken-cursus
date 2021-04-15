@@ -515,7 +515,7 @@ Nu kunnen we ons de vraag stellen of \emph{elke} klasse afwijkt van de verwachte
 
 %\begin{exercise}
 %  Hoe komen we hier aan de noemer? Waar komt dit mee overeen? Hoe bepaal je de variantie van een binomiale verdeling?
-%  
+%
 %  Antwoord: $n \times \pi (1-\pi)$
 %\end{exercise}
 
@@ -686,16 +686,16 @@ In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van
 
   \begin{verbatim}
   t.test(controle, interventie, alternative="less")
-  
+
   Welch Two Sample t-test
-  
+
   data:  controle and interventie
   t = -3.4456, df = 9.4797, p-value = 0.003391
   alternative hypothesis: true difference in means is less than 0
   95 percent confidence interval:
   -Inf -6.044949
   sample estimates:
-  mean of x mean of y 
+  mean of x mean of y
   88.83333 101.66667
   \end{verbatim}
 
@@ -752,15 +752,15 @@ In R kan je eveneens de functie \texttt{t.test} gebruiken voor het uitvoeren van
 
   \begin{verbatim}
   Paired t-test
-  
+
   data:  additieven and gewone
   t = 4.4721, df = 9, p-value = 0.0007749
   alternative hypothesis: true difference in means is greater than 0
   95 percent confidence interval:
   1.180207      Inf
   sample estimates:
-  mean of the differences 
-  2 
+  mean of the differences
+  2
   \end{verbatim}
 
   De teststatistiek $\overline{x-y}=2$. Dit komt overeen met een $t$-waarde $t=4,4721$.
@@ -821,18 +821,7 @@ De gemiddelde gerapporteerde effectgrootte ligt rond $d = 0,4$. De aanbeveling v
 \subsection{Visualisatietechnieken}
 \label{ssec:kwal-kwant-visualisatie}
 
-\subsubsection{Boxplot}
-
-% TODO   Boxplot
-
-\subsubsection{Staafdiagram met error bars}
-
-% TODO  Staafdiagram met error bars
-
-\section{Kwantitatief--kwantitatief}
-
-% TODO: inleiding
-% TODO: Spreidingsdiagram
+Voorbeelden van visualisatietechnieken voor deze sectie zijn te vinden op GitHub ( in het bestand \textit{codevoorbeelden/6-visualisatie-2-variabelen.Rmd}).
 
 \subsection{Regressie}
 \label{sec:regressie}
@@ -1572,7 +1561,7 @@ De databestanden voor deze oefeningen zijn te vinden op Github (in de directory 
   \end{tabular}
   \captionof{table}{Scores test en examen voor aantal personen}
   \label{tab:testExamen}
-  % \end{table}	
+  % \end{table}
 \end{exercise}
 
 \begin{exercise}
