@@ -71,13 +71,13 @@
 
 \begin{frame}
   \frametitle{What's on the menu today?}
-  
+
   \tableofcontents
 \end{frame}
 
 \begin{frame}
   \frametitle{Leerdoelen}
-  
+
   \begin{itemize}
     \item $t$-test voor twee steekproeven kunnen toepassen
     \item Effectgrootte kunnen berekenen ahv Cohen's $d$
@@ -105,9 +105,9 @@
 
 \begin{frame}
   \frametitle{Vergelijken van twee steekproeven}
-  
+
   Voorbeelden onderzoeksvragen:
-  
+
   \begin{itemize}
     \item Verdienen mannen meer dan vrouwen?
     \item Kan je beter studeren zonder smartphone in de buurt?
@@ -121,9 +121,9 @@
 
 \begin{frame}
   \frametitle{Vergelijken van twee steekproeven}
-  
+
   Is steekproefgemiddelde van twee steekproeven significant verschillend?
-  
+
   \begin{itemize}
     \item Onafhankelijke steekproeven
     \item Gepaarde steekproeven
@@ -132,23 +132,23 @@
 
 \begin{frame}
   \frametitle{Onafhankelijke steekproeven}
-  
+
   In een klinisch onderzoek wil men nagaan of een nieuw medicijn als bijwerking een verminderde reactiesnelheid heeft.
-  
+
   \begin{itemize}
     \item Controlegroep: 6 deelnemers krijgen placebo
     \item Interventiegroep: 6 deelnemers krijgen medicijn
   \end{itemize}
-  
+
   \pause
-  
+
   Vervolgens wordt reactiesnelheid gemeten:
-  
+
   \begin{itemize}
     \item Controlegroep: 91, 87, 99, 77, 88, 91 ~~~~~~~~~~~($\overline{x}=88,83$)
     \item Interventiegroep: 101, 110, 103, 93, 99, 104 ~~($\overline{y}=101,67$)
   \end{itemize}
-  
+
   Zijn er significante verschillen tussen de interventie- en controlegroep?
 \end{frame}
 
@@ -164,8 +164,8 @@
     \item Toetsingsgrootheid:
     \begin{itemize}
       \item $\overline{x}-\overline{y} = -12,833$
-      \item $\overline{x} =$ schatting voor $\mu_1$ (controlegroep) 
-      \item $\overline{y} =$ schatting voor $\mu_2$ (interventiegroep) 
+      \item $\overline{x} =$ schatting voor $\mu_1$ (controlegroep)
+      \item $\overline{y} =$ schatting voor $\mu_2$ (interventiegroep)
     \end{itemize}
   \end{enumerate}
   \vfill
@@ -182,18 +182,18 @@
 
 \begin{frame}[fragile]
   \frametitle{Onafhankelijke steekproeven}
-  
+
   {\footnotesize
     \begin{Verbatim}[commandchars=\\\{\}]
     Welch Two Sample t-test
-    
+
     data:  controle and interventie
     t = -3.4456, df = 9.4797, p-value = 0.003391
     alternative hypothesis: true difference in means is less than 0
     \sout{95 percent confidence interval:}      {\tiny \textcolor{red}{OPGELET!} Dit heeft niets te maken met}
     \sout{-Inf -6.044949}                       {\tiny   aanvaardingsgebied of kritiek gebied}
     sample estimates:
-    mean of x mean of y 
+    mean of x mean of y
     88.83333 101.66667
     \end{Verbatim}
   }
@@ -205,11 +205,11 @@
 
 \begin{frame}
   \frametitle{Gepaarde steekproef}
-  
+
   In een studie werd nagegaan of auto's die rijden op benzine met additieven ook een lager verbruik hebben.
-  
+
   Bij 10 auto's werd het verbruik gemeten (uitgedrukt in mijl per gallon) voor beide soorten benzine:
-  
+
   \vspace{.5cm}
   \centering
   \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
@@ -217,7 +217,7 @@
     Auto           & 1  & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 \\ \hline
     Gewone benzine & 16 & 20 & 21 & 22 & 23 & 22 & 27 & 25 & 27 & 28 \\ \hline
     Met additieven & 19 & 22 & 24 & 24 & 25 & 25 & 25 & 26 & 28 & 32 \\ \hline
-  \end{tabular} 
+  \end{tabular}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -250,18 +250,18 @@
 
 \begin{frame}[fragile]
   \frametitle{Gepaarde steekproef}
-  
+
   {\footnotesize
     \begin{Verbatim}[commandchars=\\\{\}]
     Paired t-test
-    
+
     data:  additieven and gewone
     t = 4.4721, df = 9, p-value = 0.0007749
     alternative hypothesis: true difference in means is greater than 0
     \sout{95 percent confidence interval:}      {\tiny \textcolor{red}{OPGELET!} Dit heeft niets te maken met}
     \sout{1.180207      Inf}                    {\tiny   aanvaardingsgebied of kritiek gebied}
     sample estimates:
-    mean of the differences 
+    mean of the differences
     2
     \end{Verbatim}
   }
@@ -274,9 +274,9 @@
 
 \begin{frame}
   \frametitle{Effectgrootte}
-  
+
   \alertbox{De \textcolor{hgyellow}{effectgrootte} is een metriek die uitdrukt hoe groot het verschil tussen twee groepen is}
-  
+
   \begin{itemize}
     \item Controlegroep vs. interventiegroep
     \item Kan je gebruiken naast hypothesetoets
@@ -287,25 +287,25 @@
 
 \begin{frame}
   \frametitle{Cohen's $d$}
-  
+
   \[ d = \frac{\overline{x_1} - \overline{x_2}}{s} \]
-  
+
   met $\overline{x_1}$, $\overline{x_2}$ gemiddelde van de steekproeven
-  
+
   en $s$ een gecombineerde standaardafwijking over beide groepen:
-  
+
   \[ s = \sqrt{\frac{(n_1 - 1) s_1^2 + (n_2 - 1) s_2^2}{n_1 + n_2 -2}} \]
-  
+
   met $n_1$, $n_2$ de steekproefgroottes, $s_1$, $s_2$ de standaardafwijking van beide groepen
-  
+
 \end{frame}
 
 \begin{frame}
   \frametitle{Interpretatie Cohen's $d$}
-  
+
   \begin{columns}
     \column{.5\textwidth}
-    
+
     \begin{center}
       \begin{tabular}{ll}
         \toprule
@@ -320,23 +320,23 @@
         \bottomrule
       \end{tabular}
     \end{center}
-    
+
     \column{.5\textwidth}
-    
+
     In onderwijswetenschappen (John Hattie):
-    
+
     \begin{itemize}
       \item 0,4 = kantelpunt voor gewenste effecten
       \item effectgrootte $d = 1$: leerstof van 1j op 6m verwerken!
     \end{itemize}
-    
-    Zie bvb. \url{http://www.evidencebasedteaching.org.au/hatties-2017-updated-list/}
+
+    Zie bvb. \href{https://web.archive.org/web/20190325141618/http://www.evidencebasedteaching.org.au/hatties-2017-updated-list/}{http://www.evidencebasedteaching.org.au/hatties-2017-updated-list/}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Typisch opzet onderzoek in onderwijs}
-  
+
   \begin{itemize}
     \item Onderzoeksvraag: Is X een goede leerstrategie, m.a.w. heeft dit een positief effect op eindresultaten?
     \item Controlegroep gebruikt ``normale'', ``klassieke'' techniek
