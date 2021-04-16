@@ -5,6 +5,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
 
 ## De $t$-toets voor twee onafhankelijke steekproeven
@@ -108,11 +109,17 @@ Let's first visualise the results:
 
 ```{r}
 # Boxplot
-boxplot(scores$score ~ scores$method, horizontal = TRUE)
+ggplot(data = scores, mapping = aes(x = method, y = score, color = method)) +
+  geom_boxplot() +
+  coord_flip()
 
 # Clustered bar chart (histogram)
-frequencies <- table(scores$score, scores$method)
-barplot(t(frequencies), beside = TRUE, legend = TRUE)
+ggplot(data = scores) +
+  geom_bar(mapping = aes(x = score, fill = method), position = "dodge")
+
+# Density plot
+ggplot(data = scores) +
+  geom_density(mapping = aes(x = score, color = method))
 ```
 
 Performing a $t$-test yields the following result:
@@ -146,11 +153,17 @@ group_B <- scores2$score[scores2$group == 'B']
 
 ```{r}
 # Boxplot
-boxplot(scores2$score ~ scores2$group, horizontal = TRUE)
+ggplot(data = scores2) +
+  geom_boxplot(mapping = aes(fill = group, y = score)) +
+  coord_flip()
 
 # Clustered bar chart (histogram)
-frequencies <- table(scores2$score, scores2$group)
-barplot(t(frequencies), beside = TRUE, legend = TRUE)
+ggplot(data = scores2) +
+  geom_bar(mapping = aes(fill = group, x = score), position = "dodge")
+
+# Density plot
+ggplot(data = scores2) +
+  geom_density(mapping = aes(color = group, x = score))
 ```
 
 ```{r}
