@@ -144,40 +144,43 @@ In deze grafiek ontbreekt een uiterst belangrijk gegeven, en dat is de spreiding
 
 Een manier om de spreiding te tonen is aan de hand van zgn. foutstaven (of *error bars*). Deze geven een idee van de spreiding van de data aan de hand van een te kiezen metriek. Typische waarden zijn:
 
-- de standaardafwijking (van de steekproef)
-- 2x de standaardafwijking
+- de standaardafwijking van de steekproef, waarmee je ca. 68% van de observaties afbakent
+- 2x de standaardafwijking (ca. 95% van de observaties)
 - de standaardfout op het gemiddelde ($s/\sqrt{n}$)
-- een betrouwbaarheidsinterval (bv. 95%)
+- een betrouwbaarheidsinterval (bv. 95%) voor het populatiegemiddelde op basis van deze steekproef
 
-Omdat er verschillende mogelijke interpretaties aan de foutstaven kunnen gegeven worden, is het belangrijk om in het bijschrift van de grafiek voldoende uitleg te geven over wat precies getoond wordt.
-
-Om de grafiek makkelijk te kunnen tekenen, berekenen we eerst de nodige waarden. We maken een nieuwe tabel aan met gemiddelde, standaardafwijking, standaardfout en grootte van het 95%-betrouwbaarheidsinterval. We zullen enkel de standaardafwijking gebruiken in de grafiek, maar je kan zelf experimenteren met de andere waarden.
-
-```{r}
-mpg_summary <- mpg2 %>%
-  group_by(trans_type) %>%
-  summarise(hwy_mean = mean(hwy),       # gemiddelde
-            hwy_sd = sd(hwy),           # standaardafwijking
-            hwy_se = sd(hwy)/sqrt(n()), # standaardfout
-            # 95%-betrouwbaarheidsinterval ahv t-score (omdat σ onbekend is):
-            hwy_ci_95 = qt(1-.05/2, df = n() - 1) * sd(hwy)/sqrt(n()))
-mpg_summary
-```
+Omdat er verschillende mogelijke interpretaties aan de foutstaven kunnen gegeven worden, is het belangrijk om in het bijschrift van de grafiek voldoende uitleg te geven over wat precies getoond wordt! Een staafgrafiek met error bars gaat er van uit dat de variabele normaal verdeeld is. Als dit niet het geval is, zal dit soort grafieken een vertekend beeld geven van de situatie. Dit heb je in het bijzonder in geval van uitschieters, een scheve verdeling of observaties die gewoon niet normaal verdeeld zijn...
 
 In de afbeelding hieronder tonen we de standaardafwijking:
 
 ```{r}
-ggplot(data = mpg_summary, mapping = aes(x = trans_type, y = hwy_mean, 
-                                         fill = trans_type)) +
-  geom_bar(stat = "identity") +
-  geom_errorbar(mapping = aes(ymin = hwy_mean - hwy_sd, 
-                              ymax = hwy_mean + hwy_sd),
+ggplot(data = mpg2, mapping = aes(x = trans_type, y = hwy, 
+                                 fill = trans_type)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  geom_errorbar(stat = "summary", fun.data = "mean_sdl", fun.args = list(mult=1),
                 width = .3)
 ```
 
 Als we enkel de gemiddelden over beide groepen bekijken, zijn auto's met een manuele versnellingsbak zuiniger. De error bars nuanceren deze uitspraak: er lijkt redelijk wat overlap tussen de verdelingen van beide categorieën...
 
-Een staafgrafiek met error bars gaat er van uit dat de variabele normaal verdeeld is. Als dit niet het geval is, zal dit soort grafieken een vertekend beeld geven van de situatie. Dit heb je in het bijzonder in geval van uitschieters, een scheve verdeling of observaties die gewoon niet normaal verdeeld zijn...
+Je kan ook de andere waarden voor de error bars gebruiken door de parameter `fun.data` aan te passen:
+
+| `fun.data`       | Betekenis                    | Opmerking               |
+| :---             | :---                         | :---                    |
+| `mean_sdl`       | 1x standaardafwijking        | `fun.args=list(mult=1)` |
+| `mean_sdl`       | 2x standaardafwijking        |                         |
+| `mean_se`        | standaardfout                |                         |
+| `mean_cl_normal` | 95% betrouwbaarheidsinterval |                         |
+
+In de code hieronder kan je dit zelf uitproberen:
+
+```{r}
+ggplot(data = mpg2, mapping = aes(x = trans_type, y = hwy, 
+                                 fill = trans_type)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  geom_errorbar(stat = "summary", fun.data = "mean_cl_normal",
+                width = .3)
+```
 
 ## Gegroepeerde boxplot
 
