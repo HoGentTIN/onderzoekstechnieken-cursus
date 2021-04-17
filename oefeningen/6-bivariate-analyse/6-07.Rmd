@@ -1,0 +1,178 @@
+---
+title: "Oef 6.7 - Akin (2016)"
+author: "Bert Van Vreckem"
+date: "4/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(Hmisc)  # "Summary function" nodig voor tekenen van error bars
+```
+
+## Opgave
+
+> In Oefening 3.12 en volgende hebben we de resultaten van performantiemetingen voor persistentiemogelijkheden in Android geanalyseerd (Akin, 2016). Er werden experimenten uitgevoerd voor verschillende combinaties van hoeveelheid data (klein, gemiddeld, groot) en persistentietype (GreenDAO, Realm, SharedPreferences, SQLite). Voor elke hoeveelheid data hebben we kunnen bepalen welk persistentietype het beste resultaat gaf.
+>
+> Nu gaan we uitzoeken of het op het eerste zicht beste persistentietype ook significant beter is dan de concurrentie.
+>
+> Concreet: ga aan de hand van een toets voor twee steekproeven voor elke datahoeveelheid na of het gemiddelde van het **best scorende** persistentietype significant lager is dan het gemiddelde van enerzijds het **tweede beste** en anderzijds het **slechtst scorende** type.
+Kunnen we de conclusie aanhouden dat voor een gegeven datahoeveelheid één persistentietype het beste is, d.w.z. significant beter is dan gelijk welk ander persistentietype?
+
+```{r}
+persist <- read_delim("../datasets/android_persistence_cpu.csv", delim = ";")
+unique(persist$PersistenceType)
+unique(persist$DataSize)
+```
+Er zijn hier twee onafhankelijke variabelen: PersistenceType en DataSize. De afhankelijke variabele is Time.
+
+De tabel hieronder toont hoeveel observaties er in de dataset zitten voor elke combinatie van PersistenceType en DataSize:
+
+```{r}
+table(persist$PersistenceType, persist$DataSize)
+```
+
+We hebben dus voor de meeste combinaties 30 observaties. Voor `SharedPreferences` zijn er enkel observaties voor kleine hoeveelheden data.
+
+## Visualisatie
+
+Het is altijd nuttig om eerst de data te visualiseren. Hier tonen we voor elke DataSize (Large, Medium, Small) hoe de verschillende persistentietypes onderling presteren. We tonen dit eerst ahv. een boxplot:
+
+```{r}
+ggplot(data = persist) +
+  # Toon een boxplot die de gemeten tijd voor elk persistentietype vergelijkt
+  geom_boxplot(mapping = aes(fill = PersistenceType, x = Time)) +
+  # Toon een aparte boxplot voor elke DataSize
+  facet_grid(rows = vars(DataSize))
+```
+
+Hetzelfde met een densiteitsplot:
+
+```{r}
+ggplot(data = persist) +
+  # Toon een boxplot die de gemeten tijd voor elk persistentietype vergelijkt
+  geom_density(mapping = aes(color = PersistenceType, x = Time)) +
+  # Toon een aparte boxplot voor elke DataSize
+  facet_grid(rows = vars(DataSize))
+```
+
+**Let goed op bij de grafieken hieronder, want we geven hier ook een voorbeeld hoe het NIET moet!**
+
+Vaak worden bij het analyseren van dit soort onderzoeksvragen de gemiddelden van elke groep vergeleken:
+
+```{r}
+ggplot(data = persist, mapping = aes(x = PersistenceType, y = Time,
+                                  fill = PersistenceType)) +
+  geom_bar(stat = "summary", fun = "mean") +
+  facet_grid(cols = vars(DataSize))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+**Resultaten op basis van deze vergelijking zijn niet altijd statistisch significant!!** Er wordt immers geen rekening gehouden met de spreiding van de data. Je moet bij dit soort grafieken altijd een spreiding geven a.h.v. foutstaven (*error bars*). In de grafiek hieronder tonen we de standaardafwijking. Om deze te visualiseren met ggplot moeten we eerst de nodige waarden zelf berekenen.
+
+```{r}
+ggplot(data = persist, mapping = aes(x = PersistenceType, y = Time,
+                                  fill = PersistenceType)) +
+  # Toon gemiddelde als staafgrafiek
+  geom_bar(stat = "summary", fun = "mean") +
+  # De functie ggplot2::mean_sdl() berekent de boven- en ondergrens van de error-bars
+  # Standaard geeft die (mean - 2 x sd) en (mean + 2 x sd) terug. Om 1x de sd als grens
+  # te nemen, zetten we de parameter mult gelijk aan 1.
+  geom_errorbar(stat = "summary", fun.data = "mean_sdl", fun.args = list(mult=1),
+                width = .5) +
+  facet_grid(cols = vars(DataSize)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+Als we er van uit gaan dat de variabele Time normaal verdeeld is, dan bakenen de error bars ongeveer 68% van de observaties af (zie eigenschappen van de normale verdeling!). In deze dataset zien we heel wat overlap tussen de error bars, wat suggereert dat de verschillen niet noodzakelijk significant zijn!
+
+## Analyse
+
+We berekenen de gemiddelden in elke groep om de "beste" persistentietypes te vinden:
+
+```{r}
+persist %>%
+  group_by(DataSize, PersistenceType) %>%
+  summarise(mean = mean(Time))
+```
+
+### Small
+
+Bij de observaties voor `DataSize == "small"` heeft *Realm* het beste resultaat, daarna *SharedPreferences* en als laatste *GreenDAO*. We vergelijken *Realm* met beide andere groepen. Eerst selecteren we de observaties:
+
+```{r}
+small_realm <- 
+  persist$Time[persist$DataSize == "Small" & persist$PersistenceType == "Realm"]
+small_sharedpreferences <- 
+  persist$Time[persist$DataSize == "Small" & persist$PersistenceType == "Sharedpreferences"]
+small_greendao <- 
+  persist$Time[persist$DataSize == "Small" & persist$PersistenceType == "GreenDAO"]
+```
+
+Vervolgens vergelijken we *Realm* met het 2e beste resultaat:
+
+```{r}
+t.test(small_realm, small_sharedpreferences, alternative = "less")
+```
+
+De p-waarde is te groot, dus het verschil kan niet als significant beschouwd worden!
+
+Wat kunnen we zeggen over het verschil tussen *Realm* en *GreenDAO*?
+
+```{r}
+t.test(small_realm, small_greendao, alternative = "less")
+```
+
+Dit verschil is wél significant.
+
+### Medium
+
+In de groep `DataSize == "Medium"`, geeft *Realm* het beste resultaat, gevolgd door *GreenDAO* en *SQLLite*
+```{r}
+medium_realm <- 
+  persist$Time[persist$DataSize == "Medium" & persist$PersistenceType == "Realm"]
+medium_greendao <- 
+  persist$Time[persist$DataSize == "Medium" & persist$PersistenceType == "GreenDAO"]
+medium_sqllite <- 
+  persist$Time[persist$DataSize == "Medium" & persist$PersistenceType == "SQLLite"]
+```
+
+We vergelijken *Realm* met *GreenDAO*:
+
+```{r}
+t.test(medium_realm, medium_greendao, alternative = "less")
+```
+
+Het verschil hier is significant. Dan zal de vergelijking met het "slechtste" persistentietype ook wel relevant zijn:
+
+```{r}
+t.test(medium_realm, medium_sqllite, alternative = "less")
+```
+### Large
+
+In de groep `DataSize == "Large"`, geeft *Realm* het beste resultaat, gevolgd door *SQLLite* en tenslotte *GreenDAO*
+```{r}
+large_realm <- 
+  persist$Time[persist$DataSize == "Large" & persist$PersistenceType == "Realm"]
+large_greendao <- 
+  persist$Time[persist$DataSize == "Large" & persist$PersistenceType == "GreenDAO"]
+large_sqllite <- 
+  persist$Time[persist$DataSize == "Large" & persist$PersistenceType == "SQLLite"]
+```
+
+We vergelijken *Realm* met *SQLLite*:
+
+```{r}
+t.test(large_realm, large_sqllite, alternative = "less")
+```
+
+Wat een significant verschil aanduidt. De vergelijking met *GreenDAO*:
+
+```{r}
+t.test(large_realm, large_greendao, alternative = "less")
+```
+
+## Conclusie
+
+De conclusie van Akin (2016) blijft overeind: *Realm* is inderdaad het best presterende persistentietype. Voor de kleine datasets is het verschil met de concurrentie echter niet significant.
