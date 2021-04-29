@@ -1,0 +1,95 @@
+---
+title: "Voorspellen met exponentiële afvlakking"
+author: "Bert Van Vreckem"
+date: "4/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(forecast)
+```
+
+Uitwerking van de casus in de cursus (§7.5, pp. 143-145). Merk op dat in de codevoorbeelden hieronder de code uit de cursus niet exact gereproduceerd wordt. De code in de cursus bevat enkele fouten en we proberen in de codevoorbeelden hieronder ook een systematischer aanpak te volgen dan in de cursus het geval is bij het opbouwen van een tijdseriemodel en vervolgens een voorspelling maken. Op die manier is de code ook makkelijker te hergebruiken bij oefeningen of op het examen.
+
+We lezen data in over jaarlijkse neerslag (in duim) in Londen, tussen 1813 en 1912. Het bestand is anders gestructureerd dan we gewend zijn. Dit is geen CSV-bestand, maar een tekstbestand met de opeenvolgende metingen, 6 per regel tekst. `read_csv()` of `read_delim()` zal ons niet helpen. De functie `scan()` leest dit soort waarden wel in op een bruikbare manier.
+
+De functie `ts()` maakt een tijdserie-object van de vector met waarden die als resultaat van `scan()` teruggegeven wordt.
+
+```{r}
+rain <- ts(scan("../cursus/data/tijdreeksen/precip.data", skip = 1),
+           start = c(1813))
+```
+
+De `tidyverse` library en `ggplot` in het bijzonder is niet zo geschikt om tijdserie-objecten te plotten. Om het resultaat te bekomen dat we wensen is er redelijk wat extra code nodig wat het ook moeilijker leesbaar en herbruikbaar maakt. Daarom gebruiken we hier gewoon de Base-R functies, ook al zien de grafieken er dan iets minder strak uit.
+
+```{r}
+plot.ts(rain)
+```
+
+In de codevoorbeelden hieronder wordt eerst de `HoltWinters()`-functie gebruikt om een tijdseriemodel op te bouwen. Deze functie ondersteunt de drie vormen van exponentiële afvlakking. Zoals je in de cursus kan lezen, zijn er drie parameters, $\alpha$, $\beta$ en $\gamma$. De eerste, $\alpha$, heb je nodig voor enkelvoudige afvlakking, $\beta$ komt er bij voor dubbele afvlakking en $\gamma$ voor driedubbele.
+
+Bij het oproepen van de `HoltWinters()`-functie kan je de gewenste van de drie methoden selecteren door de parameters die je niet nodig hebt uit te schakelen door de waarde FALSE mee te geven, bv: `beta = FALSE, gamma = FALSE` voor enkelvoudige exponentiële afvlakking en `gamma = FALSE` voor dubbele afvlakking.
+
+Je kan zelf een numerieke waarde meegeven voor deze parameters (telkens tussen 0 en 1), maar als je ze gewoon weglaat, zal R zelf een geschikte waarde berekenen op basis van de observaties. Hoe dat precies verloopt valt buiten het bereik van deze cursus.
+
+## Enkelvoudige exponentiële afvlakking
+
+De methode van enkelvoudige exponentiële afvlakking gaat er van uit dat de observaties rond eenzelfde constante waarde blijven fluctueren.
+
+We maken eerst een tijdseriemodel met `HoltWinters()` en berekenen op basis daarvan een voorspelling met `forecast()`. De parameter `h` is de voorspellingshorizon, hoeveel tijdseenheden je in de toekomst wil voorspellen.
+
+Als je het resultaat van de `forecast()` plot, zie je dit ook. De voorspelling is een vlakke, blauwe lijn.
+
+```{r}
+(hw1 <- HoltWinters(rain, beta = FALSE, gamma = FALSE))
+fc1 <- forecast(hw1, h = 8)
+plot(fc1)
+```
+
+Het grijze gebied rond de blauwe lijn is een betrouwbaarheidsinterval waartussen het model vermoedt dat 80% (donkergrijs) en 95% (lichtgrijs) van de observaties zullen liggen. Dat gebied is in dit geval vrij breed, wat toch wijst op een grote onzekerheid.
+
+## Dubbele exponentiële afvlakking
+
+Als we in een tijdreeks vermoeden dat er ook een lineaire trend (stijgend of dalend) in de data zit, dan is dubbele exponentiële afvlakking een geschikt model om voorspellingen te doen.
+
+```{r}
+(hw2 <- HoltWinters(rain, gamma = FALSE))
+fc2 <- forecast(hw2, h = 8)
+plot(fc2)
+```
+
+In de laatste observaties van de tijdserie zit duidelijk een stijgende trend (op de uitschieter in 1902 na). Dat zie je dan ook in de voorspelling, weergegeven door de stijgende blauwe lijn. Die negeert jammer genoeg eerdere observaties, maar in exponentiële afvlakking dooft de invloed van observaties verder in het verleden snel uit.
+
+De coëfficiënten a en b, zoals afgedrukt in het resultaat van de `HoltWinters()`-functie hierboven, vormen de parameters van de voorspellingsrechte: $ŷ = a + bt$ (met $t$ het aantal tijdseenheden in de toekomst waarvoor je een voorspelling wenst).
+
+Merk ook op dat de onzekerheid over het model, weergegeven ahv het grijze gebied voor de betrouwbaarheidsintervallen, groter wordt hoe verder je in de toekomst kijkt.
+
+### Driedubbele exponentiële afvlakking
+
+Driedubbele exponentiële afvlakking gebruik je bij tijdseries waar je een patroon in ziet dat op regelmatige basis terugkeert. Bijvoorbeeld, in de dagelijkse omzet van een kleinhandelszaak zal je een wekelijks patroon herkennen dat zich elke 7 dagen herhaalt, in de maandelijkse neerslag in een streek zal je elke 12 maanden een herhalend patroon herkennen. Dit noemen we de periode. De tijdserie die we hierboven gebruikt hebben is niet gepast om driedubbele afvlakking te demonstreren, aangezien er geen periode in zit.
+
+We gebruiken in plaats daarvan de tijdserie `co2` die al standaard in R beschikbaar is. Voor meer uitleg over de tijdserie, zie de helpfunctie: `?datasets::co2`. De tijdserie bevat een aantal maandelijkse observaties van de atmosferische concentratie van CO_2 rond het Mauna Loa observatorium in Hawaii.
+
+```{r}
+(hw3 <- HoltWinters(co2))
+fc3 <- forecast(hw3, h = 24)
+plot(fc3)
+```
+
+We hebben hier een voorspelling voor 2 jaar (24 observaties) gedaan. De betrouwbaarheidsintervallen zijn ook afgebeeld, maar zijn zo goed als onzichtbaar omdat ze zo klein zijn. Als we inzoomen op het deel van de grafiek vanaf 1995 zien we dit iets beter:
+
+
+```{r}
+plot(fc3, xlim = c(1995, 2000))
+```
+
+De betrouwbaarheidsintervallen zijn erg klein, wat aangeeft dat het opgebouwde model vrij zeker is van de voorspellingen. Dit wijst er op dat de observaties goed aansluiten bij het model, dat er slechts kleine afwijkingen zijn t.o.v. het model.
+
+Je kan uit een HoltWinters-model de verschillende componenten halen en visualiseren: de lineaire trend, en de seizoenale schommelingen:
+
+
+```{r}
+plot(fitted(hw3))
+```
+
