@@ -44,7 +44,7 @@ summary(test_results$Score)    # Test score
 
 ## Visualising the data
 
-**Remark: plotting the averages is insufficient to draw conclusions**
+**Remark: plotting the averages without any indication of dispersion is insufficient to draw conclusions**
 
 ```{r}
 ggplot(data = test_results, mapping = aes(x = Session, y = Score)) +
