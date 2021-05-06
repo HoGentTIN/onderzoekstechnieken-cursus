@@ -81,7 +81,15 @@ $X_t = \alpha x_t + (1 - \alpha) X_{t-1}$
 
 ```{r}
 # Play with the value of alpha. What happens if alpha is close to 1?
-ema <- HoltWinters(demand_ts, alpha = 0.1, beta = FALSE, gamma = FALSE)
+(ema <- HoltWinters(demand_ts, alpha = 0.1, beta = FALSE, gamma = FALSE))
+plot(ema, main = "Exponential Moving Average")
+(ema_fc <- forecast(ema, h = 10))
+plot(ema_fc, main = "Forecast with Exponential Moving Average")
+```
+
+```{r}
+# Play with the value of alpha. What happens if alpha is close to 1?
+(ema <- HoltWinters(demand_ts, alpha = 0.5, beta = FALSE, gamma = FALSE))
 plot(ema, main = "Exponential Moving Average")
 ema_fc <- forecast(ema, h = 10)
 plot(ema_fc, main = "Forecast with Exponential Moving Average")
@@ -89,15 +97,7 @@ plot(ema_fc, main = "Forecast with Exponential Moving Average")
 
 ```{r}
 # Play with the value of alpha. What happens if alpha is close to 1?
-ema <- HoltWinters(demand_ts, alpha = 0.5, beta = FALSE, gamma = FALSE)
-plot(ema, main = "Exponential Moving Average")
-ema_fc <- forecast(ema, h = 10)
-plot(ema_fc, main = "Forecast with Exponential Moving Average")
-```
-
-```{r}
-# Play with the value of alpha. What happens if alpha is close to 1?
-ema <- HoltWinters(demand_ts, alpha = 0.9, beta = FALSE, gamma = FALSE)
+(ema <- HoltWinters(demand_ts, alpha = 0.9, beta = FALSE, gamma = FALSE))
 plot(ema, main = "Exponential Moving Average")
 ema_fc <- forecast(ema, h = 10)
 plot(ema_fc, main = "Forecast with Exponential Moving Average")
@@ -108,9 +108,9 @@ plot(ema_fc, main = "Forecast with Exponential Moving Average")
 Is especially useful if you have data with a long term (linear) trend.
 
 ```{r}
-dema <- HoltWinters(demand_ts, gamma = FALSE)
+(dema <- HoltWinters(demand_ts, gamma = FALSE))
 plot(dema, main = "Double Exponential Moving Average")
-dema_fc <- forecast(dema, h = 10)
+(dema_fc <- forecast(dema, h = 10))
 plot(dema_fc)
 ```
 
@@ -130,7 +130,7 @@ plot.ts(sales_ts,
 
 
 ```{r}
-hw <- HoltWinters(sales_ts, seasonal = "multiplicative")
+(hw <- HoltWinters(sales_ts, seasonal = "multiplicative"))
 plot(hw, xlim = c(1, 4))
 ```
 
