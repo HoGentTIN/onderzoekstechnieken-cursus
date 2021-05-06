@@ -115,3 +115,48 @@ Frankly, this forecast does not indicate at all that the number of new cases are
 
 This seems contradictory with the previous section! Remark that how the parameters ($\alpha, \beta, \gamma$) were set, influences the outcome of the algorithm.
 
+# When will we all be vaccinated?
+
+Let's try to predict when we all will be vaccinated. OurWorldInData also keeps records of each country's vaccination data:
+
+```{r load_vacc, message=FALSE, warning=FALSE}
+vaccinations_be <- read_csv("https://github.com/owid/covid-19-data/raw/master/public/data/vaccinations/vaccinations.csv") %>%
+  filter(location == "Belgium")
+
+ggplot(data = vaccinations_be, mapping = aes(x = date)) +
+  geom_line(mapping = aes(y = people_vaccinated), color = "blue") +
+  geom_line(mapping = aes(y = people_fully_vaccinated), color = "green")
+```
+
+The graph above shows the absolute numbers of people that received a first shot (blue) and people that were fully vaccinated.
+
+The dataset also has a column `people_fully_vaccinated_per_hundred`. We want to know when this number will reach 100:
+
+```{r viz_vacc, message=FALSE, warning=FALSE}
+ggplot(data = vaccinations_be, mapping = aes(x = date)) +
+  geom_line(mapping = aes(y = people_fully_vaccinated_per_hundred), color = "green")
+```
+
+This graph suggests that, from February 15 on, there seems to be a strong linear trend. Let's use that data to build a linear regression model:
+
+```{r vacc_pct_lm}
+# Build a time series object and linear regression model
+pct_fully_vaccinated <- ts(vaccinations_be$people_fully_vaccinated_per_hundred[50:128])
+(vacc_lm <- lm (pct_fully_vaccinated ~ time(pct_fully_vaccinated)))
+
+# Visualize the regression line (base R graph)
+plot(pct_fully_vaccinated)
+abline(vacc_lm, col = "red")
+
+# Calculate slope (a) and intercept (b)
+vacc_intercept <- vacc_lm$coefficients[[1]]
+vacc_slope <- vacc_lm$coefficients[[2]]
+```
+
+The slope of the regression line is `r round(vacc_slope, digits = 2)`, i.e. the percentage of people that is fully vaccinated every day. We can calculate when this number reaches 100. If the equation of the regression line is $y = ax + b$, then we want to calculate $x$ when $y = 100$. We can use the formula $x = (y-b)/a$:
+
+```{r}
+(vacc_complete <- round((100 - vacc_intercept) / vacc_slope, digits = 0))
+```
+
+If the current trend continues, the entire population will be vaccinated after `r vacc_complete` days or `r round(vacc_complete/365, digits = 2)` years! Let's hope the daily vaccination rate increases in the coming weeks and months...
