@@ -13,6 +13,8 @@ library(TTR)        # Moving averages
 library(forecast)   # Forecasting future observations
 ```
 
+In this file, we apply some of the techniques mentioned in the course on COVID-19 related data. This only shows a tip of the iceberg on how to analyze the available data. For a more in-depth analysis, see e.g. <https://github.com/JoFAM/covidBE_analysis> by Joris Meys (data scientist at UGent).
+
 # Loading case data
 
 We load case data from ourworldindata.org (source: <https://github.com/owid/covid-19-data>) and keep only the numbers for Belgium.
