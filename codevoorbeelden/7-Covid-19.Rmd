@@ -1,0 +1,115 @@
+---
+title: "Covid-19 data"
+author: "Bert Van Vreckem"
+date: "5/6/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)  # Everyone's favourite R package
+library(lubridate)  # Parsing dates
+library(TTR)        # Moving averages
+library(forecast)   # Forecasting future observations
+```
+
+# Loading case data
+
+We load case data from ourworldindata.org (source: <https://github.com/owid/covid-19-data>) and keep only the numbers for Belgium.
+
+```{r load_data, message=FALSE}
+corona_cases <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/jhu/new_cases.csv") %>%
+  select(date, Belgium)
+corona_deaths <- read_csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/jhu/new_deaths.csv") %>%
+  select(date, Belgium)
+```
+# Visualization
+
+The graph below shows the daily new cases (blue) and deaths (red) for Belgium. You can zoom in on a specific period by changing the parameters to `xlim()` and `ylim()`
+
+```{r viz_deaths_cases, warning=FALSE}
+ggplot() +
+  geom_line(data = corona_deaths, mapping = aes(x = date, y = Belgium),
+            color = "red") +
+  geom_line(data = corona_cases, mapping = aes(x = date, y = Belgium),
+            color = "blue") +
+  xlim(as_date("2020-03-01"), as_date("2021-05-05")) +
+  ylim(0, 22500)
+```
+
+# Filtering out recurring fluctuations
+
+We can observe a seasonal pattern in the reported new daily cases. On Sunday, in particular, fewer cases are reported, due to more limited staff in the hospitals. We can filter out these daily fluctuations using a Simple Moving Average, which we'll add to the dataset:
+
+```{r sma7}
+corona_cases <- corona_cases %>%
+  mutate(SMA7 = SMA(Belgium, n=7))
+```
+
+In order to determine whether the trend is increasing or decreasing, news reports use this 7 day moving average and compare today's number with that of last week. 
+
+```{r compare_sma7}
+march_8 <- round(corona_cases$SMA7[corona_cases$date == "2021-03-08"], digits = 0)
+march_15 <- round(corona_cases$SMA7[corona_cases$date == "2021-03-15"], digits = 0)
+prop_diff <- round((march_15 - march_8) / march_8 * 100, digits = 0)
+```
+
+E.g. on March 15, the average number of new cases over the last 7 days was `r march_15`. Compared to the number a week before, `r march_8`, this is `r if(march_15>march_8) {"an increase"} else {"a decrease"}` of `r prop_diff`%.
+
+```{r viz_sma7, warning=FALSE}
+ggplot(data = corona_cases,mapping = aes(x = date)) +
+  geom_line(mapping = aes(y = Belgium), color = "dark grey") +
+  geom_line(mapping = aes(y = SMA7), color = "dark green") +
+  geom_point(mapping = aes(x = as_date("2021-03-08"), y = march_8), colour = "purple") +
+  geom_point(mapping = aes(x = as_date("2021-03-15"), y = march_15), colour = "purple") +
+  xlim(as_date("2021-01-01"), as_date("2021-04-30")) +
+  ylim(0,5000)
+```
+
+# Are we in an upward or downward trend?
+
+In order to determine whether the number of new cases is in an upward or downward trend, we could use a method that is used in technical analysis of stock exchange data. Two moving averages are calculated, one more short term (one business quarter, e.g.) the other long term (one business year). If the short term SMA is above the long term SMA, we can consider the trend to be upward, in the other case, it is downward.
+
+Let's apply this on the Covid-19 data, using a weekly and monthly SMA:
+
+```{r sma_trend, warning=FALSE}
+corona_cases <- corona_cases %>%
+  mutate(SMA30 = SMA(Belgium, n=30)) %>%
+  mutate(trend = if_else(SMA7 < SMA30, "down", "up"))
+
+ggplot(data = corona_cases,mapping = aes(x = date)) +
+  geom_line(mapping = aes(y = Belgium), color = "dark grey") +
+  geom_line(mapping = aes(y = SMA7), color = "dark green") +
+  geom_line(mapping = aes(y = SMA30), color = "purple") + 
+  xlim(as_date("2020-10-01"), as_date("2021-05-05")) +
+  ylim(0,5000)
+```
+
+This would indicate that, according to this estimate, we can see a downward trend starting at about April 6, where the SMA(7) went below SMA(30) for the first time since February, 21.
+
+# Are we getting new cases under control?
+
+In order to determine whether we're getting daily new cases under control, we might try to forecast future cases. We saw that exponential smoothing is a method that can be used for this exact purpose. Since the data is seasonal (with period 7), we can use Holt-Winters' method.
+
+We create a time series object with frequency 7. We dismiss the first rows in the dataset where no cases were reported. The first observation is from Sunday, March 1st, 2020, so the start parameter states that we start on the seventh observation in the first cycle.
+
+```{r}
+# We select cases between March 1, 2020 and May 5, 2021
+selected_cases <- corona_cases$Belgium[corona_cases$date >= "2020-03-01" &
+                                       corona_cases$date <= "2021-05-05"]
+# Create a time series object
+cases_ts <- ts(selected_cases, frequency = 7, start = c(1, 7)) 
+
+# Calculate a Holt-Winters model (and show the parameters)
+(cases_hw <- HoltWinters(cases_ts))
+
+# Make a forecast for 3 weeks
+cases_fc <- forecast(cases_hw, h = 21)
+# Plot the forecast
+plot(cases_fc, xlim = c(60, 67), ylim = c(-3000, 10000))
+```
+
+Frankly, this forecast does not indicate at all that the number of new cases are decreasing! Rather, they seem to be stable. Or worse, if we look at the latest estimate of the trend line slope (b = `r cases_hw$coefficients[['b']]`), it is positive, indicating a rising trend!
+
+This seems contradictory with the previous section! Remark that how the parameters ($\alpha, \beta, \gamma$) were set, influences the outcome of the algorithm.
+
