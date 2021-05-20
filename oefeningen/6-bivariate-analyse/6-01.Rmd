@@ -29,7 +29,7 @@ De onderzoeksdata bevindt zich in het csv-bestand MuziekWijn.
 We beginnen met de dataset in te lezen. Let op dat er factors gebruikt worden als type van variabele. Dit de interne voorstelling van nominale of ordinale variabelen in R. Voor meer info zie: [deze link](https://swcarpentry.github.io/r-novice-inflammation/12-supp-factors/)
 ```{r}
 
-muziekwijn <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets/MuziekWijn.csv", 
+muziekwijn <- read_csv("../datasets/MuziekWijn.csv", 
      col_types = cols(Muziek = col_factor(levels = c("Geen", 
          "Franse", "Italiaanse")), Wijn = col_factor(levels = c("Franse", 
          "Italiaanse", "Andere"))))
@@ -37,9 +37,9 @@ muziekwijn <- read_csv("../../../onderzoekstechnieken-cursus/oefeningen/datasets
 
 We gaan de kruistabel opstellen
 ```{r }
-observed <- table(muziekwijn$Muziek, muziekwijn$Wijn)
 # Kruistabel van de geobserveerde waarden
-observed
+(observed <- table(muziekwijn$Wijn, muziekwijn$Muziek))
+
 # We kunnen ook aggregeren in een data-frame: per combinatie schrijven we het aantal elementen uit
 agg <- count(muziekwijn,Muziek,Wijn)
 agg
