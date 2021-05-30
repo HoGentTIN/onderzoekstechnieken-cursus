@@ -118,7 +118,8 @@ Plot van deze casus (groen: $\chi^2$, blauw: $g$):
 
 ```{r}
 xvals <- seq(0, 15, length=200)
-ggplot(mapping = aes(x = xvals)) +
+dataset <- tibble(xvals)
+ggplot(data= dataset, mapping = aes(x = xvals)) +
   stat_function(fun = dchisq, args = list(df = l)) +
   geom_vline(xintercept = g, color = "blue") +
   annotate("text", x = g, y = .05,
@@ -208,7 +209,8 @@ Plot van deze casus (groen: $\chi^2$, blauw: $g$):
 
 ```{r}
 xvals <- seq(0, 15, length=200)
-ggplot(mapping = aes(x = xvals)) +
+dataset <- tibble(xvals)
+ggplot(data = dataset, mapping = aes(x = xvals)) +
   stat_function(fun = dchisq, args = list(df = l)) +
   geom_vline(xintercept = g, color = "blue") +
   annotate("text", x = g, y = .05,
