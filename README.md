@@ -1,5 +1,7 @@
 # Onderzoekstechnieken
 
+**Deze repository wordt niet meer onderhouden, aangezien dit vak niet meer in deze vorm bestaat binnen de opleiding.**
+
 Cursusmateriaal Onderzoekstechnieken HOGENT toegepaste informatica.
 
 ## Installatie software
