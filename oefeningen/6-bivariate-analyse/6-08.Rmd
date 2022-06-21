@@ -39,7 +39,13 @@ library(Hmisc)
 ```{r}
 test_results <- read_csv('../datasets/test-results.csv')
 table(test_results$Session)    # Number of students per session
-summary(test_results$Score)    # Test score
+# Average results per session
+test_results %>%
+    drop_na() %>%
+    group_by(Session) %>%
+    summarise_at(vars(Score), list(name = mean))
+
+summary(test_results$Score ~ test_results$Session)
 ```
 
 ## Visualising the data

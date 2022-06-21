@@ -13,13 +13,17 @@ library(tidyverse)
 Lees de dataset `money.csv` in. We veronderstellen dat de waarden uit deze steekproef normaal verdeeld zijn rond een onbekend populatiegemiddelde $\mu$, maar dat de populatiestandaardafwijking gekend is en gelijk aan $\sigma = 99$.
 
 ```{r}
-money <- read_csv("../datasets/money.csv")
+money <- read_csv("../datasets/rlanders-generated.csv")
 
-pop_sd <- 99  # standaardafwijking vd populatie (verondersteld gekend)
+pop_sd <- 98  # standaardafwijking vd populatie (verondersteld gekend)
 
 n <- length(money$Money)
 sample_mean <- mean(money$Money) # gemiddelde vd steekproef
 sample_sd <- sd(money$Money)     # standaardafwijking vd steekproef
+
+sprintf("N:           %d", n)
+sprintf("sample mean: %.3f", sample_mean)
+sprintf("sample sd:   %.3f", sample_sd)
 ```
 
 ## 99% betrouwbaarheidsinterval
